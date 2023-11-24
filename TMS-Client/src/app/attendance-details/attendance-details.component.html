@@ -1,0 +1,50 @@
+<!-- attendance-details.component.html -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Attendance Details </h5>
+      </div>
+      <div class="card-body">
+        <!-- Search filter -->
+        <div class="form-group">
+          <label for="search">Search:</label>
+          <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchText" (input)="onSearchInputChange()">
+        </div>
+        
+<!--         <input type="text" [(ngModel)]="searchText" placeholder="Search..." (input)="onSearchInputChange()" />
+ --><!--         <button (click)="applyFilter()">Apply Filter</button>
+ -->
+        <div class="table-responsive text-nowrap">
+          <table class="table">
+            <thead class="text-primary">
+              
+                <th *ngFor="let header of dummyData.headerRow" class="text-center">{{ header }}</th>
+              
+            </thead>
+            <tbody>
+              <!-- <tr *ngFor="let detail of attendanceDetails ">
+                <td class="text-center">{{ detail.no }}</td>
+                <td class="text-center">{{ detail.emp_code }}</td>
+                <td class="text-center">{{ detail.emp_name }}</td>
+                <td class="text-center">{{ detail.day1 }}</td>
+                <td class="text-center">{{ detail.day2 }}</td>
+                <td class="text-center">{{ detail.day3 }}</td>
+                <td class="text-center">{{ detail.day4 }}</td>
+                <td class="text-center">{{ detail.total_days_present }}</td>
+              </tr> -->
+              <tr *ngFor="let detail of attendanceDetails">
+                <td class="text-center">{{ detail.no }}</td>
+                <td class="text-center">{{ detail.emp_code }}</td>
+                <td class="text-center">{{ detail.emp_name }}</td>
+                <td *ngFor="let header of dummyData.headerRow.slice(3, -1)" class="text-center">{{ detail[header] }}</td>
+                <td class="text-center">{{ detail.total_days_present }}</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

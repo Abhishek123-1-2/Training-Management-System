@@ -15,13 +15,15 @@ import { NotificationsComponent }   from '../../pages/notifications/notification
 import { UpgradeComponent }         from '../../pages/upgrade/upgrade.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ViewTrainingComponent } from 'app/pages/admin-training/view-training/view-training.component';
+import { viewport } from '@popperjs/core';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
-    NgbModule
+    
   ],
   declarations: [
     DashboardComponent,
@@ -32,6 +34,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
+    
   ]
 })
 

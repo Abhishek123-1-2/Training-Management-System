@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          
+          <h5 class="card-title">Training Data</h5>
+        </div>
+        <div class="card-body">
+<!-- search filter -->
+<div class="form-group">
+  <label for="search">Search:</label>
+  <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchText" (input)="onSearchInputChange()">
+</div>
+
+<!-- <input type="text" [(ngModel)]="searchText" placeholder="Search..."  (input)="onSearchInputChange()">
+ -->
+
+          <div class="table-responsive text-nowrap">
+            <table class="table " >
+              <thead  class="text-primary">
+                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let row of tableData1.dataRows">
+                    <td class="text-center">{{row.training_id}}</td>
+                    <td class="text-center">{{ row.training_category }}</td>
+                    <td class="text-center">{{ row.training_type }}</td>
+                    <td class="text-center" >{{ row.training_schedule }}</td>
+                    <td class="text-center">{{ row.course }}</td>
+                    <td class="text-center">{{ row.trainer_names }}</td>
+                    <td >{{ row.prerequisites }}</td>
+                    <td >{{ row.course_description }}</td>
+                    <td class="text-center" >{{ row.daily_hrs }}</td>
+                    <td class="text-center">{{ row.total_days }}</td>
+                    <td >{{ row.url }}</td>
+                    <td class="text-center">{{ row.username }}</td>
+                    <td class="text-center">{{ row.password }}</td>
+
+                    
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

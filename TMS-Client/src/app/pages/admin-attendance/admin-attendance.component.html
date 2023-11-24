@@ -1,0 +1,49 @@
+<!-- admin-attendance.component.html -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Attendance Table</h5>
+      </div>
+      <div class="card-body">
+
+<!-- search filter -->
+<div class="form-group">
+  <label for="search">Search:</label>
+  <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchText" (input)="onSearchInputChange()">
+</div>
+<!-- <input type="text" [(ngModel)]="searchText" placeholder="Search..." (input)="onSearchInputChange()" >
+ --><!-- <button (click)="applyFilter()">Apply Filter</button>
+ -->
+        <div class="table-responsive text-nowrap">
+
+          <table class="table  ">
+            <thead  class="text-primary">
+              <th *ngFor="let header of tableData2.headerRow" class="text-center">{{ header }}</th>
+            </thead>
+
+<tbody>
+<tr *ngFor="let row of tableData2.dataRows ">
+
+<td class="text-center">{{ row.serial_no }}</td>                
+<td class="text-center">{{ row.courses }}</td>
+<td class="text-center ">{{row.trainer_names}}</td>
+<td class="text-center ">{{row.start_date}}</td>
+<td class="text-center ">{{row.end_date}}</td>
+
+
+<td class="text-center">
+  <a [routerLink]="['/attendance/:course']">{{row.attendance}}</a>
+</td>
+               </tr>
+</tbody>
+          </table>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+  

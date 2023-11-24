@@ -33,8 +33,10 @@ export class NavbarComponent implements OnInit{
           this.sidebarClose();
        });
     }
-    getTitle(){
+
+    /* getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
+      
       if(titlee.charAt(0) === '#'){
           titlee = titlee.slice( 1 );
       }
@@ -43,6 +45,27 @@ export class NavbarComponent implements OnInit{
               return this.listTitles[item].title;
           }
       }
+      return 'Dashboard';
+    } */
+
+    getTitle(){
+      var titlee = this.location.prepareExternalUrl(this.location.path());
+      console.log('Current Path:', titlee);
+      if(titlee.charAt(0) === '#'){
+          titlee = titlee.slice( 1 );
+      }
+      for(var item = 0; item < this.listTitles.length; item++){
+          if(this.listTitles[item].path === titlee){
+              return this.listTitles[item].title;
+          }else if (this.listTitles[item].submenu) {
+            // Check if submenu exists and search within the submenu
+            const submenuItem = this.listTitles[item].submenu.find(subitem => subitem.path === titlee);
+            if (submenuItem) {
+              return submenuItem.title;
+            }
+          }
+      }
+      
       return 'Dashboard';
     }
     sidebarToggle() {

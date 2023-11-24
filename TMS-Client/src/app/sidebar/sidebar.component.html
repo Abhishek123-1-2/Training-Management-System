@@ -7,15 +7,34 @@
       </div>
     </a>
     <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-      Creative Tim
+      TMS
     </a>
   </div>
-    <ul class="nav">
-        <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
-            <a [routerLink]="[menuItem.path]">
-                <i class="nc-icon {{menuItem.icon}}"></i>
-                <p>{{menuItem.title}}</p>
+
+  
+  <ul class="nav">
+    <ng-container *ngFor="let menuItem of menuItems">
+      <li *ngIf="!menuItem.submenu" [routerLinkActive]="['active']" [class]="menuItem.class">
+        <a [routerLink]="[menuItem.path]">
+          <i class="nc-icon {{menuItem.icon}}"></i>
+          <p>{{menuItem.title}}</p>
+        </a>
+      </li>
+      <li *ngIf="menuItem.submenu" [class]="menuItem.class">
+        <a>
+          <i class="nc-icon {{menuItem.icon}}"></i>
+          <p>{{menuItem.title}}</p>
+        </a>
+        <ul>
+          <li *ngFor="let subItem of menuItem.submenu" [routerLinkActive]="['active']" [class]="subItem.class">
+            <a [routerLink]="[subItem.path]">
+              <i class="nc-icon {{subItem.icon}}"></i>
+              <p>{{subItem.title}}</p>
             </a>
-        </li>
-    </ul>
+          </li>
+        </ul>
+      </li>
+    </ng-container>
+  </ul>
 </div>
+

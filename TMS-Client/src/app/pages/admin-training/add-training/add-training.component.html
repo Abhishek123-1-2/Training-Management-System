@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Information</title>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col">
+                <div class="card ">
+                    <div class="card-header">
+                        <h5 class="card-title">Training Information</h5>
+                    </div>
+
+                    <div class="card-body">
+                        <form (ngSubmit)="onSubmit()" class="col">
+                            <div class="row">
+
+                                <!-- First Row -->
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Training Category</label>
+                                        <select class="form-control" id="training_category" name="training_category" formControlName="training_category" required>
+                                            <option value="Select"></option>
+                                            <option value="MANDATORY">Mandatory</option>
+                                            <option value="OPTIONAL">Optional</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Training Type </label>
+                                        <select class="form-control" id="training_type" name="training_type" formControlName="training_type" required>
+                                            <option value="Select"></option>
+                                            <option value="INSTRUCTOR-LED">Instructor-Led</option>
+                                            <option value="SME-LED">SME-Led</option>
+                                            <option value="ONLINE">Online</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Training Schedule </label>
+                                        <select class="form-control" id="training_schedule" name="training_schedule" formControlName="training_schedule" required>
+                                            <option value="Select"></option>
+                                            <option value="PRE-DEFINED">Pre-Defined</option>
+                                            <option value="ON-REQUEST">On-Request</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Second Row -->
+                            <div class="row">
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Course</label>
+                                        <input type="text" id="course" name="course" formControlName="course" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Trainer Names </label>
+                                        <input type="text" id="trainer_names" name="trainer_names" formControlName="trainer_names" class="form-control" maxlength="25" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Prerequisites</label>
+                                        <input type="text" id="prerequisites" name="prerequisites" formControlName="prerequisites" class="form-control" required>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Third Row -->
+                            <div class="row">
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Course Description</label>
+                                        <input type="text" id="course_description" name="course_description" formControlName="course_description" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Daily Hours </label>
+                                        <input type="number" id="daily_hrs" name="daily_hrs" formControlName="daily_hrs" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Total Days </label>
+                                        <input type="number" id="total_days" name="total_days" formControlName="total_days" class="form-control" required>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Fourth Row -->
+                            <div class="row">
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>URL </label>
+                                        <input type="url" id="url" name="url" formControlName="url" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Username </label>
+                                        <input type="text" id="username" name="username" formControlName="username" class="form-control" maxlength="25" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Password </label>
+                                        <input type="password" id="password" name="password" formControlName="password" class="form-control" maxlength="25" required>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Fifth Row -->
+                           <!--  <div class="row">
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Active </label>
+                                        <select class="form-control" id="active_yn" name="active_yn" formControlName="active_yn" required>
+                                            <option value="Select"></option>
+                                            <option value="Y">Yes</option>
+                                            <option value="N">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Created By </label>
+                                        <input type="text" id="created_by" name="created_by" formControlName="created_by" class="form-control" maxlength="25" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Created On </label>
+                                        <input type="datetime-local" id="created_on" name="created_on" formControlName="created_on" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <!-- Sixth Row -->
+                            <!-- <div class="row">
+                            
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Updated By </label>
+                                        <input type="text" id="updated_by" name="updated_by" formControlName="updated_by" class="form-control" maxlength="25" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Updated On </label>
+                                        <input type="datetime-local" id="updated_on" name="updated_on" formControlName="updated_on" class="form-control" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                             -->
+                            <!-- Buttons -->
+                            <div class="row justify-content-end align-items-end">
+                                <div class="col-md-2 pl-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button type="reset" class="btn btn-primary">Cancel</button> <br>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-primary ml-2">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
