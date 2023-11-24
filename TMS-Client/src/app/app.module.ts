@@ -12,37 +12,29 @@ import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { ViewTrainingComponent } from "./pages/admin-training/view-training/view-training.component";/* newly added */
-import { AdminAttendanceComponent } from "./pages/admin-attendance/admin-attendance.component";
-import { FormsModule } from "@angular/forms";
-import { AttendanceDetailsComponent } from './attendance-details/attendance-details.component';
-import { TableFilterService } from "./filtersearch/filterpipe.component";
-/* newly added  */
+import { LoginComponent } from './pages/login/login.component';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
+
 @NgModule({
   declarations: [
 
     AppComponent,
     AdminLayoutComponent,
-    ViewTrainingComponent,
-    AdminAttendanceComponent,
-    
-    AttendanceDetailsComponent,
-    
-    
-    
-    
+    LoginComponent
   ],
   imports: [
     BrowserAnimationsModule,
     FormsModule,
     RouterModule.forRoot(AppRoutes,{
+      
       useHash: true
     }),
     SidebarModule,
     NavbarModule,
     ToastrModule.forRoot(),
     FooterModule,
-    FixedPluginModule
+    FixedPluginModule,FormsModule,ReactiveFormsModule,HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

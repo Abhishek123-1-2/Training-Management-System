@@ -1,3 +1,4 @@
+/* admin-layout.routing.ts */
 import { Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';

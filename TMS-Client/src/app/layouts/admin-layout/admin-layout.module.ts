@@ -17,6 +17,9 @@ import { UpgradeComponent }         from '../../pages/upgrade/upgrade.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ViewTrainingComponent } from 'app/pages/admin-training/view-training/view-training.component';
 import { viewport } from '@popperjs/core';
+import { AdminAttendanceComponent } from 'app/pages/admin-attendance/admin-attendance.component';
+import { AttendanceDetailsComponent } from 'app/attendance-details/attendance-details.component';
+
 
 @NgModule({
   imports: [
@@ -34,6 +37,9 @@ import { viewport } from '@popperjs/core';
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
+    AdminAttendanceComponent,
+    ViewTrainingComponent,
+    AttendanceDetailsComponent
     
   ]
 })

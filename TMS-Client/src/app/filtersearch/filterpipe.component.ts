@@ -2,6 +2,8 @@ import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Form } from '@angular/forms';
 
 @Injectable({
   providedIn:'root'

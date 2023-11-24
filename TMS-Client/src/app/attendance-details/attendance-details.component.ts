@@ -43,7 +43,8 @@ originalTableData:any[]=[];
   searchText:string='';
 
   constructor(private route: ActivatedRoute,
-    private tableFilterService:TableFilterService) {}
+    private tableFilterService:TableFilterService
+    ) {}
 
   
   ngOnInit() {

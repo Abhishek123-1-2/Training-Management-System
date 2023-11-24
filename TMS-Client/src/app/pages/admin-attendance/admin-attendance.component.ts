@@ -5,6 +5,7 @@ import { NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TableFilterService } from '../../filtersearch/filterpipe.component';
 
+
 declare interface TableRow {
 serial_no:number;
 courses: string;
@@ -42,7 +43,7 @@ export class AdminAttendanceComponent implements OnInit {
   searchText: string='';
 
   constructor( private router:Router,
-    private tableFilterService:TableFilterService){}
+    ){}
 
   ngOnInit(){
     this.fetchTableData();
