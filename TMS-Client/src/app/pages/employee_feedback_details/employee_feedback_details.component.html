@@ -1,0 +1,62 @@
+<!-- employee-feedback.component.html -->
+
+<div class="card">
+    <div class="card-header">
+      <h4 class="card-title" class="text-primary">Trainer Feedback for Employee: {{ empCode }}</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="technical_skills">Technical Skills:</label>
+            <div>{{ feedback.technical_skills }}</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="grasping_power">Grasping Power:</label>
+            <div>{{ feedback.grasping_power }}</div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="proactiveness">Pro-Activeness:</label>
+            <div>{{ feedback.proactiveness }}</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="interest">Interest Rate:</label>
+            <div>{{ feedback.interest }}</div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="leadership_quality">Leadership Quality:</label>
+            <div>{{ feedback.leadership_quality }}</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="problem">Problem Solving Ability:</label>
+            <div>{{ feedback.problem }}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="comments">Comments from Trainer:</label>
+                <div>{{ feedback.comments }}</div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>

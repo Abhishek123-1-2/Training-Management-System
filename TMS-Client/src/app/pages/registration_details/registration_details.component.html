@@ -1,0 +1,70 @@
+<!-- registration_details.component.html -->
+
+<h2 class="text-primary mb-4">Course Details for Registration ID: {{ regId }}</h2>
+
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Registration Details</h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="regId">Registration ID:</label>
+          <div>{{ regId }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="empCode">Employee Code:</label>
+          <div>{{ registrationDetails.emp_code }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="regDate">Employee Name:</label>
+          <div>{{ registrationDetails.emp_name }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="status">Registration Date:</label>
+          <div>{{ registrationDetails.reg_date }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="regDate">Course Name:</label>
+            <div>{{ registrationDetails.course_name }}</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="status">Schedule Details:</label>
+            <div>{{ registrationDetails.schedule_details }}</div>
+          </div>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="comments">Status:</label>
+          <div>{{ registrationDetails.status }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="response">Comments:</label>
+          <div>{{ registrationDetails.comments }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

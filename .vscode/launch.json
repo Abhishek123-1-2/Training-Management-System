@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TmsServerApplication<TMS-Server>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.mindcraft.in.TmsServerApplication",
+            "projectName": "TMS-Server",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

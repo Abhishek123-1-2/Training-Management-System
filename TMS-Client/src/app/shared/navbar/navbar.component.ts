@@ -1,6 +1,6 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { ROUTES } from '../../sidebar/sidebar.component';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Location} from '@angular/common';
 
 @Component({
@@ -29,20 +29,53 @@ export class NavbarComponent implements OnInit{
         this.listTitles = ROUTES.filter(listTitle => listTitle);
         var navbar : HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
-        this.router.events.subscribe((event) => {
+      //   this.router.events.subscribe((event) => {
+      //     this.sidebarClose();
+      //  });
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.updateTitle();
           this.sidebarClose();
-       });
+        }
+      });
+    }
+    updateTitle() {
+      var titlee = this.location.prepareExternalUrl(this.location.path());
+      console.log('Current Path:', titlee);
+      if (titlee.charAt(0) === '#') {
+        titlee = titlee.slice(1);
+      }
+      for (var item = 0; item < this.listTitles.length; item++) {
+        if (this.listTitles[item].path === titlee) {
+          return this.listTitles[item].title;
+        } else if (this.listTitles[item].submenu) {
+          const submenuItem = this.listTitles[item].submenu.find(subitem => subitem.path === titlee);
+          if (submenuItem) {
+            return submenuItem.title;
+          }
+        }
+      }
+  
+      return 'Dashboard';
     }
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
+      console.log('Current Path:', titlee);
       if(titlee.charAt(0) === '#'){
           titlee = titlee.slice( 1 );
       }
       for(var item = 0; item < this.listTitles.length; item++){
           if(this.listTitles[item].path === titlee){
               return this.listTitles[item].title;
+          }else if (this.listTitles[item].submenu) {
+            // Check if submenu exists and search within the submenu
+            const submenuItem = this.listTitles[item].submenu.find(subitem => subitem.path === titlee);
+            if (submenuItem) {
+              return submenuItem.title;
+            }
           }
       }
+      
       return 'Dashboard';
     }
     sidebarToggle() {
@@ -93,3 +126,4 @@ export class NavbarComponent implements OnInit{
       }
 
 }
+
