@@ -1,0 +1,55 @@
+   <!-- course-feedback.component.html -->
+
+<div class="card">
+    <div class="card-header">
+      <h4 class="card-title" class="text-primary">Training Feedback from Employee: {{ empCode }}</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="effectiveness">Effectiveness of Training:</label>
+            <div>{{ feedback.effectiveness }}</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="content">Content of Training:</label>
+            <div>{{ feedback.content }}</div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="methodology">Effectiveness of Training Methodology:</label>
+            <div>{{ feedback.methodology }}</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="organization">Organization of Training:</label>
+            <div>{{ feedback.organization }}</div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="trainer_rating">Trainer Rating:</label>
+            <div>{{ feedback.trainer_rating }}</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+              <label for="comments">Comments from Employee:</label>
+              <div>{{ feedback.comments }}</div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+

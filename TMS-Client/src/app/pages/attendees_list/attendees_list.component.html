@@ -1,0 +1,39 @@
+student_list.component.html
+
+<!-- <h2 class="text-primary mb-4">Attendees Details for Training ID: {{ t_id }}</h2> -->
+
+<!-- Bootstrap table for studentList -->
+<div class="card">
+    <div class="card-header">
+      <h4 class="card-title" style="font-weight: bold; font-size: xx-large;">Attendees Details for Training ID: {{ t_id }}</h4>
+    </div>
+    <div class="card-body">
+      <!-- Your existing details section -->
+  
+      <div class="form-group">
+        <label for="search">Search:</label>
+        <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
+      </div>
+  
+      <div class="table-responsive text-nowrap table-container">
+        <table class="table">
+          <thead class="text-primary">
+              <th *ngFor="let header of studentList.headerRow" class="text-center">{{ header }}</th>
+          </thead>
+          <tbody>
+            <!-- Use *ngFor to loop through filteredData and display each record -->
+            <tr *ngFor="let row of filteredData">
+              <td class="text-center">{{ row.emp_code }}</td>
+              <td class="text-center">{{ row.emp_name }}</td>
+              <td class="text-center">{{ row.c_name }}</td>
+              <td class="text-center">{{ row.t_name }}</td>
+              <td class="text-center">{{ row.status }}</td>
+              <td class="text-center"><a [routerLink]="['/employee-feedback', row.emp_code]">{{ row.view }}</a></td>
+              <!-- Add more cells as needed -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

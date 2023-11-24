@@ -15,17 +15,22 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './pages/login/login.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
+import { AdminEmployeeFeedbackComponent } from "./pages/admin_employee_feedback/admin_employee-feedback.component";
+import { AdminRegistrationComponent } from "./pages/admin_registration/admin_registration.component";
+import { AdminTrainerFeedbackComponent } from "./pages/admin_trainer_feedback/admin_trainer_feedback.component";
+import { StudentListComponent } from "./pages/student_list/student_list.component";
+import { StudentList1Component } from "./pages/student_list1/student_list1.component";
+import { AddParticipantsComponent } from "./pages/add_participants/add_participants.component";
 
 @NgModule({
   declarations: [
 
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserAnimationsModule,
-    FormsModule,
     RouterModule.forRoot(AppRoutes,{
       
       useHash: true

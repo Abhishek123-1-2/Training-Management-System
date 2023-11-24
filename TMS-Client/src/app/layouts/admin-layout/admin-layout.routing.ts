@@ -9,6 +9,7 @@ import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
+import { AdminRegistrationComponent } from 'app/pages/admin_registration/admin_registration.component';
 import { AdminAttendanceComponent } from 'app/pages/admin-attendance/admin-attendance.component';
 import { AdminTrainingComponent } from 'app/pages/admin-training/admin-training.component';
 import { AddTrainingComponent } from 'app/pages/admin-training/add-training/add-training.component';
