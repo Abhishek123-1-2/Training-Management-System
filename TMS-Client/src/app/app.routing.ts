@@ -11,11 +11,15 @@ import { CourseFeedbackComponent } from './pages/course_feedback/course_feedback
 import { AdminRegistrationComponent } from './pages/admin_registration/admin_registration.component';
 import { RegistrationEditComponent } from './pages/registration_edit/registration_edit.component';
 import { AddParticipantsComponent } from './pages/add_participants/add_participants.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const AppRoutes: Routes = [
+  {path:'login',
+  component:LoginComponent
+  },
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
   }, {
     path: '',
@@ -67,7 +71,7 @@ export const AppRoutes: Routes = [
         
       ]},
   {
-    path: '**', 
+    path: '**',
     redirectTo: 'dashboard'
   }
 ]

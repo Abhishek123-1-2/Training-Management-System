@@ -12,10 +12,12 @@ import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { LoginComponent } from './pages/login/login.component';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 import { AdminEmployeeFeedbackComponent } from "./pages/admin_employee_feedback/admin_employee-feedback.component";
 import { AdminRegistrationComponent } from "./pages/admin_registration/admin_registration.component";
 import { AdminTrainerFeedbackComponent } from "./pages/admin_trainer_feedback/admin_trainer_feedback.component";
-import { FormsModule } from "@angular/forms";
 import { StudentListComponent } from "./pages/student_list/student_list.component";
 import { StudentList1Component } from "./pages/student_list1/student_list1.component";
 import { AddParticipantsComponent } from "./pages/add_participants/add_participants.component";
@@ -25,16 +27,12 @@ import { AddParticipantsComponent } from "./pages/add_participants/add_participa
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AdminEmployeeFeedbackComponent,
-    AdminRegistrationComponent,
-    AdminTrainerFeedbackComponent,
-    StudentListComponent,
-    StudentList1Component,
-    AddParticipantsComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(AppRoutes,{
       useHash: true
     }),
@@ -42,7 +40,7 @@ import { AddParticipantsComponent } from "./pages/add_participants/add_participa
     NavbarModule,
     ToastrModule.forRoot(),
     FooterModule,
-    FixedPluginModule
+    FixedPluginModule,FormsModule,ReactiveFormsModule,HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
