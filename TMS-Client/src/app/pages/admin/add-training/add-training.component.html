@@ -168,7 +168,7 @@
                             <div class="col-md-4">
                                 <div class="d-flex justify-content-end">
                                 <button type="reset" class="btn btn-primary mr-2">Cancel</button>
-                                <button type="button" class="btn btn-primary" (click)="onSubmit()">Save</button>
+                                <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!trainingForm.valid" >Save</button>
                                 </div>
                             </div>
                             </div>
