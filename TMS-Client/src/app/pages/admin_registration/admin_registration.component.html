@@ -1,105 +1,3 @@
-<!-- <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title">Registration Details</h4>
-        </div>
-        <div class="card-body">
-            <div class="form-group">
-                <label for="search">Search:</label>
-                <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
-            </div>
-          <div class="table-responsive text-nowrap table-container">
-            <table class="table">
-              <thead class="text-primary">
-                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
-              </thead>
-              <tbody>
-                <tr *ngFor="let row of filteredData" class="expandable-row">
-                    <td class="text-center"><a [routerLink]="['/registration_details', row.reg_id, row.emp_code]">{{ row.reg_id }}</a></td>
-                    <td class="text-center">{{ row.emp_code }}</td>
-                    <td class="text-center">{{ row.emp_name }}</td>
-                    <td class="text-center">{{ row.reg_date }}</td>
-                    <td>{{ row.comments }}</td>
-                    <td class="text-center">{{ row.status }}</td>
-                    <td class="text-center">{{ row.response}}</td>
-                    <td class="text-center"><a [routerLink]="['/registration/edit', row.reg_id]">{{ row.actions}}</a></td>
-                  </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-   -->
-
-   <!-- <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title">Registration Details</h4>
-        </div>
-        <div class="card-body">
-          <div class="form-group">
-            <label for="search">Search:</label>
-            <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
-          </div>
-          <div class="table-responsive text-nowrap table-container">
-            <table class="table">
-              <thead class="text-primary">
-                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
-              </thead>
-              <tbody>
-                <ng-container *ngFor="let row of filteredData; let i = index">
-                  <tr class="expandable-row">
-                    <td class="text-center">{{ row.reg_id }}</td>
-                    <td class="text-center">{{ row.emp_code }}</td>
-                    <td class="text-center">{{ row.emp_name }}</td>
-                    <td class="text-center">{{ row.reg_date }}</td>
-                    <td>{{ row.comments }}</td>
-                    <td class="text-center">{{ row.status }}</td>
-                    <td class="text-center">{{ row.response}}</td>
-                    <td class="text-center">
-                      <a (click)="startEdit(i)" *ngIf="!isEditMode">Edit</a>
-                      <a (click)="saveChanges(i)" *ngIf="isEditMode && i === rowIndexBeingEdited">Save</a>
-                      <a (click)="cancelEdit(i)" *ngIf="isEditMode && i === rowIndexBeingEdited">Cancel</a>
-                    </td>
-                  </tr>
-                  <tr *ngIf="isEditMode && i === rowIndexBeingEdited">
-                    <td class="text-center">
-                      <input [(ngModel)]="row.reg_id" [disabled]="true">
-                    </td>
-                    <td class="text-center">
-                      <input [(ngModel)]="row.emp_code">
-                    </td>
-                    <td class="text-center">
-                      <input [(ngModel)]="row.emp_name">
-                    </td>
-                    <td class="text-center">
-                      <input [(ngModel)]="row.reg_date">
-                    </td>
-                    <td>
-                      <input [(ngModel)]="row.comments">
-                    </td>
-                    <td class="text-center">
-                      <input [(ngModel)]="row.status">
-                    </td>
-                    <td class="text-center">
-                      <input [(ngModel)]="row.response">
-                    </td>
-                    <td class="text-center"></td>
-                  </tr>
-                </ng-container>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-   -->
-
    <!-- Inside your component's HTML template -->
 <div class="row">
     <div class="col-md-12">
@@ -118,7 +16,7 @@
               <label for="search">Search:</label>
               <input class="col-md-12 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
             </div>
-            <button class="btn btn-primary" (click)="navigateToAddParticipants()">Add Participants</button>
+            <button class="btn btn-primary" routerLink="/add-participants">Add Participants</button>
           </div>
           <div class="table-responsive text-nowrap table-container">
             <table class="table">

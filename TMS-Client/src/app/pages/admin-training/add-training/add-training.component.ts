@@ -1,7 +1,5 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'add-training-cmp',
@@ -12,7 +10,7 @@ import { RouterModule } from '@angular/router';
 
 
 export class AddTrainingComponent{
-
+    
     onSubmit(){
         
     }

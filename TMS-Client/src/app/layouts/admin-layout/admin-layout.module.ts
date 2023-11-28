@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
@@ -32,6 +32,7 @@ import { AttendanceDetailsComponent } from 'app/attendance-details/attendance-de
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
+    ReactiveFormsModule,
     
   ],
   declarations: [
@@ -47,7 +48,8 @@ import { AttendanceDetailsComponent } from 'app/attendance-details/attendance-de
     ViewTrainingComponent,
     AttendanceDetailsComponent,
     AdminEmployeeFeedbackComponent,
-    AdminRegistrationComponent,AdminTrainerFeedbackComponent,
+    AdminRegistrationComponent,
+    AdminTrainerFeedbackComponent,
     StudentListComponent,
     StudentList1Component,
     AddParticipantsComponent,
