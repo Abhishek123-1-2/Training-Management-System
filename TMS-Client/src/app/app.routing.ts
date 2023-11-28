@@ -1,23 +1,25 @@
 import { Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { AdminEmployeeFeedbackComponent } from './pages/admin_employee_feedback/admin_employee-feedback.component';
-import { AdminTrainerFeedbackComponent } from './pages/admin_trainer_feedback/admin_trainer_feedback.component';
-import { RegistrationDetailsComponent } from './pages/registration_details/registration_details.component';
-import { StudentListComponent } from './pages/student_list/student_list.component';
-import { EmployeeFeedbackDetailsComponent } from './pages/employee_feedback_details/employee_feedback_details.component';
-import { StudentList1Component } from './pages/student_list1/student_list1.component';
-import { CourseFeedbackComponent } from './pages/course_feedback/course_feedback.component';
-import { AdminRegistrationComponent } from './pages/admin_registration/admin_registration.component';
-import { RegistrationEditComponent } from './pages/registration_edit/registration_edit.component';
-import { AddParticipantsComponent } from './pages/add_participants/add_participants.component';
+import { AdminEmployeeFeedbackComponent } from './pages/admin/admin_employee_feedback/admin_employee-feedback.component';
+import { AdminTrainerFeedbackComponent } from './pages/admin/admin_trainer_feedback/admin_trainer_feedback.component';
+import { RegistrationDetailsComponent } from './pages/admin/registration_details/registration_details.component';
+import { StudentListComponent } from './pages/admin/student_list/student_list.component';
+import { EmployeeFeedbackDetailsComponent } from './pages/admin/employee_feedback_details/employee_feedback_details.component';
+import { StudentList1Component } from './pages/admin/student_list1/student_list1.component';
+// import { StudentList1Component } from './pages/admin/student_list1/student_list1.component';
+// import { CourseFeedbackComponent } from './pages/course_feedback/course_feedback.component';
+import { CourseFeedbackComponent } from './pages/admin/course_feedback/course_feedback.component';
+import { AdminRegistrationComponent } from './pages/admin/admin_registration/admin_registration.component';
+import { RegistrationEditComponent } from './pages/admin/registration_edit/registration_edit.component';
+import { AddParticipantsComponent } from './pages/admin/add_participants/add_participants.component';
 import { LoginComponent } from './pages/login/login.component';
-import { AttendanceDetailsComponent } from './attendance-details/attendance-details.component';
-import { AdminTrainingComponent } from './pages/admin-training/admin-training.component';
-import { AdminAttendanceComponent } from './pages/admin-attendance/admin-attendance.component';
-import { AddTrainingComponent } from './pages/admin-training/add-training/add-training.component';
-import { ViewTrainingComponent } from './pages/admin-training/view-training/view-training.component';
-import { ScheduleTrainingComponent } from './pages/admin-training/schedule-training/schedule-training.component';
+import { AttendanceDetailsComponent } from './pages/admin/attendance-details/attendance-details.component';
+// import { AdminTrainingComponent } from './pages/admin-training/admin-training.component';
+import { AdminAttendanceComponent } from './pages/admin/admin-attendance/admin-attendance.component';
+import { AddTrainingComponent } from './pages/admin/add-training/add-training.component';
+import { ViewTrainingComponent } from './pages/admin/view-training/view-training.component';
+import { ScheduleTrainingComponent } from './pages/admin/schedule-training/schedule-training.component';
 
 export const AppRoutes: Routes = [
   {path:'login',

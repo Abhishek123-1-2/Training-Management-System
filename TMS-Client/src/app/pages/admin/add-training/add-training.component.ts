@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TrainingService } from 'app/pages/admin-services/training.service';
+import { TrainingService } from 'app/pages/admin/admin-services/training.service';
 import { ViewTrainingComponent } from '../view-training/view-training.component';
 import { Router } from '@angular/router';
 @Component({

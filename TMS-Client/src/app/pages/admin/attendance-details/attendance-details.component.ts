@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TableFilterService } from 'app/filtersearch/filterpipe.component';
+import { TableFilterService } from 'app/pages/admin/filtersearch/filterpipe.component';
 
 
 interface TableRow {

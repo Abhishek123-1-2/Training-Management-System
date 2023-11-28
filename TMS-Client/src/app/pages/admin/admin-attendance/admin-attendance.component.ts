@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TableFilterService } from '../../filtersearch/filterpipe.component';
+import { TableFilterService } from '../filtersearch/filterpipe.component';
 
 
 declare interface TableRow {

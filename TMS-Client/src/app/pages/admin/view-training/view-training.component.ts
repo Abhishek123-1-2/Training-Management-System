@@ -1,8 +1,8 @@
 // viewtraining.component.ts
 
 import { Component, OnInit } from '@angular/core';
-import { TableFilterService } from '../../../filtersearch/filterpipe.component';
-import { TrainingService } from '../../admin-services/training.service';
+import { TableFilterService } from '../filtersearch/filterpipe.component';
+import { TrainingService } from '../admin-services/training.service';
 
 declare interface TableData {
   headerRow: string[];
