@@ -1,23 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Training Information</title>
-</head>
-
-<body>
     <div class="container mt-4">
         <div class="row">
-            <div class="col">
+            <div class="col-md-12">
                 <div class="card ">
                     <div class="card-header">
                         <h5 class="card-title">Training Information</h5>
                     </div>
 
                     <div class="card-body">
-                        <form [formGroup]="trainingForm" (ngSubmit)="onSubmit()">
+                        <form (ngSubmit)="onSubmit()" [formGroup]="trainingForm">
                             <div class="row">
 
                                 <!-- First Row -->
@@ -172,24 +162,22 @@
                             </div>
 
                             <!-- Buttons -->
-                            <div class="row justify-content-end align-items-end">
-                                <div class="col-md-2 pl-3">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <button type="reset" class="btn btn-primary">Cancel</button> <br>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <button type="button" class="btn btn-primary ml-2" (click)="onSubmit()">Save</button>
-                                        </div>
-                                    </div>
+                          
+
+                        <div class="row justify-content-end mt-3">
+                            <div class="col-md-4">
+                                <div class="d-flex justify-content-end">
+                                <button type="reset" class="btn btn-primary mr-2">Cancel</button>
+                                <button type="button" class="btn btn-primary" (click)="onSubmit()">Save</button>
                                 </div>
                             </div>
+                            </div>
+                              
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</body>
 
-</html>
+

@@ -25,6 +25,8 @@ import { ViewTrainingComponent } from 'app/pages/admin-training/view-training/vi
 import { viewport } from '@popperjs/core';
 import { AdminAttendanceComponent } from 'app/pages/admin-attendance/admin-attendance.component';
 import { AttendanceDetailsComponent } from 'app/attendance-details/attendance-details.component';
+import { TimeFormatPipe } from 'app/pages/admin-training/schedule-training/schedule-training.pipe';
+import { ScheduleTrainingComponent } from 'app/pages/admin-training/schedule-training/schedule-training.component';
 import { AddTrainingComponent } from 'app/pages/admin-training/add-training/add-training.component';
 
 
@@ -32,7 +34,8 @@ import { AddTrainingComponent } from 'app/pages/admin-training/add-training/add-
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
-    FormsModule,ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
     
   ],
   declarations: [
@@ -52,7 +55,10 @@ import { AddTrainingComponent } from 'app/pages/admin-training/add-training/add-
     AdminTrainerFeedbackComponent,
     StudentListComponent,
     StudentList1Component,
-    AddParticipantsComponent,AddTrainingComponent
+    AddParticipantsComponent,
+    TimeFormatPipe,
+    ScheduleTrainingComponent,
+    AddTrainingComponent,
   ]
 })
 

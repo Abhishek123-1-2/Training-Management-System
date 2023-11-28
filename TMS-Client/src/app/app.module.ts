@@ -21,6 +21,8 @@ import { AdminTrainerFeedbackComponent } from "./pages/admin_trainer_feedback/ad
 import { StudentListComponent } from "./pages/student_list/student_list.component";
 import { StudentList1Component } from "./pages/student_list1/student_list1.component";
 import { AddParticipantsComponent } from "./pages/add_participants/add_participants.component";
+import { TimeFormatPipe } from "./pages/admin-training/schedule-training/schedule-training.pipe";
+import { ScheduleTrainingComponent } from "./pages/admin-training/schedule-training/schedule-training.component";
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { AddParticipantsComponent } from "./pages/add_participants/add_participa
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
+  
+    
   ],
   imports: [
     BrowserAnimationsModule,
@@ -39,7 +43,8 @@ import { AddParticipantsComponent } from "./pages/add_participants/add_participa
     NavbarModule,
     ToastrModule.forRoot(),
     FooterModule,
-    FixedPluginModule,FormsModule,ReactiveFormsModule,HttpClientModule
+    FixedPluginModule,FormsModule,ReactiveFormsModule,HttpClientModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
