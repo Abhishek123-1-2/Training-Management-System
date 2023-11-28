@@ -1,0 +1,116 @@
+
+    
+        <div class="row">
+            <div class="col">
+                <div class="card ">
+                    <div class="card-header">
+                        <h5 class="card-title">Schedule Training</h5>
+                    </div>
+
+                    <div class="card-body">
+                        <form (ngSubmit)="onSubmit()" class="col">
+                            <!-- First Row -->
+                            <div class="row">
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Trainer Name</label>
+                                        <input type="text" id="trainer name" name="trainer name" formControlName="trainer name" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Planned Start Date </label>
+                                        <input type="date" id="planned start date" name="planned start date" formControlName="planned start date" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Planned End Date </label>
+                                        <input type="date" id="planned end date" name="planned end date" formControlName="planned end date" class="form-control" required>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Second Row -->
+                            <div class="row">
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Actual Start Date</label>
+                                        <input type="date" id="actual start date" name="actual start date" formControlName="actual start date" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Actual End Date </label>
+                                        <input type="date" id="actual end date" name="actual end date" formControlName="actual end date" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>From Time </label>
+                                        <input type="time" id="from time" name="from time" formControlName="from time" class="form-control" required>
+                                        <p>{{ trainingForm.value.fromTime | formatTime }}</p>
+                                       
+
+                                    </div>
+                                </div>
+                                
+
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>To Time </label>
+                                        <input type="time" id="to time" name="to time" formControlName="to time" class="form-control" required>
+                                        <p>{{ trainingForm.value.fromTime | formatTime }}</p>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Status </label>
+                                        <select class="form-control" id="status" name="status" formControlName="status" required>
+                                            <option value="Select"></option>
+                                            <option value="PRE-DEFINED">On-Going</option>
+                                            <option value="ON-REQUEST">Upcoming</option>
+                                            <option value="PRE-DEFINED">Completed</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            
+                            <!-- Buttons -->
+                            <div class="row justify-content-end align-items-end">
+                                <div class="col-md-2 pl-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button type="reset" class="btn btn-primary">Cancel</button> <br>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-primary ml-2">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+

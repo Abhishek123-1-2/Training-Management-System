@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
@@ -25,13 +25,17 @@ import { ViewTrainingComponent } from 'app/pages/admin-training/view-training/vi
 import { viewport } from '@popperjs/core';
 import { AdminAttendanceComponent } from 'app/pages/admin-attendance/admin-attendance.component';
 import { AttendanceDetailsComponent } from 'app/attendance-details/attendance-details.component';
+import { TimeFormatPipe } from 'app/pages/admin-training/schedule-training/schedule-training.pipe';
+import { ScheduleTrainingComponent } from 'app/pages/admin-training/schedule-training/schedule-training.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
-    FormsModule,
+    FormsModule,ReactiveFormsModule,
+    
+    
     
   ],
   declarations: [
@@ -51,6 +55,9 @@ import { AttendanceDetailsComponent } from 'app/attendance-details/attendance-de
     StudentListComponent,
     StudentList1Component,
     AddParticipantsComponent,
+    TimeFormatPipe,
+    ScheduleTrainingComponent
+    
   ]
 })
 

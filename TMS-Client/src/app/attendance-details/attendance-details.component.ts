@@ -50,7 +50,7 @@ originalTableData:any[]=[];
   ngOnInit() {
     this.route.params.subscribe(params => {
       const start_date = new Date('2023-11-19');
-      const end_date = new Date('2023-11-25');
+      const end_date = new Date('2023-12-02');
 
       const dateRange = this.generateDateRange(start_date, end_date);
       this.dummyData.headerRow = ['No.', 'Employee Code', 'Employee Name', ...dateRange, 'Total Days Present'];
