@@ -21,8 +21,15 @@ export class ScheduleTrainingComponent{
 
     constructor(private formBuilder: FormBuilder) {
         this.trainingForm = this.formBuilder.group({
+            trainerName:['',Validators.required],
           fromTime: ['', Validators.required],
-          timePeriod: ['AM']
+          timePeriod: [''],
+          toTime: ['', Validators.required],
+      status: ['', Validators.required],
+      plannedStartDate: ['', Validators.required],
+      plannedEndDate: ['', Validators.required],
+      actualStartDate: ['', Validators.required],
+      actualEndDate: ['', Validators.required]
         });
       }
 
@@ -54,5 +61,10 @@ export class ScheduleTrainingComponent{
       
 
     onSubmit(){
-       
-  }     }
+       if(this.trainingForm.valid){
+
+       }else{
+
+       }
+  }     
+}

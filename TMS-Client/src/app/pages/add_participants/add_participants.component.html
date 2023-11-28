@@ -98,7 +98,7 @@
             <textarea id="comments" name="comments" formControlName="comments" class="form-control" cols="30" rows="2"></textarea>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!addParticipantsForm.valid" >Submit</button>
       </form>
       
     </div>
