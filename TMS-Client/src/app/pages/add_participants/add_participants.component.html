@@ -1,42 +1,104 @@
-<div class="card">
+<!-- <div class="card">
     <div class="card-header">
       <h4 class="card-title">Add Participants</h4>
     </div>
     <div class="card-body">
-      <form>
-        <div *ngFor="let participant of participants; let i = index" class="form-row mb-3">
-          <div class="col-md-6">
-            <label for="empCode{{i}}">Employee Code:</label>
-            <input type="text" id="empCode{{i}}" class="form-control" [(ngModel)]="participants[i].emp_code" (input)="onEmpCodeChange(i)">
-
+      <form (ngSubmit)="addParticipants()">
+        <div class="row">
+          <div class="col-md-12" class="form-group">
+            <label>Employee Code:</label>
+            <input type="text" id="empCode" name="empCode" formControlName="empCode" class="form-control" required>
           </div>
-          <div class="col-md-6">
-            <label for="empName{{i}}">Employee Name:</label>
-            <input type="text" id="empName{{i}}" class="form-control" [(ngModel)]="participants[i].emp_name">
+          <div class="col-md-6" class="form-group">
+            <label for="empName">Employee Name:</label>
+            <input type="text" id="empName" name="empName" formControlName="empName" class="form-control" required>
           </div>
           <div class="col-md-6">
             <label for="courseName{{i}}">Course Name:</label>
-            <input type="text" id="courseName{{i}}" class="form-control" >
+            <input type="text" id="courseName{{i}}" class="form-control" [(ngModel)]="participants[i].c_name">
           </div>
           <div class="col-md-6">
             <label for="regDate{{i}}">Registration Date:</label>
-            <input type="date" id="regDate{{i}}" class="form-control" >
+            <input type="date" id="regDate{{i}}" class="form-control" [(ngModel)]="participants[i].reg_date">
           </div>
           <div class="col-md-6">
             <label for="status{{i}}">Status:</label>
-            <select id="status{{i}}" class="form-control" >
+            <select id="status{{i}}" class="form-control" [(ngModel)]="participants[i].status">
+                <option value="confirmed">Confirmed</option>
+                <option value="registered">Registered</option>
+                <option value="rejected">Rejected</option>
+                <option value="absent">Absent</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="comments{{i}}">Comments</label>
+            <textarea id="comments{{i}}" class="form-control" [(ngModel)]="participants[i].comments" cols="30" rows="2"></textarea>
+          </div>          
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="addParticipants()">Submit</button>
+      </form>
+    </div>
+  </div>
+   -->
+
+   <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Add Participants</h4>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="addParticipants()"  [formGroup]="addParticipantsForm">
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label>Employee Code:</label>
+            <input type="text" id="empCode" name="empCode" formControlName="empCode" class="form-control" required>
+            <div *ngIf="addParticipantsForm.get('empCode').hasError('required') && addParticipantsForm.get('empCode').touched">
+                <small class="text-danger">Employee Code is required</small>
+            </div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label for="empName">Employee Name:</label>
+            <input type="text" id="empName" name="empName" formControlName="empName" class="form-control" required>
+            <div *ngIf="addParticipantsForm.get('empName').hasError('required') && addParticipantsForm.get('empName').touched">
+                <small class="text-danger">Employee Name is required</small>
+            </div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label for="courseName">Course Name:</label>
+            <select id="courseName" name="courseName" formControlName="courseName" class="form-control" required>
+                <option value="trainings">Angular</option>
+                <option value="trainings">Node JS</option>
+                <option value="trainings">Typescript HTML CSS</option>
+                <option value="trainings">PLSQL</option>
+              </select>
+            <div *ngIf="addParticipantsForm.get('courseName').hasError('required') && addParticipantsForm.get('courseName').touched">
+                <small class="text-danger">Course Name is required</small>
+            </div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label for="schDate">Schedule Date:</label>
+            <input type="date" id="schDate" name="schDate" formControlName="schDate" class="form-control" required>
+            <div *ngIf="addParticipantsForm.get('schDate').hasError('required') && addParticipantsForm.get('schDate').touched">
+                <small class="text-danger">Schedule Date is required</small>
+            </div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label for="status">Status:</label>
+            <select id="status" name="status" formControlName="status" class="form-control" required>
               <option value="confirmed">Confirmed</option>
               <option value="registered">Registered</option>
               <option value="rejected">Rejected</option>
               <option value="absent">Absent</option>
             </select>
+            <div *ngIf="addParticipantsForm.get('status').hasError('required') && addParticipantsForm.get('status').touched">
+                <small class="text-danger">Status is required</small>
+            </div>
           </div>
-          <div class="col-md-6">
-            <label for="comments{{i}}">Comments</label>
-            <textarea id="comments{{i}}" class="form-control"  cols="30" rows="2"></textarea>
+          <div class="col-md-6 form-group">
+            <label for="comments">Comments</label>
+            <textarea id="comments" name="comments" formControlName="comments" class="form-control" cols="30" rows="2"></textarea>
           </div>
         </div>
-        <button type="submit" class="btn btn-success" (click)="addParticipants()">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </form>
       
     </div>

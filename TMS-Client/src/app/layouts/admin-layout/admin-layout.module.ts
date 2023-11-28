@@ -48,7 +48,8 @@ import { AddTrainingComponent } from 'app/pages/admin-training/add-training/add-
     ViewTrainingComponent,
     AttendanceDetailsComponent,
     AdminEmployeeFeedbackComponent,
-    AdminRegistrationComponent,AdminTrainerFeedbackComponent,
+    AdminRegistrationComponent,
+    AdminTrainerFeedbackComponent,
     StudentListComponent,
     StudentList1Component,
     AddParticipantsComponent,AddTrainingComponent
