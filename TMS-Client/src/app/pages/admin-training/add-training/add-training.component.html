@@ -1,5 +1,4 @@
-
-    
+    <div class="container mt-4">
         <div class="row">
             <div class="col-md-12">
                 <div class="card ">
@@ -8,7 +7,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form (ngSubmit)="onSubmit()" class="col">
+                        <form (ngSubmit)="onSubmit()" [formGroup]="trainingForm">
                             <div class="row">
 
                                 <!-- First Row -->
@@ -23,7 +22,6 @@
                                     </div>
                                 </div>
 
-                                
                                 <div class="col-md-4 ">
                                     <div class="form-group">
                                         <label>Training Type </label>
@@ -33,6 +31,9 @@
                                             <option value="SME-LED">SME-Led</option>
                                             <option value="ONLINE">Online</option>
                                         </select>
+                                        <small class="text-danger" *ngIf="trainingForm.get('training_type').hasError('required') && (trainingForm.get('training_type').touched || trainingForm.get('training_type').dirty)">
+                                            Training Type is required.
+                                        </small>
                                     </div>
                                 </div>
 
@@ -44,6 +45,9 @@
                                             <option value="PRE-DEFINED">Pre-Defined</option>
                                             <option value="ON-REQUEST">On-Request</option>
                                         </select>
+                                        <small class="text-danger" *ngIf="trainingForm.get('training_schedule').hasError('required') && (trainingForm.get('training_schedule').touched || trainingForm.get('training_schedule').dirty)">
+                                            Training Schedule is required.
+                                        </small>
                                     </div>
                                 </div>
 
@@ -56,13 +60,19 @@
                                     <div class="form-group">
                                         <label>Course</label>
                                         <input type="text" id="course" name="course" formControlName="course" class="form-control" required>
+                                        <small class="text-danger" *ngIf="trainingForm.get('course').hasError('required') && (trainingForm.get('course').touched || trainingForm.get('course').dirty)">
+                                            Course is required.
+                                        </small>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-4 ">
                                     <div class="form-group">
                                         <label>Trainer Names </label>
                                         <input type="text" id="trainer_names" name="trainer_names" formControlName="trainer_names" class="form-control" maxlength="25" required>
+                                        <small class="text-danger" *ngIf="trainingForm.get('trainer_names').hasError('required') && (trainingForm.get('trainer_names').touched || trainingForm.get('trainer_names').dirty)">
+                                            Trainer Names are required.
+                                        </small>
                                     </div>
                                 </div>
 
@@ -70,6 +80,9 @@
                                     <div class="form-group">
                                         <label>Prerequisites</label>
                                         <input type="text" id="prerequisites" name="prerequisites" formControlName="prerequisites" class="form-control" required>
+                                        <small class="text-danger" *ngIf="trainingForm.get('prerequisites').hasError('required') && (trainingForm.get('prerequisites').touched || trainingForm.get('prerequisites').dirty)">
+                                            Prerequisites are required.
+                                        </small>
                                     </div>
                                 </div>
 
@@ -82,6 +95,9 @@
                                     <div class="form-group">
                                         <label>Course Description</label>
                                         <input type="text" id="course_description" name="course_description" formControlName="course_description" class="form-control" required>
+                                        <small class="text-danger" *ngIf="trainingForm.get('course_description').hasError('required') && (trainingForm.get('course_description').touched || trainingForm.get('course_description').dirty)">
+                                            Course Description is required.
+                                        </small>
                                     </div>
                                 </div>
 
@@ -89,6 +105,9 @@
                                     <div class="form-group">
                                         <label>Daily Hours </label>
                                         <input type="number" id="daily_hrs" name="daily_hrs" formControlName="daily_hrs" class="form-control" required>
+                                        <small class="text-danger" *ngIf="trainingForm.get('daily_hrs').hasError('required') && (trainingForm.get('daily_hrs').touched || trainingForm.get('daily_hrs').dirty)">
+                                            Daily Hours are required.
+                                        </small>
                                     </div>
                                 </div>
 
@@ -96,6 +115,9 @@
                                     <div class="form-group">
                                         <label>Total Days </label>
                                         <input type="number" id="total_days" name="total_days" formControlName="total_days" class="form-control" required>
+                                        <small class="text-danger" *ngIf="trainingForm.get('total_days').hasError('required') && (trainingForm.get('total_days').touched || trainingForm.get('total_days').dirty)">
+                                            Total Days are required.
+                                        </small>
                                     </div>
                                 </div>
 
@@ -108,6 +130,9 @@
                                     <div class="form-group">
                                         <label>URL </label>
                                         <input type="url" id="url" name="url" formControlName="url" class="form-control" required>
+                                        <small class="text-danger" *ngIf="trainingForm.get('url').hasError('required') && (trainingForm.get('url').touched || trainingForm.get('url').dirty)">
+                                            URL is required.
+                                        </small>
                                     </div>
                                 </div>
 
@@ -115,6 +140,9 @@
                                     <div class="form-group">
                                         <label>Username </label>
                                         <input type="text" id="username" name="username" formControlName="username" class="form-control" maxlength="25" required>
+                                        <small class="text-danger" *ngIf="trainingForm.get('username').hasError('required') && (trainingForm.get('username').touched || trainingForm.get('username').dirty)">
+                                            Username is required.
+                                        </small>
                                     </div>
                                 </div>
 
@@ -122,29 +150,31 @@
                                     <div class="form-group">
                                         <label>Password </label>
                                         <input type="password" id="password" name="password" formControlName="password" class="form-control" maxlength="25" required>
+                                        <small class="text-danger" *ngIf="trainingForm.get('password').hasError('required') && (trainingForm.get('password').touched || trainingForm.get('password').dirty)">
+                                            Password is required.
+                                        </small>
                                     </div>
                                 </div>
 
                             </div>
 
                             <!-- Buttons -->
-                            <div class="row justify-content-end align-items-end">
-                                <div class="col-md-2 pl-3">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <button type="reset" class="btn btn-primary">Cancel</button> <br>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <button type="submit" class="btn btn-primary ml-2">Save</button>
-                                        </div>
-                                    </div>
+                          
+
+                        <div class="row justify-content-end mt-3">
+                            <div class="col-md-4">
+                                <div class="d-flex justify-content-end">
+                                <button type="reset" class="btn btn-primary mr-2">Cancel</button>
+                                <button type="button" class="btn btn-primary" (click)="onSubmit()">Save</button>
                                 </div>
                             </div>
+                            </div>
+                              
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    
+    </div>
 
 

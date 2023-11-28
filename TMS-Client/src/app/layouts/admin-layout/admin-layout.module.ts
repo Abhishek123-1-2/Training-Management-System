@@ -27,15 +27,15 @@ import { AdminAttendanceComponent } from 'app/pages/admin-attendance/admin-atten
 import { AttendanceDetailsComponent } from 'app/attendance-details/attendance-details.component';
 import { TimeFormatPipe } from 'app/pages/admin-training/schedule-training/schedule-training.pipe';
 import { ScheduleTrainingComponent } from 'app/pages/admin-training/schedule-training/schedule-training.component';
+import { AddTrainingComponent } from 'app/pages/admin-training/add-training/add-training.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
-    FormsModule,ReactiveFormsModule,
-    
-    
+    FormsModule,
+    ReactiveFormsModule,
     
   ],
   declarations: [
@@ -51,13 +51,14 @@ import { ScheduleTrainingComponent } from 'app/pages/admin-training/schedule-tra
     ViewTrainingComponent,
     AttendanceDetailsComponent,
     AdminEmployeeFeedbackComponent,
-    AdminRegistrationComponent,AdminTrainerFeedbackComponent,
+    AdminRegistrationComponent,
+    AdminTrainerFeedbackComponent,
     StudentListComponent,
     StudentList1Component,
     AddParticipantsComponent,
     TimeFormatPipe,
-    ScheduleTrainingComponent
-    
+    ScheduleTrainingComponent,
+    AddTrainingComponent,
   ]
 })
 

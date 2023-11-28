@@ -16,6 +16,7 @@ import { AddTrainingComponent } from 'app/pages/admin-training/add-training/add-
 import { ViewTrainingComponent } from 'app/pages/admin-training/view-training/view-training.component';
 import { AttendanceDetailsComponent } from 'app/attendance-details/attendance-details.component';
 import { ScheduleTrainingComponent } from 'app/pages/admin-training/schedule-training/schedule-training.component';
+import { AddParticipantsComponent } from 'app/pages/add_participants/add_participants.component';
 /* import { AttendanceDetailsComponent } from 'app/pages/admin-attendance/attendance-details.component';
  */
 export const AdminLayoutRoutes: Routes = [
@@ -29,9 +30,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade',        component: UpgradeComponent },
     { path:'admin-training', component:AdminTrainingComponent},
     { path:'admin-attendance',component:AdminAttendanceComponent },
-    {path:'add-training',component: AddTrainingComponent },
-    {path:'view-training',component:ViewTrainingComponent},
-    {path:'schedule-training',component:ScheduleTrainingComponent},
-    {path:'attendance/:course',component:AttendanceDetailsComponent},
-   
+    { path:'add-training',component: AddTrainingComponent },
+    { path:'view-training',component:ViewTrainingComponent},
+    { path:'schedule-training',component:ScheduleTrainingComponent},
+    { path:'attendance/:course',component:AttendanceDetailsComponent},
+    // { path: 'add-participants',component: AddParticipantsComponent}
 ];
