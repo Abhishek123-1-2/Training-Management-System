@@ -47,17 +47,17 @@
     </div>
     <div class="card-body">
       <form (ngSubmit)="addParticipants()"  [formGroup]="addParticipantsForm">
-        <div class="row">
+        <div *ngFor="let participant of participants; let i = index" class="row">
           <div class="col-md-6 form-group">
             <label>Employee Code:</label>
-            <input type="text" id="empCode" name="empCode" formControlName="empCode" class="form-control" required>
+            <input type="text" id="empCode" name="empCode" formControlName="empCode" class="form-control" [(ngModel)]="participants[i].emp_code" (input)="onEmpCodeChange(i)" required >
             <div *ngIf="addParticipantsForm.get('empCode').hasError('required') && addParticipantsForm.get('empCode').touched">
                 <small class="text-danger">Employee Code is required</small>
             </div>
           </div>
           <div class="col-md-6 form-group">
             <label for="empName">Employee Name:</label>
-            <input type="text" id="empName" name="empName" formControlName="empName" class="form-control" required>
+            <input type="text" id="empName" name="empName" formControlName="empName" class="form-control" [(ngModel)]="participants[i].emp_name" required>
             <div *ngIf="addParticipantsForm.get('empName').hasError('required') && addParticipantsForm.get('empName').touched">
                 <small class="text-danger">Employee Name is required</small>
             </div>
@@ -103,4 +103,3 @@
       
     </div>
   </div>
-  

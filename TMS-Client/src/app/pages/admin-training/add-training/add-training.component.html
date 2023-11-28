@@ -19,6 +19,9 @@
                                             <option value="MANDATORY">Mandatory</option>
                                             <option value="OPTIONAL">Optional</option>
                                         </select>
+                                        <small class="text-danger" *ngIf="trainingForm.get('training_category').hasError('required') && (trainingForm.get('training_category').touched || trainingForm.get('training_category').dirty)">
+                                            Training Category is required.
+                                        </small>
                                     </div>
                                 </div>
 
