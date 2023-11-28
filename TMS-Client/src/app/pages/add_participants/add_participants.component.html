@@ -7,7 +7,8 @@
         <div *ngFor="let participant of participants; let i = index" class="form-row mb-3">
           <div class="col-md-6">
             <label for="empCode{{i}}">Employee Code:</label>
-            <input type="text" id="empCode{{i}}" class="form-control" [(ngModel)]="participants[i].emp_code">
+            <input type="text" id="empCode{{i}}" class="form-control" [(ngModel)]="participants[i].emp_code" (input)="onEmpCodeChange(i)">
+
           </div>
           <div class="col-md-6">
             <label for="empName{{i}}">Employee Name:</label>
@@ -15,28 +16,29 @@
           </div>
           <div class="col-md-6">
             <label for="courseName{{i}}">Course Name:</label>
-            <input type="text" id="courseName{{i}}" class="form-control" [(ngModel)]="participants[i].c_name">
+            <input type="text" id="courseName{{i}}" class="form-control" >
           </div>
           <div class="col-md-6">
             <label for="regDate{{i}}">Registration Date:</label>
-            <input type="date" id="regDate{{i}}" class="form-control" [(ngModel)]="participants[i].reg_date">
+            <input type="date" id="regDate{{i}}" class="form-control" >
           </div>
           <div class="col-md-6">
             <label for="status{{i}}">Status:</label>
-            <select id="status{{i}}" class="form-control" [(ngModel)]="participants[i].status">
-                <option value="confirmed">Confirmed</option>
-                <option value="registered">Registered</option>
-                <option value="rejected">Rejected</option>
-                <option value="absent">Absent</option>
+            <select id="status{{i}}" class="form-control" >
+              <option value="confirmed">Confirmed</option>
+              <option value="registered">Registered</option>
+              <option value="rejected">Rejected</option>
+              <option value="absent">Absent</option>
             </select>
           </div>
           <div class="col-md-6">
             <label for="comments{{i}}">Comments</label>
-            <textarea id="comments{{i}}" class="form-control" [(ngModel)]="participants[i].comments" cols="30" rows="2"></textarea>
-          </div>          
+            <textarea id="comments{{i}}" class="form-control"  cols="30" rows="2"></textarea>
+          </div>
         </div>
         <button type="submit" class="btn btn-success" (click)="addParticipants()">Submit</button>
       </form>
+      
     </div>
   </div>
   

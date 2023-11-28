@@ -30,13 +30,12 @@ public class TrainingViewService {
     public void insertTrainingView(TrainingView trainingView) {
         String sql = "INSERT INTO m_trainings " +
                 "(training_category, training_type, training_schedule, course, trainer_names, " +
-                "prerequisites, course_description, daily_hrs, total_days, url, username, password, active_yn, " +
-                "created_by, created_on, updated_by, updated_on) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+                "prerequisites, course_description, daily_hrs, total_days, url, username, password) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
+    
             preparedStatement.setString(1, trainingView.getTraining_category());
             preparedStatement.setString(2, trainingView.getTraining_type());
             preparedStatement.setString(3, trainingView.getTraining_schedule());
@@ -49,19 +48,15 @@ public class TrainingViewService {
             preparedStatement.setString(10, trainingView.getUrl());
             preparedStatement.setString(11, trainingView.getUsername());
             preparedStatement.setString(12, trainingView.getPassword());
-            preparedStatement.setString(13, String.valueOf(trainingView.getActive_yn()));
-            preparedStatement.setString(14, trainingView.getCreated_by());
-            preparedStatement.setTimestamp(15, trainingView.getCreated_on());
-            preparedStatement.setString(16, trainingView.getUpdated_by());
-            preparedStatement.setTimestamp(17, trainingView.getUpdated_on());
-
+    
             preparedStatement.executeUpdate();
-
+    
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception according to your application's needs
+            e.printStackTrace();
+            // Handle the exception according to your application's needs
         }
     }
-
+    
     public List<TrainingView> getAllTrainingViews() {
         String sql = "SELECT * FROM m_trainings";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrainingView.class));
