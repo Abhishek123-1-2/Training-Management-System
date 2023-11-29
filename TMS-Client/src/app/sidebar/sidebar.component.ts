@@ -8,6 +8,7 @@ export interface RouteInfo {
     class: string;
     roles: any;
     submenu?:RouteInfo[];
+    children?: RouteInfo[];
 }
 
 export const ROUTES: RouteInfo[] = [
@@ -24,7 +25,19 @@ export const ROUTES: RouteInfo[] = [
         { path: '/employee-feedback', title: 'Employee Feedback', icon:'', class: '', roles: ['ROLE_ADMIN'] },
         { path: '/trainer-feedback',  title: 'Training Feedback', icon: '', class: '', roles: ['ROLE_ADMIN'] },
     ]},
-    { path: '/trainer-dashboard', title: 'Dashboard', icon: '', class: '', roles: ['ROLE_TRAINER'] }
+    { path: '/trainer-dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', roles: ['ROLE_TRAINER'],submenu:[],
+    children: [
+        {
+          path: '/feedback',
+          title: 'Feedback',
+          icon: 'nc-bell-55',
+          class: '',
+          roles: ['ROLE_TRAINER']
+        }
+        
+      ] 
+
+}
      // { path: '/icons',         title: 'Icons',             icon:'nc-diamond',    class: '' },
     // { path: '/maps',          title: 'Maps',              icon:'nc-pin-3',      class: '' }
     // { path: '/notifications', title: 'Notifications',     icon:'nc-bell-55',    class: '' },
@@ -43,8 +56,41 @@ export const ROUTES: RouteInfo[] = [
 
 export class SidebarComponent implements OnInit {
     public menuItems: any[];
-    router: any;
     ngOnInit() {
-        this.menuItems = ROUTES.filter(menuItem => menuItem);
-    }
+        const userRole = localStorage.getItem("role");
+        this.menuItems = ROUTES.filter(menuItem => this.filterRoutesByRole(menuItem, userRole));
+      }
+    
+      private filterRoutesByRole(route: RouteInfo, userRole: string): boolean {
+        // If the route has children, filter the children based on the user's role
+        if (route.children) {
+          route.children = route.children.filter(child => this.filterRoutesByRole(child, userRole));
+        }
+    
+        // Return true if the route is allowed for the user's role, or if it has children after filtering
+        return !route.roles || route.roles.includes(userRole) || (route.children && route.children.length > 0);
+      }
+    
+      toggleDropdown(menuItem) {
+        if (menuItem.children) {
+          menuItem.active = !menuItem.active;
+          // Reset the active state for other items
+          this.menuItems.forEach(item => {
+            if (item !== menuItem && item.children) {
+              item.active = false;
+            }
+          });
+        } else {
+          // When a leaf menu item is clicked, reset the active state for all items
+          this.menuItems.forEach(item => {
+            item.active = false;
+            if (item.children) {
+              item.children.forEach(childItem => {
+                childItem.active = false;
+              });
+            }
+          });
+          menuItem.active = true;
+        }
+      }
 }
