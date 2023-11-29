@@ -30,8 +30,7 @@ import { TrainerDashboardComponent } from './pages/trainer/trainer-dashboard/tra
 
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent,
-    TrainerDashboardComponent,
+    LoginComponent
   
     
   ],

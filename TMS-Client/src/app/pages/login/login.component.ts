@@ -52,6 +52,9 @@ export class LoginComponent implements OnInit {
               case 'ROLE_HR':
                 this.router.navigate(['/dashboard']);
                 break;
+                case 'ROLE_TRAINER':
+                this.router.navigate(['/trainer-dashboard']);
+                break;
               default:
                 console.error('Unknown role:', specificValue);
                 // Handle the error appropriately, e.g., show an error message to the user
