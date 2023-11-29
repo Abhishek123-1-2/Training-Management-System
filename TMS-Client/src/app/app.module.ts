@@ -24,13 +24,15 @@ import { AddParticipantsComponent } from "./pages/admin/add_participants/add_par
 import { TimeFormatPipe } from "./pages/admin/schedule-training/schedule-training.pipe";
 import { ScheduleTrainingComponent } from "./pages/admin/schedule-training/schedule-training.component";
 import { TrainerDashboardComponent } from './pages/trainer/trainer-dashboard/trainer-dashboard.component';
+import { FeedbackComponent } from './pages/employee/feedback/feedback.component';
 
 @NgModule({
   declarations: [
 
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent
+    LoginComponent,
+    FeedbackComponent
   
     
   ],
