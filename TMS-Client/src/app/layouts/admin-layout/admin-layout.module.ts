@@ -29,6 +29,9 @@ import { TimeFormatPipe } from 'app/pages/admin/schedule-training/schedule-train
 import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-training/schedule-training.component';
 import { AddTrainingComponent } from 'app/pages/admin/add-training/add-training.component';
 import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/trainer-dashboard.component';
+import { TableFilterService } from 'app/pages/admin/filtersearch/filterpipe.component';
+import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
+import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
 
 
 @NgModule({
@@ -37,6 +40,7 @@ import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/t
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     ReactiveFormsModule,
+    
     
   ],
   declarations: [
@@ -60,7 +64,10 @@ import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/t
     TimeFormatPipe,
     ScheduleTrainingComponent,
     AddTrainingComponent,
-    TrainerDashboardComponent
+    TrainerDashboardComponent,
+    TIDComponent,
+    TypeComponent
+    
   ]
 })
 

@@ -18,6 +18,8 @@ import { AttendanceDetailsComponent } from 'app/pages/admin/attendance-details/a
 import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-training/schedule-training.component';
 import { AddParticipantsComponent } from 'app/pages/admin/add_participants/add_participants.component';
 import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/trainer-dashboard.component';
+import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
+import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
 /* import { AttendanceDetailsComponent } from 'app/pages/admin-attendance/attendance-details.component';
  */
 export const AdminLayoutRoutes: Routes = [
@@ -37,4 +39,7 @@ export const AdminLayoutRoutes: Routes = [
     { path:'attendance/:course',component:AttendanceDetailsComponent},
     { path: 'add-participants',component: AddParticipantsComponent},
     { path: 'trainer-dashboard', component: TrainerDashboardComponent},
+    
+    {path:'tid',component:TIDComponent},
+    {path:'type',component:TypeComponent},
 ];

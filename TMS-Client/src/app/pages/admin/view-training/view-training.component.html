@@ -1,4 +1,89 @@
-<div class="row">
+   <!-- Inside your component's HTML template -->
+   <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Training Data</h4>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div class="form-group">
+              <label for="search">Search:</label>
+              <input class="col-md-12 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
+            </div>
+<!--             <button class="btn btn-primary" routerLink="/add-participants">Add Participants</button>
+ -->          </div>
+          <div class="table-responsive text-nowrap table-container">
+            <table class="table">
+              <thead class="text-primary">
+                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let row of filteredData; let i = index">
+                  <tr class="expandable-row">
+                    <td class="text-center">{{ row.number }}</td>
+<!--                     <a *ngIf="row.t_status === 'COMPLETED'" [routerLink]="['/student-list1', row.t_id]">{{ row.view_attendees}}</a>
+ -->
+                    <td class="text-center">{{ row.category }}</td>
+                    <td class="text-center">{{ row.schedule }}</td>
+
+                    <td class="text-center"><a [routerLink]="['/type']">{{ row.course }}</a></td>
+                    <td class="text-center">{{ row.trainer_name }}</td>
+
+                    <td>{{ row.start_date }}</td>
+                    <td class="text-center">{{ row.end_date }}</td>
+                    <td class="text-center">{{ row.status}}</td>
+                    <td class="text-center">
+                      <button class="btn btn-primary" (click)="toggleEditMode(i)">Edit{{ row.action }}</button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="isEditMode && i === rowIndexBeingEdited">
+                    <td class="text-center">
+                      <input [(ngModel)]="filteredData[i].number" [disabled]="true"  class="text-center">
+                    </td>
+                    <td class="text-center">
+                        <input [(ngModel)]="filteredData[i].category" [disabled]="false"  class="text-center">
+                    </td>
+                    <td class="text-center">
+                        <input [(ngModel)]="filteredData[i].trainer_name" [disabled]="false"  class="text-center">
+                    </td>
+                    <td class="text-center">
+                        <input [(ngModel)]="filteredData[i].schedule" [disabled]="false"  class="text-center">
+                    </td>
+                    <td class="text-center">
+                        <input [(ngModel)]="filteredData[i].course" [disabled]="false"  class="text-center">
+                    </td>
+                    <td class="text-center">
+                      <input [(ngModel)]="filteredData[i].start_date" [disabled]="false"  class="text-center">
+                  </td>
+
+                  <td class="text-center">
+                    <input [(ngModel)]="filteredData[i].end_date" [disabled]="false"  class="text-center">
+                </td>
+                    <!-- <td>
+                        <textarea rows="2" cols="50" type="text" [(ngModel)]="filteredData[i].comments" [disabled]="true"></textarea>
+                    </td> -->
+                    <td class="text-center">
+                        <input [(ngModel)]="filteredData[i].status" [disabled]="false"  class="text-center">
+                    </td>
+                    <!-- <td class="text-center">
+                        <input [(ngModel)]="filteredData[i].action" [disabled]="false" class="text-center">
+                    </td> -->
+                    <td class="text-center">
+                      <button class="btn btn-success" (click)="saveChanges(i)">Save</button>&nbsp;
+                      <button class="btn btn-success" (click)="cancelEdit()">Cancel</button>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!-- <div class="row">
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
@@ -45,3 +130,4 @@
     </div>
   </div>
 
+ -->
