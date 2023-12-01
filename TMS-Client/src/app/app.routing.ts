@@ -17,6 +17,7 @@ import { AdminAttendanceComponent } from './pages/admin/admin-attendance/admin-a
 import { AddTrainingComponent } from './pages/admin/add-training/add-training.component';
 import { ViewTrainingComponent } from './pages/admin/view-training/view-training.component';
 import { ScheduleTrainingComponent } from './pages/admin/schedule-list/schedule-training/schedule-training.component';
+import { UserDashboardComponent } from './pages/employee/user-dashboard/user-dashboard.component';
 
 export const AppRoutes: Routes = [
   {path:'login',
@@ -75,6 +76,10 @@ export const AppRoutes: Routes = [
         {
           path: 'add-participants',
           component: AddParticipantsComponent,
+        },
+        {
+          path: 'user-dashboard',
+          component: UserDashboardComponent,
         }
         
       ]},

@@ -49,5 +49,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'schedule-list', component: ScheduleListComponent},
     {path:'tid',component:TIDComponent},
     {path:'type/:course',component:TypeComponent},
+    { path: 'user-dashboard', component: UserDashboardComponent},
 
 ];
