@@ -109,30 +109,21 @@
             <th class="text-center">Rating</th>
             </thead>
 
-
             <tbody>
-            <tr>
             <td><input type="range" step="1" min="0" max="5" value="0" id="technical_skills" (input)="updateRating('technical_skills', 'technicalSkillsValue')"></td>
             <td>{{technicalSkillsValue}}</td>
+            <td><input type="range" step="1" min="0" max="5" value="0" id="grasping_power" (input)="updateRating('grasping_power','graspingPowerValue')"></td>
+            <td>{{graspingPowerValue}}</td>
+            <td><input type="range" step="1" min="0" max="5" value="0" id="pro_activeness" (input)="updateRating('pro_activeness','proActivenessValue')"></td>
+            <td>{{proActivenessValue}}</td>
+            <td><input type="range" step="1" min="0" max="5" value="0" id="interest_quality" (input)="updateRating('interest_quality','interestQualityValue')"></td>
+            <td>{{interestQualityValue}}</td>
             <td><input type="range" step="1" min="0" max="5" value="0" id="leadership_quality" (input)="updateRating('leadership_quality','leadershipQualityValue')"></td>
             <td>{{leadershipQualityValue}}</td>
             <td><input type="range" step="1" min="0" max="5" value="0" id="problem_solving_ability" (input)="updateRating('problem_solving_ability','problemSolvingAbilityValue')"></td>
             <td>{{problemSolvingAbilityValue}}</td>
             <td><input type="range" step="1" min="0" max="5" value="0" id="rating_from_trainer" (input)="updateRating('rating_from_trainer','ratingFromTrainerValue')"></td>
             <td>{{ratingFromTrainerValue}}</td>
-            </tr>
-            <tr>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="grasping_power" (input)="updateRating('grasping_power','graspingPowerValue')"></td>
-            <td>{{graspingPowerValue}}</td>
-            </tr>
-            <tr>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="pro_activeness" (input)="updateRating('pro_activeness','proActivenessValue')"></td>
-            <td>{{proActivenessValue}}</td>
-            </tr>
-            <tr>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="interest_quality" (input)="updateRating('interest_quality','interestQualityValue')"></td>
-            <td>{{interestQualityValue}}</td>
-            </tr>
             </tbody>
             </table>
         

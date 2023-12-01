@@ -1,62 +1,131 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+    <li class="breadcrumb-item"><a [routerLink]="['/feedback-details']">Training Details</a></li>
+    <li class="breadcrumb-item"><a [routerLink]="['/student-list']">Attendees Details</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Feedback Details</li>
+  </ol>
+</nav>
 <!-- employee-feedback.component.html -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title" class="text-primary">Feedback for Employee: {{ empCode }}</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="technical_skills">Technical Skills:</label>
+              <div>{{ feedback.technical_skills }}</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="grasping_power">Grasping Power:</label>
+              <div>{{ feedback.grasping_power }}</div>
+            </div>
+          </div>
+        </div>
 
-<div class="card">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="proactiveness">Pro-Activeness:</label>
+              <div>{{ feedback.proactiveness }}</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="interest">Interest Rate:</label>
+              <div>{{ feedback.interest }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="leadership_quality">Leadership Quality:</label>
+              <div>{{ feedback.leadership_quality }}</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="problem">Problem Solving Ability:</label>
+              <div>{{ feedback.problem }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="comments">Comments from Trainer:</label>
+              <div>{{ feedback.comments }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Second Card -->
+<div class="row">
+<div class="col-md-12">
+  <div class="card">
     <div class="card-header">
-      <h4 class="card-title" class="text-primary">Trainer Feedback for Employee: {{ empCode }}</h4>
+      <h4 class="card-title" class="text-primary">Feedback for Training: {{ empCode }}</h4>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="technical_skills">Technical Skills:</label>
-            <div>{{ feedback.technical_skills }}</div>
+            <label for="effectiveness">Effectiveness of Training:</label>
+            <div>{{ feedback.effectiveness }}</div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="grasping_power">Grasping Power:</label>
-            <div>{{ feedback.grasping_power }}</div>
+            <label for="content">Content of Training:</label>
+            <div>{{ feedback.content }}</div>
           </div>
         </div>
       </div>
-  
+
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="proactiveness">Pro-Activeness:</label>
-            <div>{{ feedback.proactiveness }}</div>
+            <label for="methodology">Effectiveness of Training Methodology:</label>
+            <div>{{ feedback.methodology }}</div>
           </div>
         </div>
+        
         <div class="col-md-6">
           <div class="form-group">
-            <label for="interest">Interest Rate:</label>
-            <div>{{ feedback.interest }}</div>
+            <label for="organization">Organization of Training:</label>
+            <div>{{ feedback.organization }}</div>
           </div>
         </div>
       </div>
-  
+
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="leadership_quality">Leadership Quality:</label>
-            <div>{{ feedback.leadership_quality }}</div>
+            <label for="trainer_rating">Trainer Rating:</label>
+            <div>{{ feedback.trainer_rating }}</div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="problem">Problem Solving Ability:</label>
-            <div>{{ feedback.problem }}</div>
+            <label for="comments">Comments from Employee:</label>
+            <div>{{ feedback.comments1 }}</div>
           </div>
-        </div>
-      </div>
-      
-      <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="comments">Comments from Trainer:</label>
-                <div>{{ feedback.comments }}</div>
-            </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+</div>
