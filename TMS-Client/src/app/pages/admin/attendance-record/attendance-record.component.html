@@ -1,0 +1,49 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/admin-attendance']">Training Details</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/student-list1', {start_date: start_date, end_date: end_date}]">Attendees Details</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Attendance Record</li>
+    </ol>
+  </nav>
+<div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Attendance Details for Employee: {{ emp_code }}</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <p><strong>Course Name:</strong> {{ c_name }}</p>
+          <p><strong>Trainer Name:</strong> {{ t_name }}</p>
+          <p><strong>Status:</strong> {{ status }}</p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Start Date:</strong> {{ start_date }}</p>
+          <p><strong>End Date:</strong> {{ end_date }}</p>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-primary" (click)="addDates()">Add Dates</button>
+        </div>
+      </div>
+  
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="text-primary">
+            <th class="text-center">Date</th>
+            <th class="text-center">Attendance Status</th>
+            <th class="text-center ">Edit</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let record of attendanceDetails">
+              <td class="text-center">{{ record.date }}</td>
+              <td class="text-center">{{ record.status }}</td>
+              <td class="text-center">
+                <button class="btn btn-primary" (click)="editStatus(record)">{{ record.edit }}</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

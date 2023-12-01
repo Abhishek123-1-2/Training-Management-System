@@ -1,23 +1,27 @@
 /* admin-attendance.component.ts */
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { NgModel } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TableFilterService } from '../filtersearch/filterpipe.component';
-
-
-declare interface TableRow {
-serial_no:number;
-courses: string;
-trainer_names:string;
-attendance: string;
-start_date:string;
-end_date:string;
-}
 
 declare interface TableData {
   headerRow: string[];
-  dataRows: TableRow[];
+  dataRows: {
+    sr_no: string;
+    c_name: string;
+    t_name: string;
+    status: string;
+    s_date: string;
+    e_date: string;
+    v_attendees: string;
+  }[];
+}
+declare interface TableRow {
+  sr_no: string;
+  c_name: string;
+  t_name: string;
+  status: string;
+  s_date: string;
+  e_date: string;
+  v_attendees: string;
 }
 
   
@@ -30,93 +34,25 @@ declare interface TableData {
 
 
 export class AdminAttendanceComponent implements OnInit {
-  public tableData2: any ={
-    headerRow: ['No.', 'Course Name', 'Trainer Names','Start Date','End Date', 'Attendance'],
-    dataRows: [
-      { serial_no: 1, courses: 'Angular', trainer_names: 'Bhavana Desai',start_date:'12-11-2023',end_date:'20-11-2023', attendance: 'View' },
-      { serial_no: 2, courses: 'Spring Boot', trainer_names: 'Tushar Kale',start_date:'11-11-2023',end_date:'19-11-2023', attendance: 'View' },
-      { serial_no: 3, courses: 'Core Java', trainer_names: 'Tushar Kale',start_date:'10-11-2023',end_date:'18-11-2023', attendance: 'View' },
-      { serial_no: 4, courses: 'PLSQL', trainer_names: 'Girish Mehta',start_date:'9-11-2023',end_date:'17-11-2023', attendance: 'View' },
-    ]};
-
-    originalTableData: any[] = [];
-  searchText: string='';
-
-  constructor( private router:Router,
-    ){}
+  public tableData1: TableData;
+  public filteredData: TableRow[];
+  public searchValue: string = '';
 
   ngOnInit(){
-    this.fetchTableData();
-  }
-
-  fetchTableData() {
-    // Simulating data retrieval or initialization
-    this.originalTableData = [
-      { serial_no: 1, courses: 'Angular', trainer_names: 'Bhavana Desai', start_date: '12-11-2023', end_date: '20-11-2023', attendance: 'View' },
-      { serial_no: 2, courses: 'Spring Boot', trainer_names: 'Tushar Kale', start_date: '11-11-2023', end_date: '19-11-2023', attendance: 'View' },
-      { serial_no: 3, courses: 'Core Java', trainer_names: 'Tushar Kale', start_date: '10-11-2023', end_date: '18-11-2023', attendance: 'View' },
-      { serial_no: 4, courses: 'PLSQL', trainer_names: 'Girish Mehta', start_date: '9-11-2023', end_date: '17-11-2023', attendance: 'View' },
-    ];
-  
-    // Assign originalTableData to tableData2.dataRows
-    this.tableData2.dataRows = [...this.originalTableData];
-  }
-
-
-  showAttendance(courses: string, event: Event) {
-    event.preventDefault();
-
-}
-
-applyFilter() {
-  if (this.searchText.trim() !== '') {
-    const filteredData = this.originalTableData.filter(row => {
-      return (
-        row.courses.toLowerCase().includes(this.searchText.toLowerCase()) ||
-        row.trainer_names.toLowerCase().includes(this.searchText.toLowerCase()) ||
-        row.start_date.includes(this.searchText) ||
-        row.end_date.includes(this.searchText) ||
-        row.attendance.toLowerCase().includes(this.searchText.toLowerCase())
-      );
-    });
-    this.tableData2.dataRows = filteredData;
-  } else {
-    this.resetTable();
-  }
-}
-
-  onSearchInputChange() {
-    if (this.searchText.trim() !== '') {
-      const filteredData = this.originalTableData.filter(row => {
-        return (
-          row.courses.toLowerCase().includes(this.searchText.toLowerCase()) ||
-          row.trainer_names.toLowerCase().includes(this.searchText.toLowerCase()) ||
-          row.start_date.includes(this.searchText) ||
-          row.end_date.includes(this.searchText) ||
-          row.attendance.toLowerCase().includes(this.searchText.toLowerCase())
-        );
-      });
-      this.tableData2.dataRows = filteredData;
-    } else {
-      this.resetTable();
-    }
-
-  }
-
-  onSubmit(){}
-
-  
-  resetTable() {
-    this.searchText = '';
-    // Reset table to its original state
-    this.tableData2 = {
-      headerRow: ['No.', 'Course Name', 'Trainer Names', 'Start Date', 'End Date', 'Attendance'],
+    this.tableData1 = {
+      headerRow: ['Sr No.', 'Course Name', 'Trainer Name', 'Status', 'Start Date', 'End Date', 'View Attendees'],
       dataRows: [
-        { serial_no: 1, courses: 'Angular', trainer_names: 'Bhavana Desai', start_date: '12-11-2023', end_date: '20-11-2023', attendance: 'View' },
-        { serial_no: 2, courses: 'Spring Boot', trainer_names: 'Tushar Kale', start_date: '11-11-2023', end_date: '19-11-2023', attendance: 'View' },
-        { serial_no: 3, courses: 'Core Java', trainer_names: 'Tushar Kale', start_date: '10-11-2023', end_date: '18-11-2023', attendance: 'View' },
-        { serial_no: 4, courses: 'PLSQL', trainer_names: 'Girish Mehta', start_date: '9-11-2023', end_date: '17-11-2023', attendance: 'View' },
+        { sr_no: '1', c_name: 'Angular', t_name: 'Amisha', status: 'On-Going', s_date:'30-11-2023', e_date: '12-12-2023', v_attendees: 'View'},
+        { sr_no: '2', c_name: 'Node JS', t_name: 'John Doe', status: 'On-Going', s_date:'01-12-2023', e_date: '07-12-2023', v_attendees: 'View'},
       ]
     };
+    this.filteredData = [...this.tableData1.dataRows]
+  }
+  applyFilter() {
+    this.filteredData = this.tableData1.dataRows.filter(row =>
+      Object.values(row).some(value =>
+        value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
+      )
+    );
   }
 }
