@@ -15,6 +15,15 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './pages/login/login.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
+import { AdminEmployeeFeedbackComponent } from "./pages/admin/admin_employee_feedback/admin_employee-feedback.component";
+import { AdminRegistrationComponent } from "./pages/admin/admin_registration/admin_registration.component";
+import { AdminTrainerFeedbackComponent } from "./pages/admin/admin_trainer_feedback/admin_trainer_feedback.component";
+import { StudentListComponent } from "./pages/admin/student_list/student_list.component";
+// import { StudentList1Component } from "./pages/admin/student_list1/student_list1.component";
+import { AddParticipantsComponent } from "./pages/admin/add_participants/add_participants.component";
+import { TimeFormatPipe } from "./pages/admin/schedule-list/schedule-training/schedule-training.pipe";
+import { ScheduleTrainingComponent } from "./pages/admin/schedule-list/schedule-training/schedule-training.component";
+import { TrainerDashboardComponent } from './pages/trainer/trainer-dashboard/trainer-dashboard.component';
 import { FeedbackComponent } from './pages/employee/feedback/feedback.component';
 import { UserDashboardComponent } from './pages/employee/user-dashboard/user-dashboard.component';
 import { FeedbackDetailsComponent } from './pages/admin/feedback-details/feedback-details.component';

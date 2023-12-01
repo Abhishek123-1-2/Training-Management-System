@@ -11,6 +11,12 @@ import { AdminRegistrationComponent } from './pages/admin/admin_registration/adm
 import { RegistrationEditComponent } from './pages/admin/registration_edit/registration_edit.component';
 import { AddParticipantsComponent } from './pages/admin/add_participants/add_participants.component';
 import { LoginComponent } from './pages/login/login.component';
+// import { AttendanceDetailsComponent } from './pages/admin/attendance-details/attendance-details.component';
+// import { AdminTrainingComponent } from './pages/admin-training/admin-training.component';
+import { AdminAttendanceComponent } from './pages/admin/admin-attendance/admin-attendance.component';
+import { AddTrainingComponent } from './pages/admin/add-training/add-training.component';
+import { ViewTrainingComponent } from './pages/admin/view-training/view-training.component';
+import { ScheduleTrainingComponent } from './pages/admin/schedule-list/schedule-training/schedule-training.component';
 
 export const AppRoutes: Routes = [
   {path:'login',

@@ -11,9 +11,13 @@ import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
 import { AdminAttendanceComponent } from 'app/pages/admin/admin-attendance/admin-attendance.component';
 import { AddTrainingComponent } from 'app/pages/admin/add-training/add-training.component';
 import { ViewTrainingComponent } from 'app/pages/admin/view-training/view-training.component';
-import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-training/schedule-training.component';
+// import { AttendanceDetailsComponent } from 'app/pages/admin/attendance-details/attendance-details.component';
+import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-list/schedule-training/schedule-training.component';
 import { AddParticipantsComponent } from 'app/pages/admin/add_participants/add_participants.component';
 import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/trainer-dashboard.component';
+import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
+import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
+import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
 import { FeedbackComponent } from 'app/pages/employee/feedback/feedback.component';
 import { UserDashboardComponent } from 'app/pages/employee/user-dashboard/user-dashboard.component';
 import { FeedbackDetailsComponent } from 'app/pages/admin/feedback-details/feedback-details.component';
@@ -33,12 +37,17 @@ export const AdminLayoutRoutes: Routes = [
     { path:'add-training',component: AddTrainingComponent },
     { path:'view-training',component:ViewTrainingComponent},
     { path:'schedule-training',component:ScheduleTrainingComponent},
+    { path:'schedule-training/:course/:trainer',component:ScheduleTrainingComponent},
+    // { path:'attendance/:course',component:AttendanceDetailsComponent},
     { path: 'add-participants',component: AddParticipantsComponent},
     { path: 'trainer-dashboard', component: TrainerDashboardComponent},
-    { path: 'feedback', component:FeedbackComponent},
-    { path: 'user-dashboard', component: UserDashboardComponent},
     { path: 'feedback-details', component: FeedbackDetailsComponent},
+    { path: 'feedback', component:FeedbackComponent},
     { path: 'student-list', component: StudentListComponent},
     { path: 'student-list1', component: StudentList1Component},
-    { path: 'attendance-record/:emp_code/:c_name/:t_name/:status/:start_date/:end_date', component: AttendanceRecordComponent},
+    { path: 'attendance-record', component: AttendanceRecordComponent},
+    { path: 'schedule-list', component: ScheduleListComponent},
+    {path:'tid',component:TIDComponent},
+    {path:'type/:course',component:TypeComponent},
+
 ];

@@ -68,10 +68,10 @@
 
                                 <div class="col-md-4 ">
                                     <div class="form-group">
-                                        <label>Trainer Names </label>
+                                        <label>Trainer Name </label>
                                         <input type="text" id="trainer_names" name="trainer_names" formControlName="trainer_names" class="form-control" maxlength="25" required>
                                         <small class="text-danger" *ngIf="trainingForm.get('trainer_names').hasError('required') && (trainingForm.get('trainer_names').touched || trainingForm.get('trainer_names').dirty)">
-                                            Trainer Names are required.
+                                            Trainer Name are required.
                                         </small>
                                     </div>
                                 </div>
@@ -128,10 +128,10 @@
 
                                 <div class="col-md-4 ">
                                     <div class="form-group">
-                                        <label>URL </label>
+                                        <label>Meeting Link </label>
                                         <input type="url" id="url" name="url" formControlName="url" class="form-control" required>
                                         <small class="text-danger" *ngIf="trainingForm.get('url').hasError('required') && (trainingForm.get('url').touched || trainingForm.get('url').dirty)">
-                                            URL is required.
+                                            Meeting Link is required.
                                         </small>
                                     </div>
                                 </div>

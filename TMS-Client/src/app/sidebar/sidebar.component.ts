@@ -14,9 +14,10 @@ export interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '', roles: ['ROLE_ADMIN'] },
     { path:'/admin-training',title: 'Training' , icon :'nc-caps-small' , class : ' ', roles: ['ROLE_ADMIN'] ,submenu:[
-        { path:'/add-training',title:'Add Training',icon:'',class:'', roles: ['ROLE_ADMIN']},
-        {path:'/view-training',title:'View Training',icon:'',class:'', roles: ['ROLE_ADMIN']},
-        {path:'/schedule-training',title:'Schedule Training',icon:'',class:'', roles: ['ROLE_ADMIN']}
+        { path:'/add-training',title:'Add-Training',icon:'',class:'', roles: ['ROLE_ADMIN']},
+        {path:'/view-training',title:'View-Training',icon:'',class:'', roles: ['ROLE_ADMIN']},
+        {path:'/schedule-list',title:'Schedule-List',icon:'',class:'', roles: ['ROLE_ADMIN']},
+        
 
     ]},
     { path: '/admin-attendance' ,title :'Attendance' ,icon :'nc-caps-small' , class : '', roles: ['ROLE_ADMIN']}, 

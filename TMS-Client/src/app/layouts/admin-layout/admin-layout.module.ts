@@ -19,10 +19,14 @@ import { StudentList1Component } from 'app/pages/admin/student_list1/student_lis
 import { AddParticipantsComponent } from 'app/pages/admin/add_participants/add_participants.component';
 import { ViewTrainingComponent } from 'app/pages/admin/view-training/view-training.component';
 import { AdminAttendanceComponent } from 'app/pages/admin/admin-attendance/admin-attendance.component';
-import { TimeFormatPipe } from 'app/pages/admin/schedule-training/schedule-training.pipe';
-import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-training/schedule-training.component';
+import { TimeFormatPipe } from 'app/pages/admin/schedule-list/schedule-training/schedule-training.pipe';
+import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-list/schedule-training/schedule-training.component';
 import { AddTrainingComponent } from 'app/pages/admin/add-training/add-training.component';
 import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/trainer-dashboard.component';
+import { TableFilterService } from 'app/pages/admin/filtersearch/filterpipe.component';
+import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
+import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
+import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
 
 
 @NgModule({
@@ -31,6 +35,7 @@ import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/t
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     ReactiveFormsModule,
+    
     
   ],
   declarations: [
@@ -53,7 +58,12 @@ import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/t
     TimeFormatPipe,
     ScheduleTrainingComponent,
     AddTrainingComponent,
-    TrainerDashboardComponent
+    TrainerDashboardComponent,
+    TIDComponent,
+    TypeComponent,
+    ScheduleListComponent,
+    
+    
   ]
 })
 
