@@ -27,7 +27,6 @@ import { TableFilterService } from 'app/pages/admin/filtersearch/filterpipe.comp
 import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
 import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
 import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
-import { UserDashboardComponent } from 'app/pages/employee/user-dashboard/user-dashboard.component';
 
 
 @NgModule({
