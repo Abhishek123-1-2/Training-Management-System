@@ -19,6 +19,7 @@ import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-training/sch
 import { AddParticipantsComponent } from 'app/pages/admin/add_participants/add_participants.component';
 import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/trainer-dashboard.component';
 import { FeedbackComponent } from 'app/pages/employee/feedback/feedback.component';
+import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback-form.component';
 /* import { AttendanceDetailsComponent } from 'app/pages/admin-attendance/attendance-details.component';
  */
 export const AdminLayoutRoutes: Routes = [
@@ -38,5 +39,6 @@ export const AdminLayoutRoutes: Routes = [
     { path:'attendance/:course',component:AttendanceDetailsComponent},
     { path: 'add-participants',component: AddParticipantsComponent},
     { path: 'trainer-dashboard', component: TrainerDashboardComponent},
-    { path: 'feedback', component:FeedbackComponent}
+    { path: 'feedback', component:FeedbackComponent},
+    { path: 'feedback-form/:id', component:FeedbackFormComponent}
 ];

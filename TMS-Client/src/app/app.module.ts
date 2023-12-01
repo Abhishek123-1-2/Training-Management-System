@@ -25,6 +25,7 @@ import { TimeFormatPipe } from "./pages/admin/schedule-training/schedule-trainin
 import { ScheduleTrainingComponent } from "./pages/admin/schedule-training/schedule-training.component";
 import { TrainerDashboardComponent } from './pages/trainer/trainer-dashboard/trainer-dashboard.component';
 import { FeedbackComponent } from './pages/employee/feedback/feedback.component';
+import { FeedbackFormComponent } from './pages/employee/feedback-form/feedback-form.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FeedbackComponent } from './pages/employee/feedback/feedback.component'
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    FeedbackFormComponent
   
     
   ],
@@ -47,6 +49,7 @@ import { FeedbackComponent } from './pages/employee/feedback/feedback.component'
     ToastrModule.forRoot(),
     FooterModule,
     FixedPluginModule,FormsModule,ReactiveFormsModule,HttpClientModule,
+    ReactiveFormsModule
     
   ],
   providers: [],
