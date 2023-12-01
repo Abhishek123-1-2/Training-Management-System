@@ -15,11 +15,12 @@ import { AdminAttendanceComponent } from 'app/pages/admin/admin-attendance/admin
 import { AddTrainingComponent } from 'app/pages/admin/add-training/add-training.component';
 import { ViewTrainingComponent } from 'app/pages/admin/view-training/view-training.component';
 import { AttendanceDetailsComponent } from 'app/pages/admin/attendance-details/attendance-details.component';
-import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-training/schedule-training.component';
+import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-list/schedule-training/schedule-training.component';
 import { AddParticipantsComponent } from 'app/pages/admin/add_participants/add_participants.component';
 import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/trainer-dashboard.component';
 import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
 import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
+import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
 /* import { AttendanceDetailsComponent } from 'app/pages/admin-attendance/attendance-details.component';
  */
 export const AdminLayoutRoutes: Routes = [
@@ -35,11 +36,16 @@ export const AdminLayoutRoutes: Routes = [
     { path:'admin-attendance',component:AdminAttendanceComponent },
     { path:'add-training',component: AddTrainingComponent },
     { path:'view-training',component:ViewTrainingComponent},
-    { path:'schedule-training',component:ScheduleTrainingComponent},
+    
     { path:'attendance/:course',component:AttendanceDetailsComponent},
     { path: 'add-participants',component: AddParticipantsComponent},
     { path: 'trainer-dashboard', component: TrainerDashboardComponent},
     
     {path:'tid',component:TIDComponent},
-    {path:'type',component:TypeComponent},
+    {path:'type/:course',component:TypeComponent},
+
+    /* modified */
+    { path:'schedule-training',component:ScheduleTrainingComponent},
+    { path:'schedule-training/:course/:trainer',component:ScheduleTrainingComponent},
+    {path:'schedule-list',component:ScheduleListComponent}
 ];

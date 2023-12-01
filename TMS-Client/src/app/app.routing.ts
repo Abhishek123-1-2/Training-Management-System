@@ -19,7 +19,7 @@ import { AttendanceDetailsComponent } from './pages/admin/attendance-details/att
 import { AdminAttendanceComponent } from './pages/admin/admin-attendance/admin-attendance.component';
 import { AddTrainingComponent } from './pages/admin/add-training/add-training.component';
 import { ViewTrainingComponent } from './pages/admin/view-training/view-training.component';
-import { ScheduleTrainingComponent } from './pages/admin/schedule-training/schedule-training.component';
+import { ScheduleTrainingComponent } from './pages/admin/schedule-list/schedule-training/schedule-training.component';
 
 export const AppRoutes: Routes = [
   {path:'login',

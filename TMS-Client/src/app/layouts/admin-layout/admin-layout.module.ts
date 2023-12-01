@@ -25,13 +25,14 @@ import { ViewTrainingComponent } from 'app/pages/admin/view-training/view-traini
 import { viewport } from '@popperjs/core';
 import { AdminAttendanceComponent } from 'app/pages/admin/admin-attendance/admin-attendance.component';
 import { AttendanceDetailsComponent } from 'app/pages/admin/attendance-details/attendance-details.component';
-import { TimeFormatPipe } from 'app/pages/admin/schedule-training/schedule-training.pipe';
-import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-training/schedule-training.component';
+import { TimeFormatPipe } from 'app/pages/admin/schedule-list/schedule-training/schedule-training.pipe';
+import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-list/schedule-training/schedule-training.component';
 import { AddTrainingComponent } from 'app/pages/admin/add-training/add-training.component';
 import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/trainer-dashboard.component';
 import { TableFilterService } from 'app/pages/admin/filtersearch/filterpipe.component';
 import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
 import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
+import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
 
 
 @NgModule({
@@ -66,7 +67,9 @@ import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.compo
     AddTrainingComponent,
     TrainerDashboardComponent,
     TIDComponent,
-    TypeComponent
+    TypeComponent,
+    ScheduleListComponent,
+    
     
   ]
 })

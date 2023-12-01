@@ -21,8 +21,8 @@ import { AdminTrainerFeedbackComponent } from "./pages/admin/admin_trainer_feedb
 import { StudentListComponent } from "./pages/admin/student_list/student_list.component";
 // import { StudentList1Component } from "./pages/admin/student_list1/student_list1.component";
 import { AddParticipantsComponent } from "./pages/admin/add_participants/add_participants.component";
-import { TimeFormatPipe } from "./pages/admin/schedule-training/schedule-training.pipe";
-import { ScheduleTrainingComponent } from "./pages/admin/schedule-training/schedule-training.component";
+import { TimeFormatPipe } from "./pages/admin/schedule-list/schedule-training/schedule-training.pipe";
+import { ScheduleTrainingComponent } from "./pages/admin/schedule-list/schedule-training/schedule-training.component";
 import { TrainerDashboardComponent } from './pages/trainer/trainer-dashboard/trainer-dashboard.component';
 
 @NgModule({

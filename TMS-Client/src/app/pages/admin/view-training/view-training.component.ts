@@ -5,27 +5,26 @@ import { Router } from '@angular/router';
 declare interface TableData {
     headerRow: string[];
     dataRows: {
-        number: string;
-        category: string;
-        schedule: string;
-        course: string
-        trainer_name: string;
-        start_date: string;
-        end_date: string;
-        status:string;
-        action: string;  
+
+number: string;
+course: string;
+trainer_name: string;
+meeting_link: string;
+username: string;
+password:string;
+action: string;  
+       
     }[];
 }
 interface TableRow {
-    number: string;
-    category: string;
-    schedule: string;
-    course: string;
-    trainer_name: string;
-    start_date: string;
-    end_date: string;
-    status:string;
-    action: string;
+number: string;
+course: string;
+trainer_name: string;
+meeting_link: string;
+username: string;
+password:string;
+action: string; 
+
 }
 
 @Component({
@@ -53,38 +52,48 @@ export class ViewTrainingComponent implements OnInit {
             dataRows: [{
 number: '1',
 course: 'Java',
-category: 'Mandatory',
-schedule: 'Pre-defined',
-
 trainer_name: 'Kishor',
-start_date: '20-11-2023',
-end_date: '22-11-2023',
-status:'Completed',
-action: ''  },
+meeting_link: 'www.meet.gooogle.com',
+username: 'mukul',
+password:'123',
+action: ''  }
+,
 {
   number: '2',
-  course: 'Angular',
-category: 'Mandatory',
-schedule: 'Pre-defined',
-
-trainer_name: 'Amisha',
-start_date: '20-11-2023',
-end_date: '22-11-2023',
-status:'Completed',
-action: ''
+  course: 'Spring Boot',
+  trainer_name: 'Kishor',
+  meeting_link: 'www.meet.ms.com',
+  username: 'abhi',
+  password:'456',
+  action: '' 
 } ,
 {
   number: '3',
-  course: 'PLSQL',
-category: 'Mandatory',
-schedule: 'Pre-defined',
-
-trainer_name: 'Girish ',
-start_date: '20-11-2023',
-end_date: '22-11-2023',
-status:'Completed',
-action: ''
-}     
+course: 'PLSQL',
+trainer_name: 'Girish',
+meeting_link: 'www.meet.gooogle.com',
+username: 'yash',
+password:'789',
+action: '' 
+}     ,
+{
+  number: '4',
+  course: 'Angular',
+  trainer_name: 'Bhavana',
+  meeting_link: 'www.angular.com',
+  username: 'mukul',
+  password:'012',
+  action: '' 
+},
+{
+  number: '5',
+  course: 'Javascript',
+  trainer_name: 'Bhavana',
+  meeting_link: 'www.mdnwebdocs.com',
+  username: 'mukul',
+  password:'012',
+  action: '' 
+}
 ]
         };
         this.filteredData = [...this.tableData1.dataRows]
@@ -122,10 +131,42 @@ action: ''
         this.isAddParticipantsFormVisible = !this.isAddParticipantsFormVisible;
         this.display = 'block';
     }
-    navigateToAddParticipants() {
-      this.router.navigate(['/tid']);
-    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*  navigateToAddParticipants() {
+      this.router.navigate(['/tid']);
+    } */
+
+    /* number: string;
+    category: string;
+    schedule: string;
+    course: string;
+    trainer_name: string;
+    start_date: string;
+    end_date: string;
+    status:string;
+    action: string; */
 
 
 /* // viewtraining.component.ts

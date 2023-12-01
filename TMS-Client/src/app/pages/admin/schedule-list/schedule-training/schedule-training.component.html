@@ -2,7 +2,7 @@
             <div class="col">
                 <div class="card ">
                     <div class="card-header">
-                        <h5 class="card-title">Schedule Training</h5>
+                        <h5 class="card-title">Add Schedule</h5>
                     </div>
 
                     <div class="card-body">
@@ -12,8 +12,19 @@
 
                                 <div class="col-md-4 ">
                                     <div class="form-group">
+                                        <label>Course</label>
+                                        <input type="text" id="course" name="course" formControlName="course" class="form-control" required>
+                                        <div *ngIf="trainingForm.get('course').invalid && (trainingForm.get('course').dirty || trainingForm.get('course').touched)">
+                                            <small class="text-danger" *ngIf="trainingForm.get('course').errors.required">Course Name is required</small>
+                                          </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
                                         <label>Trainer Name</label>
-                                        <input type="text" id="trainer name" name="trainer name" formControlName="trainerName" class="form-control" required>
+                                        <input type="text" id="trainerName" name="trainerName" formControlName="trainerName" class="form-control" required>
                                         <div *ngIf="trainingForm.get('trainerName').invalid && (trainingForm.get('trainerName').dirty || trainingForm.get('trainerName').touched)">
                                             <small class="text-danger" *ngIf="trainingForm.get('trainerName').errors.required">Trainer Name is required</small>
                                           </div>
@@ -30,37 +41,16 @@
                                     </div>
                                 </div>
 
+                            </div>
+
+                            <!-- Second Row -->
+                            <div class="row">
                                 <div class="col-md-4 ">
                                     <div class="form-group">
                                         <label>Planned End Date </label>
                                         <input type="date" id="planned end date" name="planned end date" formControlName="plannedEndDate" class="form-control" required>
                                         <div *ngIf="trainingForm.get('plannedEndDate').invalid && (trainingForm.get('plannedEndDate').dirty || trainingForm.get('plannedEndDate').touched)">
                                             <small class="text-danger" *ngIf="trainingForm.get('plannedEndDate').errors.required">Date is required</small>
-                                          </div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <!-- Second Row -->
-                            <div class="row">
-
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label>Actual Start Date</label>
-                                        <input type="date" id="actual start date" name="actual start date" formControlName="actualStartDate" class="form-control" required>
-                                        <div *ngIf="trainingForm.get('actualStartDate').invalid && (trainingForm.get('actualStartDate').dirty || trainingForm.get('actualStartDate').touched)">
-                                            <small class="text-danger" *ngIf="trainingForm.get('actualStartDate').errors.required">Date is required</small>
-                                          </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label>Actual End Date </label>
-                                        <input type="date" id="actual end date" name="actual end date" formControlName="actualEndDate" class="form-control" required>
-                                        <div *ngIf="trainingForm.get('actualEndDate').invalid && (trainingForm.get('actualEndDate').dirty || trainingForm.get('actualEndDate').touched)">
-                                            <small class="text-danger" *ngIf="trainingForm.get('actualEndDate').errors.required">Date is required</small>
                                           </div>
                                     </div>
                                 </div>
@@ -78,32 +68,30 @@
                                     </div>
                                 </div>
                                 
-
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>To Time </label>
+                                        <input type="time" id="to time" name="to time" formControlName="toTime" class="form-control" required>
+                                        <div *ngIf="trainingForm.get('toTime').invalid && (trainingForm.get('toTime').dirty || trainingForm.get('toTime').touched)">
+                                            <small class="text-danger" *ngIf="trainingForm.get('toTime').errors.required">Time is required</small>
+                                          </div>
+                                        <p>{{ trainingForm.value.fromTime | formatTime }}</p>
+                        
+                                    </div>
+                                </div>
 
                             </div>
 
     <div class="row">
-
-        <div class="col-md-4 ">
-            <div class="form-group">
-                <label>To Time </label>
-                <input type="time" id="to time" name="to time" formControlName="toTime" class="form-control" required>
-                <div *ngIf="trainingForm.get('toTime').invalid && (trainingForm.get('toTime').dirty || trainingForm.get('toTime').touched)">
-                    <small class="text-danger" *ngIf="trainingForm.get('toTime').errors.required">Time is required</small>
-                  </div>
-                <p>{{ trainingForm.value.fromTime | formatTime }}</p>
-
-            </div>
-        </div>
 
     <div class="col-md-4 ">
         <div class="form-group">
             <label>Status </label>
             <select class="form-control" id="status" name="status" formControlName="status" required>
                 <option value="Select"></option>
-                <option value="PRE-DEFINED">On-Going</option>
+                <!-- <option value="PRE-DEFINED">On-Going</option> -->
                 <option value="ON-REQUEST">Upcoming</option>
-                <option value="PRE-DEFINED">Completed</option>
+                <!-- <option value="PRE-DEFINED">Completed</option> -->
 
             </select>
         </div>
