@@ -1,11 +1,12 @@
-/* schedule-training.component.ts */
 
+ 
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { Router } from '@angular/router';
+
 @Component({
     selector: 'schedule-training-cmp',
     moduleId: module.id,
@@ -14,25 +15,26 @@ import { Router } from '@angular/router';
 
 
 
-export class ScheduleTrainingComponent implements OnInit{
+export class ScheduleTrainingComponent{
     trainingForm:FormGroup;
     selectedTime: string = ''; // To store the selected time
     course: string | null = null;
-  trainer: string | null = null;
+trainer: string | null = null;
 
     constructor(private formBuilder: FormBuilder,
       private  route: ActivatedRoute,
-      private router:Router
+private router:Router
       ) {
 
-        this.course = this.route.snapshot.paramMap.get('course') || null;
-        this.trainer = this.route.snapshot.paramMap.get('trainer') || null;
-    
+        
+this.course = this.route.snapshot.paramMap.get('course') || null;
+this.trainer = this.route.snapshot.paramMap.get('trainer') || null;
 
 
         this.trainingForm = this.formBuilder.group({
             trainerName:[this.trainer,Validators.required],
             course:[this.course,Validators.required],
+
           fromTime: ['', Validators.required],
           timePeriod: [''],
           toTime: ['', Validators.required],
@@ -42,15 +44,11 @@ export class ScheduleTrainingComponent implements OnInit{
       /* actualStartDate: ['', Validators.required],
       actualEndDate: ['', Validators.required] */
         });
+      }
 
+      ngOnInit(){
 
-
-     
-    }
-
-  ngOnInit(){
-    
-  }
+      }
 
       toggleAmPm() {
         const timeControl = this.trainingForm.get('fromTime');
@@ -76,14 +74,19 @@ export class ScheduleTrainingComponent implements OnInit{
         }
       }
 
-    onSubmit(){
-       if(this.trainingForm.valid){
-        alert('Data saved successfully!');
-        this.router.navigate(['/schedule-list'])
 
-       }else{
-        alert('Please fill in all required fields!');
+      
 
-       }
-  }     
+    
+onSubmit(){
+  if(this.trainingForm.valid){
+  alert('Data saved successfully!');
+  this.router.navigate(['/schedule-list'])
+  
+  }else{
+  alert('Please fill in all required fields!');
+  
+  }
+
+}
 }

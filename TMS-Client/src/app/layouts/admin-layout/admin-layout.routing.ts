@@ -21,6 +21,7 @@ import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/t
 import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
 import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
 import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
+import { FeedbackComponent } from 'app/pages/employee/feedback/feedback.component';
 /* import { AttendanceDetailsComponent } from 'app/pages/admin-attendance/attendance-details.component';
  */
 export const AdminLayoutRoutes: Routes = [
@@ -47,5 +48,6 @@ export const AdminLayoutRoutes: Routes = [
     /* modified */
     { path:'schedule-training',component:ScheduleTrainingComponent},
     { path:'schedule-training/:course/:trainer',component:ScheduleTrainingComponent},
-    {path:'schedule-list',component:ScheduleListComponent}
+    {path:'schedule-list',component:ScheduleListComponent},
+    { path: 'feedback', component:FeedbackComponent}
 ];
