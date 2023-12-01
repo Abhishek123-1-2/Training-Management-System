@@ -1,4 +1,4 @@
-
+/* schedule-list.component.ts */
 import { Component, OnInit } from '@angular/core'
 import { AddParticipantsComponent } from '../add_participants/add_participants.component';
 import { Router } from '@angular/router';
