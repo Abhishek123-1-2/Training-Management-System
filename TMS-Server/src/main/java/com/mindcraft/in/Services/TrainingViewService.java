@@ -105,7 +105,50 @@ public void scheduleTraining(Long trainingId, TrainingSchedule request) {
         // Handle the exception according to your application's needs
     }
 }
+
+// public List<String> getTrainingCourses() {
+//     String sql = "SELECT course FROM m_trainings";
+//     return jdbcTemplate.queryForList(sql, String.class);
+// }
+
+// public Long getTrainingIdByCourse(String course) {
+//     String sql = "SELECT training_id FROM m_trainings WHERE course = ?";
+//     try {
+//         return jdbcTemplate.queryForObject(sql, Long.class, course);
+//     } catch (EmptyResultDataAccessException e) {
+//         return null;
+//     }
+// }
+public Long getTrainingIdByCourse(String courseInfo) {
+    // Split the concatenated string into course name and planned start date
+    String[] parts = courseInfo.split(" - ");
+    String course = parts[0];
+    // If needed, you can parse the planned start date from parts[1]
+
+    // Modify the SQL query to handle the concatenated course name
+    String sql = "SELECT training_id FROM m_trainings WHERE course = ?";
     
+    try {
+        return jdbcTemplate.queryForObject(sql, Long.class, course);
+    } catch (EmptyResultDataAccessException e) {
+        return null;
+    }
+}
+
+public List<String> getTrainingCourses() {
+    String sql = "SELECT t.course || ' - ' || ts.planned_start_date AS course_info " +
+                 "FROM m_trainings t " +
+                 "JOIN training_schedule ts ON t.training_id = ts.training_id";
+    return jdbcTemplate.queryForList(sql, String.class);
+}
+public Long getScheduleIdByTrainingId(Long trainingId) {
+    String sql = "SELECT schedule_id FROM training_schedule WHERE training_id = ?";
+    try {
+        return jdbcTemplate.queryForObject(sql, Long.class, trainingId);
+    } catch (EmptyResultDataAccessException e) {
+        return null;
+    }
+}
 
     // Add other methods as needed...
 }

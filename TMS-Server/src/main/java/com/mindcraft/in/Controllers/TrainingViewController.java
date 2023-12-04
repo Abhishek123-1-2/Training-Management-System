@@ -58,5 +58,35 @@ public void scheduleTraining(@RequestBody TrainingSchedule request) {
         }
     }
 
+    @GetMapping("/courses")
+    public List<String> getTrainingCourses() {
+        return trainingViewService.getTrainingCourses();
+    }
+    @GetMapping("/training-id")
+public ResponseEntity<Long> getTrainingIdByCourse(@RequestParam String course) {
+    Long trainingId = trainingViewService.getTrainingIdByCourse(course);
+
+    if (trainingId != null) {
+        return new ResponseEntity<>(trainingId, HttpStatus.OK);
+    } else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+}
+// Inside TrainingViewController.java
+
+@GetMapping("/courses-with-dates")
+public List<String> getTrainingCoursesWithDates() {
+    return trainingViewService.getTrainingCourses();
+}
+@GetMapping("/schedule-id")
+public ResponseEntity<Long> getScheduleIdByTrainingId(@RequestParam Long trainingId) {
+    Long scheduleId = trainingViewService.getScheduleIdByTrainingId(trainingId);
+
+    if (scheduleId != null) {
+        return new ResponseEntity<>(scheduleId, HttpStatus.OK);
+    } else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+}
     // Add other endpoints as needed...
 }
