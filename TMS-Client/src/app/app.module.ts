@@ -25,10 +25,13 @@ import { TimeFormatPipe } from "./pages/admin/schedule-list/schedule-training/sc
 import { ScheduleTrainingComponent } from "./pages/admin/schedule-list/schedule-training/schedule-training.component";
 import { TrainerDashboardComponent } from './pages/trainer/trainer-dashboard/trainer-dashboard.component';
 import { FeedbackComponent } from './pages/employee/feedback/feedback.component';
-import { UserDashboardComponent } from './pages/employee/user-dashboard/user-dashboard.component';
 import { FeedbackDetailsComponent } from './pages/admin/feedback-details/feedback-details.component';
 import { EmployeeFeedbackDetailsComponent } from "./pages/admin/employee_feedback_details/employee_feedback_details.component";
 import { AttendanceRecordComponent } from './pages/admin/attendance-record/attendance-record.component';
+import { UserDashboardComponent } from "./pages/employee/user-dashboard/user-dashboard.component";
+import { HrDashboardComponent } from './pages/hr/hr-dashboard/hr-dashboard.component';
+import { TrainerFeedbackComponent } from './pages/hr/trainer-feedback/trainer-feedback.component';
+
 
 @NgModule({
   declarations: [
@@ -37,12 +40,13 @@ import { AttendanceRecordComponent } from './pages/admin/attendance-record/atten
     AdminLayoutComponent,
     LoginComponent,
     FeedbackComponent,
-    UserDashboardComponent,
     FeedbackDetailsComponent,
     EmployeeFeedbackDetailsComponent,
     AttendanceRecordComponent,
+    UserDashboardComponent,
+    HrDashboardComponent,
+    TrainerFeedbackComponent
   
-    
   ],
   imports: [
     BrowserAnimationsModule,

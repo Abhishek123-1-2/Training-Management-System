@@ -42,7 +42,9 @@ export const ROUTES: RouteInfo[] = [
 },
 
   { path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_USER']},
-  { path: '/training', title: 'Trainings', class: '', icon: 'nc-caps-small', roles:['ROLE_USER'] }
+  { path: '/user-dashboard', title: 'Trainings', class: '', icon: 'nc-caps-small', roles:['ROLE_USER'] },
+  { path: '/hr-dashboard', title: 'Employee Feedback', class: '', icon:'nc-chart-bar-32', roles:['ROLE_HR']},
+  { path: '/trainer-feedback', title: 'Trainer Feedback', class: '', icon: 'nc-app', roles:['ROLE_HR']}
 
 
      // { path: '/icons',         title: 'Icons',             icon:'nc-diamond',    class: '' },

@@ -18,7 +18,7 @@ export class FeedbackFormComponent implements OnInit {
   interestQualityValue: number = 0;
   leadershipQualityValue: number = 0;
   problemSolvingAbilityValue: number = 0;
-  ratingFromTrainerValue: number = 0;
+  commentsFromTrainerValue: number = 0;
 
 
   constructor() { }
