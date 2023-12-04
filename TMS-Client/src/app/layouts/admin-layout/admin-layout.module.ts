@@ -29,7 +29,6 @@ import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.compo
 import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
 
 
-
 @NgModule({
   imports: [
     CommonModule,

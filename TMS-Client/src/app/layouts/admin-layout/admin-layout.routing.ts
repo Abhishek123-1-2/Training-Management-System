@@ -19,7 +19,6 @@ import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
 import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
 import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
 import { FeedbackComponent } from 'app/pages/employee/feedback/feedback.component';
-
 import { FeedbackDetailsComponent } from 'app/pages/admin/feedback-details/feedback-details.component';
 import { StudentListComponent } from 'app/pages/admin/student_list/student_list.component';
 import { AttendanceRecordComponent } from 'app/pages/admin/attendance-record/attendance-record.component';
@@ -27,6 +26,7 @@ import { StudentList1Component } from 'app/pages/admin/student_list1/student_lis
 import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback-form.component';
 import { HrDashboardComponent } from 'app/pages/hr/hr-dashboard/hr-dashboard.component';
 import { TrainerFeedbackComponent } from 'app/pages/hr/trainer-feedback/trainer-feedback.component';
+import { UserDashboardComponent } from 'app/pages/employee/user-dashboard/user-dashboard.component';
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user',           component: UserComponent },
@@ -53,10 +53,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'schedule-list', component: ScheduleListComponent},
     {path:'tid',component:TIDComponent},
     {path:'type/:course',component:TypeComponent},
-    { path: "hr-dashboard",component:HrDashboardComponent},
-    { path: 'trainer-feedback', component: TrainerFeedbackComponent }
-
-    
-
+    { path: 'user-dashboard', component: UserDashboardComponent},
 
 ];
