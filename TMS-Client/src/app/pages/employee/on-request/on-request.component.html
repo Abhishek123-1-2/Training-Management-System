@@ -1,0 +1,48 @@
+<!-- on-request.component.html -->  
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">OnRequest Data</h4>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div class="form-group">
+              <label for="search">Search:</label>
+              <input class="col-md-12 form-control" type="text" id="search" [(ngModel)]="searchValue" 
+              (input)="applyFilter()">
+            </div>
+         </div>
+          <div class="table-responsive text-nowrap table-container">
+            <table class="table">
+              <thead class="text-primary">
+                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let row of filteredData; let i = index">
+                  <tr class="expandable-row">
+                    <td class="text-center">{{ row.number }}</td>
+  
+                    <td class="text-center">
+                        <a >{{ row.course }}</a></td> 
+  
+                        <td class="text-center">{{ row.trainer_name }}</td>
+                        <td class="text-center">{{ row.start_date }}</td>
+                        <td class="text-center">{{ row.end_date }}</td>
+
+
+
+                    <td class="text-center">
+                      <button class="btn btn-primary" (click)="sendRequest()">Request{{ row.action }}</button> <!-- (click)="toggleEditMode(i)" -->
+                    </td>
+                  </tr>
+                 
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

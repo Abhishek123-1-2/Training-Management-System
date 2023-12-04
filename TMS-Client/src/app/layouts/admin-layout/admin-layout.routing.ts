@@ -12,17 +12,21 @@ import { AdminAttendanceComponent } from 'app/pages/admin/admin-attendance/admin
 import { AddTrainingComponent } from 'app/pages/admin/add-training/add-training.component';
 import { ViewTrainingComponent } from 'app/pages/admin/view-training/view-training.component';
 // import { AttendanceDetailsComponent } from 'app/pages/admin/attendance-details/attendance-details.component';
-import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-list/schedule-training/schedule-training.component';
+import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-training/schedule-training.component';
 import { AddParticipantsComponent } from 'app/pages/admin/add_participants/add_participants.component';
 import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/trainer-dashboard.component';
-import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
-import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
+import { TIDComponent } from 'app/pages/admin/TID/tid.component';
+import { TypeComponent } from 'app/pages/admin/type/type.component';
 import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
 import { FeedbackComponent } from 'app/pages/employee/feedback/feedback.component';
 import { FeedbackDetailsComponent } from 'app/pages/admin/feedback-details/feedback-details.component';
 import { StudentListComponent } from 'app/pages/admin/student_list/student_list.component';
 import { AttendanceRecordComponent } from 'app/pages/admin/attendance-record/attendance-record.component';
 import { StudentList1Component } from 'app/pages/admin/student_list1/student_list1.component';
+import { OnRequestComponent } from 'app/pages/employee/on-request/on-request.component';
+import { TrainingHistoryComponent } from 'app/pages/employee/training-history/training-history.component';
+
+
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user',           component: UserComponent },
@@ -48,5 +52,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'schedule-list', component: ScheduleListComponent},
     {path:'tid',component:TIDComponent},
     {path:'type/:course',component:TypeComponent},
+    /* for USER(EMPLOYEE) */
+    {path:'on-request',component:OnRequestComponent},
+    {path:'training-history',component:TrainingHistoryComponent},
 
 ];
