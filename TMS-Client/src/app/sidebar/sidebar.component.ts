@@ -12,21 +12,19 @@ export interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '', roles: ['ROLE_ADMIN'] },
+    // { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '', roles: ['ROLE_ADMIN'] },
+    { path: '/employee-search', title: 'Employee', icon: 'nc-circle-10', class:'', roles: ['ROLE_ADMIN']},
     { path:'/admin-training',title: 'Training' , icon :'nc-caps-small' , class : ' ', roles: ['ROLE_ADMIN'] ,submenu:[
         { path:'/add-training',title:'Add-Training',icon:'',class:'', roles: ['ROLE_ADMIN']},
         {path:'/view-training',title:'View-Training',icon:'',class:'', roles: ['ROLE_ADMIN']},
         {path:'/schedule-list',title:'Schedule-List',icon:'',class:'', roles: ['ROLE_ADMIN']},
-        
-
     ]},
-    { path: '/admin-attendance' ,title :'Attendance' ,icon :'nc-caps-small' , class : '', roles: ['ROLE_ADMIN']}, 
-    { path: '/registration',  title: 'Registration List',      icon:'nc-pin-3',      class: '', roles: ['ROLE_ADMIN'] },
-     { path: '/feedback-details',      title: 'Feedback',          icon:'nc-bell-55',    class: '',roles: ['ROLE_ADMIN'],},
-    //submenu: [
-    //     { path: '/employee-feedback', title: 'Employee Feedback', icon:'', class: '', roles: ['ROLE_ADMIN'] },
-    //     { path: '/trainer-feedback',  title: 'Training Feedback', icon: '', class: '', roles: ['ROLE_ADMIN'] },
-    // ]},
+    { path: '/registration',  title: 'Registration List',      icon:'nc-paper',      class: '', roles: ['ROLE_ADMIN'] },
+    { path: '/admin-attendance' ,title :'Reports' ,icon :'nc-chart-bar-32' , class : '', roles: ['ROLE_ADMIN']}, 
+    {path: '/admin-training', title: 'History', icon:'nc-tile-56', class: '', roles: ['ROLE_ADMIN'], submenu: [
+        {path:'/training-record', title:'Training Record', icon:'', class:'', roles:['ROLE_ADMIN']},
+        {path:'/training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_ADMIN']},
+    ]},
     { path: '/trainer-dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', roles: ['ROLE_TRAINER'],submenu:[],
     children: [
         {

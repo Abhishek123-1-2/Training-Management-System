@@ -65,6 +65,7 @@ import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-li
     
     
     
+    
   ]
 })
 

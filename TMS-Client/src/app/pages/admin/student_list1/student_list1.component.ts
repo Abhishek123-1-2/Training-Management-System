@@ -51,12 +51,12 @@ export class StudentList1Component implements OnInit {
   }
   fetchStudentList(t_id: string): void {
     this.studentList = {
-        headerRow: ['Employee Code','Employee Name', 'Course Name', 'Trainer Name', 'Status', 'Start Date', 'End Date', 'View Attendance'],
+        headerRow: ['Employee Code','Employee Name', 'Course Name', 'Trainer Name', 'Status', 'Start Date', 'End Date', 'Reports'],
         dataRows: [
-            {emp_code:'3647', emp_name:'Yash Gavanang',   c_name:'Angular', t_name:'Amisha Jangipuria', status:'On-Going', view:'View'},
-            {emp_code:'3646', emp_name:'Abhishek Pillai', c_name:'Angular', t_name:'Amisha Jangipuria', status:'On-Going', view:'View'},
-            {emp_code:'3639', emp_name:'Mukul Gupta',     c_name:'Angular', t_name:'Amisha Jangipuria', status:'On-Going', view:'View'},
-            {emp_code:'3364', emp_name:'Yash Gole',       c_name:'Angular', t_name:'Amisha Jangipuria', status:'On-Going', view:'View'},
+            {emp_code:'3647', emp_name:'Yash Gavanang',   c_name:'Angular', t_name:'Amisha Jangipuria', status:'Completed', view:'View'},
+            {emp_code:'3646', emp_name:'Abhishek Pillai', c_name:'Angular', t_name:'Amisha Jangipuria', status:'Completed', view:'View'},
+            {emp_code:'3639', emp_name:'Mukul Gupta',     c_name:'Angular', t_name:'Amisha Jangipuria', status:'Completed', view:'View'},
+            {emp_code:'3364', emp_name:'Yash Gole',       c_name:'Angular', t_name:'Amisha Jangipuria', status:'Completed', view:'View'},
         ]
     };
     this.filteredData = [...this.studentList.dataRows];

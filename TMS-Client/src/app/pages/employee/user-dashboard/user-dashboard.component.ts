@@ -25,8 +25,8 @@ interface TableRow {
 
 @Component({
   selector: 'user-dashboard',
+  moduleId: module.id,
   templateUrl: './user-dashboard.component.html',
-  styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent implements OnInit {
   public tableData1: TableData;

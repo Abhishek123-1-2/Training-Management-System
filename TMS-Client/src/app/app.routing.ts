@@ -18,6 +18,11 @@ import { AddTrainingComponent } from './pages/admin/add-training/add-training.co
 import { ViewTrainingComponent } from './pages/admin/view-training/view-training.component';
 import { ScheduleTrainingComponent } from './pages/admin/schedule-list/schedule-training/schedule-training.component';
 import { UserDashboardComponent } from './pages/employee/user-dashboard/user-dashboard.component';
+import { AdminTrainingHistoryComponent } from './pages/admin/admin-training-history/admin-training-history.component';
+import { EmployeeSearchComponent } from './pages/admin/employee-search/employee-search.component';
+import { CourseDetailsComponent } from './pages/admin/course-details/course-details.component';
+import { TrainingRecordComponent } from './pages/admin/training-record/training-record.component';
+import { EmployeeHistoryComponent } from './pages/admin/employee-history/employee-history.component';
 
 export const AppRoutes: Routes = [
   {path:'login',
@@ -37,9 +42,6 @@ export const AppRoutes: Routes = [
         {
           path: '',
           loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(x => x.AdminLayoutModule)
-        },
-        { path: 'registration',   
-          component: AdminRegistrationComponent,
         },
         {
           path: 'employee-feedback',
@@ -80,7 +82,30 @@ export const AppRoutes: Routes = [
         {
           path: 'user-dashboard',
           component: UserDashboardComponent,
-        }
+        },
+        {
+          path: 'training-history',
+          component: AdminTrainingHistoryComponent,
+        },
+        {
+          path: 'employee-search',
+          component: EmployeeSearchComponent,
+        },
+        {
+          path: 'course-details/:emp_code',
+          component: CourseDetailsComponent,
+        },
+        {
+          path:'training-record',
+          component: TrainingRecordComponent,
+        },
+        {
+          path:'employee-history/:c_name',
+          component: EmployeeHistoryComponent,
+        },
+        { path: 'registration',   
+          component: AdminRegistrationComponent,
+        },
         
       ]},
   {

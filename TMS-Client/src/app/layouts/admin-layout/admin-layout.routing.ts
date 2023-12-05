@@ -23,6 +23,7 @@ import { FeedbackDetailsComponent } from 'app/pages/admin/feedback-details/feedb
 import { StudentListComponent } from 'app/pages/admin/student_list/student_list.component';
 import { AttendanceRecordComponent } from 'app/pages/admin/attendance-record/attendance-record.component';
 import { StudentList1Component } from 'app/pages/admin/student_list1/student_list1.component';
+import { AdminTrainingHistoryComponent } from 'app/pages/admin/admin-training-history/admin-training-history.component';
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user',           component: UserComponent },
@@ -48,5 +49,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'schedule-list', component: ScheduleListComponent},
     {path:'tid',component:TIDComponent},
     {path:'type/:course',component:TypeComponent},
-
+    { path: 'training-history', component: AdminTrainingHistoryComponent},
+    
 ];

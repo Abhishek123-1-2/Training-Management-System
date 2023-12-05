@@ -29,6 +29,11 @@ import { FeedbackDetailsComponent } from './pages/admin/feedback-details/feedbac
 import { EmployeeFeedbackDetailsComponent } from "./pages/admin/employee_feedback_details/employee_feedback_details.component";
 import { AttendanceRecordComponent } from './pages/admin/attendance-record/attendance-record.component';
 import { UserDashboardComponent } from "./pages/employee/user-dashboard/user-dashboard.component";
+import { AdminTrainingHistoryComponent } from './pages/admin/admin-training-history/admin-training-history.component';
+import { EmployeeSearchComponent } from './pages/admin/employee-search/employee-search.component';
+import { CourseDetailsComponent } from './pages/admin/course-details/course-details.component';
+import { TrainingRecordComponent } from './pages/admin/training-record/training-record.component';
+import { EmployeeHistoryComponent } from './pages/admin/employee-history/employee-history.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +46,11 @@ import { UserDashboardComponent } from "./pages/employee/user-dashboard/user-das
     EmployeeFeedbackDetailsComponent,
     AttendanceRecordComponent,
     UserDashboardComponent,
+    AdminTrainingHistoryComponent,
+    EmployeeSearchComponent,
+    CourseDetailsComponent,
+    TrainingRecordComponent,
+    EmployeeHistoryComponent,
   ],
   imports: [
     BrowserAnimationsModule,
