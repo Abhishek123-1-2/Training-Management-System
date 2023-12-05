@@ -31,12 +31,19 @@ import { AttendanceRecordComponent } from './pages/admin/attendance-record/atten
 import { UserDashboardComponent } from "./pages/employee/user-dashboard/user-dashboard.component";
 import { HrDashboardComponent } from './pages/hr/hr-dashboard/hr-dashboard.component';
 import { TrainerFeedbackComponent } from './pages/hr/trainer-feedback/trainer-feedback.component';
+
+import { AdminTrainingHistoryComponent } from './pages/admin/admin-training-history/admin-training-history.component';
+import { EmployeeSearchComponent } from './pages/admin/employee-search/employee-search.component';
+import { CourseDetailsComponent } from './pages/admin/course-details/course-details.component';
+import { TrainingRecordComponent } from './pages/admin/training-record/training-record.component';
+import { EmployeeHistoryComponent } from './pages/admin/employee-history/employee-history.component';
+import { StudentList2Component } from './pages/trainer/student-list2/student-list2.component';
 import { EmployeeFeedbackComponent } from './pages/hr/employee-feedback/employee-feedback.component';
 import { HrFeedbackComponent } from "./pages/hr/hr-feedback/hr-feedback.component";
 import { ReportsComponent } from './pages/hr/reports/reports.component';
 import { EmployeeComponent } from './pages/hr/employee/employee.component';
 import { HistoryComponent } from './pages/hr/history/history.component';
-import { TrainingRecordComponent } from './pages/hr/training-record/training-record.component';
+
 import { TrainingHistoryComponent } from './pages/hr/training-history/training-history.component';
 import { HrHistoryComponent } from './pages/hr/hr-history/hr-history.component';
 
@@ -53,16 +60,7 @@ import { HrHistoryComponent } from './pages/hr/hr-history/hr-history.component';
     AttendanceRecordComponent,
     UserDashboardComponent,
     HrDashboardComponent,
-    TrainerFeedbackComponent,
-    HrFeedbackComponent,
-    
-    EmployeeFeedbackComponent,
-          ReportsComponent,
-          EmployeeComponent,
-          HistoryComponent,
-          TrainingRecordComponent,
-          TrainingHistoryComponent,
-          HrHistoryComponent
+
   
   ],
   imports: [

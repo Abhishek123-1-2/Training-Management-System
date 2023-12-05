@@ -1,6 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
 
+declare interface TableData {
+  headerRow: string[];
+  dataRows: {
+    sr_no: string;
+    c_name: string;
+    view: string;
+  }[];
+}
+
+interface TableRow {
+  sr_no: string;
+  c_name: string;
+  view: string;
+}
 
 @Component({
     selector: 'dashboard-cmp',
