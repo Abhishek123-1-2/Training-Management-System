@@ -20,6 +20,11 @@ import { ScheduleTrainingComponent } from './pages/admin/schedule-list/schedule-
 import { UserDashboardComponent } from './pages/employee/user-dashboard/user-dashboard.component';
 import { HrDashboardComponent } from './pages/hr/hr-dashboard/hr-dashboard.component';
 import { TrainerFeedbackComponent } from './pages/hr/trainer-feedback/trainer-feedback.component';
+import { EmployeeFeedbackComponent } from './pages/hr/employee-feedback/employee-feedback.component';
+import { ReportsComponent } from './pages/hr/reports/reports.component';
+import { EmployeeComponent } from './pages/hr/employee/employee.component';
+import { TrainingHistoryComponent } from './pages/hr/training-history/training-history.component';
+import { TrainingRecordComponent } from './pages/hr/training-record/training-record.component';
 
 export const AppRoutes: Routes = [
   {path:'login',
@@ -94,6 +99,40 @@ export const AppRoutes: Routes = [
           component: TrainerFeedbackComponent,
 
         },
+
+        {
+          path: 'employee-feedback',
+          component: EmployeeFeedbackComponent,
+        },
+
+
+        {
+
+          path: 'hr-feedback',
+          component: HrDashboardComponent,
+
+
+        },
+
+        {
+          path: 'reports',
+          component: ReportsComponent,
+        },
+
+        {
+          path: 'employee',
+          component: EmployeeComponent,
+        },
+
+        {
+          path: 'training-history',
+          component: TrainingHistoryComponent,
+        },
+
+        {
+          path: 'training-record',
+          component: TrainingRecordComponent,
+        }
 
         
       ]},

@@ -20,6 +20,13 @@ export const ROUTES: RouteInfo[] = [
         
 
     ]},
+
+   
+
+
+
+
+
     { path: '/admin-attendance' ,title :'Attendance' ,icon :'nc-caps-small' , class : '', roles: ['ROLE_ADMIN']}, 
     { path: '/registration',  title: 'Registration List',      icon:'nc-pin-3',      class: '', roles: ['ROLE_ADMIN'] },
      { path: '/feedback-details',      title: 'Feedback',          icon:'nc-bell-55',    class: '',roles: ['ROLE_ADMIN'],},
@@ -43,8 +50,19 @@ export const ROUTES: RouteInfo[] = [
 
   { path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_USER']},
   { path: '/user-dashboard', title: 'Trainings', class: '', icon: 'nc-caps-small', roles:['ROLE_USER'] },
-  { path: '/hr-dashboard', title: 'Employee Feedback', class: '', icon:'nc-chart-bar-32', roles:['ROLE_HR']},
-  { path: '/trainer-feedback', title: 'Trainer Feedback', class: '', icon: 'nc-app', roles:['ROLE_HR']}
+  { path: '/hr-dashboard', title: 'HR Dashboard', class: '', icon:'nc-chart-bar-32', roles:['ROLE_HR']},
+
+  { path:'/hr-feedback', title: 'Feedback', icon:'nc-caps-small', class: '', roles: ['ROLE_HR'] ,submenu:[
+    { path: '/employee-feedback', title: 'Employee Feedback', class: '', icon: '', roles: ['ROLE_HR']},
+    { path: '/trainer-feedback', title: 'Trainer Feedback', class: '', icon: '', roles:['ROLE_HR']},
+
+
+
+
+
+
+
+  ]},
 
 
      // { path: '/icons',         title: 'Icons',             icon:'nc-diamond',    class: '' },

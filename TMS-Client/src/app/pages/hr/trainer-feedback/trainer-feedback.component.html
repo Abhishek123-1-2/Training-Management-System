@@ -5,6 +5,10 @@
           <h4 class="card-title">Trainer Feedback Table</h4>
         </div>
         <div class="card-body">
+          <div class="form-inline mb-3">
+            <label for="searchTerm" class="mr-1">Search:</label>
+            <input type="text" class="form-control" id="searchTerm" [(ngModel)]="searchTerm" (input)="performSearch()">
+          </div>
           <div class="table-responsive text-nowrap">
             <table class="table">
               <thead class="text-primary">

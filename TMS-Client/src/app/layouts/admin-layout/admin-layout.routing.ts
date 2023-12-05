@@ -27,6 +27,13 @@ import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback
 import { HrDashboardComponent } from 'app/pages/hr/hr-dashboard/hr-dashboard.component';
 import { TrainerFeedbackComponent } from 'app/pages/hr/trainer-feedback/trainer-feedback.component';
 import { UserDashboardComponent } from 'app/pages/employee/user-dashboard/user-dashboard.component';
+import { EmployeeFeedbackComponent } from 'app/pages/hr/employee-feedback/employee-feedback.component';
+import { HrFeedbackComponent } from 'app/pages/hr/hr-feedback/hr-feedback.component';
+import { EmployeeComponent } from 'app/pages/hr/employee/employee.component';
+import { TrainingHistoryComponent } from 'app/pages/hr/training-history/training-history.component';
+import { TrainingRecordComponent } from 'app/pages/hr/training-record/training-record.component';
+import { ReportsComponent } from 'app/pages/hr/reports/reports.component';
+
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user',           component: UserComponent },
@@ -54,5 +61,13 @@ export const AdminLayoutRoutes: Routes = [
     {path:'tid',component:TIDComponent},
     {path:'type/:course',component:TypeComponent},
     { path: 'user-dashboard', component: UserDashboardComponent},
+    { path: 'hr-dashboard', component: HrDashboardComponent},
+    { path: 'trainer-feedback', component: TrainerFeedbackComponent},
+    { path: 'employee-feedback', component:EmployeeFeedbackComponent},
+    { path: 'hr-feedback', component: HrFeedbackComponent},
+    { path: 'reports', component: ReportsComponent },
+    { path: 'employee', component: EmployeeComponent},
+    { path: 'training-history', component: TrainingHistoryComponent},
+    { path: 'training-record', component: TrainingRecordComponent},
 
 ];
