@@ -29,11 +29,16 @@ import { FeedbackDetailsComponent } from './pages/admin/feedback-details/feedbac
 import { EmployeeFeedbackDetailsComponent } from "./pages/admin/employee_feedback_details/employee_feedback_details.component";
 import { AttendanceRecordComponent } from './pages/admin/attendance-record/attendance-record.component';
 import { UserDashboardComponent } from "./pages/employee/user-dashboard/user-dashboard.component";
+import { HrDashboardComponent } from './pages/hr/hr-dashboard/hr-dashboard.component';
+import { TrainerFeedbackComponent } from './pages/hr/trainer-feedback/trainer-feedback.component';
+
 import { AdminTrainingHistoryComponent } from './pages/admin/admin-training-history/admin-training-history.component';
 import { EmployeeSearchComponent } from './pages/admin/employee-search/employee-search.component';
 import { CourseDetailsComponent } from './pages/admin/course-details/course-details.component';
 import { TrainingRecordComponent } from './pages/admin/training-record/training-record.component';
 import { EmployeeHistoryComponent } from './pages/admin/employee-history/employee-history.component';
+import { StudentList2Component } from './pages/trainer/student-list2/student-list2.component';
+
 
 @NgModule({
   declarations: [
@@ -46,11 +51,6 @@ import { EmployeeHistoryComponent } from './pages/admin/employee-history/employe
     EmployeeFeedbackDetailsComponent,
     AttendanceRecordComponent,
     UserDashboardComponent,
-    AdminTrainingHistoryComponent,
-    EmployeeSearchComponent,
-    CourseDetailsComponent,
-    TrainingRecordComponent,
-    EmployeeHistoryComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -63,6 +63,7 @@ import { EmployeeHistoryComponent } from './pages/admin/employee-history/employe
     ToastrModule.forRoot(),
     FooterModule,
     FixedPluginModule,FormsModule,ReactiveFormsModule,HttpClientModule,
+    ReactiveFormsModule
     
   ],
   providers: [],

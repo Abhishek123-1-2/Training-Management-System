@@ -2,29 +2,17 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">Employee Feedback Table</h4>
+          <h4 class="card-title">Trainer Feedback Table</h4>
         </div>
         <div class="card-body">
-          <div class="table-responsive text-nowrap table-container">
+          <div class="table-responsive text-nowrap">
             <table class="table">
               <thead class="text-primary">
-                <th class="text-center">SR. NO</th>
-                <th class="text-center">Course Name</th>
-                <th class="text-center">Trainer Name</th>
-                <th class="text-center">Start Date</th>
-                <th class="text-center">End Date</th>
-                <th class="text-center">Status</th>
-                <th class="text-center">Give Feedback</th>
+                <th class="text-center" *ngFor="let header of tableData1.headerRow">{{ header }}</th>
               </thead>
               <tbody>
-                <tr *ngFor="let training of trainings.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
-                  <td class="text-center">{{ training.id }}</td>
-                  <td class="text-center">{{ training.courseName }}</td>
-                  <td class="text-center">{{ training.trainerName }}</td>
-                  <td class="text-center">{{ training.startDate }}</td>
-                  <td class="text-center">{{ training.endDate }}</td>
-                  <td class="text-center">{{ training.status }}</td>
-                  <td class="text-center"><a *ngIf="training.status === 'COMPLETED'" [routerLink]="['/feedback-form', training.id]">Give Feedback</a></td>
+                <tr *ngFor="let row of tableData1.dataRows.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
+                  <td class="text-center" *ngFor="let cell of row">{{ cell }}</td>
                 </tr>
               </tbody>
             </table>
@@ -37,8 +25,6 @@
                 <option value="10">10</option>
               </select>
             </div>
-          
-          
             <nav aria-label="Page navigation example">
               <ul class="pagination pagination-md">
                 <li class="page-item" (click)="currentPage = (currentPage > 1) ? currentPage - 1 : 1" [class.disabled]="currentPage === 1">
@@ -53,9 +39,7 @@
               </ul>
             </nav>
         </div>
-        </div>
       </div>
     </div>
   </div>
-
   

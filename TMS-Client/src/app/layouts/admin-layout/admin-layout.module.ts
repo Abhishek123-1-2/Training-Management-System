@@ -27,6 +27,15 @@ import { TableFilterService } from 'app/pages/admin/filtersearch/filterpipe.comp
 import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
 import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
 import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
+import { AdminTrainingHistoryComponent } from 'app/pages/admin/admin-training-history/admin-training-history.component';
+import { CourseDetailsComponent } from 'app/pages/admin/course-details/course-details.component';
+import { EmployeeHistoryComponent } from 'app/pages/admin/employee-history/employee-history.component';
+import { TrainerFeedbackComponent } from 'app/pages/hr/trainer-feedback/trainer-feedback.component';
+import { HrDashboardComponent } from 'app/pages/hr/hr-dashboard/hr-dashboard.component';
+import { TrainingRecordComponent } from 'app/pages/admin/training-record/training-record.component';
+import { EmployeeSearchComponent } from 'app/pages/admin/employee-search/employee-search.component';
+import { OngoingTrainingComponent } from 'app/pages/trainer/ongoing-training/ongoing-training.component';
+import { StudentList2Component } from 'app/pages/trainer/student-list2/student-list2.component';
 
 
 @NgModule({
@@ -62,6 +71,15 @@ import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-li
     TIDComponent,
     TypeComponent,
     ScheduleListComponent,
+    AdminTrainingHistoryComponent,
+    CourseDetailsComponent,
+    EmployeeHistoryComponent,
+    TrainerFeedbackComponent,
+    HrDashboardComponent,
+    TrainingRecordComponent,
+    EmployeeSearchComponent,
+    OngoingTrainingComponent,
+    StudentList2Component,
     
     
     
