@@ -80,6 +80,8 @@ import { StudentList2Component } from 'app/pages/trainer/student-list2/student-l
     EmployeeSearchComponent,
     OngoingTrainingComponent,
     StudentList2Component,
+    TrainingRecordComponent,
+    
     
     
     

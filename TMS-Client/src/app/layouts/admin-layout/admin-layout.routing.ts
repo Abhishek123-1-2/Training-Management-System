@@ -30,6 +30,11 @@ import { UserDashboardComponent } from 'app/pages/employee/user-dashboard/user-d
 import { AdminTrainingHistoryComponent } from 'app/pages/admin/admin-training-history/admin-training-history.component';
 import { OngoingTrainingComponent } from 'app/pages/trainer/ongoing-training/ongoing-training.component';
 import { StudentList2Component } from 'app/pages/trainer/student-list2/student-list2.component';
+import { TrainingRecordComponent } from 'app/pages/admin/training-record/training-record.component';
+import { EmployeeHistoryComponent } from 'app/pages/admin/employee-history/employee-history.component';
+import { AdminRegistrationComponent } from 'app/pages/admin/admin_registration/admin_registration.component';
+import { EmployeeSearchComponent } from 'app/pages/admin/employee-search/employee-search.component';
+import { CourseDetailsComponent } from 'app/pages/admin/course-details/course-details.component';
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user',           component: UserComponent },
@@ -58,5 +63,11 @@ export const AdminLayoutRoutes: Routes = [
     {path:'type/:course',component:TypeComponent},
     {path:'ongoing-training', component: OngoingTrainingComponent},
     {path:'student-list2', component: StudentList2Component},
+    {path:'training-record', component: TrainingRecordComponent},
+    {path:'employee-history/:c_name', component: EmployeeHistoryComponent},
+    {path:'training-history', component: AdminTrainingHistoryComponent},
+    {path:'registration', component: AdminRegistrationComponent},
+    {path:'employee-search', component: EmployeeSearchComponent},
+    {path:'course-details/:emp_code', component: CourseDetailsComponent},
 
 ];
