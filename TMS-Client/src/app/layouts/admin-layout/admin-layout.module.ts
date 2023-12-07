@@ -81,7 +81,9 @@ import { EmployeeFeedbackComponent } from 'app/pages/hr/employee-feedback/employ
     EmployeeSearchComponent,
     OngoingTrainingComponent,
     StudentList2Component,
+    TrainingRecordComponent,
     EmployeeFeedbackComponent,
+    
     
     
     

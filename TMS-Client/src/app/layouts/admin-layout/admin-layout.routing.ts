@@ -30,13 +30,15 @@ import { UserDashboardComponent } from 'app/pages/employee/user-dashboard/user-d
 import { AdminTrainingHistoryComponent } from 'app/pages/admin/admin-training-history/admin-training-history.component';
 import { OngoingTrainingComponent } from 'app/pages/trainer/ongoing-training/ongoing-training.component';
 import { StudentList2Component } from 'app/pages/trainer/student-list2/student-list2.component';
+import { TrainingRecordComponent } from 'app/pages/admin/training-record/training-record.component';
+import { EmployeeHistoryComponent } from 'app/pages/admin/employee-history/employee-history.component';
+import { AdminRegistrationComponent } from 'app/pages/admin/admin_registration/admin_registration.component';
+import { EmployeeSearchComponent } from 'app/pages/admin/employee-search/employee-search.component';
+import { CourseDetailsComponent } from 'app/pages/admin/course-details/course-details.component';
 import { EmployeeFeedbackComponent } from 'app/pages/hr/employee-feedback/employee-feedback.component';
-import { HrFeedbackComponent } from 'app/pages/hr/hr-feedback/hr-feedback.component';
-import { EmployeeComponent } from 'app/pages/hr/employee/employee.component';
-import { TrainingHistoryComponent } from 'app/pages/hr/training-history/training-history.component';
-import { TrainingRecordComponent } from 'app/pages/hr/training-record/training-record.component';
-import { ReportsComponent } from 'app/pages/hr/reports/reports.component';
-import { RegistrationDetailsComponent } from 'app/pages/admin/registration_details/registration_details.component';
+import { HrTrainingComponent } from 'app/pages/hr/hr-training/hr-training.component';
+import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
+
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -64,6 +66,19 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'schedule-list', component: ScheduleListComponent},
     {path:'tid',component:TIDComponent},
     {path:'type/:course',component:TypeComponent},
-    { path: 'user-dashboard', component: UserDashboardComponent},
+    {path:'ongoing-training', component: OngoingTrainingComponent},
+    {path:'student-list2', component: StudentList2Component},
+    {path:'training-record', component: TrainingRecordComponent},
+    {path:'employee-history/:c_name', component: EmployeeHistoryComponent},
+    {path:'training-history', component: AdminTrainingHistoryComponent},
+    {path:'registration', component: AdminRegistrationComponent},
+    {path:'employee-search', component: EmployeeSearchComponent},
+    {path:'course-details/:emp_code', component: CourseDetailsComponent},
+    {path:'employee-feedback', component: EmployeeFeedbackComponent},
+    {path:'trainer-feedback', component: TrainerFeedbackComponent},
+    {path:'employee-feedback', component: EmployeeFeedbackComponent},
+    {path:'training-record', component: TrainingRecordComponent},
+    {path:'hr-training', component: HrTrainingComponent},
+    {path:'training-view', component: TrainingViewComponent}
 
 ];

@@ -32,6 +32,22 @@ export class EmployeeSearchComponent implements OnInit {
   public filteredData: TableRow[];
   public searchValue: string = '';
 
+  currentPage = 1;
+  itemsPerPage = 5;
+
+
+  get pages(): number[] {
+    if (this.tableData1.dataRows.length === 0) {
+      return [];
+    }
+
+    const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
+
+
+
+
   constructor() { }
 
   ngOnInit(): void {
@@ -54,4 +70,13 @@ export class EmployeeSearchComponent implements OnInit {
       )
     );
   }
+
+  changeItemsPerPage(event: any): void {
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1; // Reset to the first page when changing items per page
+  }
+
+
+
+
 }

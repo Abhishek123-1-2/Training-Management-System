@@ -35,6 +35,22 @@ export class StudentList1Component implements OnInit {
   public studentList: TableData;
   public filteredData: TableRow[];
   public searchValue: string = '';
+
+  currentPage = 1;
+  itemsPerPage = 5;
+
+
+  get pages(): number[] {
+    if (this.studentList.dataRows.length === 0) {
+      return [];
+    }
+
+    const pageCount = Math.ceil(this.studentList.dataRows.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
+
+
+
   
 
   constructor(private route: ActivatedRoute) {}
@@ -68,5 +84,11 @@ applyFilter() {
       )
     );
   }
+
+  changeItemsPerPage(event: any): void {
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1; // Reset to the first page when changing items per page
+  }
+
 
 }
