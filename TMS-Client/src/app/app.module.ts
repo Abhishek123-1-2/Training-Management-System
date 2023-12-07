@@ -38,6 +38,11 @@ import { CourseDetailsComponent } from './pages/admin/course-details/course-deta
 import { TrainingRecordComponent } from './pages/admin/training-record/training-record.component';
 import { EmployeeHistoryComponent } from './pages/admin/employee-history/employee-history.component';
 import { StudentList2Component } from './pages/trainer/student-list2/student-list2.component';
+import { UpcomingTrainingComponent } from './pages/trainer/upcoming-training/upcoming-training.component';
+import { CompletedTrainingComponent } from './pages/trainer/completed-training/completed-training.component';
+import { TrainerFeedbackToEmployeeComponent } from './pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
+import { StudentList3Component } from './pages/trainer/student-list3/student-list3.component';
+import { FeedbackToEmployeeComponent } from './pages/trainer/feedback-to-employee/feedback-to-employee.component';
 
 
 @NgModule({

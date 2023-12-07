@@ -35,6 +35,11 @@ import { EmployeeHistoryComponent } from 'app/pages/admin/employee-history/emplo
 import { AdminRegistrationComponent } from 'app/pages/admin/admin_registration/admin_registration.component';
 import { EmployeeSearchComponent } from 'app/pages/admin/employee-search/employee-search.component';
 import { CourseDetailsComponent } from 'app/pages/admin/course-details/course-details.component';
+import { UpcomingTrainingComponent } from 'app/pages/trainer/upcoming-training/upcoming-training.component';
+import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training/completed-training.component';
+import { TrainerFeedbackToEmployeeComponent } from 'app/pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
+import { StudentList3Component } from 'app/pages/trainer/student-list3/student-list3.component';
+import { FeedbackToEmployeeComponent } from 'app/pages/trainer/feedback-to-employee/feedback-to-employee.component';
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user',           component: UserComponent },
@@ -69,5 +74,9 @@ export const AdminLayoutRoutes: Routes = [
     {path:'registration', component: AdminRegistrationComponent},
     {path:'employee-search', component: EmployeeSearchComponent},
     {path:'course-details/:emp_code', component: CourseDetailsComponent},
-
+    {path:'upcoming-training', component: UpcomingTrainingComponent},
+    {path:'completed-training', component: CompletedTrainingComponent},
+    {path:'trainer-feedback-to-employee', component: TrainerFeedbackToEmployeeComponent},
+    {path:'student-list3', component: StudentList3Component},
+    {path:'feedback-to-employee', component: FeedbackToEmployeeComponent},
 ];

@@ -46,6 +46,8 @@ export class AdminRegistrationComponent implements OnInit {
     isAddParticipantsFormVisible = false;
     newParticipantName = '';
     display = 'none';
+    public currentPage = 1;
+    public itemsPerPage = 5;
 
     ngOnInit()  {
         this.tableData1 = {
@@ -96,5 +98,19 @@ export class AdminRegistrationComponent implements OnInit {
     }
     navigateToAddParticipants() {
       this.router.navigate(['/add-participants']);
+    }
+
+    get pages(): number[] {
+      if (this.tableData1.dataRows.length === 0) {
+        return [];
+      }
+  
+      const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+      return Array.from({ length: pageCount }, (_, index) => index + 1);
+    }
+  
+    changeItemsPerPage(event: any): void {
+      this.itemsPerPage = +event.target.value,
+      this.currentPage = 1; // Reset to the first page when changing items per page
     }
 }

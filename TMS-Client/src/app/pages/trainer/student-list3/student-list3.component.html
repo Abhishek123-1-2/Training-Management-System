@@ -2,7 +2,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">On-Going Training Details</h4>
+          <h4 class="card-title">Attendees Details</h4>
         </div>
         <div class="card-body">
             <div class="form-group">
@@ -17,10 +17,11 @@
               <tbody>
                 <tr *ngFor="let row of filteredData" class="expandable-row">
                     <td class="text-center">{{ row.sr_no }}</td>
-                    <td class="text-center">{{ row.c_name }}</td>
-                    <td class="text-center">{{ row.s_date }}</td>
-                    <td class="text-center">{{ row.e_date }}</td>
-                    <td class="text-center"><a [routerLink]="['/student-list2', {start_date: row.s_date, end_date: row.e_date}]">{{ row.view }}</a></td>
+                    <td class="text-center">{{ row.emp_code }}</td>
+                    <td class="text-center">{{ row.emp_name }}</td>
+                    <td class="text-center">{{ start_date }}</td>
+                    <td class="text-center">{{ end_date }}</td>
+                    <td class="text-center"><a [routerLink]="['/feedback-to-employee']">{{ row.feedback }}</a></td>
                   </tr>
               </tbody>
             </table>
