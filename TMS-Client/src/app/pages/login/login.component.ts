@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/dashboard']);
                 break;
               case 'ROLE_HR':
-                this.router.navigate(['/dashboard']);
+                this.router.navigate(['/hr-dashboard']);
                 break;
                 case 'ROLE_TRAINER':
                 this.router.navigate(['/trainer-dashboard']);

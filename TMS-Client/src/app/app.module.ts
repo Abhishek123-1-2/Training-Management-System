@@ -30,6 +30,21 @@ import { EmployeeFeedbackDetailsComponent } from "./pages/admin/employee_feedbac
 import { AttendanceRecordComponent } from './pages/admin/attendance-record/attendance-record.component';
 import { UserDashboardComponent } from "./pages/employee/user-dashboard/user-dashboard.component";
 
+import { TrainerFeedbackComponent } from './pages/hr/trainer-feedback/trainer-feedback.component';
+
+import { AdminTrainingHistoryComponent } from './pages/admin/admin-training-history/admin-training-history.component';
+import { EmployeeSearchComponent } from './pages/admin/employee-search/employee-search.component';
+import { CourseDetailsComponent } from './pages/admin/course-details/course-details.component';
+import { TrainingRecordComponent } from './pages/admin/training-record/training-record.component';
+import { EmployeeHistoryComponent } from './pages/admin/employee-history/employee-history.component';
+import { StudentList2Component } from './pages/trainer/student-list2/student-list2.component';
+import { EmployeeFeedbackComponent } from './pages/hr/employee-feedback/employee-feedback.component';
+import { HrFeedbackComponent } from "./pages/hr/hr-feedback/hr-feedback.component";
+import { HrTrainingComponent } from './pages/hr/hr-training/hr-training.component';
+import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
+
+
+
 @NgModule({
   declarations: [
 
@@ -41,6 +56,10 @@ import { UserDashboardComponent } from "./pages/employee/user-dashboard/user-das
     EmployeeFeedbackDetailsComponent,
     AttendanceRecordComponent,
     UserDashboardComponent,
+    HrTrainingComponent,
+    TrainingViewComponent
+
+  
   ],
   imports: [
     BrowserAnimationsModule,
@@ -53,6 +72,7 @@ import { UserDashboardComponent } from "./pages/employee/user-dashboard/user-das
     ToastrModule.forRoot(),
     FooterModule,
     FixedPluginModule,FormsModule,ReactiveFormsModule,HttpClientModule,
+    ReactiveFormsModule
     
   ],
   providers: [],

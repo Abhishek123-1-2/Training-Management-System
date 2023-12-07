@@ -118,37 +118,18 @@ export class ScheduleListComponent implements OnInit {
     this.isEditMode = false;
     this.rowIndexBeingEdited = null;
 
-    const updatedSchedule = this.filteredData[rowIndex];
-
-    // Include scheduleId in the updated data
-    const updatedScheduleWithId = {
-      scheduleId: updatedSchedule.scheduleId,
-      planned_start_date: updatedSchedule.planned_start_date,
-      planned_end_date: updatedSchedule.planned_end_date,
-      trainingStatus: updatedSchedule.status,
-      fromTime: updatedSchedule.from_time,
-      toTime: updatedSchedule.to_time,
-    };
-
-    this.http.put('http://localhost:8083/api/training-views/update-schedule', updatedScheduleWithId).subscribe(
-      () => {
-        console.log('Schedule updated successfully');
-        this.fetchData();
-      },
-      (error) => {
-        console.error('Error updating schedule:', error);
+        console.log(this.filteredData[rowIndex]);
       }
-    );
-  }
+    
+      cancelEdit() {
+        this.isEditMode = false;
+        this.rowIndexBeingEdited=null;
+        // If you want to revert changes, you may need to reload the original data
+      }
+      toggleModal() {
+        console.log('Opening Modal form')
+        this.isAddParticipantsFormVisible = !this.isAddParticipantsFormVisible;
+        this.display = 'block';
+    }
 
-  cancelEdit() {
-    this.isEditMode = false;
-    this.rowIndexBeingEdited = null;
-  }
-
-  toggleModal() {
-    console.log('Opening Modal form');
-    this.isAddParticipantsFormVisible = !this.isAddParticipantsFormVisible;
-    this.display = 'block';
-  }
 }

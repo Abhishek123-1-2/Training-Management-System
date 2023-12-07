@@ -23,6 +23,23 @@ import { FeedbackDetailsComponent } from 'app/pages/admin/feedback-details/feedb
 import { StudentListComponent } from 'app/pages/admin/student_list/student_list.component';
 import { AttendanceRecordComponent } from 'app/pages/admin/attendance-record/attendance-record.component';
 import { StudentList1Component } from 'app/pages/admin/student_list1/student_list1.component';
+import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback-form.component';
+import { HrDashboardComponent } from 'app/pages/hr/hr-dashboard/hr-dashboard.component';
+import { TrainerFeedbackComponent } from 'app/pages/hr/trainer-feedback/trainer-feedback.component';
+import { UserDashboardComponent } from 'app/pages/employee/user-dashboard/user-dashboard.component';
+import { AdminTrainingHistoryComponent } from 'app/pages/admin/admin-training-history/admin-training-history.component';
+import { OngoingTrainingComponent } from 'app/pages/trainer/ongoing-training/ongoing-training.component';
+import { StudentList2Component } from 'app/pages/trainer/student-list2/student-list2.component';
+import { TrainingRecordComponent } from 'app/pages/admin/training-record/training-record.component';
+import { EmployeeHistoryComponent } from 'app/pages/admin/employee-history/employee-history.component';
+import { AdminRegistrationComponent } from 'app/pages/admin/admin_registration/admin_registration.component';
+import { EmployeeSearchComponent } from 'app/pages/admin/employee-search/employee-search.component';
+import { CourseDetailsComponent } from 'app/pages/admin/course-details/course-details.component';
+import { EmployeeFeedbackComponent } from 'app/pages/hr/employee-feedback/employee-feedback.component';
+import { HrTrainingComponent } from 'app/pages/hr/hr-training/hr-training.component';
+import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
+
+
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user',           component: UserComponent },
@@ -40,13 +57,28 @@ export const AdminLayoutRoutes: Routes = [
     // { path:'attendance/:course',component:AttendanceDetailsComponent},
     { path: 'add-participants',component: AddParticipantsComponent},
     { path: 'trainer-dashboard', component: TrainerDashboardComponent},
-    { path: 'feedback-details', component: FeedbackDetailsComponent},
     { path: 'feedback', component:FeedbackComponent},
+    { path: 'feedback-details', component:FeedbackDetailsComponent},
+    { path: 'feedback-form/:id', component:FeedbackFormComponent},
     { path: 'student-list', component: StudentListComponent},
     { path: 'student-list1', component: StudentList1Component},
     { path: 'attendance-record', component: AttendanceRecordComponent},
     { path: 'schedule-list', component: ScheduleListComponent},
     {path:'tid',component:TIDComponent},
     {path:'type/:course',component:TypeComponent},
+    {path:'ongoing-training', component: OngoingTrainingComponent},
+    {path:'student-list2', component: StudentList2Component},
+    {path:'training-record', component: TrainingRecordComponent},
+    {path:'employee-history/:c_name', component: EmployeeHistoryComponent},
+    {path:'training-history', component: AdminTrainingHistoryComponent},
+    {path:'registration', component: AdminRegistrationComponent},
+    {path:'employee-search', component: EmployeeSearchComponent},
+    {path:'course-details/:emp_code', component: CourseDetailsComponent},
+    {path:'employee-feedback', component: EmployeeFeedbackComponent},
+    {path:'trainer-feedback', component: TrainerFeedbackComponent},
+    {path:'employee-feedback', component: EmployeeFeedbackComponent},
+    {path:'training-record', component: TrainingRecordComponent},
+    {path:'hr-training', component: HrTrainingComponent},
+    {path:'training-view', component: TrainingViewComponent}
 
 ];
