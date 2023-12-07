@@ -1,11 +1,16 @@
 <!-- student_list.component.html -->
-
-<!-- <h2 class="text-primary mb-4">Attendees Details for Training ID: {{ t_id }}</h2> -->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+    <li class="breadcrumb-item"><a [routerLink]="['/feedback-details']">Training Details</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Attendees Details</li>
+  </ol>
+</nav>
 
 <!-- Bootstrap table for studentList -->
 <div class="card">
   <div class="card-header">
-    <h4 class="card-title">Attendees Details for Training ID: {{ t_id }}</h4>
+    <h4 class="card-title">Attendees Details for Training</h4>
   </div>
   <div class="card-body">
     <!-- Your existing details section -->

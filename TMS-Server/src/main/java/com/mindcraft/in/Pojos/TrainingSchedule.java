@@ -1,6 +1,8 @@
 package com.mindcraft.in.Pojos;
 
-
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -43,6 +45,12 @@ public class TrainingSchedule {
     @Column(name = "training_status")
     private String trainingStatus;
 
+    @Column(name = "from_time")
+    private String fromTime;
+
+    @Column(name = "to_time")
+    private String toTime;
+
     @Column(name = "active_yn")
     private char active_yn;
 
@@ -84,8 +92,8 @@ public class TrainingSchedule {
 
     // Getters and Setters
     // ...
-
-    // toString() method for debugging or logging
+   
+    // Override toString() method to include fromTime and toTime
     @Override
     public String toString() {
         return "TrainingSchedule{" +
@@ -97,6 +105,8 @@ public class TrainingSchedule {
                 ", actualStartDate=" + actualStartDate +
                 ", actualEndDate=" + actualEndDate +
                 ", trainingStatus='" + trainingStatus + '\'' +
+                ", fromTime='" + fromTime + '\'' +
+                ", toTime='" + toTime + '\'' +
                 ", active_yn=" + active_yn +
                 ", createdBy='" + createdBy + '\'' +
                 ", createdOn=" + createdOn +
@@ -105,7 +115,6 @@ public class TrainingSchedule {
                 '}';
     }
 
-    // Getter and Setter for scheduleId
     public Long getScheduleId() {
         return scheduleId;
     }
@@ -114,7 +123,6 @@ public class TrainingSchedule {
         this.scheduleId = scheduleId;
     }
 
-    // Getter and Setter for training
     public TrainingView getTraining() {
         return training;
     }
@@ -123,7 +131,6 @@ public class TrainingSchedule {
         this.training = training;
     }
 
-    // Getter and Setter for trainerName
     public String getTrainerName() {
         return trainerName;
     }
@@ -132,7 +139,6 @@ public class TrainingSchedule {
         this.trainerName = trainerName;
     }
 
-    // Getter and Setter for plannedStartDate
     public Date getPlannedStartDate() {
         return plannedStartDate;
     }
@@ -141,7 +147,6 @@ public class TrainingSchedule {
         this.plannedStartDate = plannedStartDate;
     }
 
-    // Getter and Setter for plannedEndDate
     public Date getPlannedEndDate() {
         return plannedEndDate;
     }
@@ -150,7 +155,6 @@ public class TrainingSchedule {
         this.plannedEndDate = plannedEndDate;
     }
 
-    // Getter and Setter for actualStartDate
     public Date getActualStartDate() {
         return actualStartDate;
     }
@@ -159,7 +163,6 @@ public class TrainingSchedule {
         this.actualStartDate = actualStartDate;
     }
 
-    // Getter and Setter for actualEndDate
     public Date getActualEndDate() {
         return actualEndDate;
     }
@@ -168,7 +171,6 @@ public class TrainingSchedule {
         this.actualEndDate = actualEndDate;
     }
 
-    // Getter and Setter for trainingStatus
     public String getTrainingStatus() {
         return trainingStatus;
     }
@@ -177,7 +179,6 @@ public class TrainingSchedule {
         this.trainingStatus = trainingStatus;
     }
 
-    // Getter and Setter for active_yn
     public char getActive_yn() {
         return active_yn;
     }
@@ -186,7 +187,6 @@ public class TrainingSchedule {
         this.active_yn = active_yn;
     }
 
-    // Getter and Setter for createdBy
     public String getCreatedBy() {
         return createdBy;
     }
@@ -195,7 +195,6 @@ public class TrainingSchedule {
         this.createdBy = createdBy;
     }
 
-    // Getter and Setter for createdOn
     public Date getCreatedOn() {
         return createdOn;
     }
@@ -204,7 +203,6 @@ public class TrainingSchedule {
         this.createdOn = createdOn;
     }
 
-    // Getter and Setter for updatedBy
     public String getUpdatedBy() {
         return updatedBy;
     }
@@ -213,7 +211,6 @@ public class TrainingSchedule {
         this.updatedBy = updatedBy;
     }
 
-    // Getter and Setter for updatedOn
     public Date getUpdatedOn() {
         return updatedOn;
     }
@@ -221,4 +218,24 @@ public class TrainingSchedule {
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
+
+    // Getter and Setter for fromTime
+    public String getFromTime() {
+        return fromTime;
+    }
+
+    public void setFromTime(String fromTime) {
+        this.fromTime = fromTime;
+    }
+
+    // Getter and Setter for toTime
+    public String getToTime() {
+        return toTime;
+    }
+
+    public void setToTime(String toTime) {
+        this.toTime = toTime;
+    }
+    
+
 }

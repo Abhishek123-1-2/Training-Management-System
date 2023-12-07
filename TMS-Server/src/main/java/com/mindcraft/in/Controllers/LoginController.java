@@ -25,6 +25,7 @@ public class LoginController {
         this.loginService = loginService;
     }
 
+    
     @PostMapping("/authenticate")
     public ResponseEntity<Map<String, String>> authenticate(@RequestBody User user) {
         Map<String, String> response = loginService.login(user);

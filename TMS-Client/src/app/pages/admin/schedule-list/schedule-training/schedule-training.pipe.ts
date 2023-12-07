@@ -1,3 +1,4 @@
+/* schedule-training.pipe.ts */
 import { Pipe, PipeTransform } from '@angular/core';
 import { formatDate } from '@angular/common';
 

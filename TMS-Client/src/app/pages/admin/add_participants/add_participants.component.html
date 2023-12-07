@@ -1,61 +1,63 @@
 <div class="card">
-  <div class="card-header">
-    <h4 class="card-title">Add Participants</h4>
+    <div class="card-header">
+      <h4 class="card-title">Add Participants</h4>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="addParticipants()"  [formGroup]="addParticipantsForm">
+        <div *ngFor="let participant of participants; let i = index" class="row">
+          <div class="col-md-6 form-group">
+            <label>Employee Code:</label>
+            <input type="text" id="empCode" name="empCode" formControlName="empCode" class="form-control" [(ngModel)]="participants[i].emp_code" (input)="onEmpCodeChange(i)" required >
+            <div *ngIf="addParticipantsForm.get('empCode').hasError('required') && addParticipantsForm.get('empCode').touched">
+                <small class="text-danger">Employee Code is required</small>
+            </div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label for="empName">Employee Name:</label>
+            <input type="text" id="empName" name="empName" formControlName="empName" class="form-control" [(ngModel)]="participants[i].emp_name" required>
+            <div *ngIf="addParticipantsForm.get('empName').hasError('required') && addParticipantsForm.get('empName').touched">
+                <small class="text-danger">Employee Name is required</small>
+            </div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label for="courseName">Course Name:</label>
+            <select id="courseName" name="courseName" formControlName="courseName" class="form-control" required>
+                <option value="trainings">Angular</option>
+                <option value="trainings">Node JS</option>
+                <option value="trainings">Typescript HTML CSS</option>
+                <option value="trainings">PLSQL</option>
+              </select>
+            <div *ngIf="addParticipantsForm.get('courseName').hasError('required') && addParticipantsForm.get('courseName').touched">
+                <small class="text-danger">Course Name is required</small>
+            </div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label for="schDate">Schedule Date:</label>
+            <input type="date" id="schDate" name="schDate" formControlName="schDate" class="form-control" required>
+            <div *ngIf="addParticipantsForm.get('schDate').hasError('required') && addParticipantsForm.get('schDate').touched">
+                <small class="text-danger">Schedule Date is required</small>
+            </div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label for="status">Status:</label>
+            <select id="status" name="status" formControlName="status" class="form-control" required>
+              <option value="confirmed">Confirmed</option>
+              <option value="registered">Registered</option>
+              <option value="rejected">Rejected</option>
+              <option value="absent">Absent</option>
+            </select>
+            <div *ngIf="addParticipantsForm.get('status').hasError('required') && addParticipantsForm.get('status').touched">
+                <small class="text-danger">Status is required</small>
+            </div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label for="comments">Comments</label>
+            <textarea id="comments" name="comments" formControlName="comments" class="form-control" cols="30" rows="2"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!addParticipantsForm.valid" >Submit</button>
+      </form>
+      
+    </div>
   </div>
-  <div class="card-body">
-    <form (ngSubmit)="addParticipants()" [formGroup]="addParticipantsForm">
-      <div *ngFor="let participant of participants; let i = index" class="row">
-        <div class="col-md-6 form-group">
-          <label>Employee Code:</label>
-          <select id="empCode" name="empCode" formControlName="empCode" class="form-control" [(ngModel)]="participants[0].emp_code" (change)="onEmpCodeChange(0, $event.target.value)" required>
-            <option *ngFor="let code of employeeCodes" [value]="code">{{ code }}</option>
-          </select>
-          <div *ngIf="addParticipantsForm.get('empCode').hasError('required') && addParticipantsForm.get('empCode').touched">
-            <small class="text-danger">Employee Code is required</small>
-          </div>
-        </div>
-        <div class="col-md-6 form-group">
-          <label for="empName">Employee Name:</label>
-          <input type="text" id="empName" name="empName" formControlName="empName" class="form-control" [(ngModel)]="participants[i].emp_name"
-            required [readonly]="true">
-          <div *ngIf="addParticipantsForm.get('empName').hasError('required') && addParticipantsForm.get('empName').touched">
-            <small class="text-danger">Employee Name is required</small>
-          </div>
-        </div>
-        <div class="col-md-6 form-group">
-          <label for="courseName">Course Name:</label>
-          <select id="courseName" name="courseName" formControlName="courseName" class="form-control" required [(ngModel)]="participants[0].course_name" (change)="onCourseNameChange(0, $event.target.value)">
-            <option *ngFor="let course of courseNames" [value]="course">{{ course }}</option>
-          </select>
-          <div *ngIf="addParticipantsForm.get('courseName').hasError('required') && addParticipantsForm.get('courseName').touched">
-            <small class="text-danger">Course Name is required</small>
-          </div>
-        </div>
-        <div class="col-md-6 form-group">
-          <label for="schDate">Registration Date:</label>
-          <input type="date" id="schDate" name="schDate" formControlName="schDate" class="form-control" required>
-          <div *ngIf="addParticipantsForm.get('schDate').hasError('required') && addParticipantsForm.get('schDate').touched">
-            <small class="text-danger">Registration Date is required</small>
-          </div>
-        </div>
-        <div class="col-md-6 form-group">
-          <label for="status">Status:</label>
-          <select id="status" name="status" formControlName="status" class="form-control" required>
-            <option value="confirmed">Confirmed</option>
-            <option value="registered">Registered</option>
-            <option value="rejected">Rejected</option>
-            <option value="absent">Absent</option>
-          </select>
-          <div *ngIf="addParticipantsForm.get('status').hasError('required') && addParticipantsForm.get('status').touched">
-            <small class="text-danger">Status is required</small>
-          </div>
-        </div>
-        <div class="col-md-6 form-group">
-          <label for="comments">Comments</label>
-          <textarea id="comments" name="comments" formControlName="comments" class="form-control" cols="30" rows="2"></textarea>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary" [disabled]="!addParticipantsForm.valid" (click)="addParticipants()">Submit</button>
-    </form>
-  </div>
-</div>
+
