@@ -23,10 +23,13 @@ import { FeedbackDetailsComponent } from 'app/pages/admin/feedback-details/feedb
 import { StudentListComponent } from 'app/pages/admin/student_list/student_list.component';
 import { AttendanceRecordComponent } from 'app/pages/admin/attendance-record/attendance-record.component';
 import { StudentList1Component } from 'app/pages/admin/student_list1/student_list1.component';
+import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback-form.component';
+import { HrDashboardComponent } from 'app/pages/hr/hr-dashboard/hr-dashboard.component';
+import { TrainerFeedbackComponent } from 'app/pages/hr/trainer-feedback/trainer-feedback.component';
+import { UserDashboardComponent } from 'app/pages/employee/user-dashboard/user-dashboard.component';
 import { OnRequestComponent } from 'app/pages/employee/on-request/on-request.component';
 import { TrainingHistoryComponent } from 'app/pages/employee/training-history/training-history.component';
-
-
+import { PerformanceDashboardComponent } from 'app/pages/employee/performance-dashboard/performance.component';
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user',           component: UserComponent },
@@ -44,16 +47,17 @@ export const AdminLayoutRoutes: Routes = [
     // { path:'attendance/:course',component:AttendanceDetailsComponent},
     { path: 'add-participants',component: AddParticipantsComponent},
     { path: 'trainer-dashboard', component: TrainerDashboardComponent},
-    { path: 'feedback-details', component: FeedbackDetailsComponent},
     { path: 'feedback', component:FeedbackComponent},
+    { path: 'feedback-details', component:FeedbackDetailsComponent},
+    { path: 'feedback-form/:id', component:FeedbackFormComponent},
     { path: 'student-list', component: StudentListComponent},
     { path: 'student-list1', component: StudentList1Component},
     { path: 'attendance-record', component: AttendanceRecordComponent},
     { path: 'schedule-list', component: ScheduleListComponent},
     {path:'tid',component:TIDComponent},
     {path:'type/:course',component:TypeComponent},
-    /* for USER(EMPLOYEE) */
     {path:'on-request',component:OnRequestComponent},
     {path:'training-history',component:TrainingHistoryComponent},
+    {path:'performance',component:PerformanceDashboardComponent},
 
 ];

@@ -18,6 +18,8 @@ import { AddTrainingComponent } from './pages/admin/add-training/add-training.co
 import { ViewTrainingComponent } from './pages/admin/view-training/view-training.component';
 import { ScheduleTrainingComponent } from './pages/admin/schedule-training/schedule-training.component';
 import { UserDashboardComponent } from './pages/employee/user-dashboard/user-dashboard.component';
+import { HrDashboardComponent } from './pages/hr/hr-dashboard/hr-dashboard.component';
+import { TrainerFeedbackComponent } from './pages/hr/trainer-feedback/trainer-feedback.component';
 
 export const AppRoutes: Routes = [
   {path:'login',
@@ -81,8 +83,18 @@ export const AppRoutes: Routes = [
           path: 'user-dashboard',
           component: UserDashboardComponent,
         },
+        {
+          path: 'hr-dashboard',
+          component: HrDashboardComponent,
 
-        
+        },
+
+        {
+          path: 'trainer-feedback',
+          component: TrainerFeedbackComponent,
+
+        },
+
         
       ]},
   {

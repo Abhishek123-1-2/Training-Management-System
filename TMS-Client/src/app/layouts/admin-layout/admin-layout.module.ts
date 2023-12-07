@@ -29,9 +29,11 @@ import { TypeComponent } from 'app/pages/admin/type/type.component';
 import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
 import { OnRequestComponent } from 'app/pages/employee/on-request/on-request.component';
 import { TrainingHistoryComponent } from 'app/pages/employee/training-history/training-history.component';
+import { HrDashboardComponent } from 'app/pages/hr/hr-dashboard/hr-dashboard.component';
+import { TrainerFeedbackComponent } from 'app/pages/hr/trainer-feedback/trainer-feedback.component';
 
 
-@NgModule({
+@NgModule({//
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
@@ -64,10 +66,10 @@ import { TrainingHistoryComponent } from 'app/pages/employee/training-history/tr
     TIDComponent,
     TypeComponent,
     ScheduleListComponent,
-    /* USER(Employee) */
-  
-    
-
+    OnRequestComponent,
+    TrainingHistoryComponent,  
+    HrDashboardComponent,
+    TrainerFeedbackComponent,
     
     
     

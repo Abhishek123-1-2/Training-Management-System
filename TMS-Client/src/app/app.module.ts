@@ -29,8 +29,11 @@ import { FeedbackDetailsComponent } from './pages/admin/feedback-details/feedbac
 import { EmployeeFeedbackDetailsComponent } from "./pages/admin/employee_feedback_details/employee_feedback_details.component";
 import { AttendanceRecordComponent } from './pages/admin/attendance-record/attendance-record.component';
 import { UserDashboardComponent } from "./pages/employee/user-dashboard/user-dashboard.component";
-import { OnRequestComponent } from "./pages/employee/on-request/on-request.component";
-import { TrainingHistoryComponent } from "./pages/employee/training-history/training-history.component";
+import { HrDashboardComponent } from './pages/hr/hr-dashboard/hr-dashboard.component';
+import { TrainerFeedbackComponent } from './pages/hr/trainer-feedback/trainer-feedback.component';
+import { NgxPaginationModule } from "ngx-pagination";
+import { FeedbackFormComponent } from "./pages/employee/feedback-form/feedback-form.component";
+
 
 @NgModule({
   declarations: [
@@ -43,10 +46,8 @@ import { TrainingHistoryComponent } from "./pages/employee/training-history/trai
     EmployeeFeedbackDetailsComponent,
     AttendanceRecordComponent,
     UserDashboardComponent,
-    OnRequestComponent,
-    TrainingHistoryComponent,
-  
-
+    FeedbackFormComponent,
+    
   ],
   imports: [
     BrowserAnimationsModule,
@@ -59,6 +60,9 @@ import { TrainingHistoryComponent } from "./pages/employee/training-history/trai
     ToastrModule.forRoot(),
     FooterModule,
     FixedPluginModule,FormsModule,ReactiveFormsModule,HttpClientModule,
+    ReactiveFormsModule,
+    NgxPaginationModule, // Add NgxPaginationModule here
+
     
   ],
   providers: [],

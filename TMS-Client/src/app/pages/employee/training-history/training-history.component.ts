@@ -44,6 +44,20 @@ export class TrainingHistoryComponent implements OnInit {
     newParticipantName = '';
     display = 'none';
 
+    currentPage=1;
+    itemsPerPage=2;
+
+    
+  get pages(): number[] {
+    if (this.tableData1.dataRows.length === 0) {
+      return [];
+    }
+
+    const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
+
+
     ngOnInit()  {
         this.tableData1 = {
             headerRow: ['No.','Course','Trainer Name','Start Date','End Date','Status'],
@@ -83,7 +97,16 @@ end_date:'5-12-2023',
 ]
         };
         this.filteredData = [...this.tableData1.dataRows]
+
+        this.currentPage = Math.min(this.currentPage, this.pages.length);
+
     }
+
+    changeItemsPerPage(event: any): void {
+        this.itemsPerPage = +event.target.value;
+        this.currentPage = 1; // Reset to the first page when changing items per page
+      }
+      
     applyFilter() {
         this.filteredData = this.tableData1.dataRows.filter(row =>
           Object.values(row).some(value =>
