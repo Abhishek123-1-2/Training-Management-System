@@ -22,5 +22,12 @@ public class EmployeeController {
     public List<Employee> getEmployeeDetails(@PathVariable String empCode) {
         return employeeService.getEmployeeDetails(empCode);
     }
+    
+
+@GetMapping("/codes")
+public List<String> getEmployeeCodes() {
+    return employeeService.getEmployeeCodes();
+}
+
 }
 

@@ -16,7 +16,8 @@
           <div class="d-flex justify-content-between">
             <div class="form-group">
               <label for="search">Search:</label>
-              <input class="col-md-12 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
+              <input class="col-md-12 form-control" type="text" id="search" [(ngModel)]="searchValue" (ngModelChange)="applyFilter()">
+
             </div>
          </div>
           <div class="table-responsive text-nowrap table-container">

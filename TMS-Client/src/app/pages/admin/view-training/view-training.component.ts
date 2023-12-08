@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core'
 import { AddParticipantsComponent } from '../add_participants/add_participants.component';
 import { Router } from '@angular/router';
-
+import { TrainingService } from '../admin-services/training.service'; 
 declare interface TableData {
     headerRow: string[];
     dataRows: {
@@ -36,7 +36,7 @@ action: string;
 
 export class ViewTrainingComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private trainingService:TrainingService) {}
   
     public tableData1: TableData;
     public filteredData: TableRow[];
@@ -51,57 +51,55 @@ export class ViewTrainingComponent implements OnInit {
     
 
     ngOnInit()  {
-        this.tableData1 = {
-            headerRow: ['No.','Course','Trainer Name','Meeting Link','Username','Password','Action'],
-            dataRows: [{
-number: '1',
-course: 'Java',
-trainer_name: 'Kishor',
-meeting_link: 'www.meet.gooogle.com',
-username: 'mukul',
-password:'123',
-action: ''  }
-,
-{
-  number: '2',
-  course: 'Spring Boot',
-  trainer_name: 'Kishor',
-  meeting_link: 'www.meet.ms.com',
-  username: 'abhi',
-  password:'456',
-  action: '' 
-} ,
-{
-  number: '3',
-course: 'PLSQL',
-trainer_name: 'Girish',
-meeting_link: 'www.meet.gooogle.com',
-username: 'yash',
-password:'789',
-action: '' 
-}     ,
-{
-  number: '4',
-  course: 'Angular',
-  trainer_name: 'Bhavana',
-  meeting_link: 'www.angular.com',
-  username: 'mukul',
-  password:'012',
-  action: '' 
-},
-{
-  number: '5',
-  course: 'Javascript',
-  trainer_name: 'Bhavana',
-  meeting_link: 'www.mdnwebdocs.com',
-  username: 'mukul',
-  password:'012',
-  action: '' 
-}
-]
-        };
-        this.filteredData = [...this.tableData1.dataRows]
+      this.fetchTableData();
     }
+    // fetchTableData() {
+    //   this.trainingService.getTrainingData().subscribe(
+    //     (data: any[]) => {
+    //       this.tableData1 = {
+    //         headerRow: ['No.', 'Course', 'Trainer Name', 'Meeting Link', 'Username', 'Password', 'Action'],
+    //         dataRows: data.map((row, index) => ({
+    //           number: (index + 1).toString(),
+    //           course: row.course,
+    //           trainer_name: row.trainer_names,
+    //           meeting_link: row.url,
+    //           username: row.username,
+    //           password: row.password,
+    //           action: ''
+    //         }))
+    //       };
+    //       this.filteredData = [...this.tableData1.dataRows];
+    //     },
+    //     error => {
+    //       console.error('Error fetching training data:', error);
+    //     }
+    //   );
+    // }
+    fetchTableData() {
+      this.trainingService.getTrainingData().subscribe(
+        (data: any[]) => {
+          this.tableData1 = {
+            headerRow: ['No.', 'Course', 'Trainer Name', 'Meeting Link', 'Username', 'Password', 'Action'],
+            dataRows: data.map((row, index) => ({
+              number: (index + 1).toString(),
+              course: row.course,
+              // trainer_name: `${row.trainer_names}(${row.course})`, // Update this line
+              trainer_name: `${row.trainer_names.includes(row.course) ? row.trainer_names : `${row.trainer_names}(${row.course})`}`,
+
+              meeting_link: row.url,
+              username: row.username,
+              password: row.password,
+              action: ''
+            }))
+          };
+          this.filteredData = [...this.tableData1.dataRows];
+        },
+        error => {
+          console.error('Error fetching training data:', error);
+        }
+      );
+    }
+  
     applyFilter() {
         this.filteredData = this.tableData1.dataRows.filter(row =>
           Object.values(row).some(value =>
