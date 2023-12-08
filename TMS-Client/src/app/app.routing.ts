@@ -19,14 +19,11 @@ import { ViewTrainingComponent } from './pages/admin/view-training/view-training
 import { ScheduleTrainingComponent } from './pages/admin/schedule-list/schedule-training/schedule-training.component';
 import { UserDashboardComponent } from './pages/employee/user-dashboard/user-dashboard.component';
 import { HrDashboardComponent } from './pages/hr/hr-dashboard/hr-dashboard.component';
-import { TrainerFeedbackComponent } from './pages/hr/trainer-feedback/trainer-feedback.component';
 import { AdminTrainingHistoryComponent } from './pages/admin/admin-training-history/admin-training-history.component';
 import { EmployeeSearchComponent } from './pages/admin/employee-search/employee-search.component';
 import { CourseDetailsComponent } from './pages/admin/course-details/course-details.component';
 import { TrainingRecordComponent } from './pages/admin/training-record/training-record.component';
 import { EmployeeHistoryComponent } from './pages/admin/employee-history/employee-history.component';
-import { EmployeeFeedbackComponent } from './pages/hr/employee-feedback/employee-feedback.component';
-import { HrTrainingComponent } from './pages/hr/hr-training/hr-training.component';
 import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
 
 
@@ -93,22 +90,6 @@ export const AppRoutes: Routes = [
           path: 'hr-dashboard',
           component: HrDashboardComponent,
 
-        },
-
-        {
-          path: 'trainer-feedback',
-          component: TrainerFeedbackComponent,
-
-        },
-
-        {
-          path: 'employee-feedback',
-          component: EmployeeFeedbackComponent,
-        },
-
-        {
-          path: 'hr-training',
-          component: HrTrainingComponent,
         },
 
         {

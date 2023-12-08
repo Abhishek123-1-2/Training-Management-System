@@ -6,7 +6,7 @@
     dataRows: string[][];
   }
 
-
+  
   @Component({
     selector: 'training-view',
     templateUrl: './training-view.component.html',
@@ -20,7 +20,6 @@
 
     public searchTerm = '';
     public statusFilter: string = '';
-    public editableRow: string[] = [];
     
 
     get pages(): number[] {

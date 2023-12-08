@@ -25,7 +25,7 @@ import { AttendanceRecordComponent } from 'app/pages/admin/attendance-record/att
 import { StudentList1Component } from 'app/pages/admin/student_list1/student_list1.component';
 import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback-form.component';
 import { HrDashboardComponent } from 'app/pages/hr/hr-dashboard/hr-dashboard.component';
-import { TrainerFeedbackComponent } from 'app/pages/hr/trainer-feedback/trainer-feedback.component';
+
 import { UserDashboardComponent } from 'app/pages/employee/user-dashboard/user-dashboard.component';
 import { AdminTrainingHistoryComponent } from 'app/pages/admin/admin-training-history/admin-training-history.component';
 import { OngoingTrainingComponent } from 'app/pages/trainer/ongoing-training/ongoing-training.component';
@@ -35,8 +35,6 @@ import { EmployeeHistoryComponent } from 'app/pages/admin/employee-history/emplo
 import { AdminRegistrationComponent } from 'app/pages/admin/admin_registration/admin_registration.component';
 import { EmployeeSearchComponent } from 'app/pages/admin/employee-search/employee-search.component';
 import { CourseDetailsComponent } from 'app/pages/admin/course-details/course-details.component';
-import { EmployeeFeedbackComponent } from 'app/pages/hr/employee-feedback/employee-feedback.component';
-import { HrTrainingComponent } from 'app/pages/hr/hr-training/hr-training.component';
 import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
 
 
@@ -74,11 +72,9 @@ export const AdminLayoutRoutes: Routes = [
     {path:'registration', component: AdminRegistrationComponent},
     {path:'employee-search', component: EmployeeSearchComponent},
     {path:'course-details/:emp_code', component: CourseDetailsComponent},
-    {path:'employee-feedback', component: EmployeeFeedbackComponent},
-    {path:'trainer-feedback', component: TrainerFeedbackComponent},
-    {path:'employee-feedback', component: EmployeeFeedbackComponent},
     {path:'training-record', component: TrainingRecordComponent},
-    {path:'hr-training', component: HrTrainingComponent},
-    {path:'training-view', component: TrainingViewComponent}
+    {path:'training-view', component: TrainingViewComponent},
+    {path:'hr-dashboard', component: HrDashboardComponent},
+    {path:'user-dashboard', component: UserDashboardComponent}
 
 ];
