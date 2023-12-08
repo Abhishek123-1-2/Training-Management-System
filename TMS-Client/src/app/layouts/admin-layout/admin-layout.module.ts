@@ -37,6 +37,8 @@ import { EmployeeSearchComponent } from 'app/pages/admin/employee-search/employe
 import { OngoingTrainingComponent } from 'app/pages/trainer/ongoing-training/ongoing-training.component';
 import { StudentList2Component } from 'app/pages/trainer/student-list2/student-list2.component';
 import { EmployeeFeedbackComponent } from 'app/pages/hr/employee-feedback/employee-feedback.component';
+import { TrainingHistoryComponent } from 'app/pages/employee/training-history/training-history.component';
+import { OnRequestComponent } from 'app/pages/employee/on-request/on-request.component';
 
 
 @NgModule({//
@@ -72,6 +74,27 @@ import { EmployeeFeedbackComponent } from 'app/pages/hr/employee-feedback/employ
     TIDComponent,
     TypeComponent,
     ScheduleListComponent,
+    AdminTrainingHistoryComponent,
+    CourseDetailsComponent,
+    EmployeeHistoryComponent,
+    TrainerFeedbackComponent,
+    HrDashboardComponent,
+    TrainingRecordComponent,
+    EmployeeSearchComponent,
+    OngoingTrainingComponent,
+    StudentList2Component,
+    TrainingRecordComponent,
+    AdminAttendanceComponent,
+    /* upcoming */
+    /* TrainerFeedbackToEmployeeComponent */
+     /* studentlist3 */
+/* completed */
+EmployeeFeedbackComponent,
+ViewTrainingComponent,
+AdminAttendanceComponent,
+TrainingHistoryComponent,
+StudentList2Component,
+OnRequestComponent,
 
     
     

@@ -42,6 +42,8 @@ import { EmployeeFeedbackComponent } from './pages/hr/employee-feedback/employee
 import { HrFeedbackComponent } from "./pages/hr/hr-feedback/hr-feedback.component";
 import { HrTrainingComponent } from './pages/hr/hr-training/hr-training.component';
 import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
+import { HrDashboardComponent } from "./pages/hr/hr-dashboard/hr-dashboard.component";
+import { NgxPaginationModule } from "ngx-pagination";
 
 
 
@@ -56,8 +58,9 @@ import { TrainingViewComponent } from './pages/hr/training-view/training-view.co
     EmployeeFeedbackDetailsComponent,
     AttendanceRecordComponent,
     UserDashboardComponent,
-    HrDashboardComponent,
-    TrainerFeedbackComponent
+    TrainingViewComponent,
+
+
   
   ],
   imports: [

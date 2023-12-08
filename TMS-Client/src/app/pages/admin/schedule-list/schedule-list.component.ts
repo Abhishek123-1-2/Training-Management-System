@@ -47,6 +47,8 @@ export class ScheduleListComponent implements OnInit {
   isAddParticipantsFormVisible = false;
   newParticipantName = '';
   display = 'none';
+  itemsPerPage = 5;
+  currentPage = 1;
 
   ngOnInit() {
     this.fetchData();
@@ -130,6 +132,20 @@ export class ScheduleListComponent implements OnInit {
         console.log('Opening Modal form')
         this.isAddParticipantsFormVisible = !this.isAddParticipantsFormVisible;
         this.display = 'block';
+    }
+
+    get pages(): number[] {
+      if (this.tableData1.dataRows.length === 0) {
+        return [];
+      }
+  
+      const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+      return Array.from({ length: pageCount }, (_, index) => index + 1);
+    }
+
+    changeItemsPerPage(event: any): void {
+      this.itemsPerPage = +event.target.value;
+      this.currentPage = 1; // Reset to the first page when changing items per page
     }
 
 }
