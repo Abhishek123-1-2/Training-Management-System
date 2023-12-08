@@ -30,6 +30,7 @@ export class StudentList3Component implements OnInit {
   public searchValue: string = '';
   start_date: string;
   end_date: string;
+  t_status: string;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -37,9 +38,10 @@ export class StudentList3Component implements OnInit {
     this.route.params.subscribe((params) => {
       this.start_date = params['start_date'];
       this.end_date = params['end_date'];
+      this.t_status = params['status'];
     })
     this.tableData1 = {
-      headerRow: ['Sr No', 'Employee Code', 'Employee Name','Start Date', 'End Date', 'Feedback'],
+      headerRow: ['Sr No', 'Employee Code', 'Employee Name','Start Date', 'End Date', 'Status', 'Feedback'],
       dataRows: [
         {sr_no:'1', emp_code:'3647', emp_name:'Yash Gavanang', feedback:'Give'},
         {sr_no:'2', emp_code:'3646', emp_name:'Abhishek Pillai', feedback:'Give'},

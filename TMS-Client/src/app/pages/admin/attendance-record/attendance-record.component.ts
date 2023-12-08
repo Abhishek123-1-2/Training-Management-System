@@ -24,6 +24,27 @@ export class AttendanceRecordComponent implements OnInit {
   attendanceDetails: AttendanceRecord[] = [];
   feedback: any;
 
+  currentPage = 1;
+  itemsPerPage = 5;
+
+
+  get pages(): number[] {
+    if (this.attendanceDetails.length === 0) {
+      return [];
+    }
+
+    const pageCount = Math.ceil(this.attendanceDetails.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
+
+
+  changeItemsPerPage(event: any): void {
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1; // Reset to the first page when changing items per page
+  }
+
+
+
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -220,5 +241,7 @@ export class AttendanceRecordComponent implements OnInit {
   //       alert('Invalid date format. Please use DD-MM-YYYY.');
   //     }
   //   }
-  // }  
+  // } 
+  
+  
 }

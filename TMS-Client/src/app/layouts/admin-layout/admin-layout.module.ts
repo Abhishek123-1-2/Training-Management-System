@@ -35,6 +35,7 @@ import { TrainingRecordComponent } from 'app/pages/admin/training-record/trainin
 import { EmployeeSearchComponent } from 'app/pages/admin/employee-search/employee-search.component';
 import { OngoingTrainingComponent } from 'app/pages/trainer/ongoing-training/ongoing-training.component';
 import { StudentList2Component } from 'app/pages/trainer/student-list2/student-list2.component';
+import { EmployeeFeedbackComponent } from 'app/pages/hr/employee-feedback/employee-feedback.component';
 import { UpcomingTrainingComponent } from 'app/pages/trainer/upcoming-training/upcoming-training.component';
 import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training/completed-training.component';
 import { TrainerFeedbackToEmployeeComponent } from 'app/pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
@@ -85,11 +86,15 @@ import { FeedbackToEmployeeComponent } from 'app/pages/trainer/feedback-to-emplo
     OngoingTrainingComponent,
     StudentList2Component,
     TrainingRecordComponent,
+    AdminAttendanceComponent,
     UpcomingTrainingComponent,
-    CompletedTrainingComponent,
     TrainerFeedbackToEmployeeComponent,
     StudentList3Component,
-    FeedbackToEmployeeComponent,
+    CompletedTrainingComponent,
+    EmployeeFeedbackComponent,
+    ViewTrainingComponent,
+    AdminAttendanceComponent,
+
     
     
     

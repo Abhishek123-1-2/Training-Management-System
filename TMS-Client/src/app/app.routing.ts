@@ -25,6 +25,10 @@ import { EmployeeSearchComponent } from './pages/admin/employee-search/employee-
 import { CourseDetailsComponent } from './pages/admin/course-details/course-details.component';
 import { TrainingRecordComponent } from './pages/admin/training-record/training-record.component';
 import { EmployeeHistoryComponent } from './pages/admin/employee-history/employee-history.component';
+import { EmployeeFeedbackComponent } from './pages/hr/employee-feedback/employee-feedback.component';
+import { HrTrainingComponent } from './pages/hr/hr-training/hr-training.component';
+import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
+
 
 export const AppRoutes: Routes = [
   {path:'login',
@@ -84,7 +88,39 @@ export const AppRoutes: Routes = [
         {
           path: 'user-dashboard',
           component: UserDashboardComponent,
+        },
+        {
+          path: 'hr-dashboard',
+          component: HrDashboardComponent,
+
+        },
+
+        {
+          path: 'trainer-feedback',
+          component: TrainerFeedbackComponent,
+
+        },
+
+        {
+          path: 'employee-feedback',
+          component: EmployeeFeedbackComponent,
+        },
+
+        {
+          path: 'hr-training',
+          component: HrTrainingComponent,
+        },
+
+        {
+          path: 'training-view',
+          component: TrainingViewComponent,
+
         }
+
+        
+
+        
+
         
       ]},
   {

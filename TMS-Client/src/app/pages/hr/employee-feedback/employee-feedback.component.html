@@ -1,37 +1,27 @@
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-      <li class="breadcrumb-item"><a [routerLink]="['/training-record']">Course Details</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Attendees Details</li>
-    </ol>
-  </nav>
 <div class="row">
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">Employee Details for course: {{ c_name }}</h4>
+          <h4 class="card-title">Employee Feedback Table</h4>
         </div>
         <div class="card-body">
-            <div class="form-group">
-                <label for="search">Search:</label>
-                <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
-            </div>
-          <div class="table-responsive text-nowrap table-container">
+           <div class="form-inline mb-3">
+          <label for="searchTerm" class="mr-1">Search:</label>
+          <input type="text" class="form-control" id="searchTerm" [(ngModel)]="searchTerm" (input)="performSearch()">
+        </div>
+          <div class="table-responsive text-nowrap">
             <table class="table">
-              <thead class="text-primary">
-                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+              <thead class=" text-primary">
+                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{header}}</th>
               </thead>
               <tbody>
-                <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
-                    <td class="text-center">{{ row.sr_no }}</td>
-                    <td class="text-center">{{ row.emp_code }}</td>
-                    <td class="text-center">{{ row.emp_name }}</td>
-                    <td class="text-center">{{ row.status }}</td>
-                  </tr>
+                <tr *ngFor="let row of tableData1.dataRows.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
+                  <td *ngFor="let cell of row" class="text-center">{{cell}}</td>
+                </tr>
               </tbody>
             </table>
           </div>
-          <div class="d-flex justify-content-end mt-3">
+           <div class="d-flex justify-content-end">
             <div class="form-inline mb-3">
               <label for="rowsPerPage" class="mr-1">Rows per Page:</label>
               <select class="form-control" id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage($event)">
@@ -39,7 +29,8 @@
                 <option value="10">10</option>
               </select>
             </div>
-
+          
+          
             <nav aria-label="Page navigation example">
               <ul class="pagination pagination-md">
                 <li class="page-item" (click)="currentPage = (currentPage > 1) ? currentPage - 1 : 1" [class.disabled]="currentPage === 1">
@@ -53,6 +44,7 @@
                 </li>
               </ul>
             </nav>
+        </div>
         </div>
       </div>
     </div>

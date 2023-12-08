@@ -29,7 +29,7 @@ import { FeedbackDetailsComponent } from './pages/admin/feedback-details/feedbac
 import { EmployeeFeedbackDetailsComponent } from "./pages/admin/employee_feedback_details/employee_feedback_details.component";
 import { AttendanceRecordComponent } from './pages/admin/attendance-record/attendance-record.component';
 import { UserDashboardComponent } from "./pages/employee/user-dashboard/user-dashboard.component";
-import { HrDashboardComponent } from './pages/hr/hr-dashboard/hr-dashboard.component';
+
 import { TrainerFeedbackComponent } from './pages/hr/trainer-feedback/trainer-feedback.component';
 
 import { AdminTrainingHistoryComponent } from './pages/admin/admin-training-history/admin-training-history.component';
@@ -38,6 +38,11 @@ import { CourseDetailsComponent } from './pages/admin/course-details/course-deta
 import { TrainingRecordComponent } from './pages/admin/training-record/training-record.component';
 import { EmployeeHistoryComponent } from './pages/admin/employee-history/employee-history.component';
 import { StudentList2Component } from './pages/trainer/student-list2/student-list2.component';
+import { EmployeeFeedbackComponent } from './pages/hr/employee-feedback/employee-feedback.component';
+import { HrFeedbackComponent } from "./pages/hr/hr-feedback/hr-feedback.component";
+import { HrTrainingComponent } from './pages/hr/hr-training/hr-training.component';
+import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
+
 import { UpcomingTrainingComponent } from './pages/trainer/upcoming-training/upcoming-training.component';
 import { CompletedTrainingComponent } from './pages/trainer/completed-training/completed-training.component';
 import { TrainerFeedbackToEmployeeComponent } from './pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
@@ -56,6 +61,10 @@ import { FeedbackToEmployeeComponent } from './pages/trainer/feedback-to-employe
     EmployeeFeedbackDetailsComponent,
     AttendanceRecordComponent,
     UserDashboardComponent,
+    HrTrainingComponent,
+    TrainingViewComponent
+
+  
   ],
   imports: [
     BrowserAnimationsModule,

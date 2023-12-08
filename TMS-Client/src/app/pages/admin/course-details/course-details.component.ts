@@ -10,6 +10,21 @@ export class CourseDetailsComponent implements OnInit {
   emp_code : string;
   completedCourses: any[];
 
+  currentPage = 1;
+  itemsPerPage = 5;
+
+
+  get pages(): number[] {
+    if (this.completedCourses.length === 0) {
+      return [];
+    }
+
+    const pageCount = Math.ceil(this.completedCourses.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
+
+
+
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -22,5 +37,12 @@ export class CourseDetailsComponent implements OnInit {
       ];
     })
   }
+
+  changeItemsPerPage(event: any): void {
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1; // Reset to the first page when changing items per page
+  }
+
+  
 
 }

@@ -67,7 +67,7 @@ export class EmployeeHistoryComponent implements OnInit {
 
   changeItemsPerPage(event: any): void {
     this.itemsPerPage = +event.target.value,
-    this.currentPage = 1; // Reset to the first page when changing items per page
+    this.currentPage = 1; 
   }
 
 }
