@@ -24,8 +24,8 @@ interface TableRow {
 
 @Component({
   selector: 'feedback-details',
+  moduleId: module.id,
   templateUrl: './feedback-details.component.html',
-  styleUrls: ['./feedback-details.component.scss']
 })
 export class FeedbackDetailsComponent implements OnInit {
   public tableData1: TableData;

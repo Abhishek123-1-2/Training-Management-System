@@ -27,9 +27,19 @@ import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback
 import { HrDashboardComponent } from 'app/pages/hr/hr-dashboard/hr-dashboard.component';
 import { TrainerFeedbackComponent } from 'app/pages/hr/trainer-feedback/trainer-feedback.component';
 import { UserDashboardComponent } from 'app/pages/employee/user-dashboard/user-dashboard.component';
-import { OnRequestComponent } from 'app/pages/employee/on-request/on-request.component';
-import { TrainingHistoryComponent } from 'app/pages/employee/training-history/training-history.component';
-import { PerformanceDashboardComponent } from 'app/pages/employee/performance-dashboard/performance.component';
+import { AdminTrainingHistoryComponent } from 'app/pages/admin/admin-training-history/admin-training-history.component';
+import { OngoingTrainingComponent } from 'app/pages/trainer/ongoing-training/ongoing-training.component';
+import { StudentList2Component } from 'app/pages/trainer/student-list2/student-list2.component';
+import { TrainingRecordComponent } from 'app/pages/admin/training-record/training-record.component';
+import { EmployeeHistoryComponent } from 'app/pages/admin/employee-history/employee-history.component';
+import { AdminRegistrationComponent } from 'app/pages/admin/admin_registration/admin_registration.component';
+import { EmployeeSearchComponent } from 'app/pages/admin/employee-search/employee-search.component';
+import { CourseDetailsComponent } from 'app/pages/admin/course-details/course-details.component';
+import { EmployeeFeedbackComponent } from 'app/pages/hr/employee-feedback/employee-feedback.component';
+import { HrTrainingComponent } from 'app/pages/hr/hr-training/hr-training.component';
+import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
+
+
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user',           component: UserComponent },
@@ -56,8 +66,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'schedule-list', component: ScheduleListComponent},
     {path:'tid',component:TIDComponent},
     {path:'type/:course',component:TypeComponent},
-    {path:'on-request',component:OnRequestComponent},
-    {path:'training-history',component:TrainingHistoryComponent},
-    {path:'performance',component:PerformanceDashboardComponent},
+    { path: 'user-dashboard', component: UserDashboardComponent},
 
 ];

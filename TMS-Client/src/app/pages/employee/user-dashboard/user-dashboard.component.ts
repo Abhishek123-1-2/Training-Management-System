@@ -25,8 +25,8 @@ interface TableRow {
 
 @Component({
   selector: 'user-dashboard',
+  moduleId: module.id,
   templateUrl: './user-dashboard.component.html',
-  styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent implements OnInit {
   public tableData1: TableData;
@@ -34,6 +34,24 @@ export class UserDashboardComponent implements OnInit {
   public searchValue: string = '';
 
   enrollmentStatusData = [];
+
+
+  currentPage = 1;
+  itemsPerPage = 5;
+
+
+  get pages(): number[] {
+    if (this.tableData1.dataRows.length === 0) {
+      return [];
+    }
+
+    const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
+
+
+
+
 
   constructor() { }
 
@@ -62,5 +80,14 @@ export class UserDashboardComponent implements OnInit {
     this.enrollmentStatusData = [{ trainingId: t_id, courseName: c_name, status: 'Pending'}];
     alert(`Successfully enrolled in Training ID: ${this.enrollmentStatusData[0].trainingId}`);
   }
+
+
+  changeItemsPerPage(event: any): void {
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1; // Reset to the first page when changing items per page
+  }
+
+
+
 
 }

@@ -88,12 +88,8 @@
 <div class="col-md-4 ">
 <div class="form-group">
 <label>Status </label>
-<select class="form-control" id="status" name="status" formControlName="status" required>
-<option value="Select"></option>
-<!-- <option value="PRE-DEFINED">On-Going</option> -->
-<option value="ON-REQUEST">Upcoming</option>
-<!-- <option value="PRE-DEFINED">Completed</option> -->
-
+<select class="form-control" id="trainingStatus" name="trainingStatus" formControlName="trainingStatus" required>
+    <option value="Upcoming">Upcoming</option>
 </select>
 </div>
 </div>
@@ -106,7 +102,7 @@
 <div class="row justify-content-end mt-3">
 <div class="col-md-4">
 <div class="d-flex justify-content-end">
-<button type="reset" class="btn btn-primary mr-2">Cancel</button>
+<button type="reset" class="btn btn-danger">Cancel</button>
 <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!trainingForm.valid" >Save</button>
 </div>
 </div>

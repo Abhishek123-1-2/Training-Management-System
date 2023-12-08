@@ -59,6 +59,64 @@ onSubmit() {
     }
 }
 // Helper function to mark all form controls as touched
+// onSubmit() {
+//     // Check if the form is valid
+//     if (this.trainingForm.valid) {
+//         // Get the form data without validation
+//         const formData = this.trainingForm.value;
+
+//         // Concatenate trainer_names and course
+//         formData.course = `${formData.trainer_names}(${formData.course})`;
+
+//         // Call the service to add training
+//         this.trainingService.addTraining(formData).subscribe(
+//             (response) => {
+//                 console.log('Training added successfully:', response);
+//                 alert("Training added successfully");
+//                 // Optionally, you can navigate to another page or perform other actions
+//                 this.router.navigate(['/view-training'], { state: { addedTraining: response } });
+
+//             },
+//             (error) => {
+//                 console.error('Error adding training:', error);
+//                 // Handle error as needed
+//             }
+//         );
+//     } else {
+//         // If the form is not valid, mark all fields as touched to display validation messages
+//         this.markFormGroupTouched(this.trainingForm);
+//     }
+// }
+// onSubmit() {
+//     // Check if the form is valid
+//     if (this.trainingForm.valid) {
+//         // Get the form data without validation
+//         const formData = this.trainingForm.value;
+
+//         // Concatenate trainer_names and course
+//         formData.trainer_names = `${formData.trainer_names}(${formData.course})`;
+
+//         // Call the service to add training
+//         this.trainingService.addTraining(formData).subscribe(
+//             (response) => {
+//                 console.log('Training added successfully:', response);
+//                 alert("Training added successfully");
+//                 // Optionally, you can navigate to another page or perform other actions
+//                 this.router.navigate(['/view-training'], { state: { addedTraining: response } });
+
+//             },
+//             (error) => {
+//                 console.error('Error adding training:', error);
+//                 // Handle error as needed
+//             }
+//         );
+//     } else {
+//         // If the form is not valid, mark all fields as touched to display validation messages
+//         this.markFormGroupTouched(this.trainingForm);
+//     }
+// }
+
+
 markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach(control => {
         control.markAsTouched();

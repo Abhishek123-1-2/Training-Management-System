@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Training History</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="search">Search:</label>
+                <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
+            </div>
+          <div class="table-responsive text-nowrap table-container">
+            <table class="table">
+              <thead class="text-primary">
+                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of filteredData" class="expandable-row">
+                    <td class="text-center">{{ row.sr_no }}</td>
+                    <td class="text-center">{{ row.c_name }}</td>
+                    <td class="text-center">{{ row.s_date }}</td>
+                    <td class="text-center">{{ row.e_date }}</td>
+                    <td class="text-center"><a [routerLink]="['/student-list2']">{{ row.view }}</a></td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

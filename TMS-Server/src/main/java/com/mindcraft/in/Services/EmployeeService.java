@@ -23,12 +23,17 @@ public class EmployeeService {
         return results.stream()
             .map(result -> {
                 Employee employee = new Employee();
+                employee.setEmpId((Long) result.get("emp_id"));
                 employee.setEmpCode((String) result.get("emp_code"));
                 employee.setEmpName((String) result.get("emp_name"));
                 // Set other fields as needed
                 return employee;
             })
             .collect(Collectors.toList());
+    }
+    public List<String> getEmployeeCodes() {
+        String sql = "SELECT emp_code FROM m_employee";
+        return jdbcTemplate.queryForList(sql, String.class);
     }
 }
 

@@ -29,10 +29,20 @@ import { FeedbackDetailsComponent } from './pages/admin/feedback-details/feedbac
 import { EmployeeFeedbackDetailsComponent } from "./pages/admin/employee_feedback_details/employee_feedback_details.component";
 import { AttendanceRecordComponent } from './pages/admin/attendance-record/attendance-record.component';
 import { UserDashboardComponent } from "./pages/employee/user-dashboard/user-dashboard.component";
-import { HrDashboardComponent } from './pages/hr/hr-dashboard/hr-dashboard.component';
+
 import { TrainerFeedbackComponent } from './pages/hr/trainer-feedback/trainer-feedback.component';
-import { NgxPaginationModule } from "ngx-pagination";
-import { FeedbackFormComponent } from "./pages/employee/feedback-form/feedback-form.component";
+
+import { AdminTrainingHistoryComponent } from './pages/admin/admin-training-history/admin-training-history.component';
+import { EmployeeSearchComponent } from './pages/admin/employee-search/employee-search.component';
+import { CourseDetailsComponent } from './pages/admin/course-details/course-details.component';
+import { TrainingRecordComponent } from './pages/admin/training-record/training-record.component';
+import { EmployeeHistoryComponent } from './pages/admin/employee-history/employee-history.component';
+import { StudentList2Component } from './pages/trainer/student-list2/student-list2.component';
+import { EmployeeFeedbackComponent } from './pages/hr/employee-feedback/employee-feedback.component';
+import { HrFeedbackComponent } from "./pages/hr/hr-feedback/hr-feedback.component";
+import { HrTrainingComponent } from './pages/hr/hr-training/hr-training.component';
+import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
+
 
 
 @NgModule({
@@ -46,8 +56,9 @@ import { FeedbackFormComponent } from "./pages/employee/feedback-form/feedback-f
     EmployeeFeedbackDetailsComponent,
     AttendanceRecordComponent,
     UserDashboardComponent,
-    FeedbackFormComponent,
-    
+    HrDashboardComponent,
+    TrainerFeedbackComponent
+  
   ],
   imports: [
     BrowserAnimationsModule,

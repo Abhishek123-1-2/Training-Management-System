@@ -12,15 +12,15 @@ export interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-          /* ADMIN */
-    { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '', roles: ['ROLE_ADMIN'] },
+    // { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '', roles: ['ROLE_ADMIN'] },
+    { path: '/employee-search', title: 'Employee', icon: 'nc-circle-10', class:'', roles: ['ROLE_ADMIN']},
     { path:'/admin-training',title: 'Training' , icon :'nc-caps-small' , class : ' ', roles: ['ROLE_ADMIN'] ,submenu:[
         { path:'/add-training',title:'Add-Training',icon:'',class:'', roles: ['ROLE_ADMIN']},
         {path:'/view-training',title:'View-Training',icon:'',class:'', roles: ['ROLE_ADMIN']},
         {path:'/schedule-list',title:'Schedule-List',icon:'',class:'', roles: ['ROLE_ADMIN']},
         
-    ]},
 
+    ]},
     { path: '/admin-attendance' ,title :'Attendance' ,icon :'nc-caps-small' , class : '', roles: ['ROLE_ADMIN']}, 
     { path: '/registration',  title: 'Registration List',      icon:'nc-pin-3',      class: '', roles: ['ROLE_ADMIN'] },
      { path: '/feedback-details',      title: 'Feedback',          icon:'nc-bell-55',    class: '',roles: ['ROLE_ADMIN'],},
@@ -28,9 +28,6 @@ export const ROUTES: RouteInfo[] = [
     //     { path: '/employee-feedback', title: 'Employee Feedback', icon:'', class: '', roles: ['ROLE_ADMIN'] },
     //     { path: '/trainer-feedback',  title: 'Training Feedback', icon: '', class: '', roles: ['ROLE_ADMIN'] },
     // ]},
-
-
-    /* TRAINER ADMIN */
     { path: '/trainer-dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', roles: ['ROLE_TRAINER'],submenu:[],
     children: [
         {
@@ -44,20 +41,9 @@ export const ROUTES: RouteInfo[] = [
       ] 
 
 },
-    /* USER(EMPLOYEE) */
 
-  { path: '/user-dashboard', title: 'Training', icon: 'nc-atom', class: '', roles:['ROLE_USER'],
- 
-submenu:[
-  { path: 'on-request', title: 'On-Request',  icon:'', class: '', roles:['ROLE_USER']},
-  { path: 'training-history', title: 'Training History', icon:'', class: '', roles:['ROLE_USER']},
-]
-},
-{ path: '/feedback', title: 'Feedback', icon:'nc-bell-55', class: '', roles:['ROLE_USER']},
-{path:'performance',title:'Performance',icon:'nc-chart-bar-32', class: '',roles:['ROLE_USER']},
-
- 
-  /* HR */
+  { path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_USER']},
+  { path: '/user-dashboard', title: 'Trainings', class: '', icon: 'nc-caps-small', roles:['ROLE_USER'] },
   { path: '/hr-dashboard', title: 'Employee Feedback', class: '', icon:'nc-chart-bar-32', roles:['ROLE_HR']},
   { path: '/trainer-feedback', title: 'Trainer Feedback', class: '', icon: 'nc-app', roles:['ROLE_HR']}
 
