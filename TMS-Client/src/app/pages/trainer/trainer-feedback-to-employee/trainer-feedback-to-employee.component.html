@@ -2,7 +2,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">On-Going Training Details</h4>
+          <h4 class="card-title">Training Details</h4>
         </div>
         <div class="card-body">
             <div class="form-group">
@@ -20,7 +20,8 @@
                     <td class="text-center">{{ row.c_name }}</td>
                     <td class="text-center">{{ row.s_date }}</td>
                     <td class="text-center">{{ row.e_date }}</td>
-                    <td class="text-center"><a [routerLink]="['/student-list2', {start_date: row.s_date, end_date: row.e_date}]">{{ row.view }}</a></td>
+                    <td class="text-center">{{ row.status }}</td>
+                    <td class="text-center"><a [routerLink]="['/student-list3', {start_date: row.s_date, end_date: row.e_date, t_status: row.status}]">{{ row.view }}</a></td>
                   </tr>
               </tbody>
             </table>

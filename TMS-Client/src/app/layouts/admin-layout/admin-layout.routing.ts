@@ -38,6 +38,13 @@ import { CourseDetailsComponent } from 'app/pages/admin/course-details/course-de
 import { EmployeeFeedbackComponent } from 'app/pages/hr/employee-feedback/employee-feedback.component';
 import { HrTrainingComponent } from 'app/pages/hr/hr-training/hr-training.component';
 import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
+import { UpcomingTrainingComponent } from 'app/pages/trainer/upcoming-training/upcoming-training.component';
+import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training/completed-training.component';
+import { TrainerFeedbackToEmployeeComponent } from 'app/pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
+import { StudentList3Component } from 'app/pages/trainer/student-list3/student-list3.component';
+import { FeedbackToEmployeeComponent } from 'app/pages/trainer/feedback-to-employee/feedback-to-employee.component';
+import { OnRequestComponent } from 'app/pages/employee/on-request/on-request.component';
+import { PerformanceDashboardComponent } from 'app/pages/employee/performance-dashboard/performance.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -66,6 +73,24 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'schedule-list', component: ScheduleListComponent},
     {path:'tid',component:TIDComponent},
     {path:'type/:course',component:TypeComponent},
-    { path: 'user-dashboard', component: UserDashboardComponent},
+    {path:'ongoing-training', component: OngoingTrainingComponent},
+    {path:'student-list2', component: StudentList2Component},
+    {path:'training-record', component: TrainingRecordComponent},
+    {path:'employee-history/:c_name', component: EmployeeHistoryComponent},
+    {path:'training-history', component: AdminTrainingHistoryComponent},
+    {path:'registration', component: AdminRegistrationComponent},
+    {path:'employee-search', component: EmployeeSearchComponent},
+    {path:'course-details/:emp_code', component: CourseDetailsComponent},
+    {path:'view-training', component: ViewTrainingComponent},
+    {path:'upcoming-training', component: UpcomingTrainingComponent},
+    {path:'completed-training', component: CompletedTrainingComponent},
+    {path:'reports', component: TrainerFeedbackToEmployeeComponent },
+    {path:'student-list3', component: StudentList3Component},
+    {path:'feedback-to-employee', component: FeedbackToEmployeeComponent},
+{path:'on-request',component:OnRequestComponent},
+{path:'performance',component:PerformanceDashboardComponent},
+
+
+
 
 ];

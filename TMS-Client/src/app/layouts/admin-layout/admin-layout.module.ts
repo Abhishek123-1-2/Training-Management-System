@@ -23,9 +23,8 @@ import { TimeFormatPipe } from 'app/pages/admin/schedule-training/schedule-train
 import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-training/schedule-training.component';
 import { AddTrainingComponent } from 'app/pages/admin/add-training/add-training.component';
 import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/trainer-dashboard.component';
-import { TableFilterService } from 'app/pages/admin/filtersearch/filterpipe.component';
-import { TIDComponent } from 'app/pages/admin/TID/tid.component';
-import { TypeComponent } from 'app/pages/admin/type/type.component';
+// import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
+// import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
 import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
 import { AdminTrainingHistoryComponent } from 'app/pages/admin/admin-training-history/admin-training-history.component';
 import { CourseDetailsComponent } from 'app/pages/admin/course-details/course-details.component';
@@ -37,8 +36,14 @@ import { EmployeeSearchComponent } from 'app/pages/admin/employee-search/employe
 import { OngoingTrainingComponent } from 'app/pages/trainer/ongoing-training/ongoing-training.component';
 import { StudentList2Component } from 'app/pages/trainer/student-list2/student-list2.component';
 import { EmployeeFeedbackComponent } from 'app/pages/hr/employee-feedback/employee-feedback.component';
-import { TrainingHistoryComponent } from 'app/pages/employee/training-history/training-history.component';
+import { TypeComponent } from 'app/pages/admin/type/type.component';
+import { TIDComponent } from 'app/pages/admin/TID/tid.component';
 import { OnRequestComponent } from 'app/pages/employee/on-request/on-request.component';
+import { TrainingHistoryComponent } from 'app/pages/employee/training-history/training-history.component';
+import { StudentList3Component } from 'app/pages/trainer/student-list3/student-list3.component';
+import { UpcomingTrainingComponent } from 'app/pages/trainer/upcoming-training/upcoming-training.component';
+import { TrainerFeedbackToEmployeeComponent } from 'app/pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
+import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training/completed-training.component';
 
 
 @NgModule({//
@@ -71,8 +76,6 @@ import { OnRequestComponent } from 'app/pages/employee/on-request/on-request.com
     ScheduleTrainingComponent,
     AddTrainingComponent,
     TrainerDashboardComponent,
-    TIDComponent,
-    TypeComponent,
     ScheduleListComponent,
     AdminTrainingHistoryComponent,
     CourseDetailsComponent,
@@ -84,18 +87,16 @@ import { OnRequestComponent } from 'app/pages/employee/on-request/on-request.com
     OngoingTrainingComponent,
     StudentList2Component,
     TrainingRecordComponent,
-    AdminAttendanceComponent,
-    /* upcoming */
-    /* TrainerFeedbackToEmployeeComponent */
-     /* studentlist3 */
-/* completed */
-EmployeeFeedbackComponent,
-ViewTrainingComponent,
-AdminAttendanceComponent,
-TrainingHistoryComponent,
-StudentList2Component,
-OnRequestComponent,
+    EmployeeFeedbackComponent,
+    TypeComponent,
+    TIDComponent,
+    TrainingHistoryComponent,
+    StudentList3Component,
+    UpcomingTrainingComponent,
+    TrainerFeedbackToEmployeeComponent,
+    CompletedTrainingComponent,
 
+    
     
     
     

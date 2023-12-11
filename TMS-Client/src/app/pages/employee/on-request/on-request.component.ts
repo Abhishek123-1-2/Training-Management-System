@@ -153,7 +153,7 @@ end_date:'15-12-2023',
         switch (color) {
           case 1:
             this.toastr.info(
-            '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Welcome to <b>TMS</b> - Your Request has been sent to Reporting Manager Successfully.</span>',
+            '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Welcome to <b>TMS</b> - Your Request has been sent to <b>Reporting Manager</b> Successfully.</span>',
               "",
               {
                 timeOut: 4000,

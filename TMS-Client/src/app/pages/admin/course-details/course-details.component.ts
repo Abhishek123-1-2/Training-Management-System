@@ -43,4 +43,6 @@ export class CourseDetailsComponent implements OnInit {
     this.currentPage = 1; // Reset to the first page when changing items per page
   }
 
+  
+
 }

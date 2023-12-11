@@ -45,6 +45,12 @@ import { TrainingViewComponent } from './pages/hr/training-view/training-view.co
 import { HrDashboardComponent } from "./pages/hr/hr-dashboard/hr-dashboard.component";
 import { NgxPaginationModule } from "ngx-pagination";
 
+import { UpcomingTrainingComponent } from './pages/trainer/upcoming-training/upcoming-training.component';
+import { CompletedTrainingComponent } from './pages/trainer/completed-training/completed-training.component';
+import { TrainerFeedbackToEmployeeComponent } from './pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
+import { StudentList3Component } from './pages/trainer/student-list3/student-list3.component';
+import { FeedbackToEmployeeComponent } from './pages/trainer/feedback-to-employee/feedback-to-employee.component';
+import { OnRequestComponent } from "./pages/employee/on-request/on-request.component";
 
 
 @NgModule({
@@ -59,6 +65,7 @@ import { NgxPaginationModule } from "ngx-pagination";
     AttendanceRecordComponent,
     UserDashboardComponent,
     TrainingViewComponent,
+    OnRequestComponent,
 
 
   
