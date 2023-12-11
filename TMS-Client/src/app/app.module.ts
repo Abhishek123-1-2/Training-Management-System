@@ -82,7 +82,7 @@ import { OnRequestComponent } from "./pages/employee/on-request/on-request.compo
     FixedPluginModule,FormsModule,ReactiveFormsModule,HttpClientModule,
     ReactiveFormsModule,
     // NgxPaginationModule, // Add NgxPaginationModule here
-
+    
     
   ],
   providers: [],
