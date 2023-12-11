@@ -45,6 +45,9 @@ import { UpcomingTrainingComponent } from 'app/pages/trainer/upcoming-training/u
 import { TrainerFeedbackToEmployeeComponent } from 'app/pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
 import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training/completed-training.component';
 import { LoginComponent } from 'app/pages/login/login.component';
+import { TrainingRequestComponent } from 'app/pages/manager/training-request/training-request.component';
+import { TrainingRequest1Component } from 'app/pages/manager/training-request1/training-request1.component';
+import { ApprovedRequestComponent } from 'app/pages/manager/approved-request/approved-request.component';
 
 
 @NgModule({//
@@ -96,6 +99,12 @@ import { LoginComponent } from 'app/pages/login/login.component';
     UpcomingTrainingComponent,
     TrainerFeedbackToEmployeeComponent,
     CompletedTrainingComponent,
+    OnRequestComponent,
+    TrainingRequestComponent,
+    TrainingRequest1Component,
+    TrainerFeedbackToEmployeeComponent,
+    UpcomingTrainingComponent,
+    ApprovedRequestComponent,
     LoginComponent,
 
     

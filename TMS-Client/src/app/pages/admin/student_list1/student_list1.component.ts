@@ -37,6 +37,8 @@ export class StudentList1Component implements OnInit {
   public searchValue: string = '';
   public currentPage = 1;
   public itemsPerPage = 5;
+  public headerRowWithDates: string[];
+  dateRange: Date[] = [];
   
 
   constructor(private route: ActivatedRoute) {}
@@ -46,11 +48,14 @@ export class StudentList1Component implements OnInit {
       this.t_id = params['t_id'];
       this.start_date = params['start_date'];
       this.end_date = params['end_date'];
+
+
       // Now, fetch the list of students based on the trainingId and update the component.
       // You might want to create a service to handle data retrieval.
       this.fetchStudentList(this.t_id);
     });
   }
+
   fetchStudentList(t_id: string): void {
     this.studentList = {
         headerRow: ['Employee Code','Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status', 'Reports'],

@@ -28,6 +28,7 @@ import { EmployeeHistoryComponent } from './pages/admin/employee-history/employe
 import { EmployeeFeedbackComponent } from './pages/hr/employee-feedback/employee-feedback.component';
 import { HrTrainingComponent } from './pages/hr/hr-training/hr-training.component';
 import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
+import { ManagerDashboardComponent } from './pages/manager/manager-dashboard/manager-dashboard.component';
 
 
 export const AppRoutes: Routes = [
@@ -92,7 +93,10 @@ export const AppRoutes: Routes = [
         {
           path: 'hr-dashboard',
           component: HrDashboardComponent,
-
+        },
+        {
+          path: 'manager-dashboard',
+          component: ManagerDashboardComponent,
         },
 
         {
