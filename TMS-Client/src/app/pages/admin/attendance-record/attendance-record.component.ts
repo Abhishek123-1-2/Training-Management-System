@@ -206,42 +206,42 @@ export class AttendanceRecordComponent implements OnInit {
     }
   }
 
-  // addDates(): void {
-  //   const startInput = prompt('Enter start date (DD-MM-YYYY):');
-  //   const endInput = prompt('Enter end date (DD-MM-YYYY):');
+  addDates(): void {
+    const startInput = prompt('Enter start date (DD-MM-YYYY):');
+    const endInput = prompt('Enter end date (DD-MM-YYYY):');
   
-  //   if (startInput && endInput) {
-  //     const startDateParts = startInput.split('-');
-  //     const endDateParts = endInput.split('-');
+    if (startInput && endInput) {
+      const startDateParts = startInput.split('-');
+      const endDateParts = endInput.split('-');
   
-  //     // Check if the input format is correct
-  //     if (startDateParts.length === 3 && endDateParts.length === 3) {
-  //       const startDate = new Date(
-  //         parseInt(startDateParts[2]),
-  //         parseInt(startDateParts[1]) - 1, // Months are zero-based
-  //         parseInt(startDateParts[0])
-  //       );
+      // Check if the input format is correct
+      if (startDateParts.length === 3 && endDateParts.length === 3) {
+        const startDate = new Date(
+          parseInt(startDateParts[2]),
+          parseInt(startDateParts[1]) - 1, // Months are zero-based 
+          parseInt(startDateParts[0])
+        );
   
-  //       const endDate = new Date(
-  //         parseInt(endDateParts[2]),
-  //         parseInt(endDateParts[1]) - 1, // Months are zero-based
-  //         parseInt(endDateParts[0])
-  //       );
+        const endDate = new Date(
+          parseInt(endDateParts[2]),
+          parseInt(endDateParts[1]) - 1, // Months are zero-based
+          parseInt(endDateParts[0])
+        );
   
-  //       if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime())) {
-  //         // Generate dates between start and end dates
-  //         const newDates = this.getDatesBetween(startDate, endDate);
+        if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime())) {
+          // Generate dates between start and end dates
+          const newDates = this.getDatesBetween(startDate, endDate);
   
-  //         // Add new dates to the existing attendance details
-  //         this.attendanceDetails = [...this.attendanceDetails, ...newDates];
-  //       } else {
-  //         alert('Invalid date range.');
-  //       }
-  //     } else {
-  //       alert('Invalid date format. Please use DD-MM-YYYY.');
-  //     }
-  //   }
-  // } 
+          // Add new dates to the existing attendance details
+          this.attendanceDetails = [...this.attendanceDetails, ...newDates];
+        } else {
+          alert('Invalid date range.');
+        }
+      } else {
+        alert('Invalid date format. Please use DD-MM-YYYY.');
+      }
+    }
+  } 
   
   
 }

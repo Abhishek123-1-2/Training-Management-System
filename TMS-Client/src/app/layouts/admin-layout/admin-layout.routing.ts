@@ -43,6 +43,9 @@ import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training
 import { TrainerFeedbackToEmployeeComponent } from 'app/pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
 import { StudentList3Component } from 'app/pages/trainer/student-list3/student-list3.component';
 import { FeedbackToEmployeeComponent } from 'app/pages/trainer/feedback-to-employee/feedback-to-employee.component';
+import { TrainingRequestComponent } from 'app/pages/manager/training-request/training-request.component';
+import { TrainingRequest1Component } from 'app/pages/manager/training-request1/training-request1.component';
+import { ApprovedRequestComponent } from 'app/pages/manager/approved-request/approved-request.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -85,6 +88,9 @@ export const AdminLayoutRoutes: Routes = [
     {path:'reports', component: TrainerFeedbackToEmployeeComponent },
     {path:'student-list3', component: StudentList3Component},
     {path:'feedback-to-employee', component: FeedbackToEmployeeComponent},
+    {path:'training-request', component: TrainingRequestComponent},
+    {path:'training-request1', component: TrainingRequest1Component},
+    {path:'approved-request', component: ApprovedRequestComponent},
 
 
 ];

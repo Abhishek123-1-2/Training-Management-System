@@ -48,6 +48,10 @@ import { CompletedTrainingComponent } from './pages/trainer/completed-training/c
 import { TrainerFeedbackToEmployeeComponent } from './pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
 import { StudentList3Component } from './pages/trainer/student-list3/student-list3.component';
 import { FeedbackToEmployeeComponent } from './pages/trainer/feedback-to-employee/feedback-to-employee.component';
+import { ManagerDashboardComponent } from './pages/manager/manager-dashboard/manager-dashboard.component';
+import { TrainingRequestComponent } from './pages/manager/training-request/training-request.component';
+import { TrainingRequest1Component } from './pages/manager/training-request1/training-request1.component';
+import { ApprovedRequestComponent } from './pages/manager/approved-request/approved-request.component';
 
 
 @NgModule({
@@ -62,7 +66,11 @@ import { FeedbackToEmployeeComponent } from './pages/trainer/feedback-to-employe
     AttendanceRecordComponent,
     UserDashboardComponent,
     HrTrainingComponent,
-    TrainingViewComponent
+    TrainingViewComponent,
+    ManagerDashboardComponent,
+    TrainingRequestComponent,
+    TrainingRequest1Component,
+    ApprovedRequestComponent
 
   
   ],
