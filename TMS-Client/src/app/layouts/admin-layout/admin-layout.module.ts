@@ -44,6 +44,7 @@ import { StudentList3Component } from 'app/pages/trainer/student-list3/student-l
 import { UpcomingTrainingComponent } from 'app/pages/trainer/upcoming-training/upcoming-training.component';
 import { TrainerFeedbackToEmployeeComponent } from 'app/pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
 import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training/completed-training.component';
+import { LoginComponent } from 'app/pages/login/login.component';
 import { TrainingRequestComponent } from 'app/pages/manager/training-request/training-request.component';
 import { TrainingRequest1Component } from 'app/pages/manager/training-request1/training-request1.component';
 import { ApprovedRequestComponent } from 'app/pages/manager/approved-request/approved-request.component';
@@ -98,12 +99,13 @@ import { ApprovedRequestComponent } from 'app/pages/manager/approved-request/app
     UpcomingTrainingComponent,
     TrainerFeedbackToEmployeeComponent,
     CompletedTrainingComponent,
+    OnRequestComponent,
     TrainingRequestComponent,
     TrainingRequest1Component,
-    UpcomingTrainingComponent,
     TrainerFeedbackToEmployeeComponent,
+    UpcomingTrainingComponent,
     ApprovedRequestComponent,
-    OnRequestComponent,
+    LoginComponent,
 
     
     

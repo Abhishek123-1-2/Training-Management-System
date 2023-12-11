@@ -1,3 +1,4 @@
+// schedule-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -34,7 +35,7 @@ export class ScheduleListComponent implements OnInit {
   public newParticipantName = '';
   public display = 'none';
   public currentPage = 1;
-  public itemsPerPage = 5;
+  public itemsPerPage = 10;
 
   constructor(private http: HttpClient) {}
 
@@ -141,7 +142,6 @@ export class ScheduleListComponent implements OnInit {
     this.isAddParticipantsFormVisible = !this.isAddParticipantsFormVisible;
     this.display = 'block';
   }
-
   get pages(): number[] {
     if (this.tableData1.dataRows.length === 0) {
       return [];
@@ -162,6 +162,3 @@ export class ScheduleListComponent implements OnInit {
     this.applyFilter();
   }
 }
-
-
-

@@ -1,39 +1,36 @@
 /* view-training.component.ts */
-import { Component, OnInit } from '@angular/core'
-import { AddParticipantsComponent } from '../add_participants/add_participants.component';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TrainingService } from '../admin-services/training.service'; 
-declare interface TableData {
-    headerRow: string[];
-    dataRows: {
+import { TrainingService } from '../admin-services/training.service';
 
-number: string;
-course: string;
-trainer_name: string;
-meeting_link: string;
-username: string;
-password:string;
-action: string;  
-       
-    }[];
+interface TableData {
+  headerRow: string[];
+  dataRows: {
+    number: string;
+    course: string;
+    trainer_name: string;
+    meeting_link: string;
+    username: string;
+    password: string;
+    action: string;
+  }[];
 }
-interface TableRow {
-number: string;
-course: string;
-trainer_name: string;
-meeting_link: string;
-username: string;
-password:string;
-action: string; 
 
+interface TableRow {
+  number: string;
+  course: string;
+  trainer_name: string;
+  meeting_link: string;
+  username: string;
+  password: string;
+  action: string;
 }
 
 @Component({
-    selector: 'view-training-cmp',
-    moduleId: module.id,
-    templateUrl: 'view-training.component.html'
+  selector: 'view-training-cmp',
+  moduleId: module.id,
+  templateUrl: 'view-training.component.html'
 })
-
 export class ViewTrainingComponent implements OnInit {
 
   constructor(private router: Router,private trainingService:TrainingService) {}
@@ -46,9 +43,21 @@ export class ViewTrainingComponent implements OnInit {
     isAddParticipantsFormVisible = false;
     newParticipantName = '';
     display = 'none';
-    public currentPage = 1;
-    public itemsPerPage = 5;
-    
+
+    currentPage = 1;
+    itemsPerPage = 5;
+  
+  
+    get pages(): number[] {
+      if (this.tableData1.dataRows.length === 0) {
+        return [];
+      }
+  
+      const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+      return Array.from({ length: pageCount }, (_, index) => index + 1);
+    }
+
+
 
     ngOnInit()  {
       this.fetchTableData();
@@ -134,139 +143,9 @@ export class ViewTrainingComponent implements OnInit {
         this.display = 'block';
     }
 
-    get pages(): number[] {
-      if (this.tableData1.dataRows.length === 0) {
-        return [];
-      }
-
-      const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
-      return Array.from({ length: pageCount }, (_, index) => index + 1);
-    }
-
     changeItemsPerPage(event: any): void {
-      this.itemsPerPage = +event.target.value,
-      this.currentPage = 1; 
+      this.itemsPerPage = +event.target.value;
+      this.currentPage = 1; // Reset to the first page when changing items per page
     }
 
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*  navigateToAddParticipants() {
-      this.router.navigate(['/tid']);
-    } */
-
-    /* number: string;
-    category: string;
-    schedule: string;
-    course: string;
-    trainer_name: string;
-    start_date: string;
-    end_date: string;
-    status:string;
-    action: string; */
-
-
-/* // viewtraining.component.ts
-
-import { Component, OnInit } from '@angular/core';
-import { TableFilterService } from '../filtersearch/filterpipe.component';
-import { TrainingService } from '../admin-services/training.service';
-
-declare interface TableData {
-  headerRow: string[];
-  dataRows: {
-    training_id: number;
-    training_category: string;
-    training_type: string;
-    training_schedule: string;
-    course: string;
-    trainer_names: string;
-    prerequisites: string;
-    course_description: string;
-    daily_hrs: string;
-    total_days: string;
-    url: string;
-    username: string;
-    password: string;
-  }[];
-}
-
-@Component({
-  selector: 'view-training-cmp',
-  moduleId: module.id,
-  templateUrl: 'view-training.component.html'
-})
-export class ViewTrainingComponent implements OnInit {
-
-  tableData1: TableData = {
-    headerRow: ['Training Id', 'Category', 'Type', 'Schedule', 'Course', 'Trainer Names', 'Prerequisites', 'Description', 'Daily Hrs', 'Total Days', 'URL', 'Username', 'Password'],
-    dataRows: []
-  };
-
-  originalTableData: any[] = [];
-  searchText: string = '';
-
-  constructor(
-    private tableFilterService: TableFilterService,
-    private trainingService: TrainingService
-  ) { }
-
-  ngOnInit() {
-    this.fetchTableData();
-  }
-
-  fetchTableData() {
-    this.trainingService.getTrainingData().subscribe(
-      (data: any[]) => {
-        this.originalTableData = data;
-        this.applyFilter();  // Apply filter after data is fetched
-      },
-      error => {
-        console.error('Error fetching training data:', error);
-      }
-    );
-  }
-
-  onSearchInputChange() {
-    this.applyFilter();  // Apply filter when the user types in the search box
-  }
-
-  applyFilter() {
-    if (this.searchText.trim() !== '') {
-      this.tableData1.dataRows = this.originalTableData.filter(row =>
-        Object.values(row).some(val =>
-          val.toString().toLowerCase().includes(this.searchText.toLowerCase())
-        )
-      );
-    } else {
-      this.resetTable();
-    }
-  }
-
-  resetTable() {
-    this.searchText = '';
-    this.tableData1.dataRows = [...this.originalTableData];
-  }
-}
- */

@@ -62,7 +62,6 @@ import { ApprovedRequestComponent } from './pages/manager/approved-request/appro
 
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent,
     FeedbackComponent,
     FeedbackDetailsComponent,
     EmployeeFeedbackDetailsComponent,
