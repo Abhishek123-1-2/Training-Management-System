@@ -12,11 +12,11 @@ import { AdminAttendanceComponent } from 'app/pages/admin/admin-attendance/admin
 import { AddTrainingComponent } from 'app/pages/admin/add-training/add-training.component';
 import { ViewTrainingComponent } from 'app/pages/admin/view-training/view-training.component';
 // import { AttendanceDetailsComponent } from 'app/pages/admin/attendance-details/attendance-details.component';
-import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-list/schedule-training/schedule-training.component';
+import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-training/schedule-training.component';
 import { AddParticipantsComponent } from 'app/pages/admin/add_participants/add_participants.component';
 import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/trainer-dashboard.component';
-import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
-import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
+import { TIDComponent } from 'app/pages/admin/TID/tid.component';
+import { TypeComponent } from 'app/pages/admin/type/type.component';
 import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
 import { FeedbackComponent } from 'app/pages/employee/feedback/feedback.component';
 import { FeedbackDetailsComponent } from 'app/pages/admin/feedback-details/feedback-details.component';
@@ -43,6 +43,8 @@ import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training
 import { TrainerFeedbackToEmployeeComponent } from 'app/pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
 import { StudentList3Component } from 'app/pages/trainer/student-list3/student-list3.component';
 import { FeedbackToEmployeeComponent } from 'app/pages/trainer/feedback-to-employee/feedback-to-employee.component';
+import { OnRequestComponent } from 'app/pages/employee/on-request/on-request.component';
+import { PerformanceDashboardComponent } from 'app/pages/employee/performance-dashboard/performance.component';
 import { TrainingRequestComponent } from 'app/pages/manager/training-request/training-request.component';
 import { TrainingRequest1Component } from 'app/pages/manager/training-request1/training-request1.component';
 import { ApprovedRequestComponent } from 'app/pages/manager/approved-request/approved-request.component';
@@ -88,9 +90,6 @@ export const AdminLayoutRoutes: Routes = [
     {path:'reports', component: TrainerFeedbackToEmployeeComponent },
     {path:'student-list3', component: StudentList3Component},
     {path:'feedback-to-employee', component: FeedbackToEmployeeComponent},
-    {path:'training-request', component: TrainingRequestComponent},
-    {path:'training-request1', component: TrainingRequest1Component},
-    {path:'approved-request', component: ApprovedRequestComponent},
 
 
 ];
