@@ -43,7 +43,7 @@ import { HrFeedbackComponent } from "./pages/hr/hr-feedback/hr-feedback.componen
 import { HrTrainingComponent } from './pages/hr/hr-training/hr-training.component';
 import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
 import { HrDashboardComponent } from "./pages/hr/hr-dashboard/hr-dashboard.component";
-import { NgxPaginationModule } from "ngx-pagination";
+// import { NgxPaginationModule } from "ngx-pagination";
 
 import { UpcomingTrainingComponent } from './pages/trainer/upcoming-training/upcoming-training.component';
 import { CompletedTrainingComponent } from './pages/trainer/completed-training/completed-training.component';
@@ -85,7 +85,7 @@ import { ApprovedRequestComponent } from './pages/manager/approved-request/appro
     FooterModule,
     FixedPluginModule,FormsModule,ReactiveFormsModule,HttpClientModule,
     ReactiveFormsModule,
-    NgxPaginationModule, // Add NgxPaginationModule here
+    // NgxPaginationModule, // Add NgxPaginationModule here
 
     
   ],

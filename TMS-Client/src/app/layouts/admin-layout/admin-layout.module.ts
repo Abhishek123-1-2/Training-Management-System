@@ -44,6 +44,9 @@ import { StudentList3Component } from 'app/pages/trainer/student-list3/student-l
 import { UpcomingTrainingComponent } from 'app/pages/trainer/upcoming-training/upcoming-training.component';
 import { TrainerFeedbackToEmployeeComponent } from 'app/pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
 import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training/completed-training.component';
+import { TrainingRequestComponent } from 'app/pages/manager/training-request/training-request.component';
+import { TrainingRequest1Component } from 'app/pages/manager/training-request1/training-request1.component';
+import { ApprovedRequestComponent } from 'app/pages/manager/approved-request/approved-request.component';
 
 
 @NgModule({//
@@ -95,6 +98,12 @@ import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training
     UpcomingTrainingComponent,
     TrainerFeedbackToEmployeeComponent,
     CompletedTrainingComponent,
+    TrainingRequestComponent,
+    TrainingRequest1Component,
+    UpcomingTrainingComponent,
+    TrainerFeedbackToEmployeeComponent,
+    ApprovedRequestComponent,
+    OnRequestComponent,
 
     
     

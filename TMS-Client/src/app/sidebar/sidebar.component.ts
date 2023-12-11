@@ -51,7 +51,7 @@ submenu:[
 
 
   { path: '/hr-dashboard', title: 'Employee Feedback', class: '', icon:'nc-chart-bar-32', roles:['ROLE_HR']},
-  { path: '/trainer-feedback', title: 'Trainer Feedback', class: '', icon: 'nc-app', roles:['ROLE_HR']}
+  { path: '/trainer-feedback', title: 'Trainer Feedback', class: '', icon: 'nc-app', roles:['ROLE_HR']},
 
 
      // { path: '/icons',         title: 'Icons',             icon:'nc-diamond',    class: '' },
