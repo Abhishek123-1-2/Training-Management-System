@@ -21,8 +21,8 @@ import { AdminTrainerFeedbackComponent } from "./pages/admin/admin_trainer_feedb
 import { StudentListComponent } from "./pages/admin/student_list/student_list.component";
 // import { StudentList1Component } from "./pages/admin/student_list1/student_list1.component";
 import { AddParticipantsComponent } from "./pages/admin/add_participants/add_participants.component";
-import { TimeFormatPipe } from "./pages/admin/schedule-list/schedule-training/schedule-training.pipe";
-import { ScheduleTrainingComponent } from "./pages/admin/schedule-list/schedule-training/schedule-training.component";
+import { TimeFormatPipe } from "./pages/admin/schedule-training/schedule-training.pipe";
+import { ScheduleTrainingComponent } from "./pages/admin/schedule-training/schedule-training.component";
 import { TrainerDashboardComponent } from './pages/trainer/trainer-dashboard/trainer-dashboard.component';
 import { FeedbackComponent } from './pages/employee/feedback/feedback.component';
 import { FeedbackDetailsComponent } from './pages/admin/feedback-details/feedback-details.component';
@@ -42,7 +42,15 @@ import { EmployeeFeedbackComponent } from './pages/hr/employee-feedback/employee
 import { HrFeedbackComponent } from "./pages/hr/hr-feedback/hr-feedback.component";
 import { HrTrainingComponent } from './pages/hr/hr-training/hr-training.component';
 import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
+import { HrDashboardComponent } from "./pages/hr/hr-dashboard/hr-dashboard.component";
+// import { NgxPaginationModule } from "ngx-pagination";
 
+import { UpcomingTrainingComponent } from './pages/trainer/upcoming-training/upcoming-training.component';
+import { CompletedTrainingComponent } from './pages/trainer/completed-training/completed-training.component';
+import { TrainerFeedbackToEmployeeComponent } from './pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
+import { StudentList3Component } from './pages/trainer/student-list3/student-list3.component';
+import { FeedbackToEmployeeComponent } from './pages/trainer/feedback-to-employee/feedback-to-employee.component';
+import { OnRequestComponent } from "./pages/employee/on-request/on-request.component";
 
 
 @NgModule({
@@ -50,14 +58,14 @@ import { TrainingViewComponent } from './pages/hr/training-view/training-view.co
 
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent,
     FeedbackComponent,
     FeedbackDetailsComponent,
     EmployeeFeedbackDetailsComponent,
     AttendanceRecordComponent,
     UserDashboardComponent,
-    HrTrainingComponent,
-    TrainingViewComponent
+    TrainingViewComponent,
+    OnRequestComponent,
+
 
   
   ],
@@ -72,7 +80,9 @@ import { TrainingViewComponent } from './pages/hr/training-view/training-view.co
     ToastrModule.forRoot(),
     FooterModule,
     FixedPluginModule,FormsModule,ReactiveFormsModule,HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    // NgxPaginationModule, // Add NgxPaginationModule here
+
     
   ],
   providers: [],

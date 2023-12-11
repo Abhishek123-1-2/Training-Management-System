@@ -20,6 +20,7 @@
                 <th class="text-center">Status</th>
                 <th class="text-center">Give Feedback</th>
               </thead>
+
               <tbody>
                 <tr *ngFor="let training of trainings.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
                   <td class="text-center">{{ training.id }}</td>
@@ -33,6 +34,7 @@
               </tbody>
             </table>
           </div>
+          
           <div class="d-flex justify-content-end">
             <div class="form-inline mb-3">
               <label for="rowsPerPage" class="mr-1">Rows per Page:</label>

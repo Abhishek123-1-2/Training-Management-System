@@ -12,11 +12,11 @@ import { AdminAttendanceComponent } from 'app/pages/admin/admin-attendance/admin
 import { AddTrainingComponent } from 'app/pages/admin/add-training/add-training.component';
 import { ViewTrainingComponent } from 'app/pages/admin/view-training/view-training.component';
 // import { AttendanceDetailsComponent } from 'app/pages/admin/attendance-details/attendance-details.component';
-import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-list/schedule-training/schedule-training.component';
+import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-training/schedule-training.component';
 import { AddParticipantsComponent } from 'app/pages/admin/add_participants/add_participants.component';
 import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/trainer-dashboard.component';
-import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
-import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
+import { TIDComponent } from 'app/pages/admin/TID/tid.component';
+import { TypeComponent } from 'app/pages/admin/type/type.component';
 import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
 import { FeedbackComponent } from 'app/pages/employee/feedback/feedback.component';
 import { FeedbackDetailsComponent } from 'app/pages/admin/feedback-details/feedback-details.component';
@@ -38,6 +38,13 @@ import { CourseDetailsComponent } from 'app/pages/admin/course-details/course-de
 import { EmployeeFeedbackComponent } from 'app/pages/hr/employee-feedback/employee-feedback.component';
 import { HrTrainingComponent } from 'app/pages/hr/hr-training/hr-training.component';
 import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
+import { UpcomingTrainingComponent } from 'app/pages/trainer/upcoming-training/upcoming-training.component';
+import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training/completed-training.component';
+import { TrainerFeedbackToEmployeeComponent } from 'app/pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
+import { StudentList3Component } from 'app/pages/trainer/student-list3/student-list3.component';
+import { FeedbackToEmployeeComponent } from 'app/pages/trainer/feedback-to-employee/feedback-to-employee.component';
+import { OnRequestComponent } from 'app/pages/employee/on-request/on-request.component';
+import { PerformanceDashboardComponent } from 'app/pages/employee/performance-dashboard/performance.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -74,11 +81,16 @@ export const AdminLayoutRoutes: Routes = [
     {path:'registration', component: AdminRegistrationComponent},
     {path:'employee-search', component: EmployeeSearchComponent},
     {path:'course-details/:emp_code', component: CourseDetailsComponent},
-    {path:'employee-feedback', component: EmployeeFeedbackComponent},
-    {path:'trainer-feedback', component: TrainerFeedbackComponent},
-    {path:'employee-feedback', component: EmployeeFeedbackComponent},
-    {path:'training-record', component: TrainingRecordComponent},
-    {path:'hr-training', component: HrTrainingComponent},
-    {path:'training-view', component: TrainingViewComponent}
+    {path:'view-training', component: ViewTrainingComponent},
+    {path:'upcoming-training', component: UpcomingTrainingComponent},
+    {path:'completed-training', component: CompletedTrainingComponent},
+    {path:'reports', component: TrainerFeedbackToEmployeeComponent },
+    {path:'student-list3', component: StudentList3Component},
+    {path:'feedback-to-employee', component: FeedbackToEmployeeComponent},
+{path:'on-request',component:OnRequestComponent},
+{path:'performance',component:PerformanceDashboardComponent},
+
+
+
 
 ];

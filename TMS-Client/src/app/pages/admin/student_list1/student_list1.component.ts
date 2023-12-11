@@ -35,22 +35,8 @@ export class StudentList1Component implements OnInit {
   public studentList: TableData;
   public filteredData: TableRow[];
   public searchValue: string = '';
-
-  currentPage = 1;
-  itemsPerPage = 5;
-
-
-  get pages(): number[] {
-    if (this.studentList.dataRows.length === 0) {
-      return [];
-    }
-
-    const pageCount = Math.ceil(this.studentList.dataRows.length / this.itemsPerPage);
-    return Array.from({ length: pageCount }, (_, index) => index + 1);
-  }
-
-
-
+  public currentPage = 1;
+  public itemsPerPage = 5;
   
 
   constructor(private route: ActivatedRoute) {}
@@ -67,7 +53,7 @@ export class StudentList1Component implements OnInit {
   }
   fetchStudentList(t_id: string): void {
     this.studentList = {
-        headerRow: ['Employee Code','Employee Name', 'Course Name', 'Trainer Name', 'Status', 'Start Date', 'End Date', 'Reports'],
+        headerRow: ['Employee Code','Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status', 'Reports'],
         dataRows: [
             {emp_code:'3647', emp_name:'Yash Gavanang',   c_name:'Angular', t_name:'Amisha Jangipuria', status:'Completed', view:'View'},
             {emp_code:'3646', emp_name:'Abhishek Pillai', c_name:'Angular', t_name:'Amisha Jangipuria', status:'Completed', view:'View'},
@@ -85,10 +71,18 @@ applyFilter() {
     );
   }
 
-  changeItemsPerPage(event: any): void {
-    this.itemsPerPage = +event.target.value;
-    this.currentPage = 1; // Reset to the first page when changing items per page
+  get pages(): number[] {
+    if (this.studentList.dataRows.length === 0) {
+      return [];
+    }
+
+    const pageCount = Math.ceil(this.studentList.dataRows.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
   }
 
+  changeItemsPerPage(event: any): void {
+    this.itemsPerPage = +event.target.value,
+    this.currentPage = 1; 
+  }
 
 }

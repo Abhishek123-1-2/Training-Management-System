@@ -25,21 +25,8 @@ export class TrainingRecordComponent implements OnInit {
   public tableData1: TableData;
   public filteredData: TableRow[];
   public searchValue: string = '';
-
-  currentPage = 1;
-  itemsPerPage = 5;
-
-
-  get pages(): number[] {
-    if (this.tableData1.dataRows.length === 0) {
-      return [];
-    }
-
-    const pageCount = Math.ceil(this.tableData1.dataRows  .length / this.itemsPerPage);
-    return Array.from({ length: pageCount }, (_, index) => index + 1);
-  }
-
-
+  public currentPage = 1;
+  public itemsPerPage = 5;
 
   constructor() { }
 
@@ -65,9 +52,18 @@ export class TrainingRecordComponent implements OnInit {
     );
   }
 
+  get pages(): number[] {
+    if (this.tableData1.dataRows.length === 0) {
+      return [];
+    }
+
+    const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
+
   changeItemsPerPage(event: any): void {
-    this.itemsPerPage = +event.target.value;
-    this.currentPage = 1; // Reset to the first page when changing items per page
+    this.itemsPerPage = +event.target.value,
+    this.currentPage = 1; 
   }
 
 }

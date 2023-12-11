@@ -32,96 +32,120 @@ interface TableRow {
   templateUrl: 'view-training.component.html'
 })
 export class ViewTrainingComponent implements OnInit {
-  constructor(private router: Router, private trainingService: TrainingService) {}
 
-  public tableData1: TableData = { headerRow: [], dataRows: [] };
-  public filteredData: TableRow[] = [];
-  public searchValue: string = '';
-  isEditMode: boolean = false;
-  rowIndexBeingEdited: number | null = null;
-  isAddParticipantsFormVisible = false;
-  newParticipantName = '';
-  display = 'none';
+  constructor(private router: Router,private trainingService:TrainingService) {}
+  
+    public tableData1: TableData;
+    public filteredData: TableRow[];
+    public searchValue: string = '';
+    isEditMode: boolean = false;
+    rowIndexBeingEdited: number | null = null;
+    isAddParticipantsFormVisible = false;
+    newParticipantName = '';
+    display = 'none';
 
-  currentPage = 1;
-  itemsPerPage = 5;
-
-  get pages(): number[] {
-    if (!this.filteredData || this.filteredData.length === 0) {
-      return [];
+    currentPage = 1;
+    itemsPerPage = 5;
+  
+  
+    get pages(): number[] {
+      if (this.tableData1.dataRows.length === 0) {
+        return [];
+      }
+  
+      const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+      return Array.from({ length: pageCount }, (_, index) => index + 1);
     }
 
-    const pageCount = Math.ceil(this.filteredData.length / this.itemsPerPage);
-    return Array.from({ length: pageCount }, (_, index) => index + 1);
-  }
 
-  ngOnInit() {
-    this.fetchTableData();
-  }
 
-  fetchTableData() {
-    this.trainingService.getTrainingData().subscribe(
-      (data: any[]) => {
-        this.tableData1 = {
-          headerRow: ['No.', 'Course', 'Trainer Name', 'Meeting Link', 'Username', 'Password', 'Action'],
-          dataRows: data.map((row, index) => ({
-            number: (index + 1).toString(),
-            course: row.course,
-            trainer_name: row.trainer_names.includes(row.course)
-              ? row.trainer_names
-              : `${row.trainer_names}(${row.course})`,
-            meeting_link: row.url,
-            username: row.username,
-            password: row.password,
-            action: ''
-          }))
-        };
-        this.filteredData = [...this.tableData1.dataRows];
-      },
-      error => {
-        console.error('Error fetching training data:', error);
+    ngOnInit()  {
+      this.fetchTableData();
+    }
+    // fetchTableData() {
+    //   this.trainingService.getTrainingData().subscribe(
+    //     (data: any[]) => {
+    //       this.tableData1 = {
+    //         headerRow: ['No.', 'Course', 'Trainer Name', 'Meeting Link', 'Username', 'Password', 'Action'],
+    //         dataRows: data.map((row, index) => ({
+    //           number: (index + 1).toString(),
+    //           course: row.course,
+    //           trainer_name: row.trainer_names,
+    //           meeting_link: row.url,
+    //           username: row.username,
+    //           password: row.password,
+    //           action: ''
+    //         }))
+    //       };
+    //       this.filteredData = [...this.tableData1.dataRows];
+    //     },
+    //     error => {
+    //       console.error('Error fetching training data:', error);
+    //     }
+    //   );
+    // }
+    fetchTableData() {
+      this.trainingService.getTrainingData().subscribe(
+        (data: any[]) => {
+          this.tableData1 = {
+            headerRow: ['No.', 'Course', 'Trainer Name', 'Meeting Link', 'Username', 'Password', 'Action'],
+            dataRows: data.map((row, index) => ({
+              number: (index + 1).toString(),
+              course: row.course,
+              // trainer_name: `${row.trainer_names}(${row.course})`, // Update this line
+              trainer_name: `${row.trainer_names.includes(row.course) ? row.trainer_names : `${row.trainer_names}(${row.course})`}`,
+
+              meeting_link: row.url,
+              username: row.username,
+              password: row.password,
+              action: ''
+            }))
+          };
+          this.filteredData = [...this.tableData1.dataRows];
+        },
+        error => {
+          console.error('Error fetching training data:', error);
+        }
+      );
+    }
+  
+    applyFilter() {
+        this.filteredData = this.tableData1.dataRows.filter(row =>
+          Object.values(row).some(value =>
+            value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
+          )
+        );
       }
-    );
-  }
+      toggleEditMode(rowIndex: number): void {
+        this.isEditMode = !this.isEditMode;
+        this.rowIndexBeingEdited = this.isEditMode ? rowIndex : null;
+      }
+    
+      startEdit(index: number) {
+        this.rowIndexBeingEdited = index;
+        this.isEditMode = true;
+      }
+    
+      saveChanges(rowIndex: number): void {
+        // Implement logic to save changes (update your data array, send to server, etc.)
+        console.log('Saving changes for row:', rowIndex);
+        this.isEditMode = false;
+        this.rowIndexBeingEdited = null;
+      }
+    
+      cancelEdit() {
+        this.isEditMode = false;
+        // If you want to revert changes, you may need to reload the original data
+      }
+      toggleModal() {
+        console.log('Opening Modal form')
+        this.isAddParticipantsFormVisible = !this.isAddParticipantsFormVisible;
+        this.display = 'block';
+    }
 
-  applyFilter() {
-    this.filteredData = this.tableData1.dataRows.filter(row =>
-      Object.values(row).some(value =>
-        value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
-      )
-    );
-  }
+    changeItemsPerPage(event: any): void {
+      this.itemsPerPage = +event.target.value;
+      this.currentPage = 1; // Reset to the first page when changing items per page
+    }
 
-  toggleEditMode(rowIndex: number): void {
-    this.isEditMode = !this.isEditMode;
-    this.rowIndexBeingEdited = this.isEditMode ? rowIndex : null;
-  }
-
-  startEdit(index: number) {
-    this.rowIndexBeingEdited = index;
-    this.isEditMode = true;
-  }
-
-  saveChanges(rowIndex: number): void {
-    // Implement logic to save changes (update your data array, send to server, etc.)
-    console.log('Saving changes for row:', rowIndex);
-    this.isEditMode = false;
-    this.rowIndexBeingEdited = null;
-  }
-
-  cancelEdit() {
-    this.isEditMode = false;
-    // If you want to revert changes, you may need to reload the original data
-  }
-
-  toggleModal() {
-    console.log('Opening Modal form');
-    this.isAddParticipantsFormVisible = !this.isAddParticipantsFormVisible;
-    this.display = 'block';
-  }
-
-  changeItemsPerPage(event: any): void {
-    this.itemsPerPage = +event.target.value;
-    this.currentPage = 1; // Reset to the first page when changing items per page
-  }
 }

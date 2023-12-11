@@ -25,21 +25,21 @@
           </thead>
           <tbody>
             <!-- Use *ngFor to loop through filteredData and display each record -->
-            <tr *ngFor="let row of filteredData">
+            <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)">
               <td class="text-center">{{ row.emp_code }}</td>
               <td class="text-center">{{ row.emp_name }}</td>
               <td class="text-center">{{ row.c_name }}</td>
               <td class="text-center">{{ row.t_name }}</td>
-              <td class="text-center">{{ row.status }}</td>
               <td class="text-center">{{ start_date }}</td> <!-- Display start_date -->
               <td class="text-center">{{ end_date }}</td>
+              <td class="text-center">{{ row.status }}</td>
               <td class="text-center"><a [routerLink]="['/attendance-record',{ emp_code: row.emp_code, c_name: row.c_name, t_name: row.t_name, status: row.status, start_date: start_date, end_date: end_date} ]">{{ row.view }}</a></td>
               <!-- Add more cells as needed -->
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="d-flex justify-content-end">
+      <div class="d-flex justify-content-end mt-3">
         <div class="form-inline mb-3">
           <label for="rowsPerPage" class="mr-1">Rows per Page:</label>
           <select class="form-control" id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage($event)">
@@ -47,6 +47,7 @@
             <option value="10">10</option>
           </select>
         </div>
+
         <nav aria-label="Page navigation example">
           <ul class="pagination pagination-md">
             <li class="page-item" (click)="currentPage = (currentPage > 1) ? currentPage - 1 : 1" [class.disabled]="currentPage === 1">

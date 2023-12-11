@@ -142,7 +142,6 @@ export class ScheduleListComponent implements OnInit {
     this.isAddParticipantsFormVisible = !this.isAddParticipantsFormVisible;
     this.display = 'block';
   }
-
   get pages(): number[] {
     if (this.tableData1.dataRows.length === 0) {
       return [];
