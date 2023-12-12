@@ -11,10 +11,16 @@
     </div>
     <div class="card-body">
       <form (ngSubmit)="addParticipants()"  [formGroup]="addParticipantsForm">
-        <div *ngFor="let participant of participants; let i = index" class="row">
+        <div *ngFor="let formGroup of participantForms; let i = index" class="row">
           <div class="col-md-6 form-group">
             <label>Employee Code:</label>
-            <input type="text" id="empCode" name="empCode" formControlName="empCode" class="form-control" [(ngModel)]="participants[i].emp_code" (input)="onEmpCodeChange(i)" required >
+            <select name="empCode" id="empCode" formControlName="empCode" class="form-control" required>
+              <option value="code">3647</option>
+              <option value="code">3646</option>
+              <option value="code">3639</option>
+              <option value="code">3364</option>
+            </select>
+            <!-- <input type="text" id="empCode" name="empCode" formControlName="empCode" class="form-control" [(ngModel)]="participants[i].emp_code" (input)="onEmpCodeChange(i)" required > -->
             <div *ngIf="addParticipantsForm.get('empCode').hasError('required') && addParticipantsForm.get('empCode').touched">
                 <small class="text-danger">Employee Code is required</small>
             </div>
@@ -49,9 +55,6 @@
             <label for="status">Status:</label>
             <select id="status" name="status" formControlName="status" class="form-control" required>
               <option value="confirmed">Confirmed</option>
-              <option value="registered">Registered</option>
-              <option value="rejected">Rejected</option>
-              <option value="absent">Absent</option>
             </select>
             <div *ngIf="addParticipantsForm.get('status').hasError('required') && addParticipantsForm.get('status').touched">
                 <small class="text-danger">Status is required</small>
