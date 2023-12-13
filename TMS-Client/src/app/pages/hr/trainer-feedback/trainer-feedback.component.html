@@ -9,14 +9,14 @@
             <label for="searchTerm" class="mr-1">Search:</label>
             <input type="text" class="form-control" id="searchTerm" [(ngModel)]="searchTerm" (input)="performSearch()">
           </div>
-          <div class="table-responsive text-nowrap">
+          <div class="table-responsive">
             <table class="table">
               <thead class="text-primary">
-                <th class="text-center" *ngFor="let header of tableData1.headerRow">{{ header }}</th>
+                <th *ngFor="let header of tableData1.headerRow">{{ header }}</th>
               </thead>
               <tbody>
                 <tr *ngFor="let row of tableData1.dataRows.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
-                  <td class="text-center" *ngFor="let cell of row">{{ cell }}</td>
+                  <td *ngFor="let cell of row">{{ cell }}</td>
                 </tr>
               </tbody>
             </table>

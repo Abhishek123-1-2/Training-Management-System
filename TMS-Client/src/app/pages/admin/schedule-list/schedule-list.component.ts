@@ -16,6 +16,7 @@ interface TableRow {
   planned_end_date: string;
   from_time: string;
   to_time: string;
+  participants: string;
   status: string;
   action: string;
 }
@@ -47,7 +48,7 @@ export class ScheduleListComponent implements OnInit {
     this.http.get<any[]>('http://localhost:8083/api/training-views/schedule-list').subscribe(
       (data) => {
         this.tableData1 = {
-          headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status', 'Action'],
+          headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status','Add Participants', 'Action'],
           dataRows: data.map((item, index) => ({
             scheduleId: item.scheduleId,
             number: (index + 1).toString(),
@@ -57,6 +58,7 @@ export class ScheduleListComponent implements OnInit {
             planned_end_date: item.plannedEndDate ? item.plannedEndDate.split('T')[0] : '',
             from_time: item.fromTime,
             to_time: item.toTime,
+            participants: item.participants,
             status: item.trainingStatus,
             action: '',
           })),
