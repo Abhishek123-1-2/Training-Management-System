@@ -70,16 +70,16 @@ public void scheduleTraining(@RequestBody TrainingSchedule request) {
 //         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 //     }
 // }
-@GetMapping("/training-id")
-public ResponseEntity<Long> getTrainingIdByCourse(@RequestParam String course) {
-    Long trainingId = trainingViewService.getTrainingIdByCourse(course);
+// @GetMapping("/training-id")
+// public ResponseEntity<Long> getTrainingIdByCourse(@RequestParam String course) {
+//     Long trainingId = trainingViewService.getTrainingIdByCourse(course);
 
-    if (trainingId != null) {
-        return new ResponseEntity<>(trainingId, HttpStatus.OK);
-    } else {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-}
+//     if (trainingId != null) {
+//         return new ResponseEntity<>(trainingId, HttpStatus.OK);
+//     } else {
+//         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//     }
+// }
     @GetMapping("/courses")
     public List<String> getTrainingCourses() {
         return trainingViewService.getTrainingCourses();
@@ -129,16 +129,16 @@ public ResponseEntity<List<TrainingViewDto>> getTrainingScheduleList() {
     //     return trainingViewService.getAllScheduledTrainings();
     // }
 
-//     @GetMapping("/training-id")
-// public ResponseEntity<Long> getTrainingIdByCourse(@RequestParam String course) {
-//     Long trainingId = trainingViewService.getTrainingIdByCourse(course);
+    @GetMapping("/training-id")
+public ResponseEntity<Long> getTrainingIdByCourse(@RequestParam String course) {
+    Long trainingId = trainingViewService.getTrainingIdByCourse(course);
 
-//     if (trainingId != null) {
-//         return new ResponseEntity<>(trainingId, HttpStatus.OK);
-//     } else {
-//         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//     }
-// }
+    if (trainingId != null) {
+        return new ResponseEntity<>(trainingId, HttpStatus.OK);
+    } else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+}
 // Inside TrainingViewController.java
 
 @GetMapping("/courses-with-dates")
@@ -201,6 +201,25 @@ public ResponseEntity<String> updateTrainingSchedule(@RequestBody TrainingSchedu
     }
 }
 
+// @GetMapping("/training-id-by-course")
+// public ResponseEntity<Long> getTrainingIdByCourse(@RequestParam String course) {
+//     try {
+//         // Get the training ID based on the course
+//         Long trainingId = trainingViewService.getTrainingIdByCourse(course);
+
+//         if (trainingId != null) {
+//             return new ResponseEntity<>(trainingId, HttpStatus.OK);
+//         } else {
+//             // Handle the case where no training ID is found
+//             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//         }
+
+//     } catch (Exception e) {
+//         e.printStackTrace();
+//         // Log the exception or handle it according to your application's needs
+//         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//     }
+// }
 
 
 // @PostMapping("/schedule-by-course")

@@ -28,6 +28,12 @@ public class EmployeeController {
 public List<String> getEmployeeCodes() {
     return employeeService.getEmployeeCodes();
 }
+@GetMapping("/id/{empCode}")
+    public Long getEmployeeId(@PathVariable String empCode) {
+        return employeeService.getEmployeeId(empCode);
+    }
+
+    
 
 }
 

@@ -47,7 +47,7 @@ submenu:[
 ]},
 { path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_USER']},
 
-{path:'performance',title:'Performance',class:'',icon:'nc-bell-55',roles:['ROLE_USER']},
+// {path:'performance',title:'Performance',class:'',icon:'nc-bell-55',roles:['ROLE_USER']},
 
 
   { path: '/hr-dashboard', title: 'Employee Feedback', class: '', icon:'nc-chart-bar-32', roles:['ROLE_HR']},
@@ -99,7 +99,7 @@ export class SidebarComponent implements OnInit {
         const userRole = localStorage.getItem("role");
         this.menuItems = ROUTES.filter(menuItem => this.filterRoutesByRole(menuItem, userRole));
       }
-    
+
       private filterRoutesByRole(route: RouteInfo, userRole: string): boolean {
         // If the route has children, filter the children based on the user's role
         if (route.children) {
@@ -109,7 +109,8 @@ export class SidebarComponent implements OnInit {
         // Return true if the route is allowed for the user's role, or if it has children after filtering
         return !route.roles || route.roles.includes(userRole) || (route.children && route.children.length > 0);
       }
-    
+      
+      
       toggleDropdown(menuItem) {
         if (menuItem.children) {
           menuItem.active = !menuItem.active;
