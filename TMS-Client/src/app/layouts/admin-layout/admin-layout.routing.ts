@@ -48,6 +48,9 @@ import { PerformanceDashboardComponent } from 'app/pages/employee/performance-da
 import { TrainingRequestComponent } from 'app/pages/manager/training-request/training-request.component';
 import { TrainingRequest1Component } from 'app/pages/manager/training-request1/training-request1.component';
 import { ApprovedRequestComponent } from 'app/pages/manager/approved-request/approved-request.component';
+import { ReportOfCoursesComponent } from 'app/pages/trainer/report-courses/report-courses.component';
+import { ReportMainComponent } from 'app/pages/trainer/report-main/report-main.component';
+import { ReportOfEmployeeComponent } from 'app/pages/trainer/report-emp/report-emp.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -87,7 +90,7 @@ export const AdminLayoutRoutes: Routes = [
     {path:'view-training', component: ViewTrainingComponent},
     {path:'upcoming-training', component: UpcomingTrainingComponent},
     {path:'completed-training', component: CompletedTrainingComponent},
-    {path:'reports', component: TrainerFeedbackToEmployeeComponent },
+    {path:'give-feedback', component: TrainerFeedbackToEmployeeComponent },
     {path:'student-list3', component: StudentList3Component},
     {path:'feedback-to-employee', component: FeedbackToEmployeeComponent},
     {path:'on-request', component:OnRequestComponent},
@@ -96,5 +99,8 @@ export const AdminLayoutRoutes: Routes = [
     {path:'training-request1', component: TrainingRequest1Component},
     {path:'approved-request', component: ApprovedRequestComponent},
 
+    {path:'report-main',component:ReportMainComponent},
+    {path:'report-employee',component:ReportOfEmployeeComponent},
+    {path:'report-courses',component:ReportOfCoursesComponent},
 
 ];

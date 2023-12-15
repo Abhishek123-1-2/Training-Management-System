@@ -16,7 +16,7 @@ export class FeedbackFormComponent implements OnInit,AfterViewInit {
   problemSolvingAbilityValue: number = 0;
   commentsFromTrainerValue: number = 0;
 
-  @ViewChild('chartCanvas') chartCanvas: ElementRef; // Reference to the canvas element
+  @ViewChild('chartCanvas') chartCanvas: ElementRef<HTMLCanvasElement>;; // Reference to the canvas element
 
   constructor() { }
 
@@ -77,20 +77,30 @@ export class FeedbackFormComponent implements OnInit,AfterViewInit {
       options: {
         indexAxis: 'y',
         scales: {
-          x: {
+
+          /* x: {
             beginAtZero: true,
-            min: 0,
+            min: 1,
             max: 5,
             ticks: {
-              stepSize: 5
+              stepSize: 1
             }
-          },
-          y: {
+          }, */
+
+         y: {
+          beginAtZero: true,
+            min: 1,
+            max: 5,
+            ticks: {
+              stepSize: 1
+            },
+            display: true,
             title: {
               display: true,
               text: 'Fields'
             }
           }
+
         }
       }
     });

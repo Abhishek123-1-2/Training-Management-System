@@ -49,8 +49,12 @@ import { TrainingRequestComponent } from 'app/pages/manager/training-request/tra
 import { TrainingRequest1Component } from 'app/pages/manager/training-request1/training-request1.component';
 import { ApprovedRequestComponent } from 'app/pages/manager/approved-request/approved-request.component';
 
+import { ReportMainComponent } from 'app/pages/trainer/report-main/report-main.component';
+import { ReportOfEmployeeComponent } from 'app/pages/trainer/report-emp/report-emp.component';
+import { ReportOfCoursesComponent } from 'app/pages/trainer/report-courses/report-courses.component';
 
-@NgModule({//
+
+@NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
@@ -106,6 +110,11 @@ import { ApprovedRequestComponent } from 'app/pages/manager/approved-request/app
     UpcomingTrainingComponent,
     ApprovedRequestComponent,
     LoginComponent,
+
+ReportMainComponent,
+ReportOfEmployeeComponent,
+ReportOfCoursesComponent,
+
 
     
     
