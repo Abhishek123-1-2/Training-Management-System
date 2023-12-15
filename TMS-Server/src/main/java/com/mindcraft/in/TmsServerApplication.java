@@ -9,5 +9,4 @@ public class TmsServerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TmsServerApplication.class, args);
 	}
-
 }

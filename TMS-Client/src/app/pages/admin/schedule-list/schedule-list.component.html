@@ -39,6 +39,7 @@
                   <td>
                     <button class="btn btn-primary" (click)="toggleEditMode(i)">Edit{{ row.action }}</button>
                   </td>
+                  <td class="text-center"><a [routerLink]="['/participants-list']">{{ row.view }}</a></td>
                 </tr>
                 <tr *ngIf="isEditMode && i === rowIndexBeingEdited">
                   <td class="text-center">

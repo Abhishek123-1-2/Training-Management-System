@@ -54,6 +54,7 @@ import { ManagerDashboardComponent } from './pages/manager/manager-dashboard/man
 import { TrainingRequestComponent } from './pages/manager/training-request/training-request.component';
 import { TrainingRequest1Component } from './pages/manager/training-request1/training-request1.component';
 import { ApprovedRequestComponent } from './pages/manager/approved-request/approved-request.component';
+import { TrainerTrainingDetailsComponent } from './pages/trainer/trainer-training-details/trainer-training-details.component';
 
 
 @NgModule({
@@ -63,11 +64,9 @@ import { ApprovedRequestComponent } from './pages/manager/approved-request/appro
     AdminLayoutComponent,
     FeedbackComponent,
     FeedbackDetailsComponent,
-    AttendanceRecordComponent,
     UserDashboardComponent,
-    TrainingViewComponent,
-    AttendanceComponent,
-    Attendance2Component
+    
+
 
   
   ],

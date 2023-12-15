@@ -1,8 +1,15 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/schedule-list']">Schedule Details</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Participant's Details</li>
+    </ol>
+  </nav>
 <div class="row">
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">On-Demand Course Request's</h4>
+          <h4 class="card-title">Participant's Details</h4>
         </div>
         <div class="card-body">
             <div class="form-group">
@@ -15,23 +22,19 @@
                 <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
               </thead>
               <tbody>
-                <tr *ngFor="let row of filteredData" class="expandable-row text-center">
-                    <td>{{ row.sr_no }}</td>
-                    <td>{{ row.emp_code }}</td>
-                    <td>{{ row.emp_name }}</td>
-                    <td>{{ row.c_name }}</td>
-                    <td>{{ row.start_date }}</td>
-                    <td>{{ row.end_date }}</td>
-                    <td>
-                        <span><button class="btn btn-success" (click)="approveRequest(row)" [disabled]="row.isApproved">Approve</button></span>
-                        &nbsp;
-                        <span><button class="btn btn-danger" (click)="rejectRequest(row)" [disabled]="row.isRejected">Reject</button></span>
-                    </td>
+                <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
+                    <td class="text-center">{{ row.sr_no }}</td>
+                    <td class="text-center">{{ row.emp_code }}</td>
+                    <td class="text-center">{{ row.emp_name }}</td>
+                    <td class="text-center">{{ row.designation }}</td>
+                    <td class="text-center">{{ row.department}}</td>
+                    <td class="text-center">{{ row.email_id }}</td>
+                    <!-- <td class="text-center"><a [routerLink]="['/course-details', row.emp_code]">{{ row.view }}</a></td> -->
                   </tr>
               </tbody>
             </table>
           </div>
-          <div class="d-flex justify-content-end mt-3">
+          <div class="d-flex justify-content-end mt-3 mt-3">
             <div class="form-inline mb-3">
               <label for="rowsPerPage" class="mr-1">Rows per Page:</label>
               <select class="form-control" id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage($event)">
@@ -39,6 +42,7 @@
                 <option value="10">10</option>
               </select>
             </div>
+
             <nav aria-label="Page navigation example">
               <ul class="pagination pagination-md">
                 <li class="page-item" (click)="currentPage = (currentPage > 1) ? currentPage - 1 : 1" [class.disabled]="currentPage === 1">
@@ -55,4 +59,6 @@
         </div>
       </div>
     </div>
-</div>
+  </div>
+
+  

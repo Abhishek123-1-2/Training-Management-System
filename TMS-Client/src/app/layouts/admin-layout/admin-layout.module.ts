@@ -53,8 +53,13 @@ import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback
 import { ReportMainComponent } from 'app/pages/trainer/report-main/report-main.component';
 import { ReportOfEmployeeComponent } from 'app/pages/trainer/report-emp/report-emp.component';
 import { ReportOfCoursesComponent } from 'app/pages/trainer/report-courses/report-courses.component';
-
+import { AttendanceRecordComponent } from 'app/pages/admin/attendance-record/attendance-record.component';
+import { TrainerTrainingDetailsComponent } from 'app/pages/trainer/trainer-training-details/trainer-training-details.component';
 import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
+import { Attendance2Component } from 'app/pages/hr/attendance2/attendance2.component';
+import { AttendanceComponent } from 'app/pages/hr/attendance/attendance.component';
+import { ParticipantsListComponent } from 'app/pages/admin/participants-list/participants-list.component';
+
 
 
 @NgModule({
@@ -118,8 +123,18 @@ import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.
     TrainingRequest1Component,
     TrainingRequestComponent,
     ApprovedRequestComponent,
-    
+    ReportMainComponent,
+    ReportOfEmployeeComponent,
+    ReportOfCoursesComponent,
+    TrainerTrainingDetailsComponent,
+    TrainingViewComponent,
+    AttendanceComponent,
+    Attendance2Component,
+    ParticipantsListComponent,
+    AttendanceRecordComponent,
 
+
+    
     
     
     
