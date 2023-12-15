@@ -19,15 +19,14 @@ import { ViewTrainingComponent } from './pages/admin/view-training/view-training
 import { ScheduleTrainingComponent } from './pages/admin/schedule-training/schedule-training.component';
 import { UserDashboardComponent } from './pages/employee/user-dashboard/user-dashboard.component';
 import { HrDashboardComponent } from './pages/hr/hr-dashboard/hr-dashboard.component';
-import { TrainerFeedbackComponent } from './pages/hr/trainer-feedback/trainer-feedback.component';
 import { AdminTrainingHistoryComponent } from './pages/admin/admin-training-history/admin-training-history.component';
 import { EmployeeSearchComponent } from './pages/admin/employee-search/employee-search.component';
 import { CourseDetailsComponent } from './pages/admin/course-details/course-details.component';
 import { TrainingRecordComponent } from './pages/admin/training-record/training-record.component';
 import { EmployeeHistoryComponent } from './pages/admin/employee-history/employee-history.component';
-import { EmployeeFeedbackComponent } from './pages/hr/employee-feedback/employee-feedback.component';
-import { HrTrainingComponent } from './pages/hr/hr-training/hr-training.component';
 import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
+import { AttendanceComponent } from './pages/hr/attendance/attendance.component';
+import { Attendance2Component } from './pages/hr/attendance2/attendance2.component';
 import { ManagerDashboardComponent } from './pages/manager/manager-dashboard/manager-dashboard.component';
 
 
@@ -100,31 +99,20 @@ export const AppRoutes: Routes = [
         },
 
         {
-          path: 'trainer-feedback',
-          component: TrainerFeedbackComponent,
-
-        },
-
-        {
-          path: 'employee-feedback',
-          component: EmployeeFeedbackComponent,
-        },
-
-        {
-          path: 'hr-training',
-          component: HrTrainingComponent,
-        },
-
-        {
           path: 'training-view',
           component: TrainingViewComponent,
 
+        },
+
+        {
+          path: 'attendance',
+          component: AttendanceComponent
+        },
+
+        {
+          path: 'attendance2',
+          component: Attendance2Component
         }
-
-        
-
-        
-
         
       ]},
   {

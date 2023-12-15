@@ -1,27 +1,37 @@
 /* feedback-form.component.ts  */
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import Chart from 'chart.js';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'feedback-form',
   templateUrl: './feedback-form.component.html',
   styleUrls: ['./feedback-form.component.scss']
 })
-export class FeedbackFormComponent implements OnInit,AfterViewInit {
+export class FeedbackFormComponent implements OnInit {
+
+ 
+
+
+
+
   technicalSkillsValue: number = 0;
   graspingPowerValue: number = 0;
   proActivenessValue: number = 0;
   interestQualityValue: number = 0;
   leadershipQualityValue: number = 0;
   problemSolvingAbilityValue: number = 0;
-  commentsFromTrainerValue: number = 0;
 
-  @ViewChild('chartCanvas') chartCanvas: ElementRef; // Reference to the canvas element
+
+  @ViewChild('chartCanvas') chartCanvas: ElementRef<HTMLCanvasElement>;; // Reference to the canvas element
+  saveForm: any;
+  formBuilder: any;
+  chart: any;
 
   constructor() { }
+  ngOnInit(): void {
+  }
 
-  // Define an object to store chart instances
-  chart: Chart;
 
   ngAfterViewInit(): void {
     this.createChart();
@@ -96,11 +106,6 @@ export class FeedbackFormComponent implements OnInit,AfterViewInit {
     });
   }
 
-
-
-  ngOnInit(): void {
-  }
-
   updateChart(): void {
     if (this.chart) {
       this.chart.data.datasets[0].data = [
@@ -121,4 +126,15 @@ export class FeedbackFormComponent implements OnInit,AfterViewInit {
     this.updateChart();
   }
 
+
+onSubmit()
+{
+  if(this.saveForm.invalid)
+  {
+    return;
+  }
 }
+
+}
+
+

@@ -29,13 +29,11 @@ import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-li
 import { AdminTrainingHistoryComponent } from 'app/pages/admin/admin-training-history/admin-training-history.component';
 import { CourseDetailsComponent } from 'app/pages/admin/course-details/course-details.component';
 import { EmployeeHistoryComponent } from 'app/pages/admin/employee-history/employee-history.component';
-import { TrainerFeedbackComponent } from 'app/pages/hr/trainer-feedback/trainer-feedback.component';
 import { HrDashboardComponent } from 'app/pages/hr/hr-dashboard/hr-dashboard.component';
 import { TrainingRecordComponent } from 'app/pages/admin/training-record/training-record.component';
 import { EmployeeSearchComponent } from 'app/pages/admin/employee-search/employee-search.component';
 import { OngoingTrainingComponent } from 'app/pages/trainer/ongoing-training/ongoing-training.component';
 import { StudentList2Component } from 'app/pages/trainer/student-list2/student-list2.component';
-import { EmployeeFeedbackComponent } from 'app/pages/hr/employee-feedback/employee-feedback.component';
 import { TypeComponent } from 'app/pages/admin/type/type.component';
 import { TIDComponent } from 'app/pages/admin/TID/tid.component';
 import { OnRequestComponent } from 'app/pages/employee/on-request/on-request.component';
@@ -49,11 +47,17 @@ import { TrainingRequestComponent } from 'app/pages/manager/training-request/tra
 import { TrainingRequest1Component } from 'app/pages/manager/training-request1/training-request1.component';
 import { ApprovedRequestComponent } from 'app/pages/manager/approved-request/approved-request.component';
 import { FeedbackToEmployeeComponent } from 'app/pages/trainer/feedback-to-employee/feedback-to-employee.component';
-import { HrTrainingComponent } from 'app/pages/hr/hr-training/hr-training.component';
+import { EmployeeFeedbackDetailsComponent } from 'app/pages/admin/employee_feedback_details/employee_feedback_details.component';
+import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback-form.component';
+
+import { ReportMainComponent } from 'app/pages/trainer/report-main/report-main.component';
+import { ReportOfEmployeeComponent } from 'app/pages/trainer/report-emp/report-emp.component';
+import { ReportOfCoursesComponent } from 'app/pages/trainer/report-courses/report-courses.component';
+
 import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
 
 
-@NgModule({//
+@NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
@@ -87,29 +91,34 @@ import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.
     AdminTrainingHistoryComponent,
     CourseDetailsComponent,
     EmployeeHistoryComponent,
-    TrainerFeedbackComponent,
     HrDashboardComponent,
     TrainingRecordComponent,
     EmployeeSearchComponent,
     OngoingTrainingComponent,
     StudentList2Component,
     TrainingRecordComponent,
-    EmployeeFeedbackComponent,
-    TypeComponent,
-    TIDComponent,
-    TrainingHistoryComponent,
-    StudentList3Component,
+    AdminAttendanceComponent,
     UpcomingTrainingComponent,
     TrainerFeedbackToEmployeeComponent,
     CompletedTrainingComponent,
+    // EmployeeFeedbackComponent,
+    ViewTrainingComponent,
+    AdminAttendanceComponent,
+    EmployeeFeedbackDetailsComponent,
+    FeedbackFormComponent,
     OnRequestComponent,
-    TrainingRequestComponent,
-    TrainingRequest1Component,
-    TrainerFeedbackToEmployeeComponent,
-    UpcomingTrainingComponent,
-    ApprovedRequestComponent,
+    TrainingHistoryComponent,
     LoginComponent,
-    FeedbackToEmployeeComponent
+    FeedbackToEmployeeComponent,
+    StudentList3Component,
+    UpcomingTrainingComponent,
+    ReportMainComponent,
+    ReportOfEmployeeComponent,
+    ReportOfCoursesComponent,
+    TrainingRequest1Component,
+    TrainingRequestComponent,
+    ApprovedRequestComponent,
+    
 
     
     

@@ -1,9 +1,10 @@
-<!-- feedback-form.component.html -->
 <div class="card">
     <div class="card-header">
         <h4 class="card-title text-primary">Training Feedback</h4>
     </div>
+
     <div class="card-body">
+        <form [formGroup]="saveForm" (ngSubmit)="onSubmit()">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -13,6 +14,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="grasping_power" style="font-size: 120%">Grasping Power: <span id="grasping_power_value" class="value"><strong style="color: #0408e7; font-size: 120%;">{{ graspingPowerValue }}</strong></span></label>
@@ -66,24 +68,28 @@
                 <div class="form-group">
                     <label for="comments" style="font-size: 120%;">Comments from Trainer: </label>
                     <div>
-                    <textarea class="form-control" id="comments_from_trainer" rows="4"></textarea>
-                    </div>
+                    <textarea class="form-control" id="commentsFromTrainer" name="commentsFromTrainer" formControlName="commentsFromTrainer" rows="4"></textarea>
+                    <div *ngIf="saveForm.get('commentsFromTrainer').hasError('required') && saveForm.get('commentsFromTrainer').touched" class="text-danger">
+                    Comments are required
+                      </div>
+                </div>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12 text-right">
-                <button type="button" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-primary" [disabled]="saveForm.invalid">Submit</button>
             </div>
         </div>
 
-
+    </form>
     </div>
 
 <!-- Add canvas elements for charts -->
-<!-- <div class="card">
-    <canvas #chartCanvas id="feedbackChart" width="400" height="200"></canvas>
+<!-- 
+<div class="card">
+    <canvas #chartCanvas id="feedbackChart" width="200" height="100"></canvas>
   </div> -->
   
 
