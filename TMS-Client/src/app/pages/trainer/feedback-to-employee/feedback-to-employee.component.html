@@ -11,6 +11,7 @@
         <h4 class="card-title text-primary">Feedback to Employee</h4>
     </div>
     <div class="card-body">
+        <form [formGroup]="saveForm" (ngSubmit)="onSubmit()">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -73,19 +74,21 @@
                 <div class="form-group">
                     <label for="comments" style="font-size: 120%;">Comments: </label>
                     <div>
-                    <textarea class="form-control" id="comments_from_trainer" rows="4"></textarea>
+                    <textarea class="form-control" id="CommentsFromTrainer" name = "CommentsFromTrainer" formControlName = "CommentsFromTrainer" rows="4"></textarea>
+                    <div *ngIf="saveForm.get('CommentsFromTrainer').hasError('required') && saveForm.get('CommentsFromTrainer').touched" class = "text-danger">
+                    Comments are required
                     </div>
+                </div>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12 text-right">
-                <button type="button" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" [disabled]="saveForm.invalid">Submit</button>
             </div>
         </div>
-
-
+        </form>
     </div>
 </div>
 

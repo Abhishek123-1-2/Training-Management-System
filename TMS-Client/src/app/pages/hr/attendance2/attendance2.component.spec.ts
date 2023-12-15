@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HrFeedbackComponent } from './hr-feedback.component';
+import { Attendance2Component } from './attendance2.component';
 
-describe('HrFeedbackComponent', () => {
-  let component: HrFeedbackComponent;
-  let fixture: ComponentFixture<HrFeedbackComponent>;
+describe('Attendance2Component', () => {
+  let component: Attendance2Component;
+  let fixture: ComponentFixture<Attendance2Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HrFeedbackComponent ]
+      declarations: [ Attendance2Component ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HrFeedbackComponent);
+    fixture = TestBed.createComponent(Attendance2Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

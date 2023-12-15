@@ -11,9 +11,10 @@ import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 
+
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './pages/login/login.component';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { AdminEmployeeFeedbackComponent } from "./pages/admin/admin_employee_feedback/admin_employee-feedback.component";
 import { AdminRegistrationComponent } from "./pages/admin/admin_registration/admin_registration.component";
@@ -30,7 +31,6 @@ import { EmployeeFeedbackDetailsComponent } from "./pages/admin/employee_feedbac
 import { AttendanceRecordComponent } from './pages/admin/attendance-record/attendance-record.component';
 import { UserDashboardComponent } from "./pages/employee/user-dashboard/user-dashboard.component";
 
-import { TrainerFeedbackComponent } from './pages/hr/trainer-feedback/trainer-feedback.component';
 
 import { AdminTrainingHistoryComponent } from './pages/admin/admin-training-history/admin-training-history.component';
 import { EmployeeSearchComponent } from './pages/admin/employee-search/employee-search.component';
@@ -38,9 +38,6 @@ import { CourseDetailsComponent } from './pages/admin/course-details/course-deta
 import { TrainingRecordComponent } from './pages/admin/training-record/training-record.component';
 import { EmployeeHistoryComponent } from './pages/admin/employee-history/employee-history.component';
 import { StudentList2Component } from './pages/trainer/student-list2/student-list2.component';
-import { EmployeeFeedbackComponent } from './pages/hr/employee-feedback/employee-feedback.component';
-import { HrFeedbackComponent } from "./pages/hr/hr-feedback/hr-feedback.component";
-import { HrTrainingComponent } from './pages/hr/hr-training/hr-training.component';
 import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
 import { HrDashboardComponent } from "./pages/hr/hr-dashboard/hr-dashboard.component";
 // import { NgxPaginationModule } from "ngx-pagination";
@@ -50,6 +47,8 @@ import { CompletedTrainingComponent } from './pages/trainer/completed-training/c
 import { TrainerFeedbackToEmployeeComponent } from './pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
 import { StudentList3Component } from './pages/trainer/student-list3/student-list3.component';
 import { FeedbackToEmployeeComponent } from './pages/trainer/feedback-to-employee/feedback-to-employee.component';
+import { AttendanceComponent } from './pages/hr/attendance/attendance.component';
+import { Attendance2Component } from './pages/hr/attendance2/attendance2.component';
 import { OnRequestComponent } from "./pages/employee/on-request/on-request.component";
 import { ManagerDashboardComponent } from './pages/manager/manager-dashboard/manager-dashboard.component';
 import { TrainingRequestComponent } from './pages/manager/training-request/training-request.component';
@@ -65,12 +64,8 @@ import { TrainerTrainingDetailsComponent } from './pages/trainer/trainer-trainin
     AdminLayoutComponent,
     FeedbackComponent,
     FeedbackDetailsComponent,
-    EmployeeFeedbackDetailsComponent,
-    AttendanceRecordComponent,
     UserDashboardComponent,
-    HrTrainingComponent,
-    TrainingViewComponent,
-    TrainerTrainingDetailsComponent,
+    
 
 
   
@@ -86,9 +81,7 @@ import { TrainerTrainingDetailsComponent } from './pages/trainer/trainer-trainin
     ToastrModule.forRoot(),
     FooterModule,
     FixedPluginModule,FormsModule,ReactiveFormsModule,HttpClientModule,
-    ReactiveFormsModule,
-    // NgxPaginationModule, // Add NgxPaginationModule here
-
+    ReactiveFormsModule
     
   ],
   providers: [],

@@ -1,14 +1,15 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Employee Details</li>
+      <li class="breadcrumb-item"><a [routerLink]="['/schedule-list']">Schedule Details</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Participant's Details</li>
     </ol>
   </nav>
 <div class="row">
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">Employee Details</h4>
+          <h4 class="card-title">Participant's Details</h4>
         </div>
         <div class="card-body">
             <div class="form-group">
@@ -28,7 +29,7 @@
                     <td class="text-center">{{ row.designation }}</td>
                     <td class="text-center">{{ row.department}}</td>
                     <td class="text-center">{{ row.email_id }}</td>
-                    <td class="text-center"><a [routerLink]="['/course-details', row.emp_code]">{{ row.view }}</a></td>
+                    <!-- <td class="text-center"><a [routerLink]="['/course-details', row.emp_code]">{{ row.view }}</a></td> -->
                   </tr>
               </tbody>
             </table>

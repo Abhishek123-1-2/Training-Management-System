@@ -1,27 +1,37 @@
 /* feedback-form.component.ts  */
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import Chart from 'chart.js';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'feedback-form',
   templateUrl: './feedback-form.component.html',
   styleUrls: ['./feedback-form.component.scss']
 })
-export class FeedbackFormComponent implements OnInit,AfterViewInit {
+export class FeedbackFormComponent implements OnInit {
+
+ 
+
+
+
+
   technicalSkillsValue: number = 0;
   graspingPowerValue: number = 0;
   proActivenessValue: number = 0;
   interestQualityValue: number = 0;
   leadershipQualityValue: number = 0;
   problemSolvingAbilityValue: number = 0;
-  commentsFromTrainerValue: number = 0;
+
 
   @ViewChild('chartCanvas') chartCanvas: ElementRef<HTMLCanvasElement>;; // Reference to the canvas element
+  saveForm: any;
+  formBuilder: any;
+  chart: any;
 
   constructor() { }
+  ngOnInit(): void {
+  }
 
-  // Define an object to store chart instances
-  chart: Chart;
 
   ngAfterViewInit(): void {
     this.createChart();
@@ -77,38 +87,23 @@ export class FeedbackFormComponent implements OnInit,AfterViewInit {
       options: {
         indexAxis: 'y',
         scales: {
-
-          /* x: {
+          x: {
             beginAtZero: true,
-            min: 1,
+            min: 0,
             max: 5,
             ticks: {
-              stepSize: 1
+              stepSize: 5
             }
-          }, */
-
-         y: {
-          beginAtZero: true,
-            min: 1,
-            max: 5,
-            ticks: {
-              stepSize: 1
-            },
-            display: true,
+          },
+          y: {
             title: {
               display: true,
               text: 'Fields'
             }
           }
-
         }
       }
     });
-  }
-
-
-
-  ngOnInit(): void {
   }
 
   updateChart(): void {
@@ -131,4 +126,15 @@ export class FeedbackFormComponent implements OnInit,AfterViewInit {
     this.updateChart();
   }
 
+
+onSubmit()
+{
+  if(this.saveForm.invalid)
+  {
+    return;
+  }
 }
+
+}
+
+

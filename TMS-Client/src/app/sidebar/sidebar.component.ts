@@ -46,18 +46,26 @@ submenu:[
 
 
 
-
-{ path: '/hr-dashboard', title: 'Employee Feedback', class: '', icon:'nc-chart-bar-32', roles:['ROLE_HR']},
-{ path: '/trainer-feedback', title: 'Trainer Feedback', class: '', icon: 'nc-app', roles:['ROLE_HR']},
+{ path: '/employee-search', title: 'Employee', icon: 'nc-circle-10', class:'', roles: ['ROLE_HR']},
 { path: '/admin-attendance' ,title :'Reports' ,icon :'nc-chart-bar-32' , class : '', roles: ['ROLE_HR']},
-{ path: '/hr-history', title: 'History', class: '', icon:'nc-tile-56', roles:['ROLE_HR'] ,submenu:[
+
+{ path: '', title: 'Training', class:'', icon:'nc-caps-small', roles: ['ROLE_HR'], submenu:[
+
+  { path: '/training-view', title: 'View Training', class: '', icon: '', roles: ['ROLE_HR']}
+
+]},
+
+{ path: '', title: 'History', class: '', icon:'nc-tile-56', roles:['ROLE_HR'] ,submenu:[
 
 { path: '/training-record', title: 'Training Record', class: '', icon: '', roles: ['ROLE_HR']},
 { path: '/training-history', title: 'Training History', class: '', icon: '', roles: ['ROLE_HR']},
-{ path: '/attendance', title: 'Attendance', class:'', icon: '', roles: ['ROLE_HR']}
-
 
 ]},
+
+
+{ path: '/attendance', title: 'Attendance', class:'', icon: 'nc-chart-bar-32', roles: ['ROLE_HR']},
+
+
 
      // { path: '/icons',         title: 'Icons',             icon:'nc-diamond',    class: '' },
     // { path: '/maps',          title: 'Maps',              icon:'nc-pin-3',      class: '' }
