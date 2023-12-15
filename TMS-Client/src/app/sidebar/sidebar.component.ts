@@ -48,29 +48,31 @@ submenu:[
 {path:'/on-request',title:'On-Request',icon:'',class:'',roles:['ROLE_USER']},
 {path:'/training-history',title:'Training History',icon:'',class:'',roles:['ROLE_USER']},  
 ]},
-{ path: '/feedback', title: 'Feedback', class: '', icon:'nc-chat-33', roles:['ROLE_USER']},
-{path:'/performance',title:'Performance',class:'',icon:'nc-chart-bar-32',roles:['ROLE_USER']},
+{ path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_USER']},
 
-
-
+ 
 { path: '/employee-search', title: 'Employee', icon: 'nc-circle-10', class:'', roles: ['ROLE_HR']},
 { path: '/admin-attendance' ,title :'Reports' ,icon :'nc-chart-bar-32' , class : '', roles: ['ROLE_HR']},
 
-{ path: '', title: 'Training', class:'', icon:'nc-caps-small', roles: ['ROLE_HR'], submenu:[
+  { path: '', title: 'Training', class: '', icon: 'nc-caps-small', roles:['ROLE_HR'], submenu: [
+  { path: '/training-view', title: 'View Training', class: '', icon: '', roles:['ROLE_HR']}
 
-  { path: '/training-view', title: 'View Training', class: '', icon: '', roles: ['ROLE_HR']}
+  ]},
 
-]},
-
-{ path: '', title: 'History', class: '', icon:'nc-tile-56', roles:['ROLE_HR'] ,submenu:[
-
-{ path: '/training-record', title: 'Training Record', class: '', icon: '', roles: ['ROLE_HR']},
-{ path: '/training-history', title: 'Training History', class: '', icon: '', roles: ['ROLE_HR']},
-
-]},
+  
 
 
-{ path: '/attendance', title: 'Attendance', class:'', icon: 'nc-chart-bar-32', roles: ['ROLE_HR']},
+  
+
+  {path: '/admin-training', title: 'History', icon:'nc-tile-56', class: '', roles: ['ROLE_HR'], submenu: [
+    {path:'/training-record', title:'Training Record', icon:'', class:'', roles:['ROLE_HR']},
+    {path:'/training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_HR']},
+
+  ]},
+
+  { path: '/attendance' ,title :'Attendance' ,icon :'nc-chart-bar-32' , class : '', roles: ['ROLE_HR']},
+  
+
 
 
 
@@ -111,7 +113,7 @@ export class SidebarComponent implements OnInit {
         const userRole = localStorage.getItem("role");
         this.menuItems = ROUTES.filter(menuItem => this.filterRoutesByRole(menuItem, userRole));
       }
-    
+
       private filterRoutesByRole(route: RouteInfo, userRole: string): boolean {
         // If the route has children, filter the children based on the user's role
         if (route.children) {
@@ -121,7 +123,8 @@ export class SidebarComponent implements OnInit {
         // Return true if the route is allowed for the user's role, or if it has children after filtering
         return !route.roles || route.roles.includes(userRole) || (route.children && route.children.length > 0);
       }
-    
+      
+      
       toggleDropdown(menuItem) {
         if (menuItem.children) {
           menuItem.active = !menuItem.active;

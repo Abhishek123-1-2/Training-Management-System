@@ -10,7 +10,7 @@
       <h4 class="card-title">Add Participants</h4>
     </div>
     <div class="card-body">
-      <form (ngSubmit)="addParticipants()"  [formGroup]="addParticipantsForm">
+      <form (ngSubmit)="onSubmit()"  [formGroup]="addParticipantsForm">
         <div class="row">
           <div class="col-md-4 form-group">
             <label>Course Name:</label>
@@ -28,16 +28,14 @@
           </div>
           <div class="col-md-4 form-group">
             <label>Employee Code:</label>
-            <select name="empCode" id="empCode" formControlName="empCode" class="form-control" required>
-              <option value="code">3647</option>
-              <option value="code">3646</option>
-              <option value="code">3639</option>
-              <option value="code">3364</option>
+            <select name="empCode" id="empCode" formControlName="empCode" class="form-control" (change)="onEmpCodeChange($event.target.value)" required>
+              <option *ngFor="let code of employeeCodes" [value]="code">{{ code }}</option>
             </select>
-              <small class="text-danger" *ngIf="addParticipantsForm.get('empCode').hasError('required') && addParticipantsForm.get('empCode').touched">
-                Employee Code is required
-              </small>
+            <small class="text-danger" *ngIf="addParticipantsForm.get('empCode').hasError('required') && addParticipantsForm.get('empCode').touched">
+              Employee Code is required
+            </small>
           </div>
+          
           <div class="col-md-4 form-group">
             <label>Employee Name:</label>
             <input type="text" id="empName" name="empName" formControlName="empName" class="form-control" required>
@@ -80,7 +78,7 @@
             <textarea id="comments" name="comments" formControlName="comments" class="form-control" cols="30" rows="2"></textarea>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!addParticipantsForm.valid">Submit</button> 
+        <button type="submit" class="btn btn-primary" [disabled]="!addParticipantsForm.valid" >Submit</button> 
       </form>
     </div>
   </div>
