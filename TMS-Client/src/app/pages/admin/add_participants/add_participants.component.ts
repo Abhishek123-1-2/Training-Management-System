@@ -8,34 +8,51 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: 'add_participants.component.html'
 })
 export class AddParticipantsComponent {
-    addParticipantsForm : FormGroup;
-
-    constructor(private http: HttpClient,private fb: FormBuilder) {}
-
-    ngOnInit(): void {
-        this.addParticipantsForm = this.fb.group({
-            empCode: ['', Validators.required],
-            empName: ['', Validators.required],
-            courseName: ['', Validators.required],
-            schDate: ['', Validators.required],
-            status: ['', Validators.required]
-        })
-    }
-
+  addParticipantsForm: FormGroup;
+  employeeCodes: string[] = [];
+  courseNames: string[] = [];
   participants: any[] = [
-    { emp_code: '', emp_name: '', c_name: '', reg_date: '', status: '', comments: '' },
+    { emp_code: '', emp_name: '',  course_name: '', reg_date: '', status: '', comments: '' },
   ];
 
-  
+  constructor(private http: HttpClient, private fb: FormBuilder) {}
 
-  onEmpCodeChange(index: number) {
-    const empCode = this.participants[index].emp_code;
-    if (empCode) {
-      this.http.get<any[]>(`http://localhost:8083/api/employees/${empCode}`).subscribe(
-        (employees) => {
-          if (employees && employees.length > 0) {
-            // Assuming the response contains empName
-            this.participants[index].emp_name = employees[0].empName;
+  ngOnInit(): void {
+    this.addParticipantsForm = this.fb.group({
+      empCode: ['', Validators.required],
+      empName: ['', Validators.required],
+      courseName: ['', Validators.required],
+      schDate: ['', Validators.required],
+      status: ['', Validators.required]
+    });
+
+    this.http.get<string[]>('http://localhost:8083/api/employees/codes').subscribe(
+      (codes) => {
+        this.employeeCodes = codes;
+      },
+      (error) => {
+        console.error('Error fetching employee codes', error);
+      }
+    );
+
+    this.http.get<string[]>('http://localhost:8083/api/training-views/courses').subscribe(
+      (courses) => {
+        this.courseNames = courses;
+      },
+      (error) => {
+        console.error('Error fetching training courses', error);
+      }
+    );
+  }
+
+  onEmpCodeChange(index: number, selectedCode: string) {
+    if (selectedCode) {
+      this.http.get<any[]>(`http://localhost:8083/api/employees/${selectedCode}`).subscribe(
+        (employee) => {
+          if (employee && employee.length > 0) {
+            this.participants[index].emp_name = employee[0].empName;
+            this.participants[index].emp_id = employee[0].empId;
+            console.log(`Fetched Employee ID for ${selectedCode}: ${employee[0].empId}`);
           } else {
             console.error('No employee found with the provided empCode');
           }
@@ -47,7 +64,41 @@ export class AddParticipantsComponent {
     }
   }
 
-  addParticipants() {
-    // Implement the logic to add a participant here
+  onCourseNameChange(index: number, selectedCourse: string) {
+    this.http.get<number>(`http://localhost:8083/api/training-views/training-id?course=${selectedCourse}`).subscribe(
+      (trainingId) => {
+        this.participants[index].training_id = trainingId;
+        console.log(`Fetched Training ID for ${selectedCourse}: ${trainingId}`);
+
+        this.http.get<number>(`http://localhost:8083/api/training-views/schedule-id?trainingId=${trainingId}`).subscribe(
+          (scheduleId) => {
+            this.participants[index].schedule_id = scheduleId;
+            console.log(`Fetched Schedule ID for Training ID ${trainingId}: ${scheduleId}`);
+          },
+          (error) => {
+            console.error('Error fetching schedule ID', error);
+          }
+        );
+      },
+      (error) => {
+        console.error('Error fetching training ID', error);
+      }
+    );
   }
+  addParticipants() {
+    console.log('Participants Array:', this.participants);
+  
+    this.http.post('http://localhost:8083/api/registration/add', this.participants).subscribe(
+      (response) => {
+        console.log('Data added successfully:', response);
+        this.addParticipantsForm.reset();
+      },
+      (error) => {
+        console.error('Error adding data:', error);
+      }
+    );
+  }
+  
+ 
+  
 }

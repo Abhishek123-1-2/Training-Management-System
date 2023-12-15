@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'feedback-form',
@@ -7,8 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FeedbackFormComponent implements OnInit {
 
- 
-
+  saveForm: FormGroup;
 
 
 
@@ -18,12 +18,15 @@ export class FeedbackFormComponent implements OnInit {
   interestQualityValue: number = 0;
   leadershipQualityValue: number = 0;
   problemSolvingAbilityValue: number = 0;
-  commentsFromTrainerValue: number = 0;
 
 
-  constructor() { }
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.saveForm = this.formBuilder.group({
+      commentsFromTrainer: ['', [Validators.required]]
+    });
   }
 
 
@@ -32,4 +35,15 @@ export class FeedbackFormComponent implements OnInit {
     this[displayProperty] = +inputElement.value;
   }
 
+
+onSubmit()
+{
+  if(this.saveForm.invalid)
+  {
+    return;
+  }
 }
+
+}
+
+

@@ -1,9 +1,16 @@
 <!-- view-training.component.html -->  
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Training Details</li>
+  </ol>
+</nav>
+
   <div class="row">
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <h4 class="card-title">Training Data</h4>
+        <h4 class="card-title">Training Details</h4>
       </div>
       <div class="card-body">
         <div class="d-flex justify-content-between">
@@ -18,7 +25,7 @@
               <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
             </thead>
             <tbody>
-              <ng-container *ngFor="let row of filteredData; let i = index">
+              <ng-container *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); let i = index">
                 <tr class="expandable-row">
                   <td class="text-center">{{ row.number }}</td>
 
@@ -81,6 +88,7 @@
               <option value="10">10</option>
             </select>
           </div>
+
           <nav aria-label="Page navigation example">
             <ul class="pagination pagination-md">
               <li class="page-item" (click)="currentPage = (currentPage > 1) ? currentPage - 1 : 1" [class.disabled]="currentPage === 1">

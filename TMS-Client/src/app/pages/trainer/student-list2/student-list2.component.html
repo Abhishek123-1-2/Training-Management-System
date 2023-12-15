@@ -2,7 +2,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">Training History</h4>
+          <h4 class="card-title">Attendees Details</h4>
         </div>
         <div class="card-body">
             <div class="form-group">
@@ -13,15 +13,24 @@
             <table class="table">
               <thead class="text-primary">
                 <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+                <th *ngFor="let day of trainingDays" class="text-center">{{ day }}</th>
               </thead>
               <tbody>
                 <tr *ngFor="let row of filteredData" class="expandable-row">
                     <td class="text-center">{{ row.sr_no }}</td>
                     <td class="text-center">{{ row.emp_code }}</td>
                     <td class="text-center">{{ row.emp_name }}</td>
-                    <td class="text-center">{{ row.s_date }}</td>
-                    <td class="text-center">{{ row.e_date }}</td>
-                    <td class="text-center"><button class="btn btn-primary">{{ row.attendance }}</button></td>
+                    <td class="text-center">{{ start_date }}</td>
+                    <td class="text-center">{{ end_date }}</td>
+                    <td class="text-center"><button class="btn btn-primary" (click)="addTrainingDay()">{{ row.attendance }}</button></td>
+                    <td *ngFor="let day of trainingDays" class="text-center">
+                      <button class="btn" 
+                      [class.btn-success]="row.attendanceStatus[day] === 'Present'" 
+                      [class.btn-danger]="row.attendanceStatus[day] === 'Absent'"
+                      (click)="toggleAttendanceStatus(row, day)">
+                        {{ row.attendanceStatus[day] || 'Mark' }}
+                      </button>
+                    </td>
                   </tr>
               </tbody>
             </table>
@@ -30,4 +39,8 @@
       </div>
     </div>
   </div>
+
+
   
+  
+

@@ -25,7 +25,7 @@
                 <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
               </thead>
               <tbody>
-                <ng-container *ngFor="let row of filteredData; let i = index">
+                <ng-container *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); let i = index">
                   <tr class="expandable-row">
                     <td class="text-center">{{ row.reg_id }}</td>
                     <td class="text-center">{{ row.emp_code }}</td>
@@ -81,6 +81,7 @@
                 <option value="10">10</option>
               </select>
             </div>
+
             <nav aria-label="Page navigation example">
               <ul class="pagination pagination-md">
                 <li class="page-item" (click)="currentPage = (currentPage > 1) ? currentPage - 1 : 1" [class.disabled]="currentPage === 1">

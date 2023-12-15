@@ -11,9 +11,10 @@ import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 
+
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './pages/login/login.component';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { AdminEmployeeFeedbackComponent } from "./pages/admin/admin_employee_feedback/admin_employee-feedback.component";
 import { AdminRegistrationComponent } from "./pages/admin/admin_registration/admin_registration.component";
@@ -39,6 +40,13 @@ import { EmployeeHistoryComponent } from './pages/admin/employee-history/employe
 import { StudentList2Component } from './pages/trainer/student-list2/student-list2.component';
 import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
 
+import { UpcomingTrainingComponent } from './pages/trainer/upcoming-training/upcoming-training.component';
+import { CompletedTrainingComponent } from './pages/trainer/completed-training/completed-training.component';
+import { TrainerFeedbackToEmployeeComponent } from './pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
+import { StudentList3Component } from './pages/trainer/student-list3/student-list3.component';
+import { FeedbackToEmployeeComponent } from './pages/trainer/feedback-to-employee/feedback-to-employee.component';
+import { AttendanceComponent } from './pages/hr/attendance/attendance.component';
+import { Attendance2Component } from './pages/hr/attendance2/attendance2.component';
 
 
 @NgModule({
@@ -49,10 +57,11 @@ import { TrainingViewComponent } from './pages/hr/training-view/training-view.co
     LoginComponent,
     FeedbackComponent,
     FeedbackDetailsComponent,
-    EmployeeFeedbackDetailsComponent,
     AttendanceRecordComponent,
     UserDashboardComponent,
-    TrainingViewComponent
+    TrainingViewComponent,
+    AttendanceComponent,
+    Attendance2Component
 
   
   ],
@@ -66,8 +75,8 @@ import { TrainingViewComponent } from './pages/hr/training-view/training-view.co
     NavbarModule,
     ToastrModule.forRoot(),
     FooterModule,
-    FixedPluginModule,FormsModule,ReactiveFormsModule,HttpClientModule,
-    ReactiveFormsModule
+    FixedPluginModule,FormsModule,ReactiveFormsModule,HttpClientModule
+    
     
   ],
   providers: [],

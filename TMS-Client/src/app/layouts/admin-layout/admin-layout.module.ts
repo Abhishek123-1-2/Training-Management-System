@@ -23,7 +23,6 @@ import { TimeFormatPipe } from 'app/pages/admin/schedule-list/schedule-training/
 import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-list/schedule-training/schedule-training.component';
 import { AddTrainingComponent } from 'app/pages/admin/add-training/add-training.component';
 import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/trainer-dashboard.component';
-import { TableFilterService } from 'app/pages/admin/filtersearch/filterpipe.component';
 import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
 import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
 import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
@@ -35,6 +34,13 @@ import { TrainingRecordComponent } from 'app/pages/admin/training-record/trainin
 import { EmployeeSearchComponent } from 'app/pages/admin/employee-search/employee-search.component';
 import { OngoingTrainingComponent } from 'app/pages/trainer/ongoing-training/ongoing-training.component';
 import { StudentList2Component } from 'app/pages/trainer/student-list2/student-list2.component';
+import { UpcomingTrainingComponent } from 'app/pages/trainer/upcoming-training/upcoming-training.component';
+import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training/completed-training.component';
+import { TrainerFeedbackToEmployeeComponent } from 'app/pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
+import { StudentList3Component } from 'app/pages/trainer/student-list3/student-list3.component';
+import { FeedbackToEmployeeComponent } from 'app/pages/trainer/feedback-to-employee/feedback-to-employee.component';
+import { EmployeeFeedbackDetailsComponent } from 'app/pages/admin/employee_feedback_details/employee_feedback_details.component';
+import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback-form.component';
 
 
 @NgModule({
@@ -79,6 +85,13 @@ import { StudentList2Component } from 'app/pages/trainer/student-list2/student-l
     OngoingTrainingComponent,
     StudentList2Component,
     TrainingRecordComponent,
+    EmployeeFeedbackDetailsComponent,
+    UpcomingTrainingComponent,
+    TrainerFeedbackToEmployeeComponent,
+    StudentList3Component,
+    CompletedTrainingComponent,
+    FeedbackFormComponent,
+    FeedbackToEmployeeComponent
 
     
     

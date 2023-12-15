@@ -25,6 +25,8 @@ import { CourseDetailsComponent } from './pages/admin/course-details/course-deta
 import { TrainingRecordComponent } from './pages/admin/training-record/training-record.component';
 import { EmployeeHistoryComponent } from './pages/admin/employee-history/employee-history.component';
 import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
+import { AttendanceComponent } from './pages/hr/attendance/attendance.component';
+import { Attendance2Component } from './pages/hr/attendance2/attendance2.component';
 
 
 export const AppRoutes: Routes = [
@@ -96,12 +98,17 @@ export const AppRoutes: Routes = [
           path: 'training-view',
           component: TrainingViewComponent,
 
+        },
+
+        {
+          path: 'attendance',
+          component: AttendanceComponent
+        },
+
+        {
+          path: 'attendance2',
+          component: Attendance2Component
         }
-
-        
-
-        
-
         
       ]},
   {

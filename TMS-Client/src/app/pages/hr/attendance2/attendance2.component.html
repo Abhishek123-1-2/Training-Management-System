@@ -1,0 +1,44 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+    <li class="breadcrumb-item"><a [routerLink]="['/attendance']">Attendance Table</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Attendance Details</li>
+  </ol>
+</nav>
+
+
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Attendance Details</h4>
+        </div>
+        <div class="d-flex justify-content-end mr-3">
+          <button type="button" class="btn btn-primary">Mark Attendance</button>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive text-nowrap">
+            <table class="table">
+              <thead class="text-primary">
+                <th class="text-center" *ngFor="let header of tableData1.headerRow">
+                  {{ header }}
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of tableData1.dataRows; let i = index" class="expandable-row">
+                  <td class="text-center">{{ row.emp_code }}</td>
+                  <td class="text-center">{{ row.emp_name }}</td>
+                  <td class="text-center">{{ row.c_name }}</td>
+                  <td class="text-center">{{ row.t_name }}</td>
+                  <td class="text-center">{{ start_date }}</td>
+                  <td class="text-center">{{ end_date }}</td>
+                  <td class="text-center">{{ row.status }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

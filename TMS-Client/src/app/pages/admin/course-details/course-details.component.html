@@ -7,7 +7,9 @@
 </nav>
 <div class="card">
     <div class="card-header">
-      <h4 class="card-title text-primary">Course Completion Details of Employee: {{ emp_code }}</h4>
+      <h4 class="card-title">Course Completion Details of Employee: 
+        <span [class.text-primary]="true">{{ emp_code }}</span>
+      </h4>
     </div>
     <div class="card-body">
       <table class="table">
