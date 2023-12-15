@@ -9,9 +9,6 @@ interface TableData {
     number: string;
     course: string;
     trainer_name: string;
-    meeting_link: string;
-    username: string;
-    password: string;
     action: string;
   }[];
 }
@@ -20,9 +17,6 @@ interface TableRow {
   number: string;
   course: string;
   trainer_name: string;
-  meeting_link: string;
-  username: string;
-  password: string;
   action: string;
 }
 
@@ -88,16 +82,16 @@ export class ViewTrainingComponent implements OnInit {
       this.trainingService.getTrainingData().subscribe(
         (data: any[]) => {
           this.tableData1 = {
-            headerRow: ['No.', 'Course', 'Trainer Name', 'Meeting Link', 'Username', 'Password', 'Action'],
+            headerRow: ['Sr. No.', 'Course Name', 'Trainer Name', 'Action'],
             dataRows: data.map((row, index) => ({
               number: (index + 1).toString(),
               course: row.course,
               // trainer_name: `${row.trainer_names}(${row.course})`, // Update this line
               trainer_name: `${row.trainer_names.includes(row.course) ? row.trainer_names : `${row.trainer_names}(${row.course})`}`,
 
-              meeting_link: row.url,
-              username: row.username,
-              password: row.password,
+              // meeting_link: row.url,
+              // username: row.username,
+              // password: row.password,
               action: ''
             }))
           };

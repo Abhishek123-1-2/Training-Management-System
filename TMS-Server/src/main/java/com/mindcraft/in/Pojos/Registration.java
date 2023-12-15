@@ -1,4 +1,5 @@
 package com.mindcraft.in.Pojos;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -16,147 +16,168 @@ public class Registration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "registration_id")
-    private Long registrationId;
+    private Long registration_id;
+
+    public Registration(Long registration_id, Long schedule_id, Long training_id, Long emp_id,
+            Timestamp registration_date, String registration_comments, String registration_status,
+            String registration_response, char active_yn, String created_by, Timestamp created_on, String updated_by,
+            Timestamp updated_on) {
+        this.registration_id = registration_id;
+        this.schedule_id = schedule_id;
+        this.training_id = training_id;
+        this.emp_id = emp_id;
+        this.registration_date = registration_date;
+        this.registration_comments = registration_comments;
+        this.registration_status = registration_status;
+        this.registration_response = registration_response;
+        this.active_yn = active_yn;
+        this.created_by = created_by;
+        this.created_on = created_on;
+        this.updated_by = updated_by;
+        this.updated_on = updated_on;
+    }
 
     @Column(name = "schedule_id")
-    private Long scheduleId;
+    private Long schedule_id;
 
     @Column(name = "training_id")
-    private Long trainingId;
+    private Long training_id;
 
     @Column(name = "emp_id")
-    private Long empId;
+    private Long emp_id;
 
     @Column(name = "registration_date")
-    private Date registrationDate;
+    private Timestamp registration_date;
 
     @Column(name = "registration_comments")
-    private String registrationComments;
+    private String registration_comments;
 
     @Column(name = "registration_status")
-    private String registrationStatus;
+    private String registration_status;
 
     @Column(name = "registration_response")
-    private String registrationResponse;
+    private String registration_response;
 
     @Column(name = "active_yn")
-    private char activeYN;
+    private char active_yn;
 
     @Column(name = "created_by")
-    private String createdBy;
+    private String created_by;
 
     @Column(name = "created_on")
-    private Timestamp createdOn;
+    private Timestamp created_on;
 
     @Column(name = "updated_by")
-    private String updatedBy;
+    private String updated_by;
 
     @Column(name = "updated_on")
-    private Timestamp updatedOn;
+    private Timestamp updated_on;
 
-    // Getters and Setters
-
-    public Long getRegistrationId() {
-        return registrationId;
+    public Long getRegistration_id() {
+        return registration_id;
     }
 
-    public void setRegistrationId(Long registrationId) {
-        this.registrationId = registrationId;
+    public void setRegistration_id(Long registration_id) {
+        this.registration_id = registration_id;
     }
 
-    public Long getScheduleId() {
-        return scheduleId;
+    public Long getSchedule_id() {
+        return schedule_id;
     }
 
-    public void setScheduleId(Long scheduleId) {
-        this.scheduleId = scheduleId;
+    public void setSchedule_id(Long schedule_id) {
+        this.schedule_id = schedule_id;
     }
 
-    public Long getTrainingId() {
-        return trainingId;
+    public Long getTraining_id() {
+        return training_id;
     }
 
-    public void setTrainingId(Long trainingId) {
-        this.trainingId = trainingId;
+    public void setTraining_id(Long training_id) {
+        this.training_id = training_id;
     }
 
-    public Long getEmpId() {
-        return empId;
+    public Long getEmp_id() {
+        return emp_id;
     }
 
-    public void setEmpId(Long empId) {
-        this.empId = empId;
+    public void setEmp_id(Long emp_id) {
+        this.emp_id = emp_id;
     }
 
-    public Date getRegistrationDate() {
-        return registrationDate;
+    public Timestamp getRegistration_date() {
+        return registration_date;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
+    public void setRegistration_date(Timestamp registration_date) {
+        this.registration_date = registration_date;
     }
 
-    public String getRegistrationComments() {
-        return registrationComments;
+    public String getRegistration_comments() {
+        return registration_comments;
     }
 
-    public void setRegistrationComments(String registrationComments) {
-        this.registrationComments = registrationComments;
+    public void setRegistration_comments(String registration_comments) {
+        this.registration_comments = registration_comments;
     }
 
-    public String getRegistrationStatus() {
-        return registrationStatus;
+    public String getRegistration_status() {
+        return registration_status;
     }
 
-    public void setRegistrationStatus(String registrationStatus) {
-        this.registrationStatus = registrationStatus;
+    public void setRegistration_status(String registration_status) {
+        this.registration_status = registration_status;
     }
 
-    public String getRegistrationResponse() {
-        return registrationResponse;
+    public String getRegistration_response() {
+        return registration_response;
     }
 
-    public void setRegistrationResponse(String registrationResponse) {
-        this.registrationResponse = registrationResponse;
+    public void setRegistration_response(String registration_response) {
+        this.registration_response = registration_response;
     }
 
-    public char getActiveYN() {
-        return activeYN;
+    public char getActive_yn() {
+        return active_yn;
     }
 
-    public void setActiveYN(char activeYN) {
-        this.activeYN = activeYN;
+    public void setActive_yn(char active_yn) {
+        this.active_yn = active_yn;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public String getCreated_by() {
+        return created_by;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setCreated_by(String created_by) {
+        this.created_by = created_by;
     }
 
-    public Timestamp getCreatedOn() {
-        return createdOn;
+    public Timestamp getCreated_on() {
+        return created_on;
     }
 
-    public void setCreatedOn(Timestamp createdOn) {
-        this.createdOn = createdOn;
+    public void setCreated_on(Timestamp created_on) {
+        this.created_on = created_on;
     }
 
-    public String getUpdatedBy() {
-        return updatedBy;
+    public String getUpdated_by() {
+        return updated_by;
     }
 
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
+    public void setUpdated_by(String updated_by) {
+        this.updated_by = updated_by;
     }
 
-    public Timestamp getUpdatedOn() {
-        return updatedOn;
+    public Timestamp getUpdated_on() {
+        return updated_on;
     }
 
-    public void setUpdatedOn(Timestamp updatedOn) {
-        this.updatedOn = updatedOn;
+    public void setUpdated_on(Timestamp updated_on) {
+        this.updated_on = updated_on;
     }
+
+    // Getter and Setter methods
+    
+
 }

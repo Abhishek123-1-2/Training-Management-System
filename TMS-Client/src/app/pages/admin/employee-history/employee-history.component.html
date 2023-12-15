@@ -16,7 +16,7 @@
                 <label for="search">Search:</label>
                 <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
             </div>
-          <div class="table-responsive text-nowrap table-container">
+          <div class="table-responsive table-container">
             <table class="table">
               <thead class="text-primary">
                 <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>

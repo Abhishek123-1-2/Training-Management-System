@@ -25,10 +25,79 @@ public class TrainingViewController {
         this.trainingViewService = trainingViewService;
     }
 
-    @PostMapping
-    public void createTrainingView(@RequestBody TrainingView trainingView) {
-        trainingViewService.insertTrainingView(trainingView);
+    // @PostMapping
+    // public void createTrainingView(@RequestBody TrainingView trainingView) {
+    //     trainingViewService.insertTrainingView(trainingView);
+    // }
+//     @PostMapping
+// public ResponseEntity<Long> createTrainingView(@RequestBody TrainingView trainingView) {
+//     // Check if a training with the same course name already exists
+//     Long existingTrainingId = trainingViewService.getTrainingIdByCourse(trainingView.getCourse());
+
+//     if (existingTrainingId != null) {
+//         // Return the existing training ID and a success status
+//         return new ResponseEntity<>(existingTrainingId, HttpStatus.OK);
+//     }
+
+//     // No existing training found, proceed to insert a new training
+//     trainingViewService.insertTrainingView(trainingView);
+
+//     // Fetch the newly inserted training ID
+//     Long newTrainingId = trainingViewService.getTrainingIdByCourse(trainingView.getCourse());
+
+//     if (newTrainingId != null) {
+//         // Return the new training ID and a success status
+//         return new ResponseEntity<>(newTrainingId, HttpStatus.CREATED);
+//     } else {
+//         // Handle the case where the new training ID cannot be retrieved
+//         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//     }
+// }
+@PostMapping
+public ResponseEntity<Long> createTrainingView(@RequestBody TrainingView trainingView) {
+    // Check if a training with the same course name already exists
+    Long existingTrainingId = trainingViewService.getTrainingIdByCourse(trainingView.getCourse());
+
+    if (existingTrainingId != null) {
+        // Training with the same course name already exists, update the existing training details
+        trainingViewService.updateTrainingView(existingTrainingId, trainingView);
+
+        // Return the existing training ID and a success status
+        return new ResponseEntity<>(existingTrainingId, HttpStatus.OK);
     }
+
+    // No existing training found, proceed to insert a new training
+    trainingViewService.insertTrainingView(trainingView);
+
+    // Fetch the newly inserted training ID
+    Long newTrainingId = trainingViewService.getTrainingIdByCourse(trainingView.getCourse());
+
+    if (newTrainingId != null) {
+        // Return the new training ID and a success status
+        return new ResponseEntity<>(newTrainingId, HttpStatus.CREATED);
+    } else {
+        // Handle the case where the new training ID cannot be retrieved
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
+//     @PostMapping
+// public ResponseEntity<String> createTrainingView(@RequestBody TrainingView trainingView) {
+//     String course = trainingView.getCourse();
+
+//     // Check if a training with the given course name already exists
+//     Long existingTrainingId = trainingViewService.getTrainingIdByCourse(course);
+
+//     if (existingTrainingId != null) {
+//         // A training with the same course name already exists, return the existing training ID
+//         return new ResponseEntity<>("Training with the same course name already exists. Training ID: " + existingTrainingId, HttpStatus.OK);
+//     }
+
+//     // If the training doesn't exist, proceed to create a new one
+//     trainingViewService.insertTrainingView(trainingView);
+//     return new ResponseEntity<>("Training created successfully", HttpStatus.CREATED);
+// }
+
 
     @GetMapping
     public List<TrainingView> getAllTrainingViews() {
@@ -235,5 +304,24 @@ public ResponseEntity<String> updateTrainingSchedule(@RequestBody TrainingSchedu
 //         return new ResponseEntity<>(HttpStatus.CREATED);
 //     }
   // Add other endpoints as needed...
-  
+  @GetMapping("/training-id-by-course")
+public ResponseEntity<Long> getTrainingIdByCourseName(@RequestParam String courseName) {
+    Long trainingId = trainingViewService.getTrainingIdByCourseName(courseName);
+
+    if (trainingId != null) {
+        return new ResponseEntity<>(trainingId, HttpStatus.OK);
+    } else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+}
+@GetMapping("/schedule-id-by-trainer")
+    public ResponseEntity<Long> getScheduleIdByTrainerName(@RequestParam String trainerName) {
+        Long scheduleId = trainingViewService.getScheduleIdByTrainerName(trainerName);
+
+        if (scheduleId != null) {
+            return new ResponseEntity<>(scheduleId, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

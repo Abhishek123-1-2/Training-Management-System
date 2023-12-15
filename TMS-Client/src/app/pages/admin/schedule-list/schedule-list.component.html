@@ -1,10 +1,14 @@
-
-<!-- schedule-list.component.html -->
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Schedule Details</li>
+  </ol>
+</nav>
 <div class="row">
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <h4 class="card-title">Schedule Data</h4>
+        <h4 class="card-title">Schedule Details</h4>
       </div>
       <div class="card-body">
         <div class="d-flex justify-content-between">
@@ -30,6 +34,9 @@
                   <td class="text-center">{{ row.to_time}}</td>
                   <td class="text-center">{{ row.status}}</td>
                   <td class="text-center">
+                    <button class="btn btn-info" (click)="addParticipants(i)" [routerLink]="['/add-participants', { course: row.course, trainer: row.trainer_name, s_date: row.planned_start_date, e_date: row.planned_end_date }]">Add</button>
+                  </td>
+                  <td>
                     <button class="btn btn-primary" (click)="toggleEditMode(i)">Edit{{ row.action }}</button>
                   </td>
                 </tr>
@@ -44,21 +51,25 @@
                     <input [(ngModel)]="filteredData[i].trainer_name" [disabled]="true" class="text-center">
                   </td>
                   <td class="text-center">
-                    <input [(ngModel)]="filteredData[i].planned_start_date" [disabled]="!isEditMode || i !== rowIndexBeingEdited" class="text-center">
+                    <input type="date" [(ngModel)]="filteredData[i].planned_start_date" [disabled]="!isEditMode || i !== rowIndexBeingEdited" class="text-center">
                   </td>
                   <td class="text-center">
-                    <input [(ngModel)]="filteredData[i].planned_end_date" [disabled]="!isEditMode || i !== rowIndexBeingEdited" class="text-center">
+                    <input type="date" [(ngModel)]="filteredData[i].planned_end_date" [disabled]="!isEditMode || i !== rowIndexBeingEdited" class="text-center">
                   </td>
                   <td class="text-center">
-                    <input [(ngModel)]="filteredData[i].from_time" [disabled]="!isEditMode || i !== rowIndexBeingEdited" class="text-center">
+                    <input type="time" [(ngModel)]="filteredData[i].from_time" [disabled]="!isEditMode || i !== rowIndexBeingEdited" class="text-center">
                   </td>
                   <td class="text-center">
-                    <input [(ngModel)]="filteredData[i].to_time" [disabled]="!isEditMode || i !== rowIndexBeingEdited" class="text-center">
+                    <input type="time" [(ngModel)]="filteredData[i].to_time" [disabled]="!isEditMode || i !== rowIndexBeingEdited" class="text-center">
                   </td>
                   <td class="text-center">
-                    <input [(ngModel)]="filteredData[i].status" [disabled]="false" class="text-center">
+                    <select [(ngModel)]="filteredData[i].status" [disabled]="false" class="text-center">
+                      <option value="On-Going">On-Going</option>
+                      <option value="Completed">Completed</option>
+                    </select>
                   </td>
-                  <td class="text-center">
+                  <td></td>
+                  <td class="text-center text-nowrap">
                     <button class="btn btn-success" (click)="saveChanges(i)">Save</button>&nbsp;
                     <button class="btn btn-success" (click)="cancelEdit()">Cancel</button>
                   </td>

@@ -37,7 +37,7 @@ export const ROUTES: RouteInfo[] = [
       { path:'/upcoming-training', title:'Upcoming Trainings', icon:'', class:'', roles:['ROLE_TRAINER'] },
       { path:'/completed-training', title:'Completed Trainings', icon:'', class:'', roles:['ROLE_TRAINER'] },
     ]},
-    { path:'/reports', title:'Reports', icon:'nc-chart-bar-32', class:'', roles: ['ROLE_TRAINER'] },
+    { path:'/give-feedback', title:'Feedback', icon:'nc-chart-bar-32', class:'', roles: ['ROLE_TRAINER'] },
 
 
   { path: '/user-dashboard', title: 'Trainings', class: '', icon: 'nc-caps-small', roles:['ROLE_USER'] ,

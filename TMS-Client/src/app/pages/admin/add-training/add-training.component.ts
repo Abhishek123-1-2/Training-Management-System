@@ -21,13 +21,40 @@ export class AddTrainingComponent implements OnInit {
         training_schedule: ['', Validators.required],
         course: ['', Validators.required],
         trainer_names: ['', Validators.required],
-        prerequisites: ['', Validators.required],
-        course_description: ['', Validators.required],
         daily_hrs: ['', Validators.required],
         total_days: ['', Validators.required],
-        url: ['', [Validators.required, Validators.pattern('https?://.+')]], // Example URL pattern validation
-        username: ['', Validators.required],
-        password: ['', Validators.required],
+        prerequisites: [''],  
+    course_description: [''],  
+        url: [''],
+        username: [''],
+        password: [''],
+    });
+
+    this.trainingForm.get('training_schedule').valueChanges.subscribe((value) => {
+        const urlControl = this.trainingForm.get('url');
+        const usernameControl = this.trainingForm.get('username');
+        const passwordControl = this.trainingForm.get('password');
+
+        // Reset validation and values for URL, Username, and Password controls
+      urlControl.clearValidators();
+      usernameControl.clearValidators();
+      passwordControl.clearValidators();
+
+      urlControl.reset();
+      usernameControl.reset();
+      passwordControl.reset();
+
+      // Apply validation based on the selected value of Training Schedule
+      if (value === 'ON-REQUEST') {
+        urlControl.setValidators([Validators.required]);
+        usernameControl.setValidators([Validators.required]);
+        passwordControl.setValidators([Validators.required]);
+      }
+
+      // Update the validation state for URL, Username, and Password controls
+      urlControl.updateValueAndValidity();
+      usernameControl.updateValueAndValidity();
+      passwordControl.updateValueAndValidity();
     });
 }
 

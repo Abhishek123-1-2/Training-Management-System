@@ -29,9 +29,18 @@ export class DashboardComponent implements OnInit{
   public chartColor;
   public chartEmail;
   public chartHours;
+  public chartHistogram;
+  public chartPie;
+
+  public selectedMonth: string = 'all';
+  public selectedFilter: string = 'all';
+  public selectedDuration: string = 'all';
 
     ngOnInit(){
       this.chartColor = "#FFFFFF";
+
+      this.initHistogramChart();
+      this.initPieChart();
 
       this.canvas = document.getElementById("chartHours");
       this.ctx = this.canvas.getContext("2d");
@@ -219,5 +228,187 @@ export class DashboardComponent implements OnInit{
         data: speedData,
         options: chartOptions
       });
+    }
+
+    private initHistogramChart() {
+      this.canvas = document.getElementById("chartHistogram");
+      this.ctx = this.canvas.getContext("2d");
+
+      const data = this.getDataBasedOnMonthAndFilter();
+  
+      this.chartHistogram = new Chart(this.ctx, {
+        type: 'bar',
+        data: {
+          labels: ["Completed", "On-going", "Upcoming"],
+          datasets: [{
+            label: 'Course Data',
+            data: [10, 3, 8],
+            backgroundColor: ['#6bd098', '#51CACF', '#fcc468'],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          legend: { display: false },
+          scales: {
+            yAxes: [{
+              ticks: { beginAtZero: true }
+            }]
+          }
+        }
+      });
+    }
+  
+    private initPieChart() {
+      this.canvas = document.getElementById("chartPie");
+      this.ctx = this.canvas.getContext("2d");
+
+      const data = this.getDataBasedOnMonthAndFilter();
+  
+      this.chartPie = new Chart(this.ctx, {
+        type: 'pie',
+        data: {
+          labels: ["Completed", "On-going", "Upcoming"],
+          datasets: [{
+            data: [10, 3, 8],
+            backgroundColor: ['#6bd098', '#51CACF', '#fcc468'],
+          }]
+        },
+        options: {
+          legend: {
+            position: 'right',
+          }
+        }
+      });
+    }
+
+    // private getDataBasedOnDuration(): number[] {
+    //   // Replace this with actual data retrieval logic based on the selected duration
+    //   if (this.selectedDuration === '3months') {
+    //     return [5, 2, 8]; // Example data for 3 months
+    //   } else if (this.selectedDuration === '6months') {
+    //     return [8, 4, 12]; // Example data for 6 months
+    //   } else if (this.selectedDuration === 'year') {
+    //     return [10, 3, 8]; // Example data for 1 year
+    //   } else {
+    //     // 'all' or invalid duration, return default data
+    //     return [10, 3, 8]; // Example default data
+    //   }
+    // }
+
+    // private getDataBasedOnDurationAndFilter(): number[] {
+    //   // Replace this with actual data retrieval logic based on the selected duration and filter
+    //   // Use this.selectedDuration and this.selectedFilter to get the selected values
+    //   // Example data for illustration purposes
+    //   if (this.selectedFilter === 'completed') {
+    //     return [5, 2, 8]; // Example data for completed training
+    //   } else {
+    //     return [10, 3, 8]; // Example default data
+    //   }
+    // }
+
+    private getDataBasedOnMonthAndFilter(): number[] {
+      // Replace this with actual data retrieval logic based on the selected month and filter
+      // Use this.selectedMonth and this.selectedFilter to get the selected values
+      // Example data for illustration purposes
+      let completedData = 0;
+      let onGoingData = 0;
+      let upcomingData = 0;
+
+      if (this.selectedMonth === 'all' || this.selectedMonth === 'jan') {
+        // Example data for January
+        completedData = 5;
+        onGoingData = 2;
+        upcomingData = 3;
+      } else if (this.selectedMonth === 'feb') {
+        // Example data for February
+        completedData = 7;
+        onGoingData = 1;
+        upcomingData = 2;
+      } else if (this.selectedMonth === 'mar') {
+        completedData = 1;
+        onGoingData = 2;
+        upcomingData = 4;
+      } else if (this.selectedMonth === 'apr') {
+        completedData = 5;
+        onGoingData = 5;
+        upcomingData = 3;
+      } else if (this.selectedMonth === 'may') {
+        completedData = 7;
+        onGoingData = 4;
+        upcomingData = 3;
+      } else if (this.selectedMonth === 'jun') {
+        completedData = 2;
+        onGoingData = 5;
+        upcomingData = 4;
+      } else if (this.selectedMonth === 'jul') {
+        completedData = 4;
+        onGoingData = 3;
+        upcomingData = 2;
+      } else if (this.selectedMonth === 'aug') {
+        completedData = 3;
+        onGoingData = 5;
+        upcomingData = 3;
+      } else if (this.selectedMonth === 'sep') {
+        completedData = 8;
+        onGoingData = 4;
+        upcomingData = 1;
+      } else if (this.selectedMonth === 'oct') {
+        completedData = 6;
+        onGoingData = 4;
+        upcomingData = 0;
+      } else if (this.selectedMonth === 'nov') {
+        completedData = 3;
+        onGoingData = 5;
+        upcomingData = 7;
+      } else if (this.selectedMonth === 'dec') {
+        completedData = 9;
+        onGoingData = 3;
+        upcomingData = 0;
+      }
+      // Add similar blocks for each month
+  
+      if (this.selectedFilter === 'completed') {
+        return [completedData, 0, 0]; // Example data for completed training
+      } else {
+        return [completedData, onGoingData, upcomingData]; // Example default data
+      }
+
+
+
+      // if (this.selectedFilter === 'completed') {
+      //   return [5, 0, 0]; // Example data for completed training
+      // } else {
+      //   return [10, 3, 8]; // Example default data
+      // }
+    }
+
+    onMonthChange() {
+      // Update charts based on the selected month and filter
+      this.updateCharts();
+    }
+
+
+
+    // onDurationChange() {
+    //   // Update charts based on the selected duration
+    //   this.updateCharts();
+    // }
+
+    // Handle filter changes
+  onFilterChange() {
+    // Update charts based on the selected duration and filter
+    this.updateCharts();
+  }
+
+    private updateCharts() {
+      // Example: Update histogram chart
+      const histogramData = this.getDataBasedOnMonthAndFilter();
+      this.chartHistogram.data.datasets[0].data = histogramData;
+      this.chartHistogram.update();
+  
+      // Example: Update pie chart
+      const pieData = this.getDataBasedOnMonthAndFilter();
+      this.chartPie.data.datasets[0].data = pieData;
+      this.chartPie.update();
     }
 }

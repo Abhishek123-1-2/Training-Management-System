@@ -87,7 +87,7 @@ export const AdminLayoutRoutes: Routes = [
     {path:'view-training', component: ViewTrainingComponent},
     {path:'upcoming-training', component: UpcomingTrainingComponent},
     {path:'completed-training', component: CompletedTrainingComponent},
-    {path:'reports', component: TrainerFeedbackToEmployeeComponent },
+    {path:'give-feedback', component: TrainerFeedbackToEmployeeComponent },
     {path:'student-list3', component: StudentList3Component},
     {path:'feedback-to-employee', component: FeedbackToEmployeeComponent},
     {path:'on-request', component:OnRequestComponent},

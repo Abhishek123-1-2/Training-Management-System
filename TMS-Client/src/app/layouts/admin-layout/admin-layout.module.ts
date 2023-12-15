@@ -48,6 +48,7 @@ import { LoginComponent } from 'app/pages/login/login.component';
 import { TrainingRequestComponent } from 'app/pages/manager/training-request/training-request.component';
 import { TrainingRequest1Component } from 'app/pages/manager/training-request1/training-request1.component';
 import { ApprovedRequestComponent } from 'app/pages/manager/approved-request/approved-request.component';
+import { FeedbackToEmployeeComponent } from 'app/pages/trainer/feedback-to-employee/feedback-to-employee.component';
 import { HrTrainingComponent } from 'app/pages/hr/hr-training/hr-training.component';
 import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
 
@@ -108,7 +109,7 @@ import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.
     UpcomingTrainingComponent,
     ApprovedRequestComponent,
     LoginComponent,
-    
+    FeedbackToEmployeeComponent
 
     
     

@@ -12,28 +12,23 @@
       </h4>
     </div>
     <div class="card-body">
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="text-primary text-center">Sr No.</th>
-            <th class="text-primary text-center">Course Name</th>
-            <th class="text-primary text-center">Trainer Name</th>
-            <th class="text-primary text-center">Start Date</th>
-            <th class="text-primary text-center">End Date</th>
-            <th class="text-primary text-center">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let course of completedCourses">
-            <td class="text-center">{{ course.id }}</td>
-            <td class="text-center">{{ course.name }}</td>
-            <td class="text-center">{{ course.t_name }}</td>
-            <td class="text-center">{{ course.s_date }}</td>
-            <td class="text-center">{{ course.e_date }}</td>
-            <td class="text-center">{{ course.status }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-responsive table-container">
+        <table class="table">
+          <thead class="text-primary">
+            <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of tableData1.dataRows" class="text-center">
+              <td>{{ course.sr_no }}</td>
+              <td>{{ course.c_name }}</td>
+              <td>{{ course.t_name }}</td>
+              <td>{{ course.s_date }}</td>
+              <td>{{ course.e_date }}</td>
+              <td>{{ course.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   

@@ -221,6 +221,58 @@ public class TrainingViewService {
             System.out.println("Failed SQL statement: " + sql);
         }
     }
+    public void updateTrainingView(Long trainingId, TrainingView updatedTrainingView) {
+        // Concatenate trainer_names and course
+        String concatenatedTrainerNames = updatedTrainingView.getTrainer_names() + "(" + updatedTrainingView.getCourse() + ")";
+        updatedTrainingView.setTrainer_names(concatenatedTrainerNames);
+    
+        String sql = "UPDATE m_trainings SET " +
+                "training_category = ?, " +
+                "training_type = ?, " +
+                "training_schedule = ?, " +
+                "course = ?, " +
+                "trainer_names = ?, " +
+                "prerequisites = ?, " +
+                "course_description = ?, " +
+                "daily_hrs = ?, " +
+                "total_days = ?, " +
+                "url = ?, " +
+                "username = ?, " +
+                "password = ?, " +
+                "updated_by = ?, " +
+                "updated_on = CURRENT_TIMESTAMP " +
+                "WHERE training_id = ?";
+    
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+    
+            preparedStatement.setString(1, updatedTrainingView.getTraining_category());
+            preparedStatement.setString(2, updatedTrainingView.getTraining_type());
+            preparedStatement.setString(3, updatedTrainingView.getTraining_schedule());
+            preparedStatement.setString(4, updatedTrainingView.getCourse());
+            preparedStatement.setString(5, updatedTrainingView.getTrainer_names());
+            preparedStatement.setString(6, updatedTrainingView.getPrerequisites());
+            preparedStatement.setString(7, updatedTrainingView.getCourse_description());
+            preparedStatement.setLong(8, updatedTrainingView.getDaily_hrs());
+            preparedStatement.setLong(9, updatedTrainingView.getTotal_days());
+            preparedStatement.setString(10, updatedTrainingView.getUrl());
+            preparedStatement.setString(11, updatedTrainingView.getUsername());
+            preparedStatement.setString(12, updatedTrainingView.getPassword());
+            preparedStatement.setString(13, updatedTrainingView.getUpdated_by());
+            preparedStatement.setLong(14, trainingId);
+    
+            preparedStatement.executeUpdate();
+    
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the SQL exception as needed
+            // You may log the exception or throw a custom exception
+            System.out.println("SQL State: " + e.getSQLState());
+            System.out.println("Error Code: " + e.getErrorCode());
+            System.out.println("Message: " + e.getMessage());
+            System.out.println("Failed SQL statement: " + sql);
+        }
+    }
     
     //  public List<TrainingViewDto> getTrainingSchedule() {
     //     String sql = "SELECT t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, " +
@@ -394,8 +446,28 @@ public List<String> getTrainingCourses() {
             return null;
         }
     }
-   
-   
+    public Long getTrainingIdByCourseName(String courseName) {
+        String sql = "SELECT training_id FROM m_trainings WHERE course = ?";
+    
+        try {
+            return jdbcTemplate.queryForObject(sql, Long.class, courseName);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+    public Long getScheduleIdByTrainerName(String trainerName) {
+        String sql = "SELECT schedule_id FROM training_schedule WHERE trainer_name = ? LIMIT 1";
+
+        try {
+            // Try to fetch the schedule_id for the given trainer name
+            return jdbcTemplate.queryForObject(sql, Long.class, trainerName);
+
+        } catch (EmptyResultDataAccessException e) {
+            // Handle the case where no schedule_id is found for the given trainer name
+            // You might want to log a message or throw a custom exception
+            return null;
+        }
+    }
     
     
 }
