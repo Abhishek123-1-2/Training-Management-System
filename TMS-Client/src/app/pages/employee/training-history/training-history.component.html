@@ -13,24 +13,24 @@
               (input)="applyFilter()">
             </div>
          </div>
-          <div class="table-responsive text-nowrap table-container">
+          <div class="table-responsive table-container">
             <table class="table">
               <thead class="text-primary">
-                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+                <th *ngFor="let header of tableData1.headerRow">{{ header }}</th>
               </thead>
               
               <tbody>
                 <ng-container *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) ; let i = index">
                   <tr class="expandable-row">
-                    <td class="text-center">{{ row.number }}</td>
+                    <td>{{ row.number }}</td>
   
-  <td class="text-center">
+  <td>
 <a >{{ row.course }}</a></td> 
   
-                        <td class="text-center">{{ row.trainer_name }}</td>
-                        <td class="text-center">{{ row.start_date }}</td>
-                        <td class="text-center">{{ row.end_date }}</td>
-                        <td class="text-center">{{ row.status }}</td>
+                        <td>{{ row.trainer_name }}</td>
+                        <td>{{ row.start_date }}</td>
+                        <td>{{ row.end_date }}</td>
+                        <td>{{ row.status }}</td>
 </tr>
 
                 </ng-container>

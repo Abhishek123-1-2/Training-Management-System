@@ -14,17 +14,17 @@
       <div class="table-responsive text-nowrap table-container">
         <table class="table">
           <thead class="text-primary">
-              <th *ngFor="let header of studentList.headerRow" class="text-center">{{ header }}</th>
+              <th *ngFor="let header of studentList.headerRow">{{ header }}</th>
           </thead>
           <tbody>
             <!-- Use *ngFor to loop through filteredData and display each record -->
             <tr *ngFor="let row of filteredData">
-              <td class="text-center">{{ row.emp_code }}</td>
-              <td class="text-center">{{ row.emp_name }}</td>
-              <td class="text-center">{{ row.c_name }}</td>
-              <td class="text-center">{{ row.t_name }}</td>
-              <td class="text-center">{{ row.status }}</td>
-              <td class="text-center"><a [routerLink]="['/employee-feedback', row.emp_code]">{{ row.view }}</a></td>
+              <td>{{ row.emp_code }}</td>
+              <td>{{ row.emp_name }}</td>
+              <td>{{ row.c_name }}</td>
+              <td>{{ row.t_name }}</td>
+              <td>{{ row.status }}</td>
+              <td><a [routerLink]="['/employee-feedback', row.emp_code]">{{ row.view }}</a></td>
               <!-- Add more cells as needed -->
             </tr>
           </tbody>

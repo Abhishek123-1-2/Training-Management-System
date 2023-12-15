@@ -9,21 +9,21 @@
                 <label for="search">Search:</label>
                 <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
             </div>
-          <div class="table-responsive text-nowrap table-container">
+          <div class="table-responsive table-container">
             <table class="table">
               <thead class="text-primary">
-                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
-                <th *ngFor="let day of trainingDays" class="text-center">{{ day }}</th>
+                <th *ngFor="let header of tableData1.headerRow">{{ header }}</th>
+                <th *ngFor="let day of trainingDays">{{ day }}</th>
               </thead>
               <tbody>
                 <tr *ngFor="let row of filteredData" class="expandable-row">
-                    <td class="text-center">{{ row.sr_no }}</td>
-                    <td class="text-center">{{ row.emp_code }}</td>
-                    <td class="text-center">{{ row.emp_name }}</td>
-                    <td class="text-center">{{ start_date }}</td>
-                    <td class="text-center">{{ end_date }}</td>
-                    <td class="text-center"><button class="btn btn-primary" (click)="addTrainingDay()">{{ row.attendance }}</button></td>
-                    <td *ngFor="let day of trainingDays" class="text-center">
+                    <td>{{ row.sr_no }}</td>
+                    <td>{{ row.emp_code }}</td>
+                    <td>{{ row.emp_name }}</td>
+                    <td>{{ start_date }}</td>
+                    <td>{{ end_date }}</td>
+                    <td><button class="btn btn-primary" (click)="addTrainingDay()">{{ row.attendance }}</button></td>
+                    <td *ngFor="let day of trainingDays">
                       <button class="btn" 
                       [class.btn-success]="row.attendanceStatus[day] === 'Present'" 
                       [class.btn-danger]="row.attendanceStatus[day] === 'Absent'"

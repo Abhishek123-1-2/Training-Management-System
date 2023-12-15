@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit{
           this.sidebarClose();
         }
       });
-    }
+    }   
     updateTitle() {
       var titlee = this.location.prepareExternalUrl(this.location.path());
       console.log('Current Path:', titlee);

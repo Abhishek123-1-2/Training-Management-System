@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'add-participants-cmp',
@@ -11,19 +12,30 @@ export class AddParticipantsComponent {
   addParticipantsForm: FormGroup;
   employeeCodes: string[] = [];
   courseNames: string[] = [];
-  participants: any[] = [
-    { emp_code: '', emp_name: '',  course_name: '', reg_date: '', status: '', comments: '' },
-  ];
+  course: string;
+  trainer: string;
+  s_date: string;
+  e_date: string;
+  // participants: any[] = [
+  //   { emp_code: '', emp_name: '',  course_name: '', reg_date: '', status: '', comments: '' },
+  // ];
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {}
+  constructor(private http: HttpClient, private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
+    this.course = this.route.snapshot.paramMap.get('course') || null;
+    this.trainer = this.route.snapshot.paramMap.get('trainer') || null;
+    this.s_date = this.route.snapshot.paramMap.get('s_date') || null;
+    this.e_date = this.route.snapshot.paramMap.get('e_date') || null;
     this.addParticipantsForm = this.fb.group({
-      empCode: ['', Validators.required],
-      empName: ['', Validators.required],
-      courseName: ['', Validators.required],
-      schDate: ['', Validators.required],
-      status: ['', Validators.required]
+      cName: [this.course,[Validators.required]],
+      tName:[this.trainer, [Validators.required]],
+      empCode: ['', [Validators.required]],
+      empName: ['', [Validators.required]],
+      startDate: [this.s_date,[Validators.required]],
+      endDate: [this.e_date, [Validators.required]],
+      regDate: ['', [Validators.required]],
+      status: ['', [Validators.required]]
     });
 
     this.http.get<string[]>('http://localhost:8083/api/employees/codes').subscribe(
@@ -50,8 +62,10 @@ export class AddParticipantsComponent {
       this.http.get<any[]>(`http://localhost:8083/api/employees/${selectedCode}`).subscribe(
         (employee) => {
           if (employee && employee.length > 0) {
-            this.participants[index].emp_name = employee[0].empName;
-            this.participants[index].emp_id = employee[0].empId;
+            // this.participants[index].emp_name = employee[0].empName;
+            // this.participants[index].emp_id = employee[0].empId;
+            this.addParticipantsForm[index].get('empName').setValue(employee[0].empName);
+            this.addParticipantsForm[index].get('empId').setValue(employee[0].empId);
             console.log(`Fetched Employee ID for ${selectedCode}: ${employee[0].empId}`);
           } else {
             console.error('No employee found with the provided empCode');
@@ -67,12 +81,14 @@ export class AddParticipantsComponent {
   onCourseNameChange(index: number, selectedCourse: string) {
     this.http.get<number>(`http://localhost:8083/api/training-views/training-id?course=${selectedCourse}`).subscribe(
       (trainingId) => {
-        this.participants[index].training_id = trainingId;
+        // this.participants[index].training_id = trainingId;
+        this.addParticipantsForm[index].get('trainingId').setValue(trainingId);
         console.log(`Fetched Training ID for ${selectedCourse}: ${trainingId}`);
 
         this.http.get<number>(`http://localhost:8083/api/training-views/schedule-id?trainingId=${trainingId}`).subscribe(
           (scheduleId) => {
-            this.participants[index].schedule_id = scheduleId;
+            // this.participants[index].schedule_id = scheduleId;
+            this.addParticipantsForm[index].get('scheduleId').setValue(scheduleId);
             console.log(`Fetched Schedule ID for Training ID ${trainingId}: ${scheduleId}`);
           },
           (error) => {
@@ -86,9 +102,8 @@ export class AddParticipantsComponent {
     );
   }
   addParticipants() {
-    console.log('Participants Array:', this.participants);
   
-    this.http.post('http://localhost:8083/api/registration/add', this.participants).subscribe(
+    this.http.post('http://localhost:8083/api/registration/add', this.addParticipantsForm).subscribe(
       (response) => {
         console.log('Data added successfully:', response);
         this.addParticipantsForm.reset();
@@ -96,9 +111,7 @@ export class AddParticipantsComponent {
       (error) => {
         console.error('Error adding data:', error);
       }
-    );
-  }
-  
- 
+    ); 
+    }
   
 }
