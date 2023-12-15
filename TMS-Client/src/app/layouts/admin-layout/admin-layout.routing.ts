@@ -100,5 +100,7 @@ export const AdminLayoutRoutes: Routes = [
     {path:'report-main',component:ReportMainComponent},
     {path:'report-employee',component:ReportOfEmployeeComponent},
     {path:'report-courses',component:ReportOfCoursesComponent},
+    {path:'on-request', component:OnRequestComponent},
+    {path:'performance', component:PerformanceDashboardComponent}
 
 ];

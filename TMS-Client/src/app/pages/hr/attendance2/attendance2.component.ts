@@ -6,8 +6,6 @@ declare interface TableData {
   dataRows: {
     emp_code: string;
     emp_name: string;
-    c_name: string;
-    t_name: string;
     status: string;
     
   }[];
@@ -22,6 +20,8 @@ export class Attendance2Component implements OnInit {
   public tableData1: TableData;
   start_date: any;
   end_date: any;
+  course_name: any;
+  trainer_name: any;
 
   
 
@@ -32,6 +32,8 @@ export class Attendance2Component implements OnInit {
     this.route.params.subscribe((params) => {
       this.start_date = params['start_date'];
       this.end_date = params['end_date'];
+      this.course_name = params['course_name'];
+      this.trainer_name = params['trainer_name'];
 
       this.fetchList(this.start_date);
     });
@@ -45,7 +47,7 @@ export class Attendance2Component implements OnInit {
     this.tableData1 = {
       headerRow: ['Employee Code', 'Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status'],
       dataRows: [
-        { emp_code: '3647', emp_name: 'Yash Gavanang', c_name: 'Angular', t_name: 'Amisha Jangipuria', status: 'Ongoing' },
+        { emp_code: '3647', emp_name: 'Yash Gavanang', status: 'Ongoing' }
       ],
     };
   }
