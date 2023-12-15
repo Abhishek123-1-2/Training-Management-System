@@ -54,6 +54,8 @@ import { ReportMainComponent } from 'app/pages/trainer/report-main/report-main.c
 import { ReportOfEmployeeComponent } from 'app/pages/trainer/report-emp/report-emp.component';
 import { ReportOfCoursesComponent } from 'app/pages/trainer/report-courses/report-courses.component';
 
+import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
+
 
 @NgModule({
   imports: [
@@ -110,17 +112,14 @@ import { ReportOfCoursesComponent } from 'app/pages/trainer/report-courses/repor
     FeedbackToEmployeeComponent,
     StudentList3Component,
     UpcomingTrainingComponent,
-    TrainerFeedbackToEmployeeComponent,
+    ReportMainComponent,
+    ReportOfEmployeeComponent,
+    ReportOfCoursesComponent,
     TrainingRequest1Component,
     TrainingRequestComponent,
     ApprovedRequestComponent,
-
-ReportMainComponent,
-ReportOfEmployeeComponent,
-ReportOfCoursesComponent,
-
-
     
+
     
     
     

@@ -1,9 +1,10 @@
-package com.mindcraft.in.Pojos;
+package com.mindcraft.in.Pojos.Admin;
 
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

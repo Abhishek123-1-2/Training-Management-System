@@ -97,8 +97,6 @@ export const AdminLayoutRoutes: Routes = [
     {path:'training-request1', component: TrainingRequest1Component},
     {path:'approved-request', component: ApprovedRequestComponent},
 
-    {path:'on-request',component:OnRequestComponent},
-
     {path:'report-main',component:ReportMainComponent},
     {path:'report-employee',component:ReportOfEmployeeComponent},
     {path:'report-courses',component:ReportOfCoursesComponent},

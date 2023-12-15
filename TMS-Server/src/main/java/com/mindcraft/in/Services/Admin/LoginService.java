@@ -1,4 +1,4 @@
-package com.mindcraft.in.Services;
+package com.mindcraft.in.Services.Admin;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.mindcraft.in.Pojos.User;
+import com.mindcraft.in.Pojos.Admin.User;
 
 // LoginService.java
 @Service
