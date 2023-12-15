@@ -11,7 +11,7 @@
           </div>
           <div class="table-responsive table-container">
             <table class="table">
-              <thead class="text-primary">
+              <thead class="text-primary text-center">
                 <th>SR. NO</th>
                 <th>Course Name</th>
                 <th>Trainer Name</th>
@@ -22,7 +22,7 @@
               </thead>
 
               <tbody>
-                <tr *ngFor="let training of trainings.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
+                <tr *ngFor="let training of trainings.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row text-center"> 
                   <td>{{ training.id }}</td>
                   <td>{{ training.courseName }}</td>
                   <td>{{ training.trainerName }}</td>

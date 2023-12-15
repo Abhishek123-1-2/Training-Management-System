@@ -1,9 +1,3 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a [routerLink]="['/trainer-dashboard']">Dashboard</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Training Details</li>
-  </ol>
-</nav>
 <div class="row">
     <div class="col-md-12">
       <div class="card">
@@ -11,9 +5,20 @@
           <h4 class="card-title">Training Details</h4>
         </div>
         <div class="card-body">
-            <div class="form-group">
-                <label for="search">Search:</label>
-                <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
+            <div class="row">
+                <div class="form-group ml-3">
+                    <label for="search">Search:</label>
+                    <input class="form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
+                </div>
+                <div class="form-group ml-5">
+                    <label for="statusFilter">Status Filter:</label>
+                    <select class="form-control" id="statusFilter" [(ngModel)]="selectedStatus" (change)="applyFilter()">
+                        <option value="">All</option>
+                        <option value="Completed">Completed</option>
+                        <option value="On-going">On-going</option>
+                        <option value="Upcoming">Upcoming</option>
+                    </select>
+                </div>
             </div>
           <div class="table-responsive table-container">
             <table class="table">
@@ -27,7 +32,6 @@
                     <td>{{ row.s_date }}</td>
                     <td>{{ row.e_date }}</td>
                     <td>{{ row.status }}</td>
-                    <td><a [routerLink]="['/student-list3', {start_date: row.s_date, end_date: row.e_date, status: row.status}]">{{ row.view }}</a></td>
                   </tr>
               </tbody>
             </table>

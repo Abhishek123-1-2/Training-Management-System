@@ -12,7 +12,7 @@ export interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '', roles: ['ROLE_ADMIN'] },
+    // { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '', roles: ['ROLE_ADMIN'] },
     { path: '/employee-search', title: 'Employee', icon: 'nc-circle-10', class:'', roles: ['ROLE_ADMIN']},
     { path:'/admin-training',title: 'Training' , icon :'nc-caps-small' , class : ' ', roles: ['ROLE_ADMIN'] ,submenu:[
         { path:'/add-training',title:'Add-Training',icon:'',class:'', roles: ['ROLE_ADMIN']},
@@ -29,29 +29,35 @@ export const ROUTES: RouteInfo[] = [
         {path:'/training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_ADMIN']},
     ]},
 
-    { path: '/trainer-dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', roles: ['ROLE_TRAINER'], },
-
-
-    { path: '/admin-training', title: 'Trainings', icon: 'nc-caps-small', class: '', roles: ['ROLE_TRAINER'], submenu: [
-      { path:'/ongoing-training', title: 'On-going Trainings', icon:'', class:'', roles: ['ROLE_TRAINER'] },
-      { path:'/upcoming-training', title:'Upcoming Trainings', icon:'', class:'', roles:['ROLE_TRAINER'] },
-      { path:'/completed-training', title:'Completed Trainings', icon:'', class:'', roles:['ROLE_TRAINER'] },
-    ]},
+    { path: '/trainer-dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', roles: ['ROLE_TRAINER']},
+    { path: '/training-details', title: 'Trainings', icon: 'nc-caps-small', class: '', roles: ['ROLE_TRAINER']},
     { path:'/give-feedback', title:'Feedback', icon:'nc-chart-bar-32', class:'', roles: ['ROLE_TRAINER'] },
+    {path:'report-main',title:'Reports',icon:'nc-chart-bar-32',class:'',roles:['ROLE_TRAINER']},
+    
 
 
-  { path: '/user-dashboard', title: 'Trainings', class: '', icon: 'nc-caps-small', roles:['ROLE_USER'] ,
+{ path: '/user-dashboard', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_USER']},
+{ path: '/user-dashboard', title: 'Training', class: '', icon: 'nc-user-run', roles:['ROLE_USER'] ,
 submenu:[
-  {path:'on-request',title:'On-Request',icon:'',class:'',roles:['ROLE_USER']},
-  {path:'training-history',title:'Training History',icon:'',class:'',roles:['ROLE_USER']},  
+{path:'on-request',title:'On-Request',icon:'',class:'',roles:['ROLE_USER']},
+{path:'training-history',title:'Training History',icon:'',class:'',roles:['ROLE_USER']},  
 ]},
-{ path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_USER']},
-{path:'performance',title:'Performance',class:'',icon:'nc-bell-55',roles:['ROLE_USER']},
+{ path: '/feedback', title: 'Feedback', class: '', icon:'nc-chat-33', roles:['ROLE_USER']},
 
 
-  { path: '/hr-dashboard', title: 'Employee Feedback', class: '', icon:'nc-chart-bar-32', roles:['ROLE_HR']},
-  { path: '/trainer-feedback', title: 'Trainer Feedback', class: '', icon: 'nc-app', roles:['ROLE_HR']},
 
+
+{ path: '/hr-dashboard', title: 'Employee Feedback', class: '', icon:'nc-chart-bar-32', roles:['ROLE_HR']},
+{ path: '/trainer-feedback', title: 'Trainer Feedback', class: '', icon: 'nc-app', roles:['ROLE_HR']},
+{ path: '/admin-attendance' ,title :'Reports' ,icon :'nc-chart-bar-32' , class : '', roles: ['ROLE_HR']},
+{ path: '/hr-history', title: 'History', class: '', icon:'nc-tile-56', roles:['ROLE_HR'] ,submenu:[
+
+{ path: '/training-record', title: 'Training Record', class: '', icon: '', roles: ['ROLE_HR']},
+{ path: '/training-history', title: 'Training History', class: '', icon: '', roles: ['ROLE_HR']},
+{ path: '/attendance', title: 'Attendance', class:'', icon: '', roles: ['ROLE_HR']}
+
+
+]},
 
      // { path: '/icons',         title: 'Icons',             icon:'nc-diamond',    class: '' },
     // { path: '/maps',          title: 'Maps',              icon:'nc-pin-3',      class: '' }
@@ -61,19 +67,19 @@ submenu:[
     // { path: '/typography',    title: 'Typography',        icon:'nc-caps-small', class: '' },
     // { path: '/upgrade',       title: 'Upgrade to PRO',    icon:'nc-spaceship',  class: 'active-pro' },
 
-    {path:'manager-dashboard', title:'Dashboard', icon:'nc-diamond', class:'', roles:['ROLE_MANAGER']},
-    {path:'employee-search', title:'Employee', icon:'nc-circle-10', class:'', roles:['ROLE_MANAGER']},
-    {path:'training', title:'Training Requests', icon:'nc-caps-small', class:'', roles:['ROLE_MANAGER'], submenu:[
-      {path:'training-request', title:'Scheduled Courses', icon:'', class:'', roles:['ROLE_MANAGER']},
-      {path:'training-request1', title:'On-Demand Courses', icon:'', class:'', roles:['ROLE_MANAGER']},
-      {path: '/approved-request', title: 'Request Details', class:'', icon:'', roles:['ROLE_MANAGER']}
-    ]},
-    {path: '/admin-attendance' ,title :'Reports' ,icon :'nc-chart-bar-32' , class : '', roles: ['ROLE_MANAGER'],},
-    {path:'/admin-training',title:'History', icon:'nc-caps-small', class:'', roles:['ROLE_MANAGER'], submenu: [
-      {path:'/training-record', title:'Training Record', icon:'', class:'', roles:['ROLE_MANAGER']},
-        {path:'/training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_MANAGER']},
-    ]},
-    
+{path:'manager-dashboard', title:'Dashboard', icon:'nc-diamond', class:'', roles:['ROLE_MANAGER']},
+{path:'employee-search', title:'Employee', icon:'nc-circle-10', class:'', roles:['ROLE_MANAGER']},
+{path:'training', title:'Training Requests', icon:'nc-caps-small', class:'', roles:['ROLE_MANAGER'], submenu:[
+{path:'training-request', title:'Scheduled Courses', icon:'', class:'', roles:['ROLE_MANAGER']},
+{path:'training-request1', title:'On-Demand Courses', icon:'', class:'', roles:['ROLE_MANAGER']},
+{path: '/approved-request', title: 'Request Details', class:'', icon:'', roles:['ROLE_MANAGER']}
+]},
+{path: '/admin-attendance' ,title :'Reports' ,icon :'nc-chart-bar-32' , class : '', roles: ['ROLE_MANAGER'],},
+{path:'/admin-training',title:'History', icon:'nc-caps-small', class:'', roles:['ROLE_MANAGER'], submenu: [
+{path:'/training-record', title:'Training Record', icon:'', class:'', roles:['ROLE_MANAGER']},
+  {path:'/training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_MANAGER']},
+]},
+
     
 ];
 /*  {path:'schedule-training',component:ScheduleTrainingComponent} */
