@@ -1,11 +1,10 @@
-package com.mindcraft.in.Controllers;
+package com.mindcraft.in.Controllers.Admin;
 
 
-import com.mindcraft.in.Pojos.TrainingSchedule;
-import com.mindcraft.in.Pojos.TrainingView;
-import com.mindcraft.in.Pojos.TrainingViewDto;
-import com.mindcraft.in.Services.TrainingViewService;
-
+import com.mindcraft.in.Pojos.Admin.TrainingSchedule;
+import com.mindcraft.in.Pojos.Admin.TrainingView;
+import com.mindcraft.in.Pojos.Admin.TrainingViewDto;
+import com.mindcraft.in.Services.Admin.TrainingViewService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

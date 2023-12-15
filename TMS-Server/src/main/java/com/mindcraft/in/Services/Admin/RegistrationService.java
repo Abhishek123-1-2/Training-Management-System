@@ -1,12 +1,12 @@
-package com.mindcraft.in.Services;
-
-import com.mindcraft.in.Pojos.Registration;
+package com.mindcraft.in.Services.Admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import com.mindcraft.in.Pojos.Admin.Registration;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

@@ -1,8 +1,8 @@
-package com.mindcraft.in.Services;
+package com.mindcraft.in.Services.Admin;
 
-import com.mindcraft.in.Pojos.TrainingSchedule;
-import com.mindcraft.in.Pojos.TrainingView;
-import com.mindcraft.in.Pojos.TrainingViewDto;
+import com.mindcraft.in.Pojos.Admin.TrainingSchedule;
+import com.mindcraft.in.Pojos.Admin.TrainingView;
+import com.mindcraft.in.Pojos.Admin.TrainingViewDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;

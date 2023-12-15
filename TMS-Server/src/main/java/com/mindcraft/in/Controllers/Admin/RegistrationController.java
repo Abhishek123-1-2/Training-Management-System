@@ -1,7 +1,7 @@
-package com.mindcraft.in.Controllers;
+package com.mindcraft.in.Controllers.Admin;
 
-import com.mindcraft.in.Pojos.Registration;
-import com.mindcraft.in.Services.RegistrationService;
+import com.mindcraft.in.Pojos.Admin.Registration;
+import com.mindcraft.in.Services.Admin.RegistrationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

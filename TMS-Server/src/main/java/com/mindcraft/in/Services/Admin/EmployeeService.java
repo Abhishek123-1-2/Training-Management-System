@@ -1,10 +1,10 @@
-package com.mindcraft.in.Services;
+package com.mindcraft.in.Services.Admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.mindcraft.in.Pojos.Employee;
+import com.mindcraft.in.Pojos.Admin.Employee;
 
 import java.util.List;
 import java.util.Map;

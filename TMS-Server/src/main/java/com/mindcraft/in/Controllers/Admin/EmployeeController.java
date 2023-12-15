@@ -1,4 +1,4 @@
-package com.mindcraft.in.Controllers;
+package com.mindcraft.in.Controllers.Admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mindcraft.in.Pojos.Employee;
-import com.mindcraft.in.Services.EmployeeService;
+import com.mindcraft.in.Pojos.Admin.Employee;
+import com.mindcraft.in.Services.Admin.EmployeeService;
 
 import java.util.List;
 
