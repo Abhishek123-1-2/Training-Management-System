@@ -1,4 +1,4 @@
-  <div class="row">
+<!-- <div class="row">
   <div class="col-lg-3 col-md-6 col-sm-6">
     <div class="card card-stats">
       <div class="card-body ">
@@ -76,4 +76,104 @@
       </div>
     </div>
   </div>
+</div> -->
+
+<!-- <div class="col-lg-3">
+  <label>Duration:</label>
+  <select [(ngModel)]="selectedDuration" (change)="onDurationChange()" class="form-control">
+    <option value="all">All</option>
+    <option value="3months">3 Months</option>
+    <option value="6months">6 Months</option>
+    <option value="year">1 Year</option>
+  </select>
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <canvas id="chartHistogram" width="400" height="400"></canvas>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <canvas id="chartPie" width="400" height="400"></canvas>
+  </div>
+</div> -->
+
+<!-- <div class="row">
+  <div class="col-lg-9">
+    <div class="row">
+      <div class="col-lg-6">
+        <canvas id="chartHistogram" width="400" height="400"></canvas>
+      </div>
+      <div class="col-lg-6">
+        <canvas id="chartPie" width="400" height="400"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3">
+    <div class="float-right">
+      <label>Duration:</label>
+      <select [(ngModel)]="selectedDuration" (change)="onDurationChange()" class="form-control">
+        <option value="all">All</option>
+        <option value="3months">3 Months</option>
+        <option value="6months">6 Months</option>
+        <option value="year">1 Year</option>
+      </select>
+    </div>
+  </div>
+</div> -->
+
+<div class="row">
+  <div class="col-lg-9">
+    <!-- Placeholder for Histogram chart -->
+    <div class="row">
+      <div class="col-lg-6">
+        <canvas id="chartHistogram" width="400" height="400"></canvas>
+      </div>
+      <!-- Placeholder for Pie chart -->
+      <div class="col-lg-6">
+        <canvas id="chartPie" width="400" height="400"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3">
+    <div class="float-right">
+      <label>Duration:</label>
+      <select [(ngModel)]="selectedMonth" (change)="onMonthChange()" class="form-control">
+        <option value="all">All Months</option>
+        <!-- <option value="3months">3 Months</option>
+        <option value="6months">6 Months</option>
+        <option value="year">1 Year</option> -->
+        <option value="jan">January</option>
+        <option value="feb">February</option>
+        <option value="mar">March</option>
+        <option value="apr">April</option>
+        <option value="may">May</option>
+        <option value="jun">June</option>
+        <option value="jul">July</option>
+        <option value="aug">August</option>
+        <option value="sep">September</option>
+        <option value="oct">October</option>
+        <option value="nov">November</option>
+        <option value="dec">December</option>
+      </select>
+
+      <br>
+
+      <label>Filter:</label>
+      <select [(ngModel)]="selectedFilter" (change)="onFilterChange()" class="form-control">
+        <option value="all">All</option>
+        <option value="completed">Completed</option>
+        <!-- Add more filter options as needed -->
+      </select>
+    </div>
+  </div>
+</div>
+
+
+
+
   

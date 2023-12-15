@@ -1,5 +1,3 @@
-
- 
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -7,6 +5,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+
 @Component({
     selector: 'schedule-training-cmp',
     moduleId: module.id,
@@ -73,11 +72,8 @@ this.trainer = this.route.snapshot.paramMap.get('trainer') || null;
           this.selectedTime = `${formattedTime} ${this.trainingForm.controls.timePeriod.value}`;
         }
       }
-
-
       
-
-    
+      
       onSubmit() {
         if (this.trainingForm.valid) {
           // Prepare the data to send to the backend

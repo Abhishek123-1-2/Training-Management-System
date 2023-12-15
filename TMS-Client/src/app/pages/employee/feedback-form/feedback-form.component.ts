@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+/* feedback-form.component.ts  */
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import Chart from 'chart.js';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -8,7 +10,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class FeedbackFormComponent implements OnInit {
 
-  saveForm: FormGroup;
+ 
+
 
 
 
@@ -20,8 +23,12 @@ export class FeedbackFormComponent implements OnInit {
   problemSolvingAbilityValue: number = 0;
 
 
+  @ViewChild('chartCanvas') chartCanvas: ElementRef; // Reference to the canvas element
+  saveForm: any;
+  formBuilder: any;
+  chart: any;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.saveForm = this.formBuilder.group({
@@ -29,10 +36,24 @@ export class FeedbackFormComponent implements OnInit {
     });
   }
 
+  updateChart(): void {
+    if (this.chart) {
+      this.chart.data.datasets[0].data = [
+        this.technicalSkillsValue,
+        this.graspingPowerValue,
+        this.proActivenessValue,
+        this.interestQualityValue,
+        this.leadershipQualityValue,
+        this.problemSolvingAbilityValue
+      ];
+      this.chart.update();
+    }
+  }
 
   updateRating(inputId: string, displayProperty: string): void {
     const inputElement = document.getElementById(inputId) as HTMLInputElement;
     this[displayProperty] = +inputElement.value;
+    this.updateChart();
   }
 
 

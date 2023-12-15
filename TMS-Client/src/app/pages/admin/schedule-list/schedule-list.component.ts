@@ -1,21 +1,10 @@
+// schedule-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 interface TableData {
   headerRow: string[];
-  dataRows: {
-    scheduleId: string;
-    number: string;
-    course: string;
-    trainer_name: string;
-    planned_start_date: string;
-    planned_end_date: string;
-    from_time: string;
-    to_time: string;
-    status: string;
-    action: string;
-  }[];
+  dataRows: TableRow[];
 }
 
 interface TableRow {
@@ -27,6 +16,7 @@ interface TableRow {
   planned_end_date: string;
   from_time: string;
   to_time: string;
+  participants: string;
   status: string;
   action: string;
 }
@@ -37,18 +27,18 @@ interface TableRow {
   templateUrl: 'schedule-list.component.html',
 })
 export class ScheduleListComponent implements OnInit {
-  constructor(private router: Router, private http: HttpClient) {}
-
   public tableData1: TableData;
   public filteredData: TableRow[];
   public searchValue: string = '';
   public isEditMode: boolean = false;
   public rowIndexBeingEdited: number | null = null;
-  isAddParticipantsFormVisible = false;
-  newParticipantName = '';
-  display = 'none';
-  currentPage = 1;
-  itemsPerPage = 5;
+  public isAddParticipantsFormVisible = false;
+  public newParticipantName = '';
+  public display = 'none';
+  public currentPage = 1;
+  public itemsPerPage = 10;
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.fetchData();
@@ -58,7 +48,7 @@ export class ScheduleListComponent implements OnInit {
     this.http.get<any[]>('http://localhost:8083/api/training-views/schedule-list').subscribe(
       (data) => {
         this.tableData1 = {
-          headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status', 'Action'],
+          headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status','Add Participants', 'Action'],
           dataRows: data.map((item, index) => ({
             scheduleId: item.scheduleId,
             number: (index + 1).toString(),
@@ -68,11 +58,12 @@ export class ScheduleListComponent implements OnInit {
             planned_end_date: item.plannedEndDate ? item.plannedEndDate.split('T')[0] : '',
             from_time: item.fromTime,
             to_time: item.toTime,
+            participants: item.participants,
             status: item.trainingStatus,
             action: '',
           })),
         };
-        this.filteredData = [...this.tableData1.dataRows];
+        this.applyFilter();
       },
       (error) => {
         console.error('Error fetching data:', error);
@@ -85,24 +76,23 @@ export class ScheduleListComponent implements OnInit {
   }
 
   applyFilter() {
-    console.log('Search Value:', this.searchValue);
+    const searchTerm = this.searchValue.toLowerCase().trim();
 
-    if (!this.searchValue.trim()) {
-      this.filteredData = [...this.tableData1.dataRows];
-      console.log('Filtered Data:', this.filteredData);
+    if (!searchTerm) {
+      this.filteredData = [...this.tableData1.dataRows.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)];
       return;
     }
 
-    this.filteredData = this.tableData1.dataRows.filter((row) =>
-      Object.values(row).some(
-        (value) =>
-          value !== null &&
-          value !== undefined &&
-          value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
+    this.filteredData = this.tableData1.dataRows
+      .filter((row) =>
+        Object.values(row).some(
+          (value) =>
+            value !== null &&
+            value !== undefined &&
+            value.toString().toLowerCase().includes(searchTerm)
+        )
       )
-    );
-
-    console.log('Filtered Data:', this.filteredData);
+      .slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
   }
 
   toggleEditMode(rowIndex: number): void {
@@ -125,8 +115,8 @@ export class ScheduleListComponent implements OnInit {
     // Include scheduleId in the updated data
     const updatedScheduleWithId = {
       scheduleId: updatedSchedule.scheduleId,
-      planned_start_date: updatedSchedule.planned_start_date,
-      planned_end_date: updatedSchedule.planned_end_date,
+      plannedStartDate: updatedSchedule.planned_start_date,
+      plannedEndDate: updatedSchedule.planned_end_date,
       trainingStatus: updatedSchedule.status,
       fromTime: updatedSchedule.from_time,
       toTime: updatedSchedule.to_time,
@@ -142,30 +132,35 @@ export class ScheduleListComponent implements OnInit {
       }
     );
   }
-    
-      cancelEdit() {
-        this.isEditMode = false;
-        this.rowIndexBeingEdited=null;
-        // If you want to revert changes, you may need to reload the original data
-      }
-      toggleModal() {
-        console.log('Opening Modal form')
-        this.isAddParticipantsFormVisible = !this.isAddParticipantsFormVisible;
-        this.display = 'block';
-    }
-    get pages(): number[] {
-      if (this.tableData1.dataRows.length === 0) {
-        return [];
-      }
-  
-      const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
-      return Array.from({ length: pageCount }, (_, index) => index + 1);
-    }
-    changeItemsPerPage(event: any): void {
-      this.itemsPerPage = +event.target.value;
-      this.currentPage = 1; // Reset to the first page when changing items per page
+
+  cancelEdit() {
+    this.isEditMode = false;
+    this.rowIndexBeingEdited = null;
+    // If you want to revert changes, you may need to reload the original data
+  }
+
+  toggleModal() {
+    console.log('Opening Modal form');
+    this.isAddParticipantsFormVisible = !this.isAddParticipantsFormVisible;
+    this.display = 'block';
+  }
+  get pages(): number[] {
+    if (this.tableData1.dataRows.length === 0) {
+      return [];
     }
 
+    const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
 
+  changeItemsPerPage(event: any): void {
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1; // Reset to the first page when changing items per page
+    this.applyFilter();
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.applyFilter();
+  }
 }
-

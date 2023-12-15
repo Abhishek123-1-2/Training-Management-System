@@ -1,9 +1,9 @@
-<nav aria-label="breadcrumb">
+<!-- <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
     <li class="breadcrumb-item active" aria-current="page">Registration Details</li>
   </ol>
-</nav>
+</nav> -->
 
 <div class="row">
     <div class="col-md-12">
@@ -17,9 +17,9 @@
               <label for="search">Search:</label>
               <input class="col-md-12 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
             </div>
-            <button class="btn btn-primary" routerLink="/add-participants">Add Participants</button>
+            <!-- <button class="btn btn-primary" routerLink="/add-participants">Add Participants</button> -->
           </div>
-          <div class="table-responsive text-nowrap table-container">
+          <div class="table-responsive table-container">
             <table class="table">
               <thead class="text-primary">
                 <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
@@ -32,7 +32,7 @@
                     <td class="text-center">{{ row.emp_name }}</td>
                     <td class="text-center">{{ row.reg_date }}</td>
                     <td class="text-center">{{ row.c_name }}</td>
-                    <td>{{ row.comments }}</td>
+                    <td class="text-center">{{ row.comments }}</td>
                     <td class="text-center">{{ row.status }}</td>
                     <td class="text-center">{{ row.response}}</td>
                     <td class="text-center">
@@ -50,21 +50,26 @@
                         <input [(ngModel)]="filteredData[i].emp_name" [disabled]="true"  class="text-center">
                     </td>
                     <td class="text-center">
-                        <input [(ngModel)]="filteredData[i].reg_date" [disabled]="false"  class="text-center">
+                        <input type="date" [(ngModel)]="filteredData[i].reg_date" [disabled]="false"  class="text-center">
                     </td>
                     <td class="text-center">
                         <input [(ngModel)]="filteredData[i].c_name" [disabled]="false"  class="text-center">
                     </td>
-                    <td>
+                    <td class="text-center">
                         <textarea rows="2" cols="50" type="text" [(ngModel)]="filteredData[i].comments" [disabled]="true"></textarea>
                     </td>
                     <td class="text-center">
-                        <input [(ngModel)]="filteredData[i].status" [disabled]="false"  class="text-center">
+                        <select [(ngModel)]="filteredData[i].status" [disabled]="false"  class="text-center">
+                          <option value="Registered">Registered</option>
+                          <option value="Rejected">Rejected</option>
+                          <option value="Joined">Joined</option>
+                          <option value="Absent">Absent</option>
+                        </select>
                     </td>
                     <td class="text-center">
                         <input [(ngModel)]="filteredData[i].response" [disabled]="false" class="text-center">
                     </td>
-                    <td class="text-center">
+                    <td class="text-center text-nowrap">
                       <button class="btn btn-success" (click)="saveChanges(i)">Save</button>&nbsp;
                       <button class="btn btn-success" (click)="cancelEdit()">Cancel</button>
                     </td>

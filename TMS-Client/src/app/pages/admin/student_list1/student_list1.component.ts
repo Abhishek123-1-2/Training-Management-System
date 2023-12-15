@@ -9,7 +9,6 @@ declare interface TableData {
         emp_name: string;
         c_name: string;
         t_name: string;
-        status: string;
         view: string;
     }[];
 }
@@ -19,7 +18,6 @@ interface TableRow {
     emp_name: string;
     c_name: string;
     t_name: string;
-    status: string;
     view: string;
 }
 
@@ -32,11 +30,14 @@ export class StudentList1Component implements OnInit {
   t_id: string;
   start_date: string;
   end_date: string;
+  status: string;
   public studentList: TableData;
   public filteredData: TableRow[];
   public searchValue: string = '';
   public currentPage = 1;
   public itemsPerPage = 5;
+  public headerRowWithDates: string[];
+  dateRange: Date[] = [];
   
 
   constructor(private route: ActivatedRoute) {}
@@ -46,19 +47,23 @@ export class StudentList1Component implements OnInit {
       this.t_id = params['t_id'];
       this.start_date = params['start_date'];
       this.end_date = params['end_date'];
+      this.status = params['status'];
+
+
       // Now, fetch the list of students based on the trainingId and update the component.
       // You might want to create a service to handle data retrieval.
       this.fetchStudentList(this.t_id);
     });
   }
+
   fetchStudentList(t_id: string): void {
     this.studentList = {
         headerRow: ['Employee Code','Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status', 'Reports'],
         dataRows: [
-            {emp_code:'3647', emp_name:'Yash Gavanang',   c_name:'Angular', t_name:'Amisha Jangipuria', status:'Completed', view:'View'},
-            {emp_code:'3646', emp_name:'Abhishek Pillai', c_name:'Angular', t_name:'Amisha Jangipuria', status:'Completed', view:'View'},
-            {emp_code:'3639', emp_name:'Mukul Gupta',     c_name:'Angular', t_name:'Amisha Jangipuria', status:'Completed', view:'View'},
-            {emp_code:'3364', emp_name:'Yash Gole',       c_name:'Angular', t_name:'Amisha Jangipuria', status:'Completed', view:'View'},
+            {emp_code:'3647', emp_name:'Yash Gavanang',   c_name:'Angular', t_name:'Amisha Jangipuria', view:'View'},
+            {emp_code:'3646', emp_name:'Abhishek Pillai', c_name:'Angular', t_name:'Amisha Jangipuria', view:'View'},
+            {emp_code:'3639', emp_name:'Mukul Gupta',     c_name:'Angular', t_name:'Amisha Jangipuria', view:'View'},
+            {emp_code:'3364', emp_name:'Yash Gole',       c_name:'Angular', t_name:'Amisha Jangipuria', view:'View'},
         ]
     };
     this.filteredData = [...this.studentList.dataRows];

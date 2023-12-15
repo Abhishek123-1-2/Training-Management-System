@@ -58,7 +58,7 @@
                                 <div class="col-md-4 ">
                                     <div class="form-group">
                                         <label>Course</label>
-                                        <input type="text" id="course" name="course" formControlName="course" class="form-control" required>
+                                        <input type="text" id="course" name="course" formControlName="course" class="form-control" placeholder="E.g. Angular" required>
                                         <small class="text-danger" *ngIf="trainingForm.get('course').hasError('required') && (trainingForm.get('course').touched || trainingForm.get('course').dirty)">
                                             Course is required.
                                         </small>
@@ -68,7 +68,7 @@
                                 <div class="col-md-4 ">
                                     <div class="form-group">
                                         <label>Trainer Name </label>
-                                        <input type="text" id="trainer_names" name="trainer_names" formControlName="trainer_names" class="form-control" maxlength="25" required>
+                                        <input type="text" id="trainer_names" name="trainer_names" formControlName="trainer_names" class="form-control" maxlength="25" placeholder="E.g. xyz" required>
                                         <small class="text-danger" *ngIf="trainingForm.get('trainer_names').hasError('required') && (trainingForm.get('trainer_names').touched || trainingForm.get('trainer_names').dirty)">
                                             Trainer Name are required.
                                         </small>
@@ -78,10 +78,10 @@
                                 <div class="col-md-4 ">
                                     <div class="form-group">
                                         <label>Prerequisites</label>
-                                        <input type="text" id="prerequisites" name="prerequisites" formControlName="prerequisites" class="form-control" required>
-                                        <small class="text-danger" *ngIf="trainingForm.get('prerequisites').hasError('required') && (trainingForm.get('prerequisites').touched || trainingForm.get('prerequisites').dirty)">
+                                        <input type="text" id="prerequisites" name="prerequisites" formControlName="prerequisites" class="form-control">
+                                        <!-- <small class="text-danger" *ngIf="trainingForm.get('prerequisites').hasError('required') && (trainingForm.get('prerequisites').touched || trainingForm.get('prerequisites').dirty)">
                                             Prerequisites are required.
-                                        </small>
+                                        </small> -->
                                     </div>
                                 </div>
 
@@ -93,10 +93,10 @@
                                 <div class="col-md-4 ">
                                     <div class="form-group">
                                         <label>Course Description</label>
-                                        <input type="text" id="course_description" name="course_description" formControlName="course_description" class="form-control" required>
-                                        <small class="text-danger" *ngIf="trainingForm.get('course_description').hasError('required') && (trainingForm.get('course_description').touched || trainingForm.get('course_description').dirty)">
+                                        <input type="text" id="course_description" name="course_description" formControlName="course_description" class="form-control">
+                                        <!-- <small class="text-danger" *ngIf="trainingForm.get('course_description').hasError('required') && (trainingForm.get('course_description').touched || trainingForm.get('course_description').dirty)">
                                             Course Description is required.
-                                        </small>
+                                        </small> -->
                                     </div>
                                 </div>
 
@@ -127,10 +127,10 @@
 
                                 <div class="col-md-4 ">
                                     <div class="form-group">
-                                        <label>Meeting Link </label>
-                                        <input type="url" id="url" name="url" formControlName="url" class="form-control" required>
+                                        <label>Course Link </label>
+                                        <input type="url" id="url" name="url" formControlName="url" class="form-control">
                                         <small class="text-danger" *ngIf="trainingForm.get('url').hasError('required') && (trainingForm.get('url').touched || trainingForm.get('url').dirty)">
-                                            Meeting Link is required.
+                                            Course Link is required.
                                         </small>
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@
                                 <div class="col-md-4 ">
                                     <div class="form-group">
                                         <label>Username </label>
-                                        <input type="text" id="username" name="username" formControlName="username" class="form-control" maxlength="25" required>
+                                        <input type="text" id="username" name="username" formControlName="username" class="form-control" maxlength="25">
                                         <small class="text-danger" *ngIf="trainingForm.get('username').hasError('required') && (trainingForm.get('username').touched || trainingForm.get('username').dirty)">
                                             Username is required.
                                         </small>
@@ -148,7 +148,7 @@
                                 <div class="col-md-4 ">
                                     <div class="form-group">
                                         <label>Password </label>
-                                        <input type="password" id="password" name="password" formControlName="password" class="form-control" maxlength="25" required>
+                                        <input type="password" id="password" name="password" formControlName="password" class="form-control" maxlength="25">
                                         <small class="text-danger" *ngIf="trainingForm.get('password').hasError('required') && (trainingForm.get('password').touched || trainingForm.get('password').dirty)">
                                             Password is required.
                                         </small>

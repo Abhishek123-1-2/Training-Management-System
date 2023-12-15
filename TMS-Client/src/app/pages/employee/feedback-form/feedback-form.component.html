@@ -1,4 +1,3 @@
-
 <div class="card">
     <div class="card-header">
         <h4 class="card-title text-primary">Training Feedback</h4>
@@ -56,7 +55,7 @@
                 <div class="form-group">
                     <label for="problem_solving_ability" style="font-size: 120%;">Problem Solving Ability Value: <span id="problem_solving_ability_value" class="value"><strong style="color: #0408e7; font-size: 120%;">{{ problemSolvingAbilityValue }}</strong></span></label>
                     <div>
-                    <input type="range" class="form-range"  min="0" max="5" value="0" step="1" id="problem_solving_ability" (input)="updateRating('problem_solving_ability', 'problemSolvingAbilityValue')">
+                    <input type="range" class="form-range"  step="1" min="0" max="5" value="0"  id="problem_solving_ability" (input)="updateRating('problem_solving_ability', 'problemSolvingAbilityValue')">
                     </div>
                 </div>
             </div>
@@ -84,64 +83,13 @@
 
     </form>
     </div>
-</div>
 
-
-
-<!-- <div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-             <h4 class="caard-title">Employee Feedback</h4>
-            </div>
-        
-        <div class="card-body">
-         <div class="table-responsive text-nowrap table-container">
-            <table class="table">
-            <thead class="text-primary">
-            <th class="text-center">Technical Skills</th>
-            <th class="text-center">Rating</th>
-            <th class="text-center">Grasping Power</th>
-            <th class="text-center">Rating</th>
-            <th class="text-center">Pro-Activeness</th>
-            <th class="text-center">Rating</th>
-            <th class="text-center">Interest Quality</th>
-            <th class="text-center">Rating</th>
-            <th class="text-center">Leadership Quality</th>
-            <th class="text-center">Rating</th>
-            <th class="text-center">Problem Solving Ability</th>
-            <th class="text-center">Rating</th>
-            <th class="text-center">Rating from trainer</th>
-            <th class="text-center">Rating</th>
-            </thead>
-
-            <tbody>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="technical_skills" (input)="updateRating('technical_skills', 'technicalSkillsValue')"></td>
-            <td>{{technicalSkillsValue}}</td>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="grasping_power" (input)="updateRating('grasping_power','graspingPowerValue')"></td>
-            <td>{{graspingPowerValue}}</td>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="pro_activeness" (input)="updateRating('pro_activeness','proActivenessValue')"></td>
-            <td>{{proActivenessValue}}</td>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="interest_quality" (input)="updateRating('interest_quality','interestQualityValue')"></td>
-            <td>{{interestQualityValue}}</td>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="leadership_quality" (input)="updateRating('leadership_quality','leadershipQualityValue')"></td>
-            <td>{{leadershipQualityValue}}</td>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="problem_solving_ability" (input)="updateRating('problem_solving_ability','problemSolvingAbilityValue')"></td>
-            <td>{{problemSolvingAbilityValue}}</td>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="rating_from_trainer" (input)="updateRating('rating_from_trainer','ratingFromTrainerValue')"></td>
-            <td>{{ratingFromTrainerValue}}</td>
-            </tbody>
-            </table>
-        
-
-        </div>
-        
-        </div>
-         
-        </div>
+<!-- Add canvas elements for charts -->
+<div class="card">
+    <canvas #chartCanvas id="feedbackChart" width="400" height="200"></canvas>
+  </div>
+  
 
 </div>
 
-
-</div> -->
 

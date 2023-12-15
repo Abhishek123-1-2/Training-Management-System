@@ -19,12 +19,12 @@ import { StudentList1Component } from 'app/pages/admin/student_list1/student_lis
 import { AddParticipantsComponent } from 'app/pages/admin/add_participants/add_participants.component';
 import { ViewTrainingComponent } from 'app/pages/admin/view-training/view-training.component';
 import { AdminAttendanceComponent } from 'app/pages/admin/admin-attendance/admin-attendance.component';
-import { TimeFormatPipe } from 'app/pages/admin/schedule-list/schedule-training/schedule-training.pipe';
-import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-list/schedule-training/schedule-training.component';
+import { TimeFormatPipe } from 'app/pages/admin/schedule-training/schedule-training.pipe';
+import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-training/schedule-training.component';
 import { AddTrainingComponent } from 'app/pages/admin/add-training/add-training.component';
 import { TrainerDashboardComponent } from 'app/pages/trainer/trainer-dashboard/trainer-dashboard.component';
-import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
-import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
+// import { TIDComponent } from 'app/pages/admin/view-training/TID/tid.component';
+// import { TypeComponent } from 'app/pages/admin/view-training/TID/type/type.component';
 import { ScheduleListComponent } from 'app/pages/admin/schedule-list/schedule-list.component';
 import { AdminTrainingHistoryComponent } from 'app/pages/admin/admin-training-history/admin-training-history.component';
 import { CourseDetailsComponent } from 'app/pages/admin/course-details/course-details.component';
@@ -34,16 +34,24 @@ import { TrainingRecordComponent } from 'app/pages/admin/training-record/trainin
 import { EmployeeSearchComponent } from 'app/pages/admin/employee-search/employee-search.component';
 import { OngoingTrainingComponent } from 'app/pages/trainer/ongoing-training/ongoing-training.component';
 import { StudentList2Component } from 'app/pages/trainer/student-list2/student-list2.component';
-import { UpcomingTrainingComponent } from 'app/pages/trainer/upcoming-training/upcoming-training.component';
-import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training/completed-training.component';
-import { TrainerFeedbackToEmployeeComponent } from 'app/pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
+import { TypeComponent } from 'app/pages/admin/type/type.component';
+import { TIDComponent } from 'app/pages/admin/TID/tid.component';
+import { OnRequestComponent } from 'app/pages/employee/on-request/on-request.component';
+import { TrainingHistoryComponent } from 'app/pages/employee/training-history/training-history.component';
 import { StudentList3Component } from 'app/pages/trainer/student-list3/student-list3.component';
+import { UpcomingTrainingComponent } from 'app/pages/trainer/upcoming-training/upcoming-training.component';
+import { TrainerFeedbackToEmployeeComponent } from 'app/pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
+import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training/completed-training.component';
+import { LoginComponent } from 'app/pages/login/login.component';
+import { TrainingRequestComponent } from 'app/pages/manager/training-request/training-request.component';
+import { TrainingRequest1Component } from 'app/pages/manager/training-request1/training-request1.component';
+import { ApprovedRequestComponent } from 'app/pages/manager/approved-request/approved-request.component';
 import { FeedbackToEmployeeComponent } from 'app/pages/trainer/feedback-to-employee/feedback-to-employee.component';
 import { EmployeeFeedbackDetailsComponent } from 'app/pages/admin/employee_feedback_details/employee_feedback_details.component';
 import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback-form.component';
 
 
-@NgModule({
+@NgModule({//
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
@@ -73,8 +81,6 @@ import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback
     ScheduleTrainingComponent,
     AddTrainingComponent,
     TrainerDashboardComponent,
-    TIDComponent,
-    TypeComponent,
     ScheduleListComponent,
     AdminTrainingHistoryComponent,
     CourseDetailsComponent,
@@ -85,13 +91,25 @@ import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback
     OngoingTrainingComponent,
     StudentList2Component,
     TrainingRecordComponent,
-    EmployeeFeedbackDetailsComponent,
+    AdminAttendanceComponent,
     UpcomingTrainingComponent,
     TrainerFeedbackToEmployeeComponent,
-    StudentList3Component,
     CompletedTrainingComponent,
+    // EmployeeFeedbackComponent,
+    ViewTrainingComponent,
+    AdminAttendanceComponent,
+    EmployeeFeedbackDetailsComponent,
     FeedbackFormComponent,
-    FeedbackToEmployeeComponent
+    OnRequestComponent,
+    TrainingHistoryComponent,
+    LoginComponent,
+    FeedbackToEmployeeComponent,
+    StudentList3Component,
+    UpcomingTrainingComponent,
+    TrainerFeedbackToEmployeeComponent,
+    TrainingRequest1Component,
+    TrainingRequestComponent,
+    ApprovedRequestComponent,
 
     
     

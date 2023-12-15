@@ -16,7 +16,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AdminAttendanceComponent } from './pages/admin/admin-attendance/admin-attendance.component';
 import { AddTrainingComponent } from './pages/admin/add-training/add-training.component';
 import { ViewTrainingComponent } from './pages/admin/view-training/view-training.component';
-import { ScheduleTrainingComponent } from './pages/admin/schedule-list/schedule-training/schedule-training.component';
+import { ScheduleTrainingComponent } from './pages/admin/schedule-training/schedule-training.component';
 import { UserDashboardComponent } from './pages/employee/user-dashboard/user-dashboard.component';
 import { HrDashboardComponent } from './pages/hr/hr-dashboard/hr-dashboard.component';
 import { AdminTrainingHistoryComponent } from './pages/admin/admin-training-history/admin-training-history.component';
@@ -27,6 +27,7 @@ import { EmployeeHistoryComponent } from './pages/admin/employee-history/employe
 import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
 import { AttendanceComponent } from './pages/hr/attendance/attendance.component';
 import { Attendance2Component } from './pages/hr/attendance2/attendance2.component';
+import { ManagerDashboardComponent } from './pages/manager/manager-dashboard/manager-dashboard.component';
 
 
 export const AppRoutes: Routes = [
@@ -91,7 +92,10 @@ export const AppRoutes: Routes = [
         {
           path: 'hr-dashboard',
           component: HrDashboardComponent,
-
+        },
+        {
+          path: 'manager-dashboard',
+          component: ManagerDashboardComponent,
         },
 
         {

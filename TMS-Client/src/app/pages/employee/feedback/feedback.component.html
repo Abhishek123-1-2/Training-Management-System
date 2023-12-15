@@ -9,30 +9,32 @@
             <label for="searchTerm" class="mr-1">Search:</label>
             <input type="text" class="form-control" id="searchTerm" [(ngModel)]="searchTerm" (input)="performSearch()">
           </div>
-          <div class="table-responsive text-nowrap table-container">
+          <div class="table-responsive table-container">
             <table class="table">
               <thead class="text-primary">
-                <th class="text-center">SR. NO</th>
-                <th class="text-center">Course Name</th>
-                <th class="text-center">Trainer Name</th>
-                <th class="text-center">Start Date</th>
-                <th class="text-center">End Date</th>
-                <th class="text-center">Status</th>
-                <th class="text-center">Give Feedback</th>
+                <th>SR. NO</th>
+                <th>Course Name</th>
+                <th>Trainer Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>Give Feedback</th>
               </thead>
+
               <tbody>
                 <tr *ngFor="let training of trainings.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
-                  <td class="text-center">{{ training.id }}</td>
-                  <td class="text-center">{{ training.courseName }}</td>
-                  <td class="text-center">{{ training.trainerName }}</td>
-                  <td class="text-center">{{ training.startDate }}</td>
-                  <td class="text-center">{{ training.endDate }}</td>
-                  <td class="text-center">{{ training.status }}</td>
-                  <td class="text-center"><a *ngIf="training.status === 'COMPLETED'" [routerLink]="['/feedback-form', training.id]">Give Feedback</a></td>
+                  <td>{{ training.id }}</td>
+                  <td>{{ training.courseName }}</td>
+                  <td>{{ training.trainerName }}</td>
+                  <td>{{ training.startDate }}</td>
+                  <td>{{ training.endDate }}</td>
+                  <td>{{ training.status }}</td>
+                  <td><a *ngIf="training.status === 'COMPLETED'" [routerLink]="['/feedback-form', training.id]">Give Feedback</a></td>
                 </tr>
               </tbody>
             </table>
           </div>
+          
           <div class="d-flex justify-content-end">
             <div class="form-inline mb-3">
               <label for="rowsPerPage" class="mr-1">Rows per Page:</label>

@@ -18,8 +18,8 @@
             <label for="search">Search:</label>
             <input class="col-md-12 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
           </div>
-       </div>
-        <div class="table-responsive text-nowrap table-container">
+        </div>
+        <div class="table-responsive table-container">
           <table class="table">
             <thead class="text-primary">
               <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
@@ -28,49 +28,36 @@
               <ng-container *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); let i = index">
                 <tr class="expandable-row">
                   <td class="text-center">{{ row.number }}</td>
-
-<td class="text-center">
-  <a [routerLink]="['/type',row.course]">{{ row.course }}</a></td>
-
-                  <td class="text-center">{{ row.trainer_name }}</td>
-                  <td class="text-center">{{ row.meeting_link }}</td>
-                  
-                  <td class="text-center">{{ row.username }}</td>
-
-              
-                  <td class="text-center">{{ row.password}}</td>
                   <td class="text-center">
-                    <button class="btn btn-primary" [routerLink]="['/schedule-training',{ course:row.course,trainer:row.trainer_name}]" >Schedule{{ row.action }}</button> <!-- (click)="toggleEditMode(i)" -->
+                    <a [routerLink]="['/type',row.course]">{{ row.course }}</a>
+                  </td>
+                  <td class="text-center">{{ row.trainer_name }}</td>
+                  <!-- <td><a href="{{ row.meeting_link }}">{{ row.meeting_link }}</a></td> -->
+                  <!-- <td>{{ row.username }}</td>
+                  <td>{{ row.password }}</td> -->
+                  <td class="text-center">
+                    <button class="btn btn-primary" [routerLink]="['/schedule-training',{ course:row.course,trainer:row.trainer_name}]">Schedule{{ row.action }}</button>
                   </td>
                 </tr>
                 <tr *ngIf="isEditMode && i === rowIndexBeingEdited">
                   <td class="text-center">
-                    <input [(ngModel)]="filteredData[i].number" [disabled]="true"  class="text-center">
+                    <input [(ngModel)]="filteredData[i].number" [disabled]="true" class="text-center">
                   </td>
                   <td class="text-center">
-                      <input [(ngModel)]="filteredData[i].category" [disabled]="false"  class="text-center">
+                    <input [(ngModel)]="filteredData[i].course" [disabled]="false" class="text-center">
                   </td>
                   <td class="text-center">
-                      <input [(ngModel)]="filteredData[i].trainer_name" [disabled]="false"  class="text-center">
+                    <input [(ngModel)]="filteredData[i].trainer_name" [disabled]="false" class="text-center">
                   </td>
                   <td class="text-center">
-                      <input [(ngModel)]="filteredData[i].schedule" [disabled]="false"  class="text-center">
+                    <input [(ngModel)]="filteredData[i].meeting_link" [disabled]="false" class="text-center">
                   </td>
                   <td class="text-center">
-                      <input [(ngModel)]="filteredData[i].course" [disabled]="false"  class="text-center">
+                    <input [(ngModel)]="filteredData[i].username" [disabled]="false" class="text-center">
                   </td>
                   <td class="text-center">
-                    <input [(ngModel)]="filteredData[i].start_date" [disabled]="false"  class="text-center">
-                </td>
-
-                <td class="text-center">
-                  <input [(ngModel)]="filteredData[i].end_date" [disabled]="false"  class="text-center">
-              </td>
-                 
-                  <td class="text-center">
-                      <input [(ngModel)]="filteredData[i].status" [disabled]="false"  class="text-center">
+                    <input [(ngModel)]="filteredData[i].password" [disabled]="false" class="text-center">
                   </td>
-                  
                   <td class="text-center">
                     <button class="btn btn-success" (click)="saveChanges(i)">Save</button>&nbsp;
                     <button class="btn btn-success" (click)="cancelEdit()">Cancel</button>
@@ -102,80 +89,8 @@
               </li>
             </ul>
           </nav>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--             <button class="btn btn-primary" routerLink="/add-participants">Add Participants</button>
--->   
-
-<!-- <td class="text-center">
-                      <input [(ngModel)]="filteredData[i].action" [disabled]="false" class="text-center">
-                  </td> -->
-
-  
-<!-- <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          
-          <h5 class="card-title">Training Data</h5>
-        </div>
-
-        <div class="card-body">
-
-          <div class="form-group">
-  <label for="search">Search:</label>
-  <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchText" (input)="onSearchInputChange()">
-</div>
-
-          <div class="table-responsive text-nowrap">
-            <table class="table " >
-              <thead  class="text-primary">
-                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
-              </thead>
-
-              <tbody>
-                <tr *ngFor="let row of tableData1.dataRows">
-                    <td class="text-center">{{row.training_id}}</td>
-                    <td class="text-center">{{ row.training_category }}</td>
-                    <td class="text-center">{{ row.training_type }}</td>
-                    <td class="text-center" >{{ row.training_schedule }}</td>
-                    <td class="text-center">{{ row.course }}</td>
-                    <td class="text-center">{{ row.trainer_names }}</td>
-                    <td >{{ row.prerequisites }}</td>
-                    <td >{{ row.course_description }}</td>
-                    <td class="text-center" >{{ row.daily_hrs }}</td>
-                    <td class="text-center">{{ row.total_days }}</td>
-                    <td >{{ row.url }}</td>
-                    <td class="text-center">{{ row.username }}</td>
-                    <td class="text-center">{{ row.password }}</td>
-
-                    
-                  </tr>
-              </tbody>
-            </table>
-          </div>
         </div>
       </div>
     </div>
   </div>
-
- -->
+</div>
