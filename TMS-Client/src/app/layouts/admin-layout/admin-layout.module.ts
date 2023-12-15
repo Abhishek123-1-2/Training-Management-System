@@ -61,6 +61,7 @@ import { AttendanceComponent } from 'app/pages/hr/attendance/attendance.componen
 import { ParticipantsListComponent } from 'app/pages/admin/participants-list/participants-list.component';
 
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -116,22 +117,21 @@ import { ParticipantsListComponent } from 'app/pages/admin/participants-list/par
     FeedbackToEmployeeComponent,
     StudentList3Component,
     UpcomingTrainingComponent,
-    TrainerFeedbackToEmployeeComponent,
+    ReportMainComponent,
+    ReportOfEmployeeComponent,
+    ReportOfCoursesComponent,
     TrainingRequest1Component,
     TrainingRequestComponent,
     ApprovedRequestComponent,
-    AttendanceRecordComponent,
+    ReportMainComponent,
+    ReportOfEmployeeComponent,
+    ReportOfCoursesComponent,
     TrainerTrainingDetailsComponent,
     TrainingViewComponent,
     AttendanceComponent,
     Attendance2Component,
     ParticipantsListComponent,
-    
-
-
-ReportMainComponent,
-ReportOfEmployeeComponent,
-ReportOfCoursesComponent,
+    AttendanceRecordComponent,
 
 
     

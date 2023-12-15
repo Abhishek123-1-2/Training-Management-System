@@ -1,4 +1,4 @@
-package com.mindcraft.in.Pojos;
+package com.mindcraft.in.Pojos.Admin;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

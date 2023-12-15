@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'add-participants-cmp',
   moduleId: module.id,
@@ -20,7 +20,7 @@ export class AddParticipantsComponent {
   //   { emp_code: '', emp_name: '',  course_name: '', reg_date: '', status: '', comments: '' },
   // ];
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {}
+  constructor(private http: HttpClient, private fb: FormBuilder, private route: ActivatedRoute, private router: Router,private cdr:ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.course = this.route.snapshot.paramMap.get('course') || null;
@@ -35,12 +35,14 @@ export class AddParticipantsComponent {
       startDate: [this.s_date,[Validators.required]],
       endDate: [this.e_date, [Validators.required]],
       regDate: ['', [Validators.required]],
-      status: ['', [Validators.required]]
+      status: ['', [Validators.required]],
+      comments: [''] 
     });
 
     this.http.get<string[]>('http://localhost:8083/api/employees/codes').subscribe(
       (codes) => {
         this.employeeCodes = codes;
+        console.log('Employee Codes:', this.employeeCodes);
       },
       (error) => {
         console.error('Error fetching employee codes', error);
@@ -49,7 +51,8 @@ export class AddParticipantsComponent {
 
     this.http.get<string[]>('http://localhost:8083/api/training-views/courses').subscribe(
       (courses) => {
-        this.courseNames = courses;
+        // Filter out null values
+        this.courseNames = courses.filter(course => course !== null);
       },
       (error) => {
         console.error('Error fetching training courses', error);
@@ -57,25 +60,45 @@ export class AddParticipantsComponent {
     );
   }
 
-  onEmpCodeChange(index: number, selectedCode: string) {
+
+
+  onEmpCodeChange(selectedCode: string) {
     if (selectedCode) {
-      this.http.get<any[]>(`http://localhost:8083/api/employees/${selectedCode}`).subscribe(
-        (employee) => {
-          if (employee && employee.length > 0) {
-            // this.participants[index].emp_name = employee[0].empName;
-            // this.participants[index].emp_id = employee[0].empId;
-            this.addParticipantsForm[index].get('empName').setValue(employee[0].empName);
-            this.addParticipantsForm[index].get('empId').setValue(employee[0].empId);
-            console.log(`Fetched Employee ID for ${selectedCode}: ${employee[0].empId}`);
-          } else {
-            console.error('No employee found with the provided empCode');
-          }
-        },
-        (error) => {
-          console.error('Error fetching employee details', error);
-        }
-      );
+      this.fetchEmpIdAndSet(selectedCode);
     }
+  }
+  
+
+  fetchEmpIdAndSet(selectedCode: string) {
+    const apiUrl = `http://localhost:8083/api/employees/id/${selectedCode}`;
+
+    this.http.get<number>(apiUrl).subscribe(
+      (empId) => {
+        if (empId) {
+          console.log(`Fetched Employee ID for ${selectedCode}: ${empId}`);
+
+          this.http.get<any[]>(`http://localhost:8083/api/employees/${selectedCode}`).subscribe(
+            (employee) => {
+              if (employee && employee.length > 0) {
+                this.addParticipantsForm.get('empName').setValue(employee[0].empName);
+                console.log(`Fetched Employee Name for ${selectedCode}: ${employee[0].empName}`);
+                this.cdr.detectChanges();
+              } else {
+                console.error('No employee found with the provided empCode');
+              }
+            },
+            (error) => {
+              console.error('Error fetching employee details', error);
+            }
+          );
+        } else {
+          console.error('No employee found with the provided empCode');
+        }
+      },
+      (error) => {
+        console.error('Error fetching employee details', error);
+      }
+    );
   }
 
   onCourseNameChange(index: number, selectedCourse: string) {
@@ -101,17 +124,108 @@ export class AddParticipantsComponent {
       }
     );
   }
-  addParticipants() {
+
+  onSubmit() {
+    if (this.addParticipantsForm.valid) {
+      const selectedEmpCode = this.addParticipantsForm.get('empCode').value;
   
-    this.http.post('http://localhost:8083/api/registration/add', this.addParticipantsForm).subscribe(
-      (response) => {
-        console.log('Data added successfully:', response);
-        this.addParticipantsForm.reset();
+      this.fetchEmpIdAndSetForRegistration(selectedEmpCode, (empId) => {
+        const selectedCourse = this.addParticipantsForm.get('cName').value;
+  
+        this.http.get<number>(`http://localhost:8083/api/training-views/training-id-by-course?courseName=${selectedCourse}`).subscribe(
+          (trainingId) => {
+            const selectedTrainer = this.addParticipantsForm.get('tName').value;
+  
+            this.fetchScheduleIdByTrainer(selectedTrainer, (scheduleId) => {
+              const regDateControl = this.addParticipantsForm.get('regDate');
+              const registration_date = regDateControl ? regDateControl.value : null;
+  
+              const commentsControl = this.addParticipantsForm.get('comments');
+              const registration_comments = commentsControl ? commentsControl.value : null;
+  
+              const statusControl = this.addParticipantsForm.get('status');
+              const registration_status = statusControl ? statusControl.value : null;
+  
+              const registrationData = {
+                schedule_id: scheduleId,
+                training_id: trainingId,
+                emp_id: empId,
+                registration_date: registration_date,
+                registration_comments: registration_comments,
+                registration_status: registration_status,
+                registration_response: null
+              };
+  
+              this.http.post('http://localhost:8083/api/registrations', registrationData).subscribe(
+                (response) => {
+                  const employeeName = this.addParticipantsForm.get('empName').value;
+                  const courseName = this.addParticipantsForm.get('cName').value;
+                  alert(`${employeeName} has been registered successfully for ${courseName}`);
+                  this.addParticipantsForm.reset();
+                },
+                (error) => {
+                  console.error('Error adding data:', error);
+                }
+              );
+            });
+          },
+          (error) => {
+            console.error('Error fetching training ID', error);
+          }
+        );
+      });
+    } else {
+      console.log('Form is invalid');
+    }
+  }
+  
+  fetchEmpIdAndSetForRegistration(selectedCode: string, callback: (empId: number) => void) {
+    const apiUrl = `http://localhost:8083/api/employees/id/${selectedCode}`;
+  
+    this.http.get<number>(apiUrl).subscribe(
+      (empId) => {
+        if (empId) {
+          console.log(`Fetched Employee ID for ${selectedCode}: ${empId}`);
+          callback(empId);
+        } else {
+          console.error('No employee found with the provided empCode');
+        }
       },
       (error) => {
-        console.error('Error adding data:', error);
+        console.error('Error fetching employee details', error);
       }
-    ); 
-    }
+    );
+  }
+  fetchScheduleIdByTrainer(trainerName: string, callback: (scheduleId: number) => void) {
+    const apiUrl = `http://localhost:8083/api/training-views/schedule-id-by-trainer?trainerName=${trainerName}`;
+  
+    this.http.get<number>(apiUrl).subscribe(
+      (scheduleId) => {
+        if (scheduleId) {
+          console.log(`Fetched Schedule ID for Trainer ${trainerName}: ${scheduleId}`);
+          callback(scheduleId);
+        } else {
+          console.error('No schedule ID found for the provided trainer name');
+        }
+      },
+      (error) => {
+        console.error('Error fetching schedule ID', error);
+      }
+    );
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
   
 }

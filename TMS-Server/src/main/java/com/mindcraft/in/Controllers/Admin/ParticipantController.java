@@ -1,4 +1,4 @@
-package com.mindcraft.in.Controllers;
+package com.mindcraft.in.Controllers.Admin;
 
 import java.util.List;
 import java.util.Map;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mindcraft.in.Pojos.Participant;
-import com.mindcraft.in.Services.ParticipantService;
+import com.mindcraft.in.Pojos.Admin.Participant;
+import com.mindcraft.in.Services.Admin.ParticipantService;
 
 @RestController
 public class ParticipantController 

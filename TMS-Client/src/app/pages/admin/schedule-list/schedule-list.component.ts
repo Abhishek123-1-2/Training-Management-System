@@ -37,7 +37,7 @@ export class ScheduleListComponent implements OnInit {
   public newParticipantName = '';
   public display = 'none';
   public currentPage = 1;
-  public itemsPerPage = 10;
+  public itemsPerPage = 5;
 
   constructor(private http: HttpClient) {}
 

@@ -23,6 +23,8 @@ export class AddTrainingComponent implements OnInit {
         trainer_names: ['', Validators.required],
         daily_hrs: ['', Validators.required],
         total_days: ['', Validators.required],
+        prerequisites: [''],  
+    course_description: [''],  
         url: [''],
         username: [''],
         password: [''],
