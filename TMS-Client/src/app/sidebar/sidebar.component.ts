@@ -46,7 +46,6 @@ submenu:[
   {path:'training-history',title:'Training History',icon:'',class:'',roles:['ROLE_USER']},  
 ]},
 { path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_USER']},
-
 {path:'performance',title:'Performance',class:'',icon:'nc-bell-55',roles:['ROLE_USER']},
 
 
