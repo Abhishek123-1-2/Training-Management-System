@@ -50,8 +50,12 @@ import { FeedbackToEmployeeComponent } from 'app/pages/trainer/feedback-to-emplo
 import { EmployeeFeedbackDetailsComponent } from 'app/pages/admin/employee_feedback_details/employee_feedback_details.component';
 import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback-form.component';
 
+import { ReportMainComponent } from 'app/pages/trainer/report-main/report-main.component';
+import { ReportOfEmployeeComponent } from 'app/pages/trainer/report-emp/report-emp.component';
+import { ReportOfCoursesComponent } from 'app/pages/trainer/report-courses/report-courses.component';
 
-@NgModule({//
+
+@NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
@@ -110,6 +114,11 @@ import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback
     TrainingRequest1Component,
     TrainingRequestComponent,
     ApprovedRequestComponent,
+
+ReportMainComponent,
+ReportOfEmployeeComponent,
+ReportOfCoursesComponent,
+
 
     
     

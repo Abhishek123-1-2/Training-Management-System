@@ -86,7 +86,6 @@ export class UserDashboardComponent implements OnInit {
     this.itemsPerPage = +event.target.value;
     this.currentPage = 1; // Reset to the first page when changing items per page
   }
-
   
 
 

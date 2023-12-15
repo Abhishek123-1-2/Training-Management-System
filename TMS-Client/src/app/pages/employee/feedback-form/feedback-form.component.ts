@@ -23,16 +23,86 @@ export class FeedbackFormComponent implements OnInit {
   problemSolvingAbilityValue: number = 0;
 
 
-  @ViewChild('chartCanvas') chartCanvas: ElementRef; // Reference to the canvas element
+  @ViewChild('chartCanvas') chartCanvas: ElementRef<HTMLCanvasElement>;; // Reference to the canvas element
   saveForm: any;
   formBuilder: any;
   chart: any;
 
   constructor() { }
-
   ngOnInit(): void {
-    this.saveForm = this.formBuilder.group({
-      commentsFromTrainer: ['', [Validators.required]]
+  }
+
+
+  ngAfterViewInit(): void {
+    this.createChart();
+    
+  }
+
+  createChart(): void {
+    const canvas: HTMLCanvasElement = this.chartCanvas.nativeElement;
+    const ctx = canvas.getContext('2d');
+
+    this.chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: [
+          'Technical Skills',
+          'Grasping Power',
+          'Pro-Activeness',
+          'Interest Rate',
+          'Leadership Quality',
+          'Problem Solving Ability'
+        ],
+        datasets: [
+          {
+            label: 'Rating',
+            data: [
+              this.technicalSkillsValue,
+              this.graspingPowerValue,
+              this.proActivenessValue,
+              this.interestQualityValue,
+              this.leadershipQualityValue,
+              this.problemSolvingAbilityValue
+            ],
+            backgroundColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 2)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 2)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        indexAxis: 'y',
+        scales: {
+          x: {
+            beginAtZero: true,
+            min: 0,
+            max: 5,
+            ticks: {
+              stepSize: 5
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Fields'
+            }
+          }
+        }
+      }
     });
   }
 

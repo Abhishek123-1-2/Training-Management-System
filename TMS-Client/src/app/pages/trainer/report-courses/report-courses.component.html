@@ -1,0 +1,19 @@
+<!-- <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a >Dashboard</a></li>
+  </ol>
+</nav> -->
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+    <li class="breadcrumb-item"><a [routerLink]="['/report-main']">Course Details</a></li>
+    <li class="breadcrumb-item"><a [routerLink]="['/report-employee', { c_name: c_name }]">Employee Details</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Performance</li>
+  </ol>
+</nav>
+
+<div class="card">
+    <canvas #chartCanvas id="feedbackChart" width="400" height="200"></canvas>
+  </div>
+
