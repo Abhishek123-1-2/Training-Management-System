@@ -46,6 +46,7 @@ export class AdminAttendanceComponent implements OnInit {
       dataRows: [
         { sr_no: '1', c_name: 'Angular', t_name: 'Amisha', s_date:'30-11-2023', e_date: '12-12-2023',  status: 'Completed', v_attendees: 'View'},
         { sr_no: '2', c_name: 'Node JS', t_name: 'John Doe', s_date:'01-12-2023', e_date: '07-12-2023', status: 'Completed', v_attendees: 'View'},
+        
       ]
     };
     this.filteredData = [...this.tableData1.dataRows]

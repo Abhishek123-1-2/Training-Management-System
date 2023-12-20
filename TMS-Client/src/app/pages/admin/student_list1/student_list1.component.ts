@@ -64,6 +64,7 @@ export class StudentList1Component implements OnInit {
             {emp_code:'3646', emp_name:'Abhishek Pillai', c_name:'Angular', t_name:'Amisha Jangipuria', view:'View'},
             {emp_code:'3639', emp_name:'Mukul Gupta',     c_name:'Angular', t_name:'Amisha Jangipuria', view:'View'},
             {emp_code:'3364', emp_name:'Yash Gole',       c_name:'Angular', t_name:'Amisha Jangipuria', view:'View'},
+            
         ]
     };
     this.filteredData = [...this.studentList.dataRows];
@@ -77,11 +78,11 @@ applyFilter() {
   }
 
   get pages(): number[] {
-    if (this.studentList.dataRows.length === 0) {
+    if (this.filteredData.length === 0) {
       return [];
     }
 
-    const pageCount = Math.ceil(this.studentList.dataRows.length / this.itemsPerPage);
+    const pageCount = Math.ceil(this.filteredData.length / this.itemsPerPage);
     return Array.from({ length: pageCount }, (_, index) => index + 1);
   }
 

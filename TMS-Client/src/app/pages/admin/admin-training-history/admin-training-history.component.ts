@@ -43,7 +43,8 @@ export class AdminTrainingHistoryComponent implements OnInit {
           { sr_no: '2',   c_name: 'Node JS',      t_name: 'John Smith',        s_date: '15-11-2023',  e_date: '25-11-2023', t_status: 'COMPLETED'},
           { sr_no: '3',   c_name: 'HTML CSS',     t_name: 'Alice Johnson',     s_date: '18-11-2023',  e_date: '28-11-2023', t_status: 'COMPLETED'},
           { sr_no: '4',   c_name: 'Data Science', t_name: 'Michael Brown',     s_date: '22-11-2023',  e_date: '02-12-2023', t_status: 'COMPLETED'},
-      ]
+          
+        ]
   };
   this.filteredData = [...this.tableData1.dataRows]
   }
@@ -57,11 +58,11 @@ export class AdminTrainingHistoryComponent implements OnInit {
   }
 
   get pages(): number[] {
-    if (this.tableData1.dataRows.length === 0) {
+    if (this.filteredData.length === 0) {
       return [];
     }
 
-    const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+    const pageCount = Math.ceil(this.filteredData.length / this.itemsPerPage);
     return Array.from({ length: pageCount }, (_, index) => index + 1);
   }
 

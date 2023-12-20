@@ -48,6 +48,7 @@ export class EmployeeHistoryComponent implements OnInit {
         {sr_no:'2',emp_code: '3646', emp_name:'Abhishek Pillai',start_date:'2-12-2023',end_date:'6-12-2023',status: 'Completed'},
         {sr_no:'3',emp_code: '3639', emp_name:'Mukul Gupta',start_date:'3-12-2023',end_date:'7-12-2023', status: 'Completed'},
         {sr_no:'4',emp_code: '3364', emp_name:'Yash Gole',start_date:'4-12-2023',end_date:'8-12-2023', status: 'Completed'},
+        
       ]
     }
     this.filteredData = [...this.tableData1.dataRows];
@@ -61,11 +62,11 @@ export class EmployeeHistoryComponent implements OnInit {
   }
 
   get pages(): number[] {
-    if (this.tableData1.dataRows.length === 0) {
+    if (this.filteredData.length === 0) {
       return [];
     }
 
-    const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+    const pageCount = Math.ceil(this.filteredData.length / this.itemsPerPage);
     return Array.from({ length: pageCount }, (_, index) => index + 1);
   }
 

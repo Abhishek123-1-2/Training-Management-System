@@ -30,18 +30,22 @@ export class CourseDetailsComponent implements OnInit {
   emp_code : string;
   completedCourses: any[];
   public tableData1: TableData;
+
+  
   currentPage = 1;
   itemsPerPage = 5;
 
 
+
   get pages(): number[] {
-    if (this.completedCourses.length === 0) {
+    if (this.tableData1.dataRows.length === 0) {
       return [];
     }
 
-    const pageCount = Math.ceil(this.completedCourses.length / this.itemsPerPage);
+    const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
     return Array.from({ length: pageCount }, (_, index) => index + 1);
   }
+
 
 
 
@@ -56,6 +60,7 @@ export class CourseDetailsComponent implements OnInit {
           { sr_no: '1', c_name: 'Angular', t_name:'John Doe', s_date: '30-11-2023', e_date: '03-12-2023', status: 'Completed'},
           { sr_no: '2', c_name: 'Node JS', t_name:'Jane Smith', s_date: '12-10-2023', e_date: '18-10-2023', status: 'Completed'},
           { sr_no: '3', c_name: 'Full Stack Web Development', t_name: 'Shaun Marsh', s_date: '02-08-2023', e_date: '10-08-2023', status: 'Completed'},
+          
         ]
       }
     })
@@ -63,7 +68,7 @@ export class CourseDetailsComponent implements OnInit {
 
   changeItemsPerPage(event: any): void {
     this.itemsPerPage = +event.target.value;
-    this.currentPage = 1; // Reset to the first page when changing items per page
+    this.currentPage = 1; 
   }
 
   

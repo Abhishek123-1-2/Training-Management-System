@@ -32,6 +32,31 @@ export class StudentList3Component implements OnInit {
   end_date: string;
   status: string;
 
+  currentPage = 1;
+  itemsPerPage = 5;
+
+
+  get pages(): number[] {
+    if (this.filteredData.length === 0) {
+      return [];
+    }
+
+    const pageCount = Math.ceil(this.filteredData.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
+
+
+
+  changeItemsPerPage(event: any): void {
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1; 
+  }
+
+
+
+
+
+
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
