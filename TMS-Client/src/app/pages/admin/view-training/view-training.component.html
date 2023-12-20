@@ -31,11 +31,11 @@
                   <td >
                     <a [routerLink]="['/type',row.course]">{{ row.course }}</a>
                   </td>
-                  <td class="text-center">{{ row.trainer_name }}</td>
-                  <td class="text-center">{{ row.meeting_link }}</td>
+                  <td >{{ row.trainer_name }}</td>
+                  <!-- <td class="text-center">{{ row.meeting_link }}</td>
                   <td class="text-center">{{ row.username }}</td>
-                  <td class="text-center">{{ row.password }}</td>
-                  <td class="text-center">
+                  <td class="text-center">{{ row.password }}</td> -->
+                  <td >
                     <button class="btn btn-primary" [routerLink]="['/schedule-training',{ course:row.course,trainer:row.trainer_name}]">Schedule{{ row.action }}</button>
                   </td>
                 </tr>

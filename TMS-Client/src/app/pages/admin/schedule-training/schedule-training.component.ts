@@ -16,6 +16,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class ScheduleTrainingComponent{
     trainingForm:FormGroup;
+    trainerNames: string[] = [];
     selectedTime: string = ''; // To store the selected time
     course: string | null = null;
 trainer: string | null = null;
@@ -46,7 +47,7 @@ this.trainer = this.route.snapshot.paramMap.get('trainer') || null;
       }
 
       ngOnInit(){
-
+        this.fetchTrainerNames();
       }
 
       toggleAmPm() {
@@ -73,7 +74,17 @@ this.trainer = this.route.snapshot.paramMap.get('trainer') || null;
         }
       }
       
-      
+      fetchTrainerNames() {
+        this.http.get<string[]>('http://localhost:8083/api/training-views/trainer-names')
+          .subscribe(
+            (data) => {
+              this.trainerNames = data;
+            },
+            (error) => {
+              console.error('Error fetching trainer names:', error);
+            }
+          );
+      }
       onSubmit() {
         if (this.trainingForm.valid) {
           // Prepare the data to send to the backend

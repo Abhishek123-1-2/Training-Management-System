@@ -1,17 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-declare interface TableData {
-  headerRow: string[];
-  dataRows: {
-      sr_no: string;
-      c_name: string;
-      t_name: string;
-      s_date: string;
-      e_date: string;
-      t_status: string;
-  }[];
-}
-
+// Original interface with your HTML property names
 interface TableRow {
   sr_no: string;
   c_name: string;
@@ -19,6 +9,20 @@ interface TableRow {
   s_date: string;
   e_date: string;
   t_status: string;
+}
+
+// Interface for the API response
+interface ApiTrainingRow {
+  course: string;
+  trainerName: string;
+  plannedStartDate: string;
+  plannedEndDate: string;
+  trainingStatus: string;
+}
+
+interface TableData {
+  headerRow: string[];
+  dataRows: TableRow[];
 }
 
 @Component({
@@ -33,19 +37,30 @@ export class AdminTrainingHistoryComponent implements OnInit {
   public currentPage = 1;
   public itemsPerPage = 5;
 
-  constructor() { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.tableData1 = {
-      headerRow: ['Sr No.', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Training Status'],
-      dataRows: [
-          { sr_no: '1',   c_name: 'Angular',      t_name: 'Amisha Jangipuria', s_date: '11-11-2023',  e_date: '20-11-2023', t_status: 'COMPLETED'},
-          { sr_no: '2',   c_name: 'Node JS',      t_name: 'John Smith',        s_date: '15-11-2023',  e_date: '25-11-2023', t_status: 'COMPLETED'},
-          { sr_no: '3',   c_name: 'HTML CSS',     t_name: 'Alice Johnson',     s_date: '18-11-2023',  e_date: '28-11-2023', t_status: 'COMPLETED'},
-          { sr_no: '4',   c_name: 'Data Science', t_name: 'Michael Brown',     s_date: '22-11-2023',  e_date: '02-12-2023', t_status: 'COMPLETED'},
-      ]
-  };
-  this.filteredData = [...this.tableData1.dataRows]
+    // Fetch data from the API endpoint
+    this.http.get<ApiTrainingRow[]>('http://localhost:8083/api/training-views/completed-courses').subscribe(
+      (data) => {
+        // Map the API response to the TableRow format
+        this.tableData1 = {
+          headerRow: ['Sr No.', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Training Status'],
+          dataRows: data.map((item, index) => ({
+            sr_no: (index + 1).toString(),
+            c_name: item.course,
+            t_name: this.extractTrainerName(item.trainerName),
+            s_date: item.plannedStartDate? item.plannedStartDate.split('T')[0] : '',
+            e_date: item.plannedEndDate? item.plannedEndDate.split('T')[0] : '',
+            t_status: item.trainingStatus,
+          })),
+        };
+        this.filteredData = [...this.tableData1.dataRows];
+      },
+      (error) => {
+        console.error('Error fetching training history:', error);
+      }
+    );
   }
 
   applyFilter() {
@@ -55,7 +70,14 @@ export class AdminTrainingHistoryComponent implements OnInit {
       )
     );
   }
-
+  private extractTrainerName(fullName: string): string {
+    const indexOfOpeningBracket = fullName.indexOf('(');
+    if (indexOfOpeningBracket !== -1) {
+      return fullName.substring(0, indexOfOpeningBracket).trim();
+    } else {
+      return fullName.trim();
+    }
+  }
   get pages(): number[] {
     if (this.tableData1.dataRows.length === 0) {
       return [];
@@ -66,8 +88,7 @@ export class AdminTrainingHistoryComponent implements OnInit {
   }
 
   changeItemsPerPage(event: any): void {
-    this.itemsPerPage = +event.target.value,
-    this.currentPage = 1; 
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1;
   }
-
 }

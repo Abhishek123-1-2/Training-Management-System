@@ -1,3 +1,4 @@
+<!-- schedule-list.component.html -->
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
@@ -20,26 +21,34 @@
         <div class="table-responsive text-nowrap table-container">
           <table class="table">
             <thead class="text-primary">
-              <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+              <th *ngFor="let header of tableData1.headerRow">{{ header }}</th>
             </thead>
             <tbody>
               <ng-container *ngFor="let row of filteredData; let i = index">
                 <tr class="expandable-row">
-                  <td class="text-center">{{ row.number }}</td>
-                  <td class="text-center">{{ row.course }}</td>
-                  <td class="text-center">{{ row.trainer_name }}</td>
-                  <td class="text-center">{{ row.planned_start_date }}</td>
-                  <td class="text-center">{{ row.planned_end_date }}</td>
-                  <td class="text-center">{{ row.from_time }}</td>
-                  <td class="text-center">{{ row.to_time}}</td>
-                  <td class="text-center">{{ row.status}}</td>
-                  <td class="text-center">
-                    <button class="btn btn-info" (click)="addParticipants(i)" [routerLink]="['/add-participants', { course: row.course, trainer: row.trainer_name, s_date: row.planned_start_date, e_date: row.planned_end_date }]">Add</button>
+                  <td>{{ row.number }}</td>
+                  <td>{{ row.course }}</td>
+                  <td>{{ extractTrainerName(row.trainer_name) }}</td>
+                  <td>{{ row.planned_start_date }}</td>
+                  <td>{{ row.planned_end_date }}</td>
+                  <td>{{ row.from_time }}</td>
+                  <td>{{ row.to_time }}</td>
+                  <td>{{ row.status }}</td>
+                  <td>
+                    <button class="btn btn-info" (click)="addParticipants(i)"
+                            [routerLink]="['/add-participants', { course: row.course, trainer: row.trainer_name, s_date: row.planned_start_date, e_date: row.planned_end_date }]"
+                            [disabled]="row.status !== 'Upcoming'">
+                      Add
+                    </button>
                   </td>
                   <td>
                     <button class="btn btn-primary" (click)="toggleEditMode(i)">Edit{{ row.action }}</button>
                   </td>
-                  <td class="text-center"><a [routerLink]="['/participants-list']">{{ row.view }}</a></td>
+                  <td class="text-center">
+                    <button class="btn btn-primary" (click)="viewAttendees(row.course, row.status)" [disabled]="row.status !== 'On-Going'">
+                      {{ row.view }}
+                    </button>
+                  </td>
                 </tr>
                 <tr *ngIf="isEditMode && i === rowIndexBeingEdited">
                   <td class="text-center">
