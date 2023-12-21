@@ -30,7 +30,9 @@
                   <td>{{ row.status }}</td>
                   <!-- <td><a   [routerLink]="['/student-list1', {start_date: row.s_date, end_date: row.e_date, status: row.status}]">{{ row.v_attendees }}</a></td> -->
                   <!-- Replace 'course' with the actual property containing the course name in your data -->
-                  <td><a [routerLink]="['/student-list1', { course: row.c_name,start_date: row.s_date, end_date: row.e_date, status: row.status }]">{{ row.v_attendees }}</a></td>
+                  <td>
+                    <a class="btn btn-primary" [routerLink]="['/student-list1', { course: row.c_name, start_date: row.s_date, end_date: row.e_date, status: row.status }]">{{ row.v_attendees }}</a>
+                  </td>
 
                 </tr>
             </tbody>

@@ -33,7 +33,7 @@
               <td>{{ start_date }}</td> 
               <td>{{ end_date }}</td>
               <td>{{ status }}</td>
-              <td><a [routerLink]="['/attendance-record',{ emp_code: row.emp_code, c_name: row.c_name, t_name: row.t_name, status: status, start_date: start_date, end_date: end_date} ]">{{ row.view }}</a></td>
+              <td><a class="btn btn-primary" [routerLink]="['/attendance-record',{ emp_code: row.emp_code, c_name: row.c_name, t_name: row.t_name, status: status, start_date: start_date, end_date: end_date} ]">{{ row.view }}</a></td>
               <!-- Add more cells as needed -->
             </tr>
           </tbody>

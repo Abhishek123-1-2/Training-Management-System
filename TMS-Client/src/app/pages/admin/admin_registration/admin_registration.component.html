@@ -63,7 +63,7 @@
                     </select>
                   </td>
                   <td class="text-center">
-                    <input [(ngModel)]="filteredData[i].response" [disabled]="!isEditMode" class="text-center">
+                    <textarea [(ngModel)]="filteredData[i].response" [disabled]="!isEditMode" class="text-center"></textarea>
                   </td>
                   <td class="text-center text-nowrap">
                     <button class="btn btn-success" (click)="saveChanges(i)">Save</button>&nbsp;

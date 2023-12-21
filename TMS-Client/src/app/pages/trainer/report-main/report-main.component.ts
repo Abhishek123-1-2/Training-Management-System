@@ -1,63 +1,80 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
-
-declare interface TableData {
-  headerRow: string[];
-  dataRows: {
-    sr_no: string;
-    c_name: string;
-    t_name: string;
-    view: string;
-  }[];
+interface TrainingSchedule {
+  scheduleId: number;
+  course: string;
+  trainerName: string;
 }
 
 interface TableRow {
   sr_no: string;
-  c_name: string;
-  t_name: string;
+  scheduleId: number; // Added scheduleId
+  c_name: string; // Course Name
+  t_name: string; // Trainer Name
   view: string;
 }
+
+interface TableData {
+  headerRow: string[];
+  dataRows: TableRow[];
+}
+
 @Component({
   selector: 'report-main',
   moduleId: module.id,
-  templateUrl: 'report-main.component.html',
+  templateUrl: './report-main.component.html',
 })
 export class ReportMainComponent implements OnInit {
-  public tableData1: TableData;
-  public filteredData: TableRow[];
+  public tableData1: TableData = { headerRow: [], dataRows: [] };
+  public filteredData: TableRow[] = [];
   public searchValue: string = '';
   public currentPage = 1;
   public itemsPerPage = 5;
-  c_name: string;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.c_name = params['c_name'];
-    })
-    this.tableData1 = {
-      headerRow: ['Sr No.', 'Course Name', 'Trainer Name', 'Records'],
-      dataRows: [
-        {sr_no:'1', c_name:'Angular', t_name:'Steve Smith', view:''},
-        {sr_no:'2', c_name:'Node JS', t_name:'Mathew Wade', view:''},
-        {sr_no:'3', c_name:'PLSQL', t_name:'Marcus Stoinis', view:''},
-        {sr_no:'4', c_name:'Java', t_name:'Mitch Starc', view:''},
-        {sr_no:'5', c_name:'SpringBoot', t_name:'Nathan Lyon', view:''},
-      ]
-    };
-    this.filteredData = [...this.tableData1.dataRows]
+    this.fetchTrainingScheduleList();
+  }
+
+  fetchTrainingScheduleList(): void {
+    this.http.get<TrainingSchedule[]>('http://localhost:8083/api/training-views/schedule-list').subscribe(
+      (data) => {
+        this.tableData1 = {
+          headerRow: ['Sr No.', 'Course Name', 'Trainer Name', 'Records'],
+          dataRows: data.map((item, index) => ({
+            sr_no: (index + 1).toString(),
+            scheduleId: item.scheduleId, // Added scheduleId
+            c_name: item.course,
+            t_name: this.extractTrainerName(item.trainerName),
+            view: 'View',
+          })),
+        };
+        this.applyFilter();
+      },
+      (error) => {
+        console.error('Error fetching training schedule list:', error);
+      }
+    );
   }
 
   applyFilter() {
-    this.filteredData = this.tableData1.dataRows.filter(row =>
-      Object.values(row).some(value =>
+    this.filteredData = this.tableData1.dataRows.filter((row) =>
+      Object.values(row).some((value) =>
         value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
       )
     );
   }
-
+  
+  private extractTrainerName(fullName: string): string {
+    const indexOfOpeningBracket = fullName.indexOf('(');
+    if (indexOfOpeningBracket !== -1) {
+      return fullName.substring(0, indexOfOpeningBracket).trim();
+    } else {
+      return fullName.trim();
+    }
+  }
   get pages(): number[] {
     if (this.tableData1.dataRows.length === 0) {
       return [];
@@ -68,8 +85,7 @@ export class ReportMainComponent implements OnInit {
   }
 
   changeItemsPerPage(event: any): void {
-    this.itemsPerPage = +event.target.value,
-    this.currentPage = 1; 
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1;
   }
-
 }

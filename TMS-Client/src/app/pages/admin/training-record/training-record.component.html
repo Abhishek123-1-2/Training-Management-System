@@ -25,7 +25,9 @@
                     <td>{{ row.sr_no }}</td>
                     <td>{{ row.c_name }}</td>
                     <td>{{ row.t_name }}</td>
-                    <td><a [routerLink]="['/employee-history', row.c_name]">{{ row.view }}</a></td>
+                    <td>
+                      <a class="btn btn-primary" [routerLink]="['/employee-history', row.c_name]">{{ row.view }}</a>
+                    </td>
                   </tr>
               </tbody>
             </table>
