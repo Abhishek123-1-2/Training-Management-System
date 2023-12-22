@@ -5,6 +5,7 @@ import com.mindcraft.in.Pojos.Admin.TrainingSchedule;
 import com.mindcraft.in.Pojos.Admin.TrainingView;
 import com.mindcraft.in.Pojos.Admin.TrainingViewDto;
 import com.mindcraft.in.Services.Admin.TrainingViewService;
+import com.mindcraft.in.Services.Employee.TrainingScheduleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,11 +19,18 @@ import java.util.List;
 public class TrainingViewController {
 
     private final TrainingViewService trainingViewService;
+    private final TrainingScheduleService trainingScheduleService;
 
     @Autowired
-    public TrainingViewController(TrainingViewService trainingViewService) {
+    public TrainingViewController(TrainingViewService trainingViewService, TrainingScheduleService trainingScheduleService) {
         this.trainingViewService = trainingViewService;
+        this.trainingScheduleService = trainingScheduleService;
     }
+
+    // @GetMapping("/schedule")
+    // public List<TrainingViewDto> getTraining() {
+    //     return trainingScheduleService.getTrainings();
+    // }
 
     // @PostMapping
     // public void createTrainingView(@RequestBody TrainingView trainingView) {

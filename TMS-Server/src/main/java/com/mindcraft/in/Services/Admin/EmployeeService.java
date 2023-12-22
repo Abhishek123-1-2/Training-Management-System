@@ -45,5 +45,16 @@ public class EmployeeService {
             return null;
         }
     }
+
+    public String getEmployeeName(String empCode) {
+        String sql = "SELECT emp_name FROM m_employee WHERE emp_code = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{empCode}, String.class);
+        } catch (Exception e) {
+            // Handle exceptions (e.g., if empCode is not found)
+            return null;
+        }
+    } 
+    
 }
 

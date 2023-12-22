@@ -1,6 +1,7 @@
 package com.mindcraft.in.Controllers.Admin;
 
 import com.mindcraft.in.Pojos.Admin.Registration;
+import com.mindcraft.in.Pojos.Employee.EnrollmentRequest;
 import com.mindcraft.in.Services.Admin.RegistrationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,21 @@ public class RegistrationController {
         }
     }
 
+    @PostMapping("/enroll")
+  public ResponseEntity<String> enrollTraining(@RequestBody EnrollmentRequest enrollmentRequest) {
+    try {
+      // Add logic to process enrollment
+      // You can use enrollmentRequest.getTraining_id() and enrollmentRequest.getSchedule_id()
+
+      // Dummy response for now
+      return new ResponseEntity<>("Enrollment successful", HttpStatus.OK);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return new ResponseEntity<>("Enrollment failed", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+    
     // Add other endpoints as needed...
+
 
 }

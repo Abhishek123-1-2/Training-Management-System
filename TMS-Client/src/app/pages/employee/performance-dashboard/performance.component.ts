@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService,PerformanceData } from '../employee-services/data.service';
+import { EmployeeService,PerformanceData } from '../employee-services/employee.service';
 import { Chart } from 'chart.js';
 
 @Component({
@@ -12,7 +12,7 @@ export class PerformanceDashboardComponent implements OnInit {
   progressChart: any;
   achievementsChart: any;
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: EmployeeService) {}
 
   ngOnInit(): void {
     this.dataService.getPerformanceData().subscribe(data => {

@@ -18,6 +18,9 @@ public class Registration {
     @Column(name = "registration_id")
     private Long registration_id;
 
+    public Registration() {
+    }
+
     public Registration(Long registration_id, Long schedule_id, Long training_id, Long emp_id,
             Timestamp registration_date, String registration_comments, String registration_status,
             String registration_response, char active_yn, String created_by, Timestamp created_on, String updated_by,
@@ -83,6 +86,7 @@ public class Registration {
 
     public Long getSchedule_id() {
         return schedule_id;
+        // return this.schedule_id != null ? this.schedule_id : 5;
     }
 
     public void setSchedule_id(Long schedule_id) {
@@ -91,6 +95,7 @@ public class Registration {
 
     public Long getTraining_id() {
         return training_id;
+        // return this.training_id != null ? this.training_id : 2;
     }
 
     public void setTraining_id(Long training_id) {
@@ -99,6 +104,7 @@ public class Registration {
 
     public Long getEmp_id() {
         return emp_id;
+        // return this.emp_id != null ? this.emp_id : 15;
     }
 
     public void setEmp_id(Long emp_id) {
