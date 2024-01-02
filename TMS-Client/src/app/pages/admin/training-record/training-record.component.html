@@ -25,7 +25,9 @@
                     <td class = "text-center">{{ row.sr_no }}</td>
                     <td class = "text-center">{{ row.c_name }}</td>
                     <td class = "text-center">{{ row.t_name }}</td>
-                    <td class = "text-center"><a [routerLink]="['/employee-history', row.c_name]">{{ row.view }}</a></td>
+                    <td class = "text-center">
+                      <a class="btn btn-primary" [routerLink]="['/employee-history', row.c_name]">{{ row.view }}</a>
+                    </td>
                   </tr>
               </tbody>
             </table>

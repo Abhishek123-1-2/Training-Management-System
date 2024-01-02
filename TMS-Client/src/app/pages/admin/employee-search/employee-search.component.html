@@ -22,13 +22,13 @@
               </thead>
               <tbody>
                 <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
-                    <td class = "text-center" >{{ row.sr_no }}</td>
-                    <td class = "text-center" >{{ row.emp_code }}</td>
-                    <td class = "text-center" >{{ row.emp_name }}</td>
-                    <td class = "text-center" >{{ row.designation }}</td>
-                    <td class = "text-center" >{{ row.department}}</td>
-                    <td class = "text-center" >{{ row.email_id }}</td>
-                    <td class = "text-center"><a (click)="viewDetails(row.emp_code)">{{ row.view }}</a></td>
+                    <td >{{ row.sr_no }}</td>
+                    <td >{{ row.emp_code }}</td>
+                    <td >{{ row.emp_name }}</td>
+                    <td >{{ row.designation }}</td>
+                    <td >{{ row.department}}</td>
+                    <td >{{ row.email_id }}</td>
+                    <td><a class="btn btn-primary" (click)="viewDetails(row.emp_code)">{{ row.view }}</a></td>
 
                   </tr>
               </tbody>

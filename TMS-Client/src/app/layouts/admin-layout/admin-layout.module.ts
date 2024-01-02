@@ -89,7 +89,7 @@ import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.
     TimeFormatPipe,
     ScheduleTrainingComponent,
     AddTrainingComponent,
-    TrainerDashboardComponent,
+    // TrainerDashboardComponent,
     ScheduleListComponent,
     AdminTrainingHistoryComponent,
     CourseDetailsComponent,

@@ -49,8 +49,8 @@ export class EmployeeHistoryComponent implements OnInit {
             sr_no: (index + 1).toString(),
             emp_code: item.empCode,
             emp_name: item.empName,
-            start_date: item.plannedStartDate,
-            end_date: item.plannedEndDate,
+            start_date: item.plannedStartDate ? new Date(item.plannedStartDate).toLocaleDateString() : '',
+            end_date: item.plannedEndDate ? new Date(item.plannedEndDate).toLocaleDateString() : '',
             status: item.trainingStatus,
           })),
         };
@@ -61,6 +61,7 @@ export class EmployeeHistoryComponent implements OnInit {
       }
     );
   }
+  
 
   applyFilter() {
     this.filteredData = this.tableData1.dataRows.filter((row) =>

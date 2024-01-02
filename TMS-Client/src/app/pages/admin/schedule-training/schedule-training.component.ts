@@ -78,7 +78,7 @@ this.trainer = this.route.snapshot.paramMap.get('trainer') || null;
         this.http.get<string[]>('http://localhost:8083/api/training-views/trainer-names')
           .subscribe(
             (data) => {
-              this.trainerNames = data;
+              this.trainerNames = data.sort();
             },
             (error) => {
               console.error('Error fetching trainer names:', error);

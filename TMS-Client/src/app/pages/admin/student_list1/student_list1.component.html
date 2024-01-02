@@ -33,7 +33,7 @@
               <td class = "text-center">{{ start_date }}</td> 
               <td class = "text-center">{{ end_date }}</td>
               <td class = "text-center">{{ status }}</td>
-              <td class = "text-center"><a [routerLink]="['/attendance-record',{ emp_code: row.emp_code, c_name: row.c_name, t_name: row.t_name, status: status, start_date: start_date, end_date: end_date} ]">{{ row.view }}</a></td>
+              <td class = "text-center"><a class="btn btn-primary" [routerLink]="['/attendance-record',{ emp_code: row.emp_code, c_name: row.c_name, t_name: row.t_name, status: status, start_date: start_date, end_date: end_date} ]">{{ row.view }}</a></td>
               <!-- Add more cells as needed -->
             </tr>
           </tbody>
