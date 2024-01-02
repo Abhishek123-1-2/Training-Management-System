@@ -27,10 +27,16 @@ public class TrainingViewDto {
     }
 
     // Parameterized constructor
-    public TrainingViewDto(Long scheduleId, Long trainingId, String trainerName, Timestamp plannedStartDate,
-            Timestamp plannedEndDate, Timestamp actualStartDate, Timestamp actualEndDate, String trainingStatus,
-            char activeYn, String createdBy, Timestamp createdOn, String updatedBy, Timestamp updatedOn,
-            String course,String fromTime,String toTime) {
+    public TrainingViewDto(Long scheduleId, Long trainingId, 
+    String trainerName, Timestamp plannedStartDate,
+            Timestamp plannedEndDate, 
+            Timestamp actualStartDate, 
+            Timestamp actualEndDate, String trainingStatus,
+            char activeYn, String createdBy, 
+            Timestamp createdOn, String updatedBy, 
+            Timestamp updatedOn,
+            String course,String fromTime,
+            String toTime) {
         this.scheduleId = scheduleId;
         this.trainingId = trainingId;
         this.trainerName = trainerName;

@@ -19,6 +19,7 @@ interface TableRow {
   participants: string;
   status: string;
   action: string;
+  view: string;
 }
 
 @Component({
@@ -48,7 +49,7 @@ export class ScheduleListComponent implements OnInit {
     this.http.get<any[]>('http://localhost:8083/api/training-views/schedule-list').subscribe(
       (data) => {
         this.tableData1 = {
-          headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status','Add Participants', 'Action'],
+          headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status','Add Participants', 'Action', 'View'],
           dataRows: data.map((item, index) => ({
             scheduleId: item.scheduleId,
             number: (index + 1).toString(),
@@ -61,6 +62,7 @@ export class ScheduleListComponent implements OnInit {
             participants: item.participants,
             status: item.trainingStatus,
             action: '',
+            view:'Attendees',
           })),
         };
         this.applyFilter();

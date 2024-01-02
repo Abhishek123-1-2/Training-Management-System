@@ -51,6 +51,8 @@ import { ApprovedRequestComponent } from 'app/pages/manager/approved-request/app
 import { ReportOfCoursesComponent } from 'app/pages/trainer/report-courses/report-courses.component';
 import { ReportMainComponent } from 'app/pages/trainer/report-main/report-main.component';
 import { ReportOfEmployeeComponent } from 'app/pages/trainer/report-emp/report-emp.component';
+import { TrainerTrainingDetailsComponent } from 'app/pages/trainer/trainer-training-details/trainer-training-details.component';
+import { ParticipantsListComponent } from 'app/pages/admin/participants-list/participants-list.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -96,9 +98,11 @@ export const AdminLayoutRoutes: Routes = [
     {path:'training-request', component: TrainingRequestComponent},
     {path:'training-request1', component: TrainingRequest1Component},
     {path:'approved-request', component: ApprovedRequestComponent},
-
+    {path:'training-details', component: TrainerTrainingDetailsComponent},  
+    {path:'on-request',component:OnRequestComponent},
     {path:'report-main',component:ReportMainComponent},
     {path:'report-employee',component:ReportOfEmployeeComponent},
     {path:'report-courses',component:ReportOfCoursesComponent},
-
+    {path:'participants-list', component: ParticipantsListComponent},
+    {path:'on-request', component: OnRequestComponent},
 ];

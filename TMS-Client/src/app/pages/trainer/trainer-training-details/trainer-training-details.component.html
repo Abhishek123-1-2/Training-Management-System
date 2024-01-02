@@ -1,0 +1,54 @@
+<!-- trainer-training-details.component.html -->
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Training Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="form-group ml-3">
+                    <label for="search">Search:</label>
+                    <input class="form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
+                </div>
+                <div class="form-group ml-5">
+                    <label for="statusFilter">Status Filter:</label>
+                    <select class="form-control" id="statusFilter" [(ngModel)]="selectedStatus" (change)="applyFilter()">
+                        <option value="">All</option>
+                        <option value="Completed">Completed</option>
+                        <option value="On-going">On-going</option>
+                        <option value="Upcoming">Upcoming</option>
+                    </select>
+                </div>
+
+
+            </div>
+
+          <div class="table-responsive table-container">
+            <table class="table">
+
+             
+              <thead class="text-primary">
+                <th class="text-center">Sr No.</th>
+                <th class="text-center" >Course Name</th>
+                <th class="text-center">Start Date</th>
+                <th class="text-center">End Date</th>
+                <th class="text-center">Status</th>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let row of filteredData" class="expandable-row text-center">
+                    <td>{{ row.sr_no}}</td>
+                    <td>{{ row.c_name }}</td>
+                    <td>{{ row.s_date }}</td>
+                    <td>{{ row.e_date }}</td>
+                    <td>{{ row.status }}</td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
