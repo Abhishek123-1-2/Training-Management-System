@@ -24,7 +24,7 @@ public class RegistrationController {
         this.registrationService = registrationService;
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<Long> register(@RequestBody Registration registration) {
         Long registrationId = registrationService.register(registration);
 

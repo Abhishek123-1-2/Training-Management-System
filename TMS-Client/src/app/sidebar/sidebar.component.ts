@@ -59,7 +59,7 @@ submenu:[
     // { path: '/typography',    title: 'Typography',        icon:'nc-caps-small', class: '' },
     // { path: '/upgrade',       title: 'Upgrade to PRO',    icon:'nc-spaceship',  class: 'active-pro' },
 
-{path:'manager-dashboard', title:'Dashboard', icon:'nc-diamond', class:'', roles:['ROLE_MANAGER']},
+{path:'dashboard', title:'Dashboard', icon:'nc-diamond', class:'', roles:['ROLE_MANAGER']},
 {path:'employee-search', title:'Employee', icon:'nc-circle-10', class:'', roles:['ROLE_MANAGER']},
 {path:'training', title:'Training Requests', icon:'nc-caps-small', class:'', roles:['ROLE_MANAGER'], submenu:[
 {path:'training-request', title:'Scheduled Courses', icon:'', class:'', roles:['ROLE_MANAGER']},

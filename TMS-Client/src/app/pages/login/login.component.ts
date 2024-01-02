@@ -52,13 +52,13 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/user-dashboard']);
                 break;
               case 'ROLE_MANAGER':
-                this.router.navigate(['/manager-dashboard']);
+                this.router.navigate(['/dashboard']);
                 break;
               case 'ROLE_HR':
                 this.router.navigate(['/hr-dashboard']);
                 break;
                 case 'ROLE_TRAINER':
-                this.router.navigate(['/trainer-dashboard']);
+                this.router.navigate(['/dashboard']);
                 break;
               default:
                 console.error('Unknown role:', specificValue);
