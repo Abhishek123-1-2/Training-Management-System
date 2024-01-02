@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+// trainer-training-details.component.ts
 
-declare interface TableData {
-  headerRow: string[];
-  dataRows: {
-    sr_no: string;
-    c_name: string;
-    s_date: string;
-    e_date: string;
-    status: string;
-  }[];
-}
+import { Component, OnInit } from '@angular/core';
+import { TrainingService } from '../trainer-services/trainer.service';
+
 
 interface TableRow {
   sr_no: string;
@@ -17,6 +10,11 @@ interface TableRow {
   s_date: string;
   e_date: string;
   status: string;
+  schedule_id:string;
+  training_id:string;
+  //attendance_id:string;
+
+  
 }
 
 @Component({
@@ -25,8 +23,9 @@ interface TableRow {
   styleUrls: ['./trainer-training-details.component.scss']
 })
 export class TrainerTrainingDetailsComponent implements OnInit {
-  public tableData1: TableData;
-  public filteredData: TableRow[];
+  // public tableData1: TableData;
+  public originalData: TableRow[] = [];
+  public filteredData: TableRow[]=[];
   public searchValue: string = '';
   public selectedStatus: string = '';
 
@@ -58,29 +57,68 @@ export class TrainerTrainingDetailsComponent implements OnInit {
 
 
 
-  constructor() { }
+  constructor(private trainingService:TrainingService) { }
 
   ngOnInit(): void {
-    this.tableData1 = {
-      headerRow: ['Sr No.', 'Course Name', 'Start Date', 'End Date', 'Status'],
-      dataRows: [
-        {sr_no:'1', c_name:'Angular',s_date:'10-11-2023', e_date:'15-11-2023', status:'Completed'},
-        {sr_no:'2', c_name:'Angular',s_date:'20-11-2023', e_date:'25-11-2023', status:'Completed'},
-        {sr_no:'3', c_name:'Angular',s_date:'10-11-2023', e_date:'15-11-2023', status:'Upcoming'},
-        {sr_no:'4', c_name:'Angular',s_date:'20-11-2023', e_date:'25-11-2023', status:'On-Going'}
-      ]
-    };
+    this.fetchTrainingDetails();
+     }
 
-    this.filteredData = [...this.tableData1.dataRows];
-  }
+  fetchTrainingDetails() {
+    this.trainingService.getCombinedTrainingDetails().subscribe(
+      (data: any[]) => {
+        this.originalData = data.map((item,index) => ({
+          sr_no: (index + 1).toString(),
+          c_name: item.course,
+          s_date: item.plannedStartDate,
+          e_date: item.plannedEndDate,
+          status: item.trainingStatus,
+          schedule_id:item.scheduleId,
+          training_id:item.trainingId,
+          //attendance_id:item.attendanceId,
+        }));
 
-  applyFilter() {
-    this.filteredData = this.tableData1.dataRows.filter(row =>
-      Object.values(row).some(value =>
-        value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
-      ) && 
-      (this.selectedStatus === '' ||  row.status.toLowerCase() === this.selectedStatus.toLowerCase())
+       
+        this.originalData.forEach(item =>{
+          console.log('Schedule ID: ',item.schedule_id +',Training Id :',item.training_id);
+          
+        });
+
+       
+        this.filteredData = [...this.originalData];
+
+      },
+      error => {
+        console.error('Error fetching training details:', error);
+      }
     );
   }
 
+  applyFilter() {
+    const searchText = this.searchValue.toLowerCase().trim();
+
+    this.filteredData = this.originalData.filter(row =>
+      Object.values(row).some(value =>
+     value && value.toString().toLowerCase().includes(searchText)
+      ) 
+    )
+      .filter(row =>
+        (this.selectedStatus === '' 
+      || row.status.toLowerCase() === this.selectedStatus.toLowerCase()
+      || this.selectedStatus === 'all')
+    )
+    ;
+  }
+
+  resetFilters() {
+    this.searchValue = '';
+    this.selectedStatus = '';
+    this.filteredData = [...this.originalData]; // Reset filteredData to originalData
+
+    // this.fetchTrainingDetails(); // Reset filters to initial state by fetching all data again
+  }
+
 }
+
+    
+
+  

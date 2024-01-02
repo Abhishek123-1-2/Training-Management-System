@@ -36,6 +36,8 @@ export const ROUTES: RouteInfo[] = [
     
 
 
+
+
 { path: '/user-dashboard', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_USER']},
 { path: '/user-dashboard', title: 'Training', class: '', icon: 'nc-user-run', roles:['ROLE_USER'] ,
 submenu:[

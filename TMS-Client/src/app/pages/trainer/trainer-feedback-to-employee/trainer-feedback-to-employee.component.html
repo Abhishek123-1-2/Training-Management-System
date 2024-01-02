@@ -1,3 +1,4 @@
+<!-- trainer-feedback-to-employee.component.html -->
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a [routerLink]="['/trainer-dashboard']">Dashboard</a></li>
@@ -15,11 +16,22 @@
                 <label for="search">Search:</label>
                 <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
             </div>
+
           <div class="table-responsive table-container">
             <table class="table">
+
+              <!-- <thead class="text-primary">
+                <th *ngFor="let header of tableData1" class="text-center">{{ header }}</th>
+              </thead> -->
               <thead class="text-primary">
-                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+                <th class="text-center">Sr No.</th>
+                <th class="text-center" >Course Name</th>
+                <th class="text-center">Start Date</th>
+                <th class="text-center">End Date</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">View</th>
               </thead>
+
               <tbody>
                 <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row text-center">
                     <td>{{ row.sr_no }}</td>
@@ -27,7 +39,11 @@
                     <td>{{ row.s_date }}</td>
                     <td>{{ row.e_date }}</td>
                     <td>{{ row.status }}</td>
-                    <td><a [routerLink]="['/student-list3', {start_date: row.s_date, end_date: row.e_date, status: row.status}]">{{ row.view }}</a></td>
+
+                    <!-- <td><a [routerLink]="['/student-list3', {start_date: row.s_date, end_date: row.e_date, status: row.status}]">{{ row.view }}</a></td> -->
+                    <td >
+                      <button (click)="viewEmployeesForCourse(row.c_name)" style="background-color: rgb(112, 112, 244); color: white; border: none;">View</button>
+                    </td>
                   </tr>
               </tbody>
             </table>

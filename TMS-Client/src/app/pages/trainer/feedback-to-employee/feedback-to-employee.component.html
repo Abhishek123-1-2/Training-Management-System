@@ -70,7 +70,36 @@
         </div>
 
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="smartness_rate" style="font-size: 120%;">Smartness Rate: <span id="smartness_rate_value" class="value"><strong style="color: black; font-size: 120%;">{{ smartnessRateValue }}</strong></span></label>
+                    <div>
+                    <input type="range" class="form-range"  min="0" max="5" value="0" step="1" id="smartness_rate" (input)="updateRating('smartness_rate', 'smartnessRateValue')">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="spoken_english_rate" style="font-size: 120%;">Spoken English Rate : <span id="spoken_english_rate_value" class="value"><strong style="color: black; font-size: 120%;">{{ spokenEnglishRateValue }}</strong></span></label>
+                    <div>
+                    <input type="range" class="form-range"  min="0" max="5" value="0" step="1" id="spoken_english_rate" (input)="updateRating('spoken_english_rate', 'spokenEnglishRateValue')">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="AssignmentStatus">Assignment Status:</label>
+                    <select class="form-control" id="AssignmentStatus" formControlName="AssignmentStatus">
+                      <option value="" disabled>Select Assignment Status</option>
+                      <option *ngFor="let status of assignmentStatus" [value]="status">{{ status }}</option>
+                    </select>
+                  </div>
+            </div>
+
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="comments" style="font-size: 120%;">Comments: </label>
                     <div>
@@ -84,6 +113,19 @@
         </div>
 
         <div class="row">
+            <div class="col-md-6">
+                <label>Total Rating: </label>
+                <strong>{{ calculateTotalRating() }}</strong>
+              </div>
+              <div class="col-md-6">
+                <label>Performance Status: </label>
+                <strong>{{ determinePerformanceStatus() }}</strong>
+              </div>
+
+        </div>
+
+
+        <div class="row">
             <div class="col-md-12 text-right">
                 <button type="submit" class="btn btn-primary" [disabled]="saveForm.invalid">Submit</button>
             </div>
@@ -91,62 +133,4 @@
         </form>
     </div>
 </div>
-
-
-<!-- <div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-             <h4 class="caard-title">Employee Feedback</h4>
-            </div>
-        
-        <div class="card-body">
-         <div class="table-responsive text-nowrap table-container">
-            <table class="table">
-            <thead class="text-primary">
-            <th class="text-center">Technical Skills</th>
-            <th class="text-center">Rating</th>
-            <th class="text-center">Grasping Power</th>
-            <th class="text-center">Rating</th>
-            <th class="text-center">Pro-Activeness</th>
-            <th class="text-center">Rating</th>
-            <th class="text-center">Interest Quality</th>
-            <th class="text-center">Rating</th>
-            <th class="text-center">Leadership Quality</th>
-            <th class="text-center">Rating</th>
-            <th class="text-center">Problem Solving Ability</th>
-            <th class="text-center">Rating</th>
-            <th class="text-center">Rating from trainer</th>
-            <th class="text-center">Rating</th>
-            </thead>
-
-            <tbody>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="technical_skills" (input)="updateRating('technical_skills', 'technicalSkillsValue')"></td>
-            <td>{{technicalSkillsValue}}</td>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="grasping_power" (input)="updateRating('grasping_power','graspingPowerValue')"></td>
-            <td>{{graspingPowerValue}}</td>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="pro_activeness" (input)="updateRating('pro_activeness','proActivenessValue')"></td>
-            <td>{{proActivenessValue}}</td>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="interest_quality" (input)="updateRating('interest_quality','interestQualityValue')"></td>
-            <td>{{interestQualityValue}}</td>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="leadership_quality" (input)="updateRating('leadership_quality','leadershipQualityValue')"></td>
-            <td>{{leadershipQualityValue}}</td>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="problem_solving_ability" (input)="updateRating('problem_solving_ability','problemSolvingAbilityValue')"></td>
-            <td>{{problemSolvingAbilityValue}}</td>
-            <td><input type="range" step="1" min="0" max="5" value="0" id="rating_from_trainer" (input)="updateRating('rating_from_trainer','ratingFromTrainerValue')"></td>
-            <td>{{ratingFromTrainerValue}}</td>
-            </tbody>
-            </table>
-        
-
-        </div>
-        
-        </div>
-         
-        </div>
-
-</div>
-
-
-</div> -->
 

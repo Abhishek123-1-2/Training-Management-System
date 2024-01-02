@@ -1,3 +1,4 @@
+<!-- trainer-training-details.component.html -->
 <div class="row">
     <div class="col-md-12">
       <div class="card">
@@ -19,15 +20,25 @@
                         <option value="Upcoming">Upcoming</option>
                     </select>
                 </div>
+
+
             </div>
+
           <div class="table-responsive table-container">
             <table class="table">
+
+             
               <thead class="text-primary">
-                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+                <th class="text-center">Sr No.</th>
+                <th class="text-center" >Course Name</th>
+                <th class="text-center">Start Date</th>
+                <th class="text-center">End Date</th>
+                <th class="text-center">Status</th>
               </thead>
+
               <tbody>
-                <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row text-center">
-                    <td>{{ row.sr_no }}</td>
+                <tr *ngFor="let row of filteredData" class="expandable-row text-center">
+                    <td>{{ row.sr_no}}</td>
                     <td>{{ row.c_name }}</td>
                     <td>{{ row.s_date }}</td>
                     <td>{{ row.e_date }}</td>
