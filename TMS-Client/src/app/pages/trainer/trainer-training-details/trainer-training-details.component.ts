@@ -28,7 +28,8 @@ export class TrainerTrainingDetailsComponent implements OnInit {
   public filteredData: TableRow[]=[];
   public searchValue: string = '';
   public selectedStatus: string = '';
-
+  public currentPage = 1;
+  public itemsPerPage = 5;
 
   constructor(private trainingService:TrainingService) { }
 
@@ -88,6 +89,21 @@ export class TrainerTrainingDetailsComponent implements OnInit {
     this.filteredData = [...this.originalData]; // Reset filteredData to originalData
 
     // this.fetchTrainingDetails(); // Reset filters to initial state by fetching all data again
+  }
+  
+
+  get pages(): number[] {
+    if (this.originalData.length === 0) {
+      return [];
+    }
+
+    const pageCount = Math.ceil(this.originalData.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
+
+  changeItemsPerPage(event: any): void {
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1;
   }
 
 }

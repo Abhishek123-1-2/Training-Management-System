@@ -30,7 +30,8 @@ export class TrainerFeedbackToEmployeeComponent implements OnInit {
  public originalData:TableRow[]=[];
  public filteredData:TableRow[]=[];
   public searchValue: string = '';
-  
+  public currentPage = 1;
+  public itemsPerPage = 5;
 
   constructor(private trainingService:TrainingService,
     private router: Router,
@@ -91,4 +92,19 @@ export class TrainerFeedbackToEmployeeComponent implements OnInit {
   viewEmployeesForCourse(course: string) {
     this.router.navigate(['/student-list3'], { queryParams: { course: course } });
   }
+
+  get pages(): number[] {
+    if (this.originalData.length === 0) {
+      return [];
+    }
+
+    const pageCount = Math.ceil(this.originalData.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
+
+  changeItemsPerPage(event: any): void {
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1;
+  }
+
 }
