@@ -70,6 +70,29 @@ public class RegistrationController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @PostMapping("/enroll")
+    public ResponseEntity<Long> enrollTraining(@RequestBody Registration registration) {
+    Long registrationId = registrationService.enrollTraining(registration);
+
+    if (registrationId != null) {
+        return new ResponseEntity<>(registrationId, HttpStatus.CREATED);
+    } else {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
+@GetMapping("/attendees")
+public ResponseEntity<List<EmployeeDetailsDTO>> getAttendees(@RequestParam String course, @RequestParam String trainingStatus) {
+    List<EmployeeDetailsDTO> attendees = registrationService.getAttendees(course, trainingStatus);
+    return ResponseEntity.ok(attendees);
+}
+
+    // Add other endpoints as needed...
+
+    @GetMapping("/details")
+    public List<RegistrationDetailsDTO> getRegistrationDetails() {
+        return registrationService.getRegistrationDetails();
+    }
 
 
 
