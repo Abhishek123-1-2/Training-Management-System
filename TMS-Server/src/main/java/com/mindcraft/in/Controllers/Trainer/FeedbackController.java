@@ -1,9 +1,11 @@
 package com.mindcraft.in.Controllers.Trainer;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,6 +44,17 @@ public class FeedbackController {
             return new ResponseEntity<>("Failed to save feedback: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/api/feedback/retrieve")
+    public ResponseEntity<List<FeedbackDTO>> retrieveFeedbackData() {
+        try {
+            List<FeedbackDTO> feedbackData = feedbackService.retrieveFeedbackData();
+            return new ResponseEntity<>(feedbackData, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
 
 

@@ -1,5 +1,8 @@
 package com.mindcraft.in.Services.Trainer;
 
+import java.util.List;
+
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -75,6 +78,20 @@ public class FeedbackService
    feedback.setEid(empDetails.getEmpId());
    return feedback;
   }
+
+
+public List<FeedbackDTO> retrieveFeedbackData() {
+  // String sql ="select feedback_parameters_1, feedback_parameters_2, "+
+  //                        "feedback_parameters_3, feedback_parameters_4,"+
+  //                         "feedback_parameters_5, feedback_parameters_6, "+
+  //                         "feedback_parameters_7, feedback_parameters_8 "+
+  //     "from feedback  ";
+  String sql =" select * from feedback";
+  return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(FeedbackDTO.class));
+   // return null;
+}
+
+    
   
 }
 

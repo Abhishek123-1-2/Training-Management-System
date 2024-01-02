@@ -1,6 +1,8 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, Input } from "@angular/core";
+import { Component, ViewChild, ElementRef, AfterViewInit, Input, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import Chart from 'chart.js';
+import { FeedbackService } from "../trainer-services/feedback.service";
+import { DataService } from "../trainer-services/data.service";
 
 @Component({
   selector: 'report-courses',
@@ -8,14 +10,17 @@ import Chart from 'chart.js';
   templateUrl: 'report-courses.component.html',
 })
 
-export class ReportOfCoursesComponent implements AfterViewInit {
+export class ReportOfCoursesComponent implements AfterViewInit,OnInit {
   c_name: string;
   @ViewChild('chartCanvas') chartCanvas: ElementRef<HTMLCanvasElement>;
   @Input() employeeData: { sr_no: string; emp_code: string; emp_name: string; start_date: string; end_date: string; status: string; view: string };
 
   chart: Chart; // Define an object to store chart instances
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute,
+    private feedbackService:FeedbackService,
+    private dataService:DataService
+    ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -24,22 +29,46 @@ export class ReportOfCoursesComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.createChart();
+    this.fetchFeedbackDataAndCreateChart();
   }
 
-  createChart(): void {
-    const canvas: HTMLCanvasElement = this.chartCanvas.nativeElement;
-    const ctx = canvas.getContext('2d');
 
-    const labels = ['Technical Skills', 
-    'Grasping Power', 
-    'Pro-Activeness', 
-    'Interest Rate', 
-    'Leadership Quality', 
-    'Problem Solving Ability'];
+fetchFeedbackDataAndCreateChart(): void {
+  this.feedbackService.getFeedback().subscribe(
+    (feedbackData: any) => {
+      const ratings = [
+        feedbackData.technicalSkillsValue,
+        feedbackData.graspingPowerValue,
+        feedbackData.proActivenessValue,
+        feedbackData.interestQualityValue,
+        feedbackData.leadershipQualityValue,
+        feedbackData.problemSolvingAbilityValue,
+        feedbackData.smartnessRateValue,
+        feedbackData.spokenEnglishRateValue
+      ];
 
+      this.createChart(ratings);
+    },
+    (error) => {
+      console.error('Error fetching feedback data:', error);
+    }
+  );
+}
 
-    const dummyData = this.generateDummyData();
+createChart(ratings: number[]): void {
+  const canvas: HTMLCanvasElement = this.chartCanvas.nativeElement;
+  const ctx = canvas.getContext('2d');
+
+const labels = [
+'Technical Skills', 
+'Grasping Power', 
+'Pro-Activeness', 
+'Interest Rate', 
+'Leadership Quality', 
+'Problem Solving Ability',
+'Smartness Rate',
+'English Spoken Rate'
+];
 
     this.chart = new Chart(ctx, {
       type: 'bar',
@@ -48,7 +77,7 @@ export class ReportOfCoursesComponent implements AfterViewInit {
         datasets: [
           {
             label: 'Courses',
-            data: dummyData,
+            data: ratings,
             backgroundColor: [
               'rgba(255, 99, 132, 1)',
               'rgba(54, 162, 235, 2)',
@@ -102,20 +131,20 @@ export class ReportOfCoursesComponent implements AfterViewInit {
 
 
  // Function to generate dummy data for each employee
-  generateDummyData(): number[] {
-    return [
-      this.getRandomRating(),
-      this.getRandomRating(),
-      this.getRandomRating(),
-      this.getRandomRating(),
-      this.getRandomRating(),
-      this.getRandomRating()
-    ];
-  }
+  // generateDummyData(): number[] {
+  //   return [
+  //     this.getRandomRating(),
+  //     this.getRandomRating(),
+  //     this.getRandomRating(),
+  //     this.getRandomRating(),
+  //     this.getRandomRating(),
+  //     this.getRandomRating()
+  //   ];
+  // }
 
-  getRandomRating(): number {
-    return Math.floor(Math.random() * 5) + 1; // Generates random number between 1 and 5 for ratings
-  }
+  // getRandomRating(): number {
+  //   return Math.floor(Math.random() * 5) + 1; // Generates random number between 1 and 5 for ratings
+  // }
 }
 
 /* feedback-form.component.ts  */
