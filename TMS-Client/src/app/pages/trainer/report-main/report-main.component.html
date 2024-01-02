@@ -26,7 +26,7 @@
                     <td class="text-center">{{ row.sr_no }}</td>
                     <td class="text-center">{{ row.c_name }}</td>
                     <td class="text-center">{{ row.t_name }}</td>  <!-- report-courses -->
-                    <td class="text-center"><a [routerLink]="['/report-employee',{ c_name: row.c_name }]">View</a></td>
+                    <td class="text-center"><a class="btn btn-primary"[routerLink]="['/report-employee',{ c_name: row.c_name }]">View</a></td>
                   </tr>
               </tbody>
             </table>

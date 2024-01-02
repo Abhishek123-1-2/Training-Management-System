@@ -103,7 +103,7 @@ action: ''
             this.tableData1.dataRows = onRequestSchedules.map((schedule, index): TableRow => ({
               number: String(index + 1),
               course: schedule.course,
-              trainer_name: schedule.trainerName,
+              trainer_name: schedule.trainerName.split('(')[0].trim(),
               action:'',
               isEnrolled: false,
             }));

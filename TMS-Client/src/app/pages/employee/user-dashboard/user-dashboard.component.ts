@@ -154,6 +154,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee-services/employee.service';
+import { UserService } from 'app/pages/login/login.service';
 
 interface TableData {
   headerRow: string[];
@@ -184,11 +185,10 @@ export class UserDashboardComponent implements OnInit {
   public filteredData: TableRow[];
   public searchValue: string = '';
   enrollmentStatusData = [];
-
   currentPage = 1;
   itemsPerPage = 5;
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(private employeeService: EmployeeService, private loginService: UserService) {}
 
   ngOnInit(): void {
     this.tableData1 = {
@@ -210,13 +210,13 @@ export class UserDashboardComponent implements OnInit {
           console.log(`Training ID: ${entry.trainingId}, Schedule ID: ${entry.scheduleId}`);
         });
 
-        const preDefinedSchedules = scheduleData.filter(schedule => schedule.trainingSchedule === 'PRE-DEFINED');
+        const preDefinedSchedules = scheduleData.filter(schedule => schedule.trainingSchedule === 'PRE-DEFINED' && schedule.trainingStatus === 'Upcoming');
 
         // Update your dataRows with the fetched scheduleData
         this.tableData1.dataRows = preDefinedSchedules.map((schedule, index): TableRow => ({
           t_id: String(index + 1),
           c_name: schedule.course,
-          t_name: schedule.trainerName,
+          t_name: schedule.trainerName.split('(')[0].trim(),
           s_date: schedule.plannedStartDate ? schedule.plannedStartDate.split('T')[0] : '',
           e_date: schedule.plannedEndDate ? schedule.plannedEndDate.split('T')[0] : '',
           status: schedule.trainingStatus,
@@ -244,17 +244,51 @@ export class UserDashboardComponent implements OnInit {
     );
   }
 
-  enrollButtonClicked(row: TableRow): void {
-    const { training_id, schedule_id, emp_id, c_name } = row;
-    this.employeeService.enrollTraining(training_id, schedule_id, emp_id).subscribe(
-      (response: any) => {
-        alert(`Successfully enrolled in Training ID: ${training_id}`);
-        row.isEnrolled = true;
-      },
-      (error) => {
-        console.error('Error enrolling in training:', error);
-      }
-    );
+  enrollButtonClicked(training: TableRow): void {
+    const loggedInUserData = this.loginService.getLoggedInUserData();
+    const empId = loggedInUserData ? loggedInUserData.empId : null;
+    if (loggedInUserData) {
+      const empId = loggedInUserData.empId;
+      const registrationData = {
+        schedule_id: training.schedule_id,
+        training_id: training.training_id,
+        emp_id: empId,  // Include the logged-in user's emp_id
+        registration_date: new Date(),
+        registration_comments: '',  // Add comments as needed
+        registration_status: 'Registered',  // Set the initial status
+        registration_response: '',  // Set the initial response
+      };
+
+      this.employeeService.enrollTraining(registrationData).subscribe(
+        (registrationId: number) => {
+          // Enrollment successful, handle as needed
+          console.log(`Enrollment successful. Registration ID: ${registrationId}`);
+          alert(`Your Enrollment Request has been successfully sent to Reporting Manager for ${training.c_name} course`);
+
+          const enrollmentStatus = {
+            t_id: training.t_id,
+            c_name: training.c_name,
+            status: 'Pending',
+          };
+
+          this.enrollmentStatusData.push(enrollmentStatus);
+
+          const enrolledTrainingIndex = this.tableData1.dataRows.findIndex(
+            (row) =>
+              row.training_id === training.training_id &&
+              row.schedule_id === training.schedule_id
+          );
+          
+          if (enrolledTrainingIndex !== -1) {
+            this.tableData1.dataRows[enrolledTrainingIndex].isEnrolled = true;
+          }
+        },
+        (error) => {
+          console.error('Error enrolling in training:', error);
+          // Handle enrollment error
+        }
+      );
+    }
   }
 
   changeItemsPerPage(event: any): void {
@@ -269,6 +303,14 @@ export class UserDashboardComponent implements OnInit {
     
         const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
         return Array.from({ length: pageCount }, (_, index) => index + 1);
+      }
+
+      getEnrollmentStatus(t_id: string, c_name: string): string {
+        const statusEntry = this.enrollmentStatusData.find(
+          (status) => status.t_id === t_id && status.c_name === c_name
+        );
+    
+        return statusEntry ? statusEntry.status : '';
       }
 }
 

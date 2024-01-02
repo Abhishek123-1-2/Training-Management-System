@@ -6,7 +6,11 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import com.mindcraft.in.Pojos.Admin.EmployeeDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.Registration;
+import com.mindcraft.in.Pojos.Admin.RegistrationDetailsDTO;
+
+import jakarta.persistence.Query;
 import com.mindcraft.in.Pojos.Employee.EnrollmentRequest;
 
 import javax.sql.DataSource;
@@ -91,39 +95,56 @@ public class RegistrationService {
         }
     }
 
-    public Long enrollTraining(EnrollmentRequest enrollmentRequest) {
-        try {
-            String sql = "INSERT INTO registration " +
-                    "(schedule_id, training_id, emp_id, registration_date, registration_comments, " +
-                    "registration_status, registration_response) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-            // Set the registration_date to the current system date
-            LocalDateTime currentDateTime = LocalDateTime.now();
-            Timestamp registrationDate = Timestamp.valueOf(currentDateTime);
-
-            // Set the registration_status to "Registered"
-            String registrationStatus = "Registered";
-
-            jdbcTemplate.update(sql,
-                    enrollmentRequest.getScheduleId(),
-                    enrollmentRequest.getTrainingId(),
-                    enrollmentRequest.getEmpId(),
-                    registrationDate,
-                    enrollmentRequest.getRegistration_comments(),
-                    registrationStatus,
-                    enrollmentRequest.getRegistration_response());
-
-            return null /* return something meaningful */;
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Handle exception appropriately
-            return null;
-        }
-      }
-
-    
-
     // Add other methods as needed...
-
+    // public void updateRegistration(Registration registration) {
+    //     String sql = "UPDATE registration SET " +
+    //             "schedule_id = ?, " +
+    //             "training_id = ?, " +
+    //             "emp_id = ?, " +
+    //             "registration_date = ?, " +
+    //             "registration_comments = ?, " +
+    //             "registration_status = ?, " +
+    //             "registration_response = ? " +
+    //             "WHERE registration_id = ?";  // Add WHERE clause
+    
+    //     try (Connection connection = dataSource.getConnection();
+    //          PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+    
+    //         preparedStatement.setLong(1, registration.getSchedule_id());
+    //         preparedStatement.setLong(2, registration.getTraining_id());
+    //         preparedStatement.setLong(3, registration.getEmp_id());
+    //         preparedStatement.setTimestamp(4, registration.getRegistration_date());
+    //         preparedStatement.setString(5, registration.getRegistration_comments());
+    //         preparedStatement.setString(6, registration.getRegistration_status());
+    //         preparedStatement.setString(7, registration.getRegistration_response());
+    
+    //         // Add this line to set the registration_id in the WHERE clause
+    //         preparedStatement.setLong(8, registration.getRegistration_id());
+    
+    //         preparedStatement.executeUpdate();
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //         // Handle the exception according to your application's needs
+    //     }
+    // }
+    public void updateRegistration(Registration registration) {
+        String sql = "UPDATE registration SET " +
+                "registration_status = ?, " +
+                "registration_response = ? " +
+                "WHERE registration_id = ?";
+    
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+    
+            preparedStatement.setString(1, registration.getRegistration_status());
+            preparedStatement.setString(2, registration.getRegistration_response());
+            preparedStatement.setLong(3, registration.getRegistration_id());
+    
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception according to your application's needs
+        }
+    }
+    
 }

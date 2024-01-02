@@ -1,6 +1,8 @@
 package com.mindcraft.in.Controllers.Admin;
 
+import com.mindcraft.in.Pojos.Admin.EmployeeDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.Registration;
+import com.mindcraft.in.Pojos.Admin.RegistrationDetailsDTO;
 import com.mindcraft.in.Pojos.Employee.EnrollmentRequest;
 import com.mindcraft.in.Services.Admin.RegistrationService;
 
@@ -49,21 +51,26 @@ public class RegistrationController {
         }
     }
 
-    @PostMapping("/enroll")
-  public ResponseEntity<String> enrollTraining(@RequestBody EnrollmentRequest enrollmentRequest) {
-    try {
-      // Add logic to process enrollment
-      // You can use enrollmentRequest.getTraining_id() and enrollmentRequest.getSchedule_id()
-
-      // Dummy response for now
-      return new ResponseEntity<>("Enrollment successful", HttpStatus.OK);
-    } catch (Exception e) {
-      e.printStackTrace();
-      return new ResponseEntity<>("Enrollment failed", HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-    
     // Add other endpoints as needed...
+    @PutMapping("/{registrationId}")
+    public ResponseEntity<Void> updateRegistration(@PathVariable Long registrationId, @RequestBody Registration registration) {
+        // Ensure the provided registration ID matches the path variable
+        if (!registrationId.equals(registration.getRegistration_id())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        // Check if the registration with the given ID exists
+        Registration existingRegistration = registrationService.getRegistrationDetails(registrationId);
+        if (existingRegistration == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        // Update the registration
+        registrationService.updateRegistration(registration);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
 
 }

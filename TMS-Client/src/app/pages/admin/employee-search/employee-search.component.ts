@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';  // Import the Router module
 
 declare interface TableData {
   headerRow: string[];
@@ -14,14 +16,15 @@ declare interface TableData {
 }
 
 interface TableRow {
-    sr_no: string;
-    emp_code: string;
-    emp_name: string;
-    designation: string;
-    department: string;
-    email_id: string;
-    view: string;
+  sr_no: string;
+  emp_code: string;
+  emp_name: string;
+  designation: string;
+  department: string;
+  email_id: string;
+  view: string;
 }
+
 @Component({
   selector: 'employee-search',
   moduleId: module.id,
@@ -34,19 +37,26 @@ export class EmployeeSearchComponent implements OnInit {
   public currentPage = 1;
   public itemsPerPage = 5;
 
-  constructor() { }
+  constructor(private http: HttpClient, private router: Router) { }  // Inject the Router module
 
   ngOnInit(): void {
-    this.tableData1 = {
-      headerRow: ['Sr No.', 'Employee Code', 'Employee Name', 'Designation', 'Department', 'Email ID', 'View'],
-      dataRows: [
-        {sr_no:'1', emp_code:'3647', emp_name:'Yash Gavanang',designation:'Associate Consultant', department:'Project & Managed Services', email_id:'abc@gmail.com', view:'View'},
-        {sr_no:'2', emp_code:'3646', emp_name:'Abhishek Pillai',designation:'Associate Consultant', department:'Project & Managed Services', email_id:'abc@gmail.com', view:'View'},
-        {sr_no:'3', emp_code:'3639', emp_name:'Mukul Gupta',designation:'Associate Consultant', department:'Project & Managed Services',  email_id:'abc@gmail.com', view:'View'},
-        {sr_no:'4', emp_code:'3364', emp_name:'Yash Gole',designation:'Associate Consultant', department:'Project & Managed Services',  email_id:'abc@gmail.com', view:'View'},
-      ]
-    };
-    this.filteredData = [...this.tableData1.dataRows];
+    // Fetch data from the API endpoint
+    this.http.get<any[]>('http://localhost:8083/api/employee-details/all')
+      .subscribe(data => {
+        this.tableData1 = {
+          headerRow: ['Sr No.', 'Employee Code', 'Employee Name', 'Designation', 'Department', 'Email ID', 'View'],
+          dataRows: data.map((item, index) => ({
+            sr_no: (index + 1).toString(),
+            emp_code: item.empCode,
+            emp_name: item.empName,
+            designation: item.designationName,
+            department: item.functionName,
+            email_id: item.email,
+            view: 'View',
+          })),
+        };
+        this.filteredData = [...this.tableData1.dataRows];
+      });
   }
 
   applyFilter() {
@@ -55,6 +65,11 @@ export class EmployeeSearchComponent implements OnInit {
         value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
       )
     );
+  }
+
+  // Modify this function to navigate to CourseDetailsComponent with emp_code as a parameter
+  viewDetails(emp_code: string) {
+    this.router.navigate(['/course-details', emp_code]);
   }
 
   get pages(): number[] {

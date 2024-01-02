@@ -1,5 +1,9 @@
 package com.mindcraft.in.Services.Admin;
 
+import com.mindcraft.in.Pojos.Admin.CompletedCourseInfoDTO;
+import com.mindcraft.in.Pojos.Admin.EmployeeCourseDetailsDTO;
+import com.mindcraft.in.Pojos.Admin.EmployeeDetailsDTO;
+import com.mindcraft.in.Pojos.Admin.EmployeeTrainingDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.TrainingSchedule;
 import com.mindcraft.in.Pojos.Admin.TrainingView;
 import com.mindcraft.in.Pojos.Admin.TrainingViewDto;
@@ -21,7 +25,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class TrainingViewService {
@@ -179,27 +190,30 @@ public class TrainingViewService {
     //         // Handle the exception according to your application's needs
     //     }
     // }
-     public List<TrainingViewDto> getTrainingSchedule() {
+    //  public List<TrainingViewDto> getTrainingSchedule() {
+    //     String sql = "SELECT t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, " +
+    //                  "t.trainer_names, t.prerequisites, t.course_description, t.daily_hrs, t.total_days, t.url, " +
+    //                  "t.username, t.password, ts.schedule_id, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, " +
+    //                  "ts.actual_start_date, ts.actual_end_date, ts.training_status, CAST(ts.active_yn AS CHAR) AS active_yn, " +
+    //                  "ts.from_time, ts.to_time, ts.created_by, ts.created_on, ts.updated_by, ts.updated_on " +
+    //                  "FROM m_trainings t " +
+    //                  "JOIN training_schedule ts ON t.training_id = ts.training_id";
+        
+    //     return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrainingViewDto.class));
+    // }
+    public List<TrainingViewDto> getTrainingSchedule() {
         String sql = "SELECT t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, " +
                      "t.trainer_names, t.prerequisites, t.course_description, t.daily_hrs, t.total_days, t.url, " +
                      "t.username, t.password, ts.schedule_id, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, " +
                      "ts.actual_start_date, ts.actual_end_date, ts.training_status, CAST(ts.active_yn AS CHAR) AS active_yn, " +
                      "ts.from_time, ts.to_time, ts.created_by, ts.created_on, ts.updated_by, ts.updated_on " +
                      "FROM m_trainings t " +
-                     "JOIN training_schedule ts ON t.training_id = ts.training_id";
-
-        // String sql = "SELECT t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, " +
-        //          "t.trainer_names, t.prerequisites, t.course_description, t.daily_hrs, t.total_days, t.url, " +
-        //          "t.username, t.password, ts.schedule_id, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, " +
-        //          "ts.actual_start_date, ts.actual_end_date, ts.training_status, CAST(ts.active_yn AS CHAR) AS active_yn, " +
-        //          "ts.from_time, ts.to_time, ts.created_by, ts.created_on, ts.updated_by, ts.updated_on, " +
-        //          "e.emp_id " +  // Include emp_id from m_employee table
-        //          "FROM m_trainings t " +
-        //          "JOIN training_schedule ts ON t.training_id = ts.training_id " +
-        //          "JOIN m_employee e ON t.username = e.emp_code";
+                     "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+                     "ORDER BY ts.planned_start_date DESC";  // Add this line for ordering
         
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrainingViewDto.class));
     }
+    
     public void insertTrainingView(TrainingView trainingView) {
         // Concatenate trainer_names and course
         String concatenatedTrainerNames = trainingView.getTrainer_names() + "(" + trainingView.getCourse() + ")";
@@ -306,10 +320,13 @@ public class TrainingViewService {
     
     
     public List<TrainingView> getAllTrainingViews() {
-        String sql = "SELECT * FROM m_trainings";
+        String sql = "SELECT * FROM m_trainings ORDER BY created_on DESC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrainingView.class));
     }
-
+    public List<String> getAllTrainerNames() {
+        String sql = "SELECT DISTINCT trainer_names FROM m_trainings";
+        return jdbcTemplate.queryForList(sql, String.class);
+    }
     public List<String> getTrainerNames() {
         String sql = "SELECT DISTINCT trainer_names FROM m_trainings";
         return jdbcTemplate.queryForList(sql, String.class);
@@ -471,6 +488,17 @@ public List<String> getTrainingCourses() {
             return null;
         }
     }
+    public Map<String, Long> getTrainingStatusCounts() {
+        String sql = "SELECT training_status, COUNT(*) AS count FROM training_schedule GROUP BY training_status";
+
+        List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
+
+        return result.stream()
+                .collect(Collectors.toMap(
+                        entry -> (String) entry.get("training_status"),
+                        entry -> ((Number) entry.get("count")).longValue()
+                ));
+    }
     public Long getScheduleIdByTrainerName(String trainerName) {
         String sql = "SELECT schedule_id FROM training_schedule WHERE trainer_name = ? LIMIT 1";
 
@@ -484,5 +512,6 @@ public List<String> getTrainingCourses() {
             return null;
         }
     }
+    
     
 }

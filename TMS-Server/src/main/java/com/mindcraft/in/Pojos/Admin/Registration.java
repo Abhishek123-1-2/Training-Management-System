@@ -17,10 +17,8 @@ public class Registration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "registration_id")
     private Long registration_id;
-
     public Registration() {
     }
-
     public Registration(Long registration_id, Long schedule_id, Long training_id, Long emp_id,
             Timestamp registration_date, String registration_comments, String registration_status,
             String registration_response, char active_yn, String created_by, Timestamp created_on, String updated_by,
