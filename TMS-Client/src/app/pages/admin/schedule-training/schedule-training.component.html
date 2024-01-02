@@ -29,15 +29,28 @@
 </div>
 
 
-<div class="col-md-4 ">
-<div class="form-group">
-<label>Trainer Name</label>
-<input type="text" id="trainerName" name="trainerName" formControlName="trainerName" class="form-control" required>
-<div *ngIf="trainingForm.get('trainerName').invalid && (trainingForm.get('trainerName').dirty || trainingForm.get('trainerName').touched)">
-<small class="text-danger" *ngIf="trainingForm.get('trainerName').errors.required">Trainer Name is required</small>
+<!-- <div class="col-md-4 ">
+  <div class="form-group">
+  <label>Trainer Name</label>
+  <input type="text" id="trainerName" name="trainerName" formControlName="trainerName" class="form-control" required>
+  <div *ngIf="trainingForm.get('trainerName').invalid && (trainingForm.get('trainerName').dirty || trainingForm.get('trainerName').touched)">
+  <small class="text-danger" *ngIf="trainingForm.get('trainerName').errors.required">Trainer Name is required</small>
+  </div>
+  </div>
+  </div> -->
+  <!-- Replace the Trainer Name input field with a dropdown -->
+<div class="col-md-4">
+  <div class="form-group">
+    <label>Trainer Name</label>
+    <select id="trainerName" name="trainerName" formControlName="trainerName" class="form-control" required>
+      <option *ngFor="let name of trainerNames" [value]="name">{{ name }}</option>
+    </select>
+    <div *ngIf="trainingForm.get('trainerName').invalid && (trainingForm.get('trainerName').dirty || trainingForm.get('trainerName').touched)">
+      <small class="text-danger" *ngIf="trainingForm.get('trainerName').errors.required">Trainer Name is required</small>
+    </div>
+  </div>
 </div>
-</div>
-</div>
+
 
 <div class="col-md-4 ">
 <div class="form-group">

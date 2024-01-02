@@ -44,14 +44,13 @@
               </thead>
               <tbody>
                 <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
+                    <td class="text-center">{{row.t_id}}</td>
                     <td class="text-center">{{ row.c_name }}</td>
                     <td class="text-center">{{ row.t_name }}</td>
                     <td class="text-center">{{ row.s_date }}</td>
                     <td class="text-center">{{ row.e_date }}</td>
                     <td class="text-center">{{ row.status }}</td>
-                    <td class="text-center">
-                      <button class="btn btn-primary" (click)="enrollButtonClicked(row)">Enroll</button>                        
-                    </td>
+                    <td class="text-center"><button class="btn btn-primary" (click)="enrollButtonClicked(row)">Enroll</button></td>
                   </tr>
               </tbody>
             </table>

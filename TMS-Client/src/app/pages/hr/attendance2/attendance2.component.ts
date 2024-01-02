@@ -24,8 +24,12 @@ export class Attendance2Component implements OnInit {
   course_name: any;
   trainer_name: any;
   showExpandedDates: boolean = false;
-  editAttendanceStatus: string;
-  isEdit: boolean = false;
+  public searchTerm = '';
+
+  currentPage = 1;
+  itemsPerPage = 5;
+
+ 
 
  
   constructor(private route: ActivatedRoute) {}
@@ -41,6 +45,50 @@ export class Attendance2Component implements OnInit {
     });
   }
 
+  performSearch(): void {
+    if (this.searchTerm.trim() === '') {
+   
+      this.reloadTable();
+    } else {
+      // Filter the data based on the search term
+      this.tableData1.dataRows = this.tableData1.dataRows.filter(row =>
+        Object.values(row).some(cell => cell.toString().toLowerCase().includes(this.searchTerm.toLowerCase()))
+      );
+    }
+  }
+
+  
+
+  
+
+
+  reloadTable()
+  {
+    this.tableData1.dataRows = [
+      {
+        emp_code: '3647',
+        emp_name: 'Yash Gavanang',
+        attendance: {},
+        status: 'Ongoing',
+        
+      }
+
+      
+    
+    ]
+
+    // this.tableData1.headerRow = this.tableData1.headerRow.slice(0,7);
+
+    // this.showExpandedDates = false;
+    
+    
+  }
+
+
+
+
+
+
   fetchList(start_date: string): void {
     const allDays = this.getAllDatesInRange(start_date, this.end_date);
 
@@ -53,8 +101,10 @@ export class Attendance2Component implements OnInit {
           attendance: {},
           status: 'Ongoing',
           
-        },
-      ],
+          
+
+        }
+      ]
     };
 
     this.tableData1.dataRows.forEach((row) => {
@@ -75,7 +125,8 @@ export class Attendance2Component implements OnInit {
     return dates;
   }
 
-  toggleExpandedDates(): void {
+  toggleExpandedDates(): void 
+  {
     if (!this.showExpandedDates) {
       const allDates = this.getAllDatesInRange(this.start_date, this.end_date);
       this.tableData1.headerRow.push(...allDates);
@@ -85,26 +136,30 @@ export class Attendance2Component implements OnInit {
 
   markAttendance(row: any, date: string, status: string): void {
     row.attendance[date] = status;
-    row.showButtons = false;
   }
 
-  reloadTable(): void 
-  {
-    this.fetchList(this.start_date);
-    this.showExpandedDates = false;
-  }
+  
 
-  startEdit(row: any, date: string)
-  {
-    row.attendance[date] = this.editAttendanceStatus;
-    this.isEdit = true;
-  }
 
-  cancel()
-  {
-    this.isEdit = false;
+  get pages(): number[] {
+    if (this.tableData1.dataRows.length === 0) {
+      return [];
+    }
 
+    const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
   }
 
 
-}
+  changeItemsPerPage(event: any): void {
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1; 
+  }
+
+
+ 
+
+  }
+
+  
+

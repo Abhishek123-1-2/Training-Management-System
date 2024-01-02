@@ -19,17 +19,17 @@
           <div class="table-responsive table-container">
             <table class="table">
               <thead class="text-primary">
-                <th *ngFor="let header of tableData1.headerRow">{{ header }}</th>
+                <th class = "text-center" *ngFor="let header of tableData1.headerRow">{{ header }}</th>
               </thead>
               <tbody>
                 <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
-                    <td>{{ row.sr_no }}</td>
-                    <td>{{ row.emp_code }}</td>
-                    <td>{{ row.emp_name }}</td>
-                    <td>{{ start_date }}</td>
-                    <td>{{ end_date }}</td>
-                    <td>{{ status }}</td>
-                    <td><a [routerLink]="['/feedback-to-employee', {start_date: start_date, end_date: end_date, status: status}]">{{ row.feedback }}</a></td>
+                    <td class = "text-center">{{ row.sr_no }}</td>
+                    <td class = "text-center">{{ row.emp_code }}</td>
+                    <td class = "text-center">{{ row.emp_name }}</td>
+                    <td class = "text-center">{{ start_date }}</td>
+                    <td class = "text-center">{{ end_date }}</td>
+                    <td class = "text-center">{{ status }}</td>
+                    <td class = "text-center"><a [routerLink]="['/feedback-to-employee', {start_date: start_date, end_date: end_date, status: status}]">{{ row.feedback }}</a></td>
                   </tr>
               </tbody>
             </table>

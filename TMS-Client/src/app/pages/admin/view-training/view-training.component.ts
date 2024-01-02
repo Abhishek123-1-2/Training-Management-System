@@ -30,6 +30,7 @@ export class ViewTrainingComponent implements OnInit {
   constructor(private router: Router,private trainingService:TrainingService) {}
   
     public tableData1: TableData;
+    public statusFilter: string = '';
     public filteredData: TableRow[];
     public searchValue: string = '';
     isEditMode: boolean = false;
@@ -87,7 +88,7 @@ export class ViewTrainingComponent implements OnInit {
               number: (index + 1).toString(),
               course: row.course,
               // trainer_name: `${row.trainer_names}(${row.course})`, // Update this line
-              trainer_name: `${row.trainer_names.includes(row.course) ? row.trainer_names : `${row.trainer_names}(${row.course})`}`,
+              trainer_name: this.extractTrainerName(row.trainer_names),
 
               // meeting_link: row.url,
               // username: row.username,
@@ -102,7 +103,7 @@ export class ViewTrainingComponent implements OnInit {
         }
       );
     }
-  
+    
     applyFilter() {
         this.filteredData = this.tableData1.dataRows.filter(row =>
           Object.values(row).some(value =>
@@ -141,5 +142,13 @@ export class ViewTrainingComponent implements OnInit {
       this.itemsPerPage = +event.target.value;
       this.currentPage = 1; // Reset to the first page when changing items per page
     }
-
+    private extractTrainerName(fullName: string): string {
+      const indexOfOpeningBracket = fullName.indexOf('(');
+      if (indexOfOpeningBracket !== -1) {
+        return fullName.substring(0, indexOfOpeningBracket).trim();
+      } else {
+        return fullName.trim();
+      }
+    }
+    
 }

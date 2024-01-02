@@ -35,7 +35,6 @@ import { EmployeeHistoryComponent } from 'app/pages/admin/employee-history/emplo
 import { AdminRegistrationComponent } from 'app/pages/admin/admin_registration/admin_registration.component';
 import { EmployeeSearchComponent } from 'app/pages/admin/employee-search/employee-search.component';
 import { CourseDetailsComponent } from 'app/pages/admin/course-details/course-details.component';
-import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
 import { UpcomingTrainingComponent } from 'app/pages/trainer/upcoming-training/upcoming-training.component';
 import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training/completed-training.component';
 import { TrainerFeedbackToEmployeeComponent } from 'app/pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
