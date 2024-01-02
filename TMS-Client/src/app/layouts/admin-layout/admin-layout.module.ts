@@ -91,7 +91,7 @@ import { ParticipantsListComponent } from 'app/pages/admin/participants-list/par
     TimeFormatPipe,
     ScheduleTrainingComponent,
     AddTrainingComponent,
-    TrainerDashboardComponent,
+    // TrainerDashboardComponent,
     ScheduleListComponent,
     AdminTrainingHistoryComponent,
     CourseDetailsComponent,
