@@ -1,6 +1,8 @@
 package com.mindcraft.in.Controllers.Admin;
 
+import com.mindcraft.in.Pojos.Admin.EmployeeDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.Registration;
+import com.mindcraft.in.Pojos.Admin.RegistrationDetailsDTO;
 import com.mindcraft.in.Services.Admin.RegistrationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +49,37 @@ public class RegistrationController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/details")
+    public List<RegistrationDetailsDTO> getRegistrationDetails() {
+        return registrationService.getRegistrationDetails();
+    }
+    // Add this method in RegistrationController.java
+@GetMapping("/attendees")
+public ResponseEntity<List<EmployeeDetailsDTO>> getAttendees(@RequestParam String course, @RequestParam String trainingStatus) {
+    List<EmployeeDetailsDTO> attendees = registrationService.getAttendees(course, trainingStatus);
+    return ResponseEntity.ok(attendees);
+}
+
 
     // Add other endpoints as needed...
+    @PutMapping("/{registrationId}")
+    public ResponseEntity<Void> updateRegistration(@PathVariable Long registrationId, @RequestBody Registration registration) {
+        // Ensure the provided registration ID matches the path variable
+        if (!registrationId.equals(registration.getRegistration_id())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        // Check if the registration with the given ID exists
+        Registration existingRegistration = registrationService.getRegistrationDetails(registrationId);
+        if (existingRegistration == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        // Update the registration
+        registrationService.updateRegistration(registration);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
 }

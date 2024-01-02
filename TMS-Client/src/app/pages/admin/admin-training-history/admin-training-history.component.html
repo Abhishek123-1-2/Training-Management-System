@@ -12,10 +12,10 @@
           <div class="table-responsive table-container">
             <table class="table">
               <thead class="text-primary">
-                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+                <th *ngFor="let header of tableData1.headerRow" >{{ header }}</th>
               </thead>
               <tbody>
-                <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row" class="text-center">
+                <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row" >
                     <td>{{ row.sr_no }}</td>
                     <td>{{ row.c_name }}</td>
                     <td>{{ row.t_name }}</td>

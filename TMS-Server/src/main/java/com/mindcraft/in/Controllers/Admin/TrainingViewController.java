@@ -1,6 +1,10 @@
 package com.mindcraft.in.Controllers.Admin;
 
 
+import com.mindcraft.in.Pojos.Admin.CompletedCourseInfoDTO;
+import com.mindcraft.in.Pojos.Admin.EmployeeCourseDetailsDTO;
+import com.mindcraft.in.Pojos.Admin.EmployeeDetailsDTO;
+import com.mindcraft.in.Pojos.Admin.EmployeeTrainingDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.TrainingSchedule;
 import com.mindcraft.in.Pojos.Admin.TrainingView;
 import com.mindcraft.in.Pojos.Admin.TrainingViewDto;
@@ -12,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/training-views")
@@ -102,10 +107,11 @@ public ResponseEntity<Long> createTrainingView(@RequestBody TrainingView trainin
     public List<TrainingView> getAllTrainingViews() {
         return trainingViewService.getAllTrainingViews();
     }
-    @GetMapping("/trainer-names")
-    public List<String> getTrainerNames() {
-    return trainingViewService.getTrainerNames();
-    }
+    
+    // @GetMapping("/trainer-names")
+    // public List<String> getTrainerNames() {
+    // return trainingViewService.getTrainerNames();
+    // }
     // Inside TrainingViewController.java
 
 @PostMapping("/schedule")
@@ -322,5 +328,45 @@ public ResponseEntity<Long> getTrainingIdByCourseName(@RequestParam String cours
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @GetMapping("/status-counts")
+    public Map<String, Long> getTrainingStatusCounts() {
+        return trainingViewService.getTrainingStatusCounts();
+    }
+    @GetMapping("/status-counts-by-month")
+public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
+    return trainingViewService.getTrainingStatusCountsByMonth();
+}
+@GetMapping("/completed-courses/{empCode}")
+    public List<CompletedCourseInfoDTO> getCompletedCourses(@PathVariable String empCode) {
+        return trainingViewService.getCompletedCoursesInfo(empCode);
+    }
+    @PutMapping("/update-training-status/{empCode}/{scheduleId}")
+    public ResponseEntity<CompletedCourseInfoDTO> updateTrainingStatusAndMoveToCompleted(
+            @PathVariable String empCode,
+            @PathVariable Long scheduleId) {
+        CompletedCourseInfoDTO completedCourseInfoDTO = trainingViewService
+                .updateTrainingStatusAndMoveToCompleted(empCode, scheduleId);
+
+        // Optionally, you can return a response or handle as needed
+        return ResponseEntity.ok(completedCourseInfoDTO);
+    }
+    @GetMapping("/completed-course-details/{course}")
+public List<EmployeeTrainingDetailsDTO> getCompletedCourseDetails(@PathVariable String course) {
+    return trainingViewService.getEmployeesCompletedCourseInfo(course);
+}
+@GetMapping("/completed-courses")
+    public List<CompletedCourseInfoDTO> getCompletedCourses() {
+        return trainingViewService.getCompletedCourses();
+    }
+   // In TrainingViewController.java
+
+@GetMapping("/trainer-names")
+public List<String> getAllTrainerNames() {
+    return trainingViewService.getAllTrainerNames();
+}
+@GetMapping("/completedDetails/{course}")
+    public List<EmployeeCourseDetailsDTO> getEmployeesCompletedCourseDetails(@PathVariable String course) {
+        return trainingViewService.getEmployeesCompletedCourseDetails(course);
     }
 }
