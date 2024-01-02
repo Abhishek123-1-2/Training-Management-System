@@ -45,7 +45,7 @@ export class TrainingHistoryComponent implements OnInit {
     display = 'none';
 
     currentPage=1;
-    itemsPerPage=2;
+    itemsPerPage=5;
 
 
     ngOnInit()  {
@@ -80,7 +80,7 @@ status: 'Completed'
   course: 'Angular',
   trainer_name: 'Bhavana',
   start_date:'1-12-2023',
-end_date:'5-12-2023',
+  end_date:'5-12-2023',
   status: 'Completed' 
 },
 
@@ -135,8 +135,6 @@ end_date:'5-12-2023',
         this.itemsPerPage = +event.target.value;
         this.currentPage = 1; // Reset to the first page when changing items per page
       }
-
-     
 
 }
 

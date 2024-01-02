@@ -53,6 +53,7 @@ import { ReportMainComponent } from 'app/pages/trainer/report-main/report-main.c
 import { ReportOfEmployeeComponent } from 'app/pages/trainer/report-emp/report-emp.component';
 import { TrainerTrainingDetailsComponent } from 'app/pages/trainer/trainer-training-details/trainer-training-details.component';
 import { ParticipantsListComponent } from 'app/pages/admin/participants-list/participants-list.component';
+import { TrainingHistoryComponent } from 'app/pages/employee/training-history/training-history.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -85,7 +86,7 @@ export const AdminLayoutRoutes: Routes = [
     {path:'student-list2', component: StudentList2Component},
     {path:'training-record', component: TrainingRecordComponent},
     {path:'employee-history/:c_name', component: EmployeeHistoryComponent},
-    {path:'training-history', component: AdminTrainingHistoryComponent},
+    {path:'admin-training-history', component: AdminTrainingHistoryComponent},
     {path:'registration', component: AdminRegistrationComponent},
     {path:'employee-search', component: EmployeeSearchComponent},
     {path:'course-details/:emp_code', component: CourseDetailsComponent},
@@ -105,4 +106,5 @@ export const AdminLayoutRoutes: Routes = [
     {path:'report-courses',component:ReportOfCoursesComponent},
     {path:'participants-list', component: ParticipantsListComponent},
     {path:'on-request', component: OnRequestComponent},
+    {path:'user-training-history', component: TrainingHistoryComponent}
 ];
