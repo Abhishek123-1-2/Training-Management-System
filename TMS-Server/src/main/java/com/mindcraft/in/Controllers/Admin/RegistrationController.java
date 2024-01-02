@@ -3,6 +3,7 @@ package com.mindcraft.in.Controllers.Admin;
 import com.mindcraft.in.Pojos.Admin.EmployeeDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.Registration;
 import com.mindcraft.in.Pojos.Admin.RegistrationDetailsDTO;
+import com.mindcraft.in.Pojos.Employee.EnrollmentRequest;
 import com.mindcraft.in.Services.Admin.RegistrationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,17 +50,6 @@ public class RegistrationController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @GetMapping("/details")
-    public List<RegistrationDetailsDTO> getRegistrationDetails() {
-        return registrationService.getRegistrationDetails();
-    }
-    // Add this method in RegistrationController.java
-@GetMapping("/attendees")
-public ResponseEntity<List<EmployeeDetailsDTO>> getAttendees(@RequestParam String course, @RequestParam String trainingStatus) {
-    List<EmployeeDetailsDTO> attendees = registrationService.getAttendees(course, trainingStatus);
-    return ResponseEntity.ok(attendees);
-}
-
 
     // Add other endpoints as needed...
     @PutMapping("/{registrationId}")
@@ -80,6 +70,30 @@ public ResponseEntity<List<EmployeeDetailsDTO>> getAttendees(@RequestParam Strin
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @PostMapping("/enroll")
+    public ResponseEntity<Long> enrollTraining(@RequestBody Registration registration) {
+    Long registrationId = registrationService.enrollTraining(registration);
+
+    if (registrationId != null) {
+        return new ResponseEntity<>(registrationId, HttpStatus.CREATED);
+    } else {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
+@GetMapping("/attendees")
+public ResponseEntity<List<EmployeeDetailsDTO>> getAttendees(@RequestParam String course, @RequestParam String trainingStatus) {
+    List<EmployeeDetailsDTO> attendees = registrationService.getAttendees(course, trainingStatus);
+    return ResponseEntity.ok(attendees);
+}
+
+    // Add other endpoints as needed...
+
+    @GetMapping("/details")
+    public List<RegistrationDetailsDTO> getRegistrationDetails() {
+        return registrationService.getRegistrationDetails();
+    }
+
 
 
 }

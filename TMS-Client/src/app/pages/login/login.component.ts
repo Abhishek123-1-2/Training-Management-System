@@ -34,6 +34,11 @@ export class LoginComponent implements OnInit {
             console.log(response);
             console.log('Login success', response);
 
+            const empId = response?.empId;
+            if (empId) {
+              this.userService.setEmpId(empId);
+            }
+
             const specificValue = response.role;
             console.log('Value of yourKey:', specificValue);
             localStorage.setItem("role", specificValue);

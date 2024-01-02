@@ -28,7 +28,7 @@ export const ROUTES: RouteInfo[] = [
         {path:'/training-record', title:'Training Record', icon:'', class:'', roles:['ROLE_ADMIN']},
         {path:'/training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_ADMIN']},
     ]},
-    // /trainer-dashboard changed to dashboard
+
     { path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', roles: ['ROLE_TRAINER']},
     { path: '/training-details', title: 'Trainings', icon: 'nc-caps-small', class: '', roles: ['ROLE_TRAINER']},
     { path:'/give-feedback', title:'Feedback', icon:'nc-chart-bar-32', class:'', roles: ['ROLE_TRAINER'] },

@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">OnRequest Data</h4>
+          <h4 class="card-title">On-Request Deatils</h4>
         </div>
         <div class="card-body">
           <div class="d-flex justify-content-between">
@@ -22,7 +22,7 @@
               <tbody>
                 <ng-container *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) ; let i = index">
                   
-                    <tr class="expandable-row text-center">
+                  <tr class="expandable-row text-center">
                     <td>{{ row.number }}</td>
   
                     <td>
@@ -35,19 +35,18 @@
 
 
                     <td>
-                        <button class="btn btn-primary" (click)="sendRequest()">Request{{ row.action }}</button> <!-- (click)="toggleEditMode(i)" -->
+                        <button class="btn btn-primary" (click)="showNotification('top','center')" >Request{{ row.action }}</button> <!-- (click)="toggleEditMode(i)" -->
 
 <!--                       <button class="btn btn-primary" (click)="sendRequest()">Request{{ row.action }}</button> 
  -->                      <!-- (click)="toggleEditMode(i)" -->
                     </td>
                   </tr>
-                 
                 </ng-container>
               </tbody>
             </table>
           </div>
 
-          <div class="d-flex justify-content-end">
+          <div class="d-flex justify-content-end mt-3">
             <div class="form-inline mb-3">
               <label for="rowsPerPage" class="mr-1">Rows per Page:</label>
               <select class="form-control" id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage($event)">
