@@ -1,11 +1,11 @@
-package com.mindcraft.in.Pojos.Admin;
+package com.mindcraft.in.Pojos.Employee;
 
 import java.sql.Timestamp;
 
-public class TrainingViewDto {
-
-    private Long scheduleId;
+public class TrainingScheduleDTO {
+    
     private Long trainingId;
+    private Long scheduleId;
     private String trainerName;
     private Timestamp plannedStartDate;
     private Timestamp plannedEndDate;
@@ -21,20 +21,20 @@ public class TrainingViewDto {
     private Timestamp updatedOn;
     private String course;
     private String training_schedule;
-    // private Long empId;
+    private Long empId;
 
-    // Default constructor
-    public TrainingViewDto() {
-        // Empty constructor
+    // Constructors, getters, and setters
+
+    public TrainingScheduleDTO() {
+        
     }
 
-    // Parameterized constructor
-    public TrainingViewDto(Long scheduleId, Long trainingId,Long empId, String trainerName, Timestamp plannedStartDate,
-            Timestamp plannedEndDate, Timestamp actualStartDate, Timestamp actualEndDate, String trainingStatus,
-            char activeYn, String createdBy, Timestamp createdOn, String updatedBy, Timestamp updatedOn,
-            String course,String training_schedule,String fromTime,String toTime) {
-        this.scheduleId = scheduleId;
+    public TrainingScheduleDTO(Long trainingId, Long scheduleId, Long empId, String trainerName, Timestamp plannedStartDate,
+    Timestamp plannedEndDate, Timestamp actualStartDate, Timestamp actualEndDate, String trainingStatus,
+    char activeYn, String createdBy, Timestamp createdOn, String updatedBy, Timestamp updatedOn,
+    String course,String training_schedule,String fromTime,String toTime) {
         this.trainingId = trainingId;
+        this.scheduleId = scheduleId;
         this.trainerName = trainerName;
         this.plannedStartDate = plannedStartDate;
         this.plannedEndDate = plannedEndDate;
@@ -50,31 +50,16 @@ public class TrainingViewDto {
         this.updatedOn = updatedOn;
         this.course = course;
         this.training_schedule = training_schedule;
-        // this.empId = empId;
+        this.empId = empId;
     }
 
-    public String getFromTime() {
-        return fromTime;
+    // Getters and Setters
+    public Long getTrainingId() {
+        return trainingId;
     }
 
-    public void setFromTime(String fromTime) {
-        this.fromTime = fromTime;
-    }
-
-//    public Long getEmpId() {
-//     return empId;
-// }
-
-// public void setEmpId(Long empId) {
-//     this.empId = empId;
-// }
-
- public String getToTime() {
-        return toTime;
-    }
-
-    public void setToTime(String toTime) {
-        this.toTime = toTime;
+    public void setTrainingId(Long trainingId) {
+        this.trainingId = trainingId;
     }
 
     public Long getScheduleId() {
@@ -84,15 +69,22 @@ public class TrainingViewDto {
     public void setScheduleId(Long scheduleId) {
         this.scheduleId = scheduleId;
     }
-
-    public Long getTrainingId() {
-        return trainingId;
+    
+    public String getFromTime() {
+        return fromTime;
     }
 
-    public void setTrainingId(Long trainingId) {
-        this.trainingId = trainingId;
+    public void setFromTime(String fromTime) {
+        this.fromTime = fromTime;
     }
 
+    public String getToTime() {
+        return toTime;
+    }
+
+    public void setToTime(String toTime) {
+        this.toTime = toTime;
+    }
     public String getTrainerName() {
         return trainerName;
     }
@@ -196,8 +188,11 @@ public class TrainingViewDto {
     public void setTrainingSchedule(String training_schedule) {
         this.training_schedule = training_schedule;
     }
+    public Long getEmpId() {
+        return empId;
+    }
 
-    // Getters and setters
-    
-    // Add any additional fields or methods as needed
+    public void setEmpId(Long empId) {
+        this.empId = empId;
+    }
 }

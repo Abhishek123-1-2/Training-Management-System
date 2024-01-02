@@ -237,5 +237,6 @@ public class TrainingSchedule {
         this.toTime = toTime;
     }
     
+    
 
 }

@@ -34,6 +34,7 @@ export class TrainingService {
       catchError(() => of(null)) // Handle error and return null
     );
   }
+
    // Add the following method to schedule training
    scheduleTraining(trainerId: number, trainingScheduleData: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/schedule?trainerId=${trainerId}`, trainingScheduleData)

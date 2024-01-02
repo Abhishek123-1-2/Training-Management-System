@@ -13,8 +13,19 @@ export interface PerformanceData {
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class EmployeeService {
   constructor(private http: HttpClient) {}
+  
+  private empId: string | null = null;
+
+  setEmpId(empId: string): void {
+    this.empId = empId;
+  }
+
+  getEmpId(): string | null {
+    return this.empId;
+  }
+  private apiUrl = 'http://localhost:8083/api/training-views/schedule-list';
 
   getPerformanceData(): Observable<PerformanceData[]> {
     // Mock backend endpoint or generate dummy data
@@ -31,4 +42,34 @@ export class DataService {
     // For demonstration purposes, returning dummy data as an Observable
     return of(dummyData);
   }
+
+  getTrainingSchedule(): Observable<any[]> {
+    // Implement your logic to fetch training schedule data
+    // For example, using HttpClient to make an HTTP request
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  // enrollTraining(): Observable<any> {
+  //   // const url = 'http://localhost:8083/api/registrations';
+  //   // const enrollmentData = {
+  //   //   schedule_id: scheduleId,
+  //   //   training_id: trainingId,
+  //   //   emp_id: empId,
+  //   //   // Add other properties as needed
+  //   // };
+    
+  //   // return this.http.post(url, enrollmentData);
+  // }
+
+    enrollTraining(registrationData: any): Observable<number> {
+      const enrollUrl = 'http://localhost:8083/api/registrations/enroll';
+      const headers = {
+        'Content-Type': 'application/json',
+        // Add any other headers as needed
+      };
+
+      return this.http.post<number>(enrollUrl, registrationData, { headers });
+  }
+  
+
 }

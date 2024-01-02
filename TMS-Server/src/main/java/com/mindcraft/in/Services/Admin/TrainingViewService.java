@@ -7,11 +7,15 @@ import com.mindcraft.in.Pojos.Admin.EmployeeTrainingDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.TrainingSchedule;
 import com.mindcraft.in.Pojos.Admin.TrainingView;
 import com.mindcraft.in.Pojos.Admin.TrainingViewDto;
+import com.mindcraft.in.Services.Employee.TrainingScheduleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
@@ -35,11 +39,13 @@ public class TrainingViewService {
 
     private final DataSource dataSource;
     private final JdbcTemplate jdbcTemplate;
+    // private final TrainingScheduleService trainingScheduleService;
 
     @Autowired
     public TrainingViewService(DataSource dataSource, JdbcTemplate jdbcTemplate) {
         this.dataSource = dataSource;
         this.jdbcTemplate = jdbcTemplate;
+        // this.trainingScheduleService = trainingScheduleService;
     }
 
     // Existing methods...
@@ -506,294 +512,6 @@ public List<String> getTrainingCourses() {
             return null;
         }
     }
-    // public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
-    //     String sql = "SELECT DATE_FORMAT(planned_start_date, '%Y-%m') AS month, training_status, COUNT(*) AS count FROM training_schedule GROUP BY month, training_status";
     
-    //     List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
-    
-    //     return result.stream()
-    //             .collect(Collectors.groupingBy(
-    //                     entry -> (String) entry.get("month"),
-    //                     Collectors.toMap(
-    //                             entry -> (String) entry.get("training_status"),
-    //                             entry -> ((Number) entry.get("count")).longValue()
-    //                     )
-    //             ));
-    // }
-    // public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
-    //     String sql = "SELECT TO_CHAR(planned_start_date, 'YYYY-MM') AS month, training_status, COUNT(*) AS count FROM training_schedule GROUP BY month, training_status";
-    
-    //     List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
-    
-    //     return result.stream()
-    //             .filter(entry -> entry.get("month") != null) // Filter out entries with null month
-    //             .collect(Collectors.groupingBy(
-    //                     entry -> (String) entry.get("month"),
-    //                     Collectors.toMap(
-    //                             entry -> (String) entry.get("training_status"),
-    //                             entry -> ((Number) entry.get("count")).longValue()
-    //                     )
-    //             ));
-    // }
-    // public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
-    //     String sql = "SELECT TO_CHAR(planned_start_date, 'YYYY-MM') AS month, training_status, COUNT(*) AS count FROM training_schedule GROUP BY month, training_status";
-
-    //     List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
-
-    //     return result.stream()
-    //             .filter(entry -> entry.get("month") != null)
-    //             .collect(Collectors.groupingBy(
-    //                     entry -> (String) entry.get("month"),
-    //                     Collectors.groupingBy(
-    //                             entry -> ((String) entry.get("training_status")).toUpperCase(),
-    //                             Collectors.summingLong(entry -> ((Number) entry.get("count")).longValue())
-    //                     )
-    //             ));
-    // }
-    // public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
-    //     // Get the current year
-    //     int currentYear = Year.now().getValue();
-
-    //     // SQL query to fetch data for the current year
-    //     String sql = "SELECT TO_CHAR(planned_start_date, 'YYYY-MM') AS month, training_status, COUNT(*) AS count " +
-    //                  "FROM training_schedule " +
-    //                  "WHERE EXTRACT(YEAR FROM planned_start_date) = ? " +  // Filter by the current year
-    //                  "GROUP BY month, training_status";
-
-    //     List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, currentYear);
-
-    //     return result.stream()
-    //             .filter(entry -> entry.get("month") != null)
-    //             .collect(Collectors.groupingBy(
-    //                     entry -> (String) entry.get("month"),
-    //                     Collectors.groupingBy(
-    //                             entry -> ((String) entry.get("training_status")).toUpperCase(),
-    //                             Collectors.summingLong(entry -> ((Number) entry.get("count")).longValue())
-    //                     )
-    //             ));
-    // }
-    // public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
-    //     // Get the current year
-    //     int currentYear = Year.now().getValue();
-
-    //     // SQL query to fetch data for the current year with month names
-    //     String sql = "SELECT TO_CHAR(planned_start_date, 'YYYY-Month') AS month, training_status, COUNT(*) AS count " +
-    //                  "FROM training_schedule " +
-    //                  "WHERE EXTRACT(YEAR FROM planned_start_date) = ? " +
-    //                  "GROUP BY month, training_status";
-
-    //     List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, currentYear);
-
-    //     // Format month names
-    //     DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MMMM ");
-    //     DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM");
-
-    //     return result.stream()
-    //             .filter(entry -> entry.get("month") != null)
-    //             .collect(Collectors.groupingBy(
-    //                     entry -> YearMonth.parse(((String) entry.get("month")).trim(), inputFormatter).format(outputFormatter),
-    //                     Collectors.groupingBy(
-    //                             entry -> ((String) entry.get("training_status")).toUpperCase(),
-    //                             Collectors.summingLong(entry -> ((Number) entry.get("count")).longValue())
-    //                     )
-    //             ));
-    // }
-    // public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
-    //     // Get the current year
-    //     int currentYear = Year.now().getValue();
-
-    //     // SQL query to fetch data for the current year with month names
-    //     String sql = "SELECT TO_CHAR(planned_start_date, 'yyyy-MM') AS month, training_status, COUNT(*) AS count " +
-    //                  "FROM training_schedule " +
-    //                  "WHERE EXTRACT(YEAR FROM planned_start_date) = ? " +
-    //                  "GROUP BY month, training_status";
-
-    //     List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, currentYear);
-
-    //     // Format month names
-    //     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
-
-    //     return result.stream()
-    //             .filter(entry -> entry.get("month") != null)
-    //             .collect(Collectors.groupingBy(
-    //                     entry -> YearMonth.parse((String) entry.get("month"), formatter).toString(),
-    //                     Collectors.groupingBy(
-    //                             entry -> ((String) entry.get("training_status")).toUpperCase(),
-    //                             Collectors.summingLong(entry -> ((Number) entry.get("count")).longValue())
-    //                     )
-    //             ));
-    // }
-    public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
-        // Get the current year
-        int currentYear = LocalDate.now().getYear();
-
-        // SQL query to fetch data for the current year with month names
-        String sql = "SELECT TO_CHAR(planned_start_date, 'yyyy-MM') AS month, training_status, COUNT(*) AS count " +
-                     "FROM training_schedule " +
-                     "WHERE EXTRACT(YEAR FROM planned_start_date) = ? " +
-                     "GROUP BY month, training_status";
-
-        List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, currentYear);
-
-        // Format month names
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.ENGLISH);
-
-        return result.stream()
-                .filter(entry -> entry.get("month") != null)
-                .collect(Collectors.groupingBy(
-                        entry -> YearMonth.parse((String) entry.get("month"), DateTimeFormatter.ofPattern("yyyy-MM")).format(formatter),
-                        Collectors.groupingBy(
-                                entry -> ((String) entry.get("training_status")).toUpperCase(),
-                                Collectors.summingLong(entry -> ((Number) entry.get("count")).longValue())
-                        )
-                ));
-    }
-
-
-    private YearMonth parseMonth(String month, DateTimeFormatter formatter) {
-        // Handle extra spaces and parse the month
-        return YearMonth.parse(month.trim(), formatter);
-    }
-    public List<CompletedCourseInfoDTO> getCompletedCoursesInfo(String empCode) {
-    String sql = "SELECT t.course, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, ts.training_status " +
-                 "FROM m_trainings t " +
-                 "JOIN training_schedule ts ON t.training_id = ts.training_id " +
-                 "JOIN registration r ON ts.schedule_id = r.schedule_id " +
-                 "JOIN m_employee e ON r.emp_id = e.emp_id " +
-                 "WHERE e.emp_code = ? AND ts.training_status = 'Completed' " +
-                 "ORDER BY ts.planned_start_date DESC";
-
-    return jdbcTemplate.query(sql, new Object[]{empCode}, (rs, rowNum) -> new CompletedCourseInfoDTO(
-            rs.getString("course"),
-            rs.getString("trainer_name"),
-            rs.getTimestamp("planned_start_date"),
-            rs.getTimestamp("planned_end_date"),
-            rs.getString("training_status")
-    ));
-}
-public CompletedCourseInfoDTO updateTrainingStatusAndMoveToCompleted(String empCode, Long scheduleId) {
-    // Fetch the training schedule details
-    TrainingViewDto trainingViewDto = getTrainingScheduleDetails(scheduleId);
-
-    // Perform the update of training status to 'Completed' in the database
-    updateTrainingStatusToCompleted(scheduleId);
-
-    // Move data to CompletedCourseInfoDTO
-    CompletedCourseInfoDTO completedCourseInfoDTO = new CompletedCourseInfoDTO(
-            trainingViewDto.getCourse(),
-            trainingViewDto.getTrainerName(),
-            trainingViewDto.getPlannedStartDate(),
-            trainingViewDto.getPlannedEndDate(),
-            "Completed"  // Assuming the training status is now 'Completed'
-    );
-
-    // Optionally, you can log or perform other actions
-
-    return completedCourseInfoDTO;
-}
-public TrainingViewDto getTrainingScheduleDetails(Long scheduleId) {
-    String sql = "SELECT t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, " +
-                 "t.trainer_names, t.prerequisites, t.course_description, t.daily_hrs, t.total_days, t.url, " +
-                 "t.username, t.password, ts.schedule_id, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, " +
-                 "ts.actual_start_date, ts.actual_end_date, ts.training_status, CAST(ts.active_yn AS CHAR) AS active_yn, " +
-                 "ts.from_time, ts.to_time, ts.created_by, ts.created_on, ts.updated_by, ts.updated_on " +
-                 "FROM m_trainings t " +
-                 "JOIN training_schedule ts ON t.training_id = ts.training_id " +
-                 "WHERE ts.schedule_id = ?";
-
-    return jdbcTemplate.queryForObject(sql, new Object[]{scheduleId}, new BeanPropertyRowMapper<>(TrainingViewDto.class));
-}
-
-public void updateTrainingStatusToCompleted(Long scheduleId) {
-    String sql = "UPDATE training_schedule SET training_status = 'Completed' WHERE schedule_id = ?";
-    jdbcTemplate.update(sql, scheduleId);
-}
-public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String course) {
-    String sql = "SELECT e.emp_code, e.emp_name, " +
-                 "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
-                 "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
-                 "ts.training_status " +
-                 "FROM m_trainings t " +
-                 "JOIN training_schedule ts ON t.training_id = ts.training_id " +
-                 "JOIN registration r ON ts.schedule_id = r.schedule_id " +
-                 "JOIN m_employee e ON r.emp_id = e.emp_id " +
-                 "WHERE t.course = ? AND ts.training_status = 'Completed' " +
-                 "ORDER BY ts.planned_start_date DESC";
-
-    return jdbcTemplate.query(sql, new Object[]{course}, (rs, rowNum) -> new EmployeeTrainingDetailsDTO(
-            rs.getString("emp_code"),
-            rs.getString("emp_name"),
-            rs.getString("planned_start_date"),
-            rs.getString("planned_end_date"),
-            rs.getString("training_status")
-    ));
-}
-
-public List<CompletedCourseInfoDTO> getCompletedCourses() {
-    String sql = "SELECT t.course, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, ts.training_status " +
-                 "FROM m_trainings t " +
-                 "JOIN training_schedule ts ON t.training_id = ts.training_id " +
-                 "WHERE ts.training_status = 'Completed' " +
-                 "ORDER BY ts.planned_start_date DESC";
-
-    return jdbcTemplate.query(sql, (rs, rowNum) -> new CompletedCourseInfoDTO(
-            rs.getString("course"),
-            rs.getString("trainer_name"),
-            rs.getTimestamp("planned_start_date"),
-            rs.getTimestamp("planned_end_date"),
-            rs.getString("training_status")
-    ));
-}
-
-public List<String> getUniqueTrainerNames() {
-    String sql = "SELECT DISTINCT trainer_name FROM training_schedule";
-    
-    return jdbcTemplate.queryForList(sql, String.class);
-}
-
-//   public List<EmployeeCourseDetailsDTO> getEmployeesCompletedCourseDetails(String course) {
-//         String sql = "SELECT e.emp_code, e.emp_name, t.course, t.trainer_name, " +
-//                      "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
-//                      "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
-//                      "ts.training_status " +
-//                      "FROM m_trainings t " +
-//                      "JOIN training_schedule ts ON t.training_id = ts.training_id " +
-//                      "JOIN registration r ON ts.schedule_id = r.schedule_id " +
-//                      "JOIN m_employee e ON r.emp_id = e.emp_id " +
-//                      "WHERE t.course = ? AND ts.training_status = 'Completed' " +
-//                      "ORDER BY ts.planned_start_date DESC";
-
-//         return jdbcTemplate.query(sql, new Object[]{course}, (rs, rowNum) -> new EmployeeCourseDetailsDTO(
-//                 rs.getString("emp_code"),
-//                 rs.getString("emp_name"),
-//                 rs.getString("course"),
-//                 rs.getString("trainer_name"),
-//                 rs.getString("planned_start_date"),
-//                 rs.getString("planned_end_date"),
-//                 rs.getString("training_status")
-//         ));
-//     }
-public List<EmployeeCourseDetailsDTO> getEmployeesCompletedCourseDetails(String course) {
-    String sql = "SELECT e.emp_code, e.emp_name, t.course, t.trainer_names, " +
-                 "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
-                 "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
-                 "ts.training_status " +
-                 "FROM m_trainings t " +
-                 "JOIN training_schedule ts ON t.training_id = ts.training_id " +
-                 "JOIN registration r ON ts.schedule_id = r.schedule_id " +
-                 "JOIN m_employee e ON r.emp_id = e.emp_id " +
-                 "WHERE t.course = ? AND ts.training_status = 'Completed' " +
-                 "ORDER BY ts.planned_start_date DESC";
-
-    return jdbcTemplate.query(sql, new Object[]{course}, (rs, rowNum) -> new EmployeeCourseDetailsDTO(
-            rs.getString("emp_code"),
-            rs.getString("emp_name"),
-            rs.getString("course"),
-            rs.getString("trainer_names"),
-            rs.getString("planned_start_date"),
-            rs.getString("planned_end_date"),
-            rs.getString("training_status")
-    ));
-}
     
 }
