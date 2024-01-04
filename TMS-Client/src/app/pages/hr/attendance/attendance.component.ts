@@ -65,13 +65,13 @@ export class AttendanceComponent implements OnInit {
 
 
   get pages(): number[] {
-    if (this.tableData1.dataRows.length === 0) {
-      return [];
-    }
+      if (this.tableData1.dataRows.length === 0) {
+        return [];
+      }
 
-    const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
-    return Array.from({ length: pageCount }, (_, index) => index + 1);
-  }
+      const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+      return Array.from({ length: pageCount }, (_, index) => index + 1);
+    }
 
 
   changeItemsPerPage(event: any): void {

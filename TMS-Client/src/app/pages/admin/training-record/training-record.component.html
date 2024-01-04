@@ -18,14 +18,14 @@
           <div class="table-responsive table-container">
             <table class="table">
               <thead class="text-primary">
-                <th *ngFor="let header of tableData1.headerRow" >{{ header }}</th>
+                <th class = "text-center" *ngFor="let header of tableData1.headerRow" >{{ header }}</th>
               </thead>
               <tbody>
                 <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
-                    <td>{{ row.sr_no }}</td>
-                    <td>{{ row.c_name }}</td>
-                    <td>{{ row.t_name }}</td>
-                    <td>
+                    <td class = "text-center">{{ row.sr_no }}</td>
+                    <td class = "text-center">{{ row.c_name }}</td>
+                    <td class = "text-center">{{ row.t_name }}</td>
+                    <td class = "text-center">
                       <a class="btn btn-primary" [routerLink]="['/employee-history', row.c_name]">{{ row.view }}</a>
                     </td>
                   </tr>

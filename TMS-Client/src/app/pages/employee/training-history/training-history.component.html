@@ -16,23 +16,19 @@
           <div class="table-responsive table-container">
             <table class="table">
               <thead class="text-primary">
-                <th *ngFor="let header of tableData1.headerRow">{{ header }}</th>
+                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
               </thead>
               
               <tbody>
                 <ng-container *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) ; let i = index">
-                  <tr class="expandable-row">
+                  <tr class="expandable-row text-center">
                     <td>{{ row.number }}</td>
-  
-  <td>
-<a >{{ row.course }}</a></td> 
-  
-                        <td>{{ row.trainer_name }}</td>
-                        <td>{{ row.start_date }}</td>
-                        <td>{{ row.end_date }}</td>
-                        <td>{{ row.status }}</td>
-</tr>
-
+                    <td>{{ row.course }}</td>   
+                    <td>{{ row.trainerName }}</td>
+                    <td>{{ row.plannedStartDate }}</td>
+                    <td>{{ row.plannedEndDate }}</td>
+                    <td>{{ row.trainingStatus }}</td>
+                  </tr>
                 </ng-container>
               </tbody>
             </table>

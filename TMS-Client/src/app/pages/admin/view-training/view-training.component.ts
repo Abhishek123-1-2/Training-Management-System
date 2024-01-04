@@ -30,6 +30,7 @@ export class ViewTrainingComponent implements OnInit {
   constructor(private router: Router,private trainingService:TrainingService) {}
   
     public tableData1: TableData;
+    public statusFilter: string = '';
     public filteredData: TableRow[];
     public searchValue: string = '';
     isEditMode: boolean = false;

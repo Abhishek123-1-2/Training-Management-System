@@ -10,8 +10,6 @@ import { tap } from 'rxjs/operators';
 export class UserService {
   private baseUrl = 'http://localhost:8083/api/login'; // Adjust the URL to your Spring Boot server
   private loggedInUserData: any;
-  // Add a property to store the emp_id
-  private empId: string | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -30,12 +28,11 @@ export class UserService {
 
   // Add a method to set the emp_id
   setEmpId(empId: string | null): void {
-    this.empId = empId;
+    this.loggedInUserData.empId = empId;
   }
 
-  // Add a method to get the emp_id
   getEmpId(): string | null {
-    return this.empId;
+    return this.loggedInUserData?.empId || null;
   }
 
   getLoggedInUserData(): any {

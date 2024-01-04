@@ -36,7 +36,9 @@ export const ROUTES: RouteInfo[] = [
     
 
 
-{ path: '/user-dashboard', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_USER']},
+
+
+{ path: '/user-dashboard/:empId', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_USER']},
 { path: '/user-dashboard', title: 'Training', class: '', icon: 'nc-user-run', roles:['ROLE_USER'] ,
 submenu:[
 {path:'on-request',title:'On-Request',icon:'',class:'',roles:['ROLE_USER']},
@@ -44,17 +46,40 @@ submenu:[
 ]},
 { path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_USER']},
 
-// {path:'performance',title:'Performance',class:'',icon:'nc-bell-55',roles:['ROLE_USER']},
+ 
+{ path: '/employee-search', title: 'Employee', icon: 'nc-circle-10', class:'', roles: ['ROLE_HR']},
+
+{ path: '', title: 'Training', class: '', icon: 'nc-caps-small', roles:['ROLE_HR'], submenu: [
+  { path: '/training-view', title: 'View Training', class: '', icon: '', roles:['ROLE_HR']}
+
+  ]},
+
+{ path: '/admin-attendance' ,title :'Reports' ,icon :'nc-chart-bar-32' , class : '', roles: ['ROLE_HR']},
 
 
-  { path: '/hr-dashboard', title: 'Employee Feedback', class: '', icon:'nc-chart-bar-32', roles:['ROLE_HR']},
-  { path: '/trainer-feedback', title: 'Trainer Feedback', class: '', icon: 'nc-app', roles:['ROLE_HR']},
+  
+
+  
+
+
+  
+
+  {path: '/admin-training', title: 'History', icon:'nc-tile-56', class: '', roles: ['ROLE_HR'], submenu: [
+    {path:'/training-record', title:'Training Record', icon:'', class:'', roles:['ROLE_HR']},
+    {path:'/training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_HR']},
+
+  ]},
+
+  { path: '/attendance' ,title :'Attendance' ,icon :'nc-chart-bar-32' , class : '', roles: ['ROLE_HR']},
+  
+
+
 
 
      // { path: '/icons',         title: 'Icons',             icon:'nc-diamond',    class: '' },
     // { path: '/maps',          title: 'Maps',              icon:'nc-pin-3',      class: '' }
     // { path: '/notifications', title: 'Notifications',     icon:'nc-bell-55',    class: '' },
-    // { path: '/user',          title: 'User Profile',      icon:'nc-single-02',  class: '' },
+    // { path: '/user',          title: 'User Profile',      icon:'nc-single-02',  class: ''},
     // { path: '/table',         title: 'Table List',        icon:'nc-tile-56',    class: '' },
     // { path: '/typography',    title: 'Typography',        icon:'nc-caps-small', class: '' },
     // { path: '/upgrade',       title: 'Upgrade to PRO',    icon:'nc-spaceship',  class: 'active-pro' },

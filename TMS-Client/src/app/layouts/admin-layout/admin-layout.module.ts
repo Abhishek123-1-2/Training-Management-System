@@ -17,7 +17,6 @@ import { AdminTrainerFeedbackComponent } from 'app/pages/admin/admin_trainer_fee
 import { StudentListComponent } from 'app/pages/admin/student_list/student_list.component';
 import { StudentList1Component } from 'app/pages/admin/student_list1/student_list1.component';
 import { AddParticipantsComponent } from 'app/pages/admin/add_participants/add_participants.component';
-import { ViewTrainingComponent } from 'app/pages/admin/view-training/view-training.component';
 import { AdminAttendanceComponent } from 'app/pages/admin/admin-attendance/admin-attendance.component';
 import { TimeFormatPipe } from 'app/pages/admin/schedule-training/schedule-training.pipe';
 import { ScheduleTrainingComponent } from 'app/pages/admin/schedule-training/schedule-training.component';
@@ -49,16 +48,16 @@ import { ApprovedRequestComponent } from 'app/pages/manager/approved-request/app
 import { FeedbackToEmployeeComponent } from 'app/pages/trainer/feedback-to-employee/feedback-to-employee.component';
 import { EmployeeFeedbackDetailsComponent } from 'app/pages/admin/employee_feedback_details/employee_feedback_details.component';
 import { FeedbackFormComponent } from 'app/pages/employee/feedback-form/feedback-form.component';
-
 import { ReportMainComponent } from 'app/pages/trainer/report-main/report-main.component';
 import { ReportOfEmployeeComponent } from 'app/pages/trainer/report-emp/report-emp.component';
 import { ReportOfCoursesComponent } from 'app/pages/trainer/report-courses/report-courses.component';
 import { AttendanceRecordComponent } from 'app/pages/admin/attendance-record/attendance-record.component';
 import { TrainerTrainingDetailsComponent } from 'app/pages/trainer/trainer-training-details/trainer-training-details.component';
-import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
 import { Attendance2Component } from 'app/pages/hr/attendance2/attendance2.component';
 import { AttendanceComponent } from 'app/pages/hr/attendance/attendance.component';
 import { ParticipantsListComponent } from 'app/pages/admin/participants-list/participants-list.component';
+import { ViewTrainingComponent } from 'app/pages/admin/view-training/view-training.component';
+import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
 
 
 
@@ -81,7 +80,6 @@ import { ParticipantsListComponent } from 'app/pages/admin/participants-list/par
     MapsComponent,
     NotificationsComponent,
     AdminAttendanceComponent,
-    ViewTrainingComponent,
     AdminEmployeeFeedbackComponent,
     AdminRegistrationComponent,
     AdminTrainerFeedbackComponent,
@@ -91,7 +89,7 @@ import { ParticipantsListComponent } from 'app/pages/admin/participants-list/par
     TimeFormatPipe,
     ScheduleTrainingComponent,
     AddTrainingComponent,
-    TrainerDashboardComponent,
+    // TrainerDashboardComponent,
     ScheduleListComponent,
     AdminTrainingHistoryComponent,
     CourseDetailsComponent,
@@ -106,8 +104,6 @@ import { ParticipantsListComponent } from 'app/pages/admin/participants-list/par
     UpcomingTrainingComponent,
     TrainerFeedbackToEmployeeComponent,
     CompletedTrainingComponent,
-    // EmployeeFeedbackComponent,
-    ViewTrainingComponent,
     AdminAttendanceComponent,
     EmployeeFeedbackDetailsComponent,
     FeedbackFormComponent,
@@ -127,11 +123,15 @@ import { ParticipantsListComponent } from 'app/pages/admin/participants-list/par
     ReportOfEmployeeComponent,
     ReportOfCoursesComponent,
     TrainerTrainingDetailsComponent,
-    TrainingViewComponent,
     AttendanceComponent,
     Attendance2Component,
     ParticipantsListComponent,
     AttendanceRecordComponent,
+    CourseDetailsComponent,
+    EmployeeFeedbackDetailsComponent,
+    ViewTrainingComponent,
+    TrainingViewComponent
+
 
 
     

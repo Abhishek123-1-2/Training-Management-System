@@ -72,6 +72,11 @@ export class EmployeeService {
 
       
   }
+
+  getFeedback(empId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/completed-courses/${empId}`);
+  }
+
   
 
 }

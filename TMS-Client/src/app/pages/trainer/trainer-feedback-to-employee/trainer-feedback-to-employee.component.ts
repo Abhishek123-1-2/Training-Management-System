@@ -1,16 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+// trainer-feedback-to-employee.component.ts
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { TrainingService } from '../trainer-services/trainer.service';
+import { filter } from 'rxjs';
+import { error } from 'console';
+import { Router } from '@angular/router';
 
-declare interface TableData {
-  headerRow: string[];
-  dataRows: {
-    sr_no: string;
-    c_name: string;
-    s_date: string;
-    e_date: string;
-    status: string;
-    view: string;
-  }[];
-}
 
 interface TableRow {
   sr_no: string;
@@ -18,7 +12,11 @@ interface TableRow {
   s_date: string;
   e_date: string;
   status: string;
-  view: string;
+  view:string;
+  schedule_id:string;
+  training_id:string;
+  attendance_id:string;
+  
 }
 
 @Component({
@@ -27,30 +25,94 @@ interface TableRow {
   templateUrl: './trainer-feedback-to-employee.component.html',
 })
 export class TrainerFeedbackToEmployeeComponent implements OnInit {
-  public tableData1: TableData;
-  public filteredData: TableRow[];
+  // public tableData1: TableData;
+  public course:string[]=[];
+ public originalData:TableRow[]=[];
+ public filteredData:TableRow[]=[];
   public searchValue: string = '';
+  public currentPage = 1;
+  public itemsPerPage = 5;
+  
 
-  constructor() { }
+  constructor(private trainingService:TrainingService,
+    private router: Router,
+    ) { }
 
+ 
   ngOnInit(): void {
-    this.tableData1 = {
-      headerRow: ['Sr No.', 'Course Name', 'Start Date', 'End Date', 'Status', 'Attendees'],
-      dataRows: [
-        {sr_no:'1', c_name:'Angular',s_date:'10-11-2023', e_date:'15-11-2023', status:'Completed', view: 'View'},
-        {sr_no:'2', c_name:'Angular',s_date:'20-11-2023', e_date:'25-11-2023', status:'Completed', view: 'View'}
-      ]
-    };
+    // this.tableData1 = {
+    //   headerRow: ['Sr No.', 'Course Name', 'Start Date', 'End Date', 'Status', 'Attendees'],
+    //   dataRows: [
+    //     {sr_no:'1', c_name:'Angular',s_date:'10-11-2023', e_date:'15-11-2023', status:'Completed', view: 'View'},
+    //     {sr_no:'2', c_name:'Angular',s_date:'20-11-2023', e_date:'25-11-2023', status:'Completed', view: 'View'}
+    //   ]
+    // };
 
-    this.filteredData = [...this.tableData1.dataRows];
+    // this.filteredData = [...this.tableData1.dataRows];
+    this.fetchTrainingDetails();
+  }
+
+  fetchTrainingDetails(){
+    this.trainingService.getCompletedTrainingDetails().subscribe(
+      (data:any[])=>{
+        this.originalData=data.map((item,index)=>({
+          sr_no:(index+1).toString(),
+          c_name:item.course,
+          s_date:item.plannedStartDate,
+          e_date:item.plannedEndDate,
+          status:item.trainingStatus,
+          view:'View',
+          schedule_id:item.scheduleId,
+          training_id:item.trainingId,
+          attendance_id:item.attendanceId,
+          // view: `/student-list3?start_date=${item.plannedStartDate}&end_date=${item.plannedEndDate}&status=${item.trainingStatus}`
+        }));
+
+        console.log('Completed Trainings:');
+        this.originalData.forEach(item =>{
+          console.log('Schedule ID: ',item.schedule_id+',Training ID :',item.training_id);
+          console.log('Attendance ID : ',item.attendance_id);
+        });
+
+        this.filteredData=[...this.originalData];
+      },
+      error=>{
+        console.error('Error fetching training details:', error);
+      }
+    )
   }
 
   applyFilter() {
-    this.filteredData = this.tableData1.dataRows.filter(row =>
+    const searchText=this.searchValue.toLowerCase().trim();
+
+    this.filteredData = this.originalData.filter(row =>
       Object.values(row).some(value =>
-        value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
+        value && value.toString().toLowerCase().includes(searchText)
       )
     );
   }
 
+  resetFilters(){
+    this.searchValue='';
+    this.filteredData=[...this.originalData];
+  }
+ 
+  //newly added for referencing
+  viewEmployeesForCourse(course: string) {
+    this.router.navigate(['/student-list3'], { queryParams: { course: course } });
+  }
+
+  get pages(): number[] {
+    if (this.filteredData.length === 0) {
+      return [];
+    }
+
+    const pageCount = Math.ceil(this.filteredData.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
+
+  changeItemsPerPage(event: any): void {
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1;
+  }
 }

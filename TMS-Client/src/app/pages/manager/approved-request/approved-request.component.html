@@ -15,7 +15,7 @@
                 <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
               </thead>
               <tbody>
-                <tr *ngFor="let row of filteredData" class="expandable-row text-center">
+                <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row text-center">
                     <td>{{ row.sr_no }}</td>
                     <td>{{ row.emp_code }}</td>
                     <td>{{ row.emp_name }}</td>

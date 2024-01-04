@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class FeedbackFormComponent implements OnInit {
 
- 
+ saveForm: FormGroup;
 
 
 
@@ -24,12 +24,15 @@ export class FeedbackFormComponent implements OnInit {
 
 
   @ViewChild('chartCanvas') chartCanvas: ElementRef<HTMLCanvasElement>;; // Reference to the canvas element
-  saveForm: any;
-  formBuilder: any;
+  
   chart: any;
 
-  constructor() { }
+  constructor(private fb:FormBuilder) { }
   ngOnInit(): void {
+    this.saveForm = this.fb.group({
+    commentsFromTrainer: ['', Validators.required]
+
+    });
   }
 
 

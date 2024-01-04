@@ -23,10 +23,14 @@
                 <ng-container *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) ; let i = index">
                   
                   <tr class="expandable-row text-center">
-                    <td>{{ row.number }}</td>
-                    <td><a>{{ row.course }}</a></td> 
-                    <td>{{ row.trainer_name }}</td>
-                    <td><button class="btn btn-primary" (click)="sendRequest(row)" [disabled]="row.isEnrolled">Request{{ row.action }}</button> <!-- (click)="toggleEditMode(i)" --></td>
+                        <td>{{ row.number }}</td>
+                        <td>{{ row.course }}</td> 
+                        <td>{{ row.trainer_name }}</td>
+                    <td>
+                        <button class="btn btn-primary" (click)="showNotification('top','center')" >Request{{ row.action }}</button> <!-- (click)="toggleEditMode(i)" -->
+<!--                       <button class="btn btn-primary" (click)="sendRequest()">Request{{ row.action }}</button> 
+ -->                      <!-- (click)="toggleEditMode(i)" -->
+                    </td>
                   </tr>
                 </ng-container>
               </tbody>

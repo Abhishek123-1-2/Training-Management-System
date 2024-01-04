@@ -35,7 +35,6 @@ import { EmployeeHistoryComponent } from 'app/pages/admin/employee-history/emplo
 import { AdminRegistrationComponent } from 'app/pages/admin/admin_registration/admin_registration.component';
 import { EmployeeSearchComponent } from 'app/pages/admin/employee-search/employee-search.component';
 import { CourseDetailsComponent } from 'app/pages/admin/course-details/course-details.component';
-import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
 import { UpcomingTrainingComponent } from 'app/pages/trainer/upcoming-training/upcoming-training.component';
 import { CompletedTrainingComponent } from 'app/pages/trainer/completed-training/completed-training.component';
 import { TrainerFeedbackToEmployeeComponent } from 'app/pages/trainer/trainer-feedback-to-employee/trainer-feedback-to-employee.component';
@@ -75,7 +74,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'trainer-dashboard', component: TrainerDashboardComponent},
     { path: 'feedback', component:FeedbackComponent},
     { path: 'feedback-details', component:FeedbackDetailsComponent},
-    { path: 'feedback-form/:id', component:FeedbackFormComponent},
+    { path: 'feedback-form/:number', component:FeedbackFormComponent},
     { path: 'student-list', component: StudentListComponent},
     { path: 'student-list1', component: StudentList1Component},
     { path: 'attendance-record', component: AttendanceRecordComponent},
@@ -105,6 +104,9 @@ export const AdminLayoutRoutes: Routes = [
     {path:'report-employee',component:ReportOfEmployeeComponent},
     {path:'report-courses',component:ReportOfCoursesComponent},
     {path:'participants-list', component: ParticipantsListComponent},
-    {path:'on-request', component: OnRequestComponent},
+    {path:'on-request', component: OnRequestComponent},    
+    {path:'on-request', component:OnRequestComponent},
+    {path:'performance', component:PerformanceDashboardComponent},
+
     {path:'user-training-history', component: TrainingHistoryComponent}
 ];

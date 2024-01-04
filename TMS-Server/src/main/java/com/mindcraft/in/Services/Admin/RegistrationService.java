@@ -147,4 +147,44 @@ public class RegistrationService {
         }
     }
     
+    public Long enrollTraining(Registration registration) {
+        // You might want to validate inputs and handle business logic here
+    
+        // Set other properties if needed
+        registration.setRegistration_date(new Timestamp(System.currentTimeMillis()));
+        registration.setActive_yn('Y');  // Assuming 'Y' represents active status
+    
+        return register(registration);  // Reuse the existing registration method
+    }
+
+    // Add other methods as needed...
+
+        public List<EmployeeDetailsDTO> getAttendees(String course, String trainingStatus) {
+    String sql = "SELECT e.emp_code AS empCode, e.emp_name AS empName, " +
+                 "e.designation_name AS designationName, e.function_name AS functionName, " +
+                 "e.email AS email " +
+                 "FROM m_employee e " +
+                 "JOIN registration r ON e.emp_id = r.emp_id " +
+                 "JOIN training_schedule s ON r.schedule_id = s.schedule_id " +
+                 "JOIN m_trainings t ON s.training_id = t.training_id " +
+                 "WHERE t.course = ? AND s.training_status = ? " +
+                 "ORDER BY r.registration_date DESC";
+
+    return jdbcTemplate.query(sql, new Object[]{course, trainingStatus}, new BeanPropertyRowMapper<>(EmployeeDetailsDTO.class));
+}
+
+ public List<RegistrationDetailsDTO> getRegistrationDetails() {
+        String sql = "SELECT e.emp_code AS empCode, e.emp_name AS empName, r.registration_id AS registrationId, " +
+                "r.registration_date AS registrationDate, t.course AS courseName, " +
+                "r.registration_comments AS registrationComments, r.registration_status AS status, " +
+                "r.registration_response AS registrationResponse " +
+                "FROM m_employee e " +
+                "JOIN registration r ON e.emp_id = r.emp_id " +
+                "JOIN training_schedule s ON r.schedule_id = s.schedule_id " +
+                "JOIN m_trainings t ON s.training_id = t.training_id " +
+                "ORDER BY r.registration_date DESC";
+    
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(RegistrationDetailsDTO.class));
+    }
+    
 }

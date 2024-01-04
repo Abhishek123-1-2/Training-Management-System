@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EmployeeService } from '../trainer-services/employee.service';
+import { error } from 'console';
+import { DataService } from '../trainer-services/data.service';
 
-declare interface TableData {
-  headerRow: string[];
-  dataRows: {
-    sr_no: string;
-    emp_code: string;
-    emp_name: string;
-    feedback: string;
-  }[];
-}
 
-interface TableRow {
-  sr_no: string;
+interface EmployeeDetails {
+  s_no: string;
   emp_code: string;
   emp_name: string;
+  startDate:string;
+  endDate:string;
+  tstatus:string;
   feedback: string;
+
+// newly added
+  emp_id:string;
+  schedule_id:string;
 }
 
 
@@ -25,39 +26,124 @@ interface TableRow {
   templateUrl: './student-list3.component.html',
 })
 export class StudentList3Component implements OnInit {
-  public tableData1: TableData;
-  public filteredData: TableRow[];
-  public searchValue: string = '';
-  start_date: string;
-  end_date: string;
-  status: string;
+  public currentPage = 1;
+  public itemsPerPage = 5;
+  
+  constructor(
+    private route: ActivatedRoute,
+    private employeeService:EmployeeService,
+    private router:Router,
+    private dataService:DataService,
+   
+    ) { }
 
-  constructor(private route: ActivatedRoute) { }
+  public tableData1= {
+    headerRow: ['Sr No', 'Employee Code', 'Employee Name', 'Start Date', 'End Date', 'Status', 'Feedback'],
+    dataRows: []
+  };
 
-  ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.start_date = params['start_date'];
-      this.end_date = params['end_date'];
-      this.status = params['status'];
-    })
-    this.tableData1 = {
-      headerRow: ['Sr No', 'Employee Code', 'Employee Name','Start Date', 'End Date', 'Status', 'Feedback'],
-      dataRows: [
-        {sr_no:'1', emp_code:'3647', emp_name:'Yash Gavanang', feedback:'Give'},
-        {sr_no:'2', emp_code:'3646', emp_name:'Abhishek Pillai', feedback:'Give'},
-        {sr_no:'3', emp_code:'3639', emp_name:'Mukul Gupta', feedback:'Give'},
-        {sr_no:'4', emp_code:'3364', emp_name:'Yash Gole', feedback:'Give'},
-      ]
-    };
-    this.filteredData = [...this.tableData1.dataRows];
+  public filteredData: EmployeeDetails[]=[];
+  public searchValue:string = '';
+  public selectedCourse:string ='';
+
+  
+  viewEmployees(course: string) {
+    this.selectedCourse = course; // set selected course
+    this.employeeService.getEmployeesByCourse(course).subscribe(
+      (data: any[]) => {
+    
+      this.tableData1.dataRows = data.map((row, index) => ({
+          s_no:(index+1).toString(),
+          emp_code: row.empCode,
+          emp_name: row.empName,
+          startDate: row.plannedStartDate,
+          endDate: row.plannedEndDate,
+          tstatus: row.status,
+          feedback:'Give',
+
+          emp_id:row.empId,
+          schedule_id:row.scheduleId
+
+        })); //[...data];
+      this.filteredData = [...this.tableData1.dataRows];
+      console.log('filtered data : ',this.filteredData);
+
+      // Displaying empId and scheduleId in the console
+      this.filteredData.forEach(employee => {
+        console.log(`empId: ${employee.emp_id}, scheduleId: ${employee.schedule_id}`);
+        
+        this.passEmpAndScheduleId(employee.emp_id,employee.schedule_id);
+
+      });
+      
+    },
+
+   
+   (error)=>{
+    console.error('error fetching data: ',error);
+   }
+   
+   );
+console.log('viewEmp');
+  
+
+}
+//newly added
+    passEmpAndScheduleId(emp_id:string,schedule_id:string){
+      this.dataService.changeEmpId(emp_id);
+      this.dataService.changeScheduleId(schedule_id);
+    }
+
+  ngOnInit(): void { 
+    this.route.queryParams.subscribe(params => {
+      //newly added for ids
+      const emp_id=params['emp_id'];
+      const schedule_id=params['schedule_id'];
+
+
+      
+      this.selectedCourse = params['course'];
+
+      if (this.selectedCourse) {
+        this.viewEmployees(this.selectedCourse);
+        console.log('ngOnInit')
+      }
+    });
+    
   }
+    
 
   applyFilter() {
+    const searchText=this.searchValue.toLowerCase().trim();
+
     this.filteredData = this.tableData1.dataRows.filter(row =>
-      Object.values(row).some(value =>
-        value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
+      Object.values(row).some(value =>  value && 
+     value.toString().toLowerCase().includes(searchText)
       )
     );
   }
+
+
+
+navigateToFeedback(empCode: string, startDate: string, endDate: string, status: string) {
+  // Redirect to feedback component with necessary parameters
+  this.router.navigate(['/feedback-to-employee'], {
+    queryParams: { emp_code: empCode, start_date: startDate, end_date: endDate, tstatus: status }
+  });
+}
+
+get pages(): number[] {
+  if (this.filteredData.length === 0) {
+    return [];
+  }
+
+  const pageCount = Math.ceil(this.filteredData.length / this.itemsPerPage);
+  return Array.from({ length: pageCount }, (_, index) => index + 1);
+}
+
+changeItemsPerPage(event: any): void {
+  this.itemsPerPage = +event.target.value;
+  this.currentPage = 1;
+}
 
 }

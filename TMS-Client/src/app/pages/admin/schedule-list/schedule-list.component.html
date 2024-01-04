@@ -21,20 +21,20 @@
         <div class="table-responsive text-nowrap table-container">
           <table class="table">
             <thead class="text-primary">
-              <th *ngFor="let header of tableData1.headerRow">{{ header }}</th>
+              <th class = "text-center" *ngFor="let header of tableData1.headerRow">{{ header }}</th>
             </thead>
             <tbody>
               <ng-container *ngFor="let row of filteredData; let i = index">
                 <tr class="expandable-row">
-                  <td>{{ row.number }}</td>
-                  <td>{{ row.course }}</td>
-                  <td>{{ extractTrainerName(row.trainer_name) }}</td>
-                  <td>{{ row.planned_start_date }}</td>
-                  <td>{{ row.planned_end_date }}</td>
-                  <td>{{ row.from_time }}</td>
-                  <td>{{ row.to_time }}</td>
-                  <td>{{ row.status }}</td>
-                  <td>
+                  <td class = "text-center">{{ row.number }}</td>
+                  <td class = "text-center">{{ row.course }}</td>
+                  <td class = "text-center">{{ extractTrainerName(row.trainer_name) }}</td>
+                  <td class = "text-center">{{ row.planned_start_date }}</td>
+                  <td class = "text-center">{{ row.planned_end_date }}</td>
+                  <td class = "text-center">{{ row.from_time }}</td>
+                  <td class = "text-center">{{ row.to_time }}</td>
+                  <td class = "text-center">{{ row.status }}</td>
+                  <td class = "text-center">
                     <button class="btn btn-info" (click)="addParticipants(i)"
                             [routerLink]="['/add-participants', { course: row.course, trainer: row.trainer_name, s_date: row.planned_start_date, e_date: row.planned_end_date }]"
                             [disabled]="row.status !== 'Upcoming'">
