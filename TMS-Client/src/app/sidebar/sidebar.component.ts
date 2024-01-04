@@ -26,7 +26,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/admin-attendance' ,title :'Reports' ,icon :'nc-chart-bar-32' , class : '', roles: ['ROLE_ADMIN']}, 
     {path: '/admin-training', title: 'History', icon:'nc-tile-56', class: '', roles: ['ROLE_ADMIN'], submenu: [
         {path:'/training-record', title:'Training Record', icon:'', class:'', roles:['ROLE_ADMIN']},
-        {path:'/training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_ADMIN']},
+        {path:'/admin-training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_ADMIN']},
     ]},
 
     { path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', roles: ['ROLE_TRAINER']},
@@ -38,11 +38,11 @@ export const ROUTES: RouteInfo[] = [
 
 
 
-{ path: '/user-dashboard', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_USER']},
+{ path: '/user-dashboard/:empId', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_USER']},
 { path: '/user-dashboard', title: 'Training', class: '', icon: 'nc-user-run', roles:['ROLE_USER'] ,
 submenu:[
-{path:'/on-request',title:'On-Request',icon:'',class:'',roles:['ROLE_USER']},
-{path:'/training-history',title:'Training History',icon:'',class:'',roles:['ROLE_USER']},  
+{path:'on-request',title:'On-Request',icon:'',class:'',roles:['ROLE_USER']},
+{path:'user-training-history',title:'Training History',icon:'',class:'',roles:['ROLE_USER']},  
 ]},
 { path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_USER']},
 

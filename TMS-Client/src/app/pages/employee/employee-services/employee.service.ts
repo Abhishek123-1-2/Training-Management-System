@@ -69,7 +69,14 @@ export class EmployeeService {
       };
 
       return this.http.post<number>(enrollUrl, registrationData, { headers });
+
+      
   }
+
+  getFeedback(empId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/completed-courses/${empId}`);
+  }
+
   
 
 }

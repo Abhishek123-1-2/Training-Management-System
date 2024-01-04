@@ -86,7 +86,7 @@ export const AppRoutes: Routes = [
           component: AddParticipantsComponent,
         },
         {
-          path: 'user-dashboard',
+          path: 'user-dashboard/:empId',
           component: UserDashboardComponent,
         },
         {

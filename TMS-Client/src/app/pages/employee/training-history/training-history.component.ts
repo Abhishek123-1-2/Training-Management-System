@@ -1,6 +1,9 @@
 /* training-history.component.ts */
 import { Component, OnInit } from '@angular/core'
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EmployeeService } from '../employee-services/employee.service';
+import { HttpClient } from '@angular/common/http';
+import { UserService } from 'app/pages/login/login.service';
 
 declare interface TableData {
     headerRow: string[];
@@ -8,21 +11,31 @@ declare interface TableData {
 
 number: string;
 course: string;
-trainer_name: string;
-status: string; 
-start_date:string;
-end_date:string; 
+trainerName: string;
+trainingStatus: string; 
+plannedStartDate:string;
+plannedEndDate:string; 
        
     }[];
 }
 interface TableRow {
-number: string;
-course: string;
-trainer_name: string;
-status: string; 
-start_date:string;
-end_date:string;
+  number: string;
+  course: string;
+  trainerName: string;
+  trainingStatus: string; 
+  plannedStartDate:string;
+  plannedEndDate:string; 
 
+}
+
+interface TrainingHistory {
+  empId: string;
+  number: string;
+  course: string;
+  trainerName: string;
+  trainingStatus: string;
+  plannedStartDate: string;
+  plannedEndDate: string;
 }
 
 @Component({
@@ -33,7 +46,7 @@ end_date:string;
 
 export class TrainingHistoryComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private employeeService: EmployeeService, private http: HttpClient, private userService: UserService, private route: ActivatedRoute) {}
   
     public tableData1: TableData;
     public filteredData: TableRow[];
@@ -45,52 +58,84 @@ export class TrainingHistoryComponent implements OnInit {
     display = 'none';
 
     currentPage=1;
-    itemsPerPage=2;
+    itemsPerPage=5;
 
 
     ngOnInit()  {
+      this.route.params.subscribe(params => {
+        const empId = params['empId'];
+        if(empId) {
+          this.fetchTrainingHistory(empId);
+        }
+      });
         this.tableData1 = {
             headerRow: ['No.','Course','Trainer Name','Start Date','End Date','Status'],
             dataRows: [{
 number: '1',
 course: 'Java',
-trainer_name: 'Kishor',
-start_date:'1-12-2023',
-end_date:'5-12-2023',
-status: 'Completed'  }
+trainerName: 'Kishor',
+plannedStartDate:'1-12-2023',
+plannedEndDate:'5-12-2023',
+trainingStatus: 'Completed'  }
 ,
 {
   number: '2',
   course: 'Spring Boot',
-  trainer_name: 'Kishor',
-  start_date:'6-12-2023',
-  end_date:'9-12-2023',
-  status: 'Completed' 
+  trainerName: 'Kishor',
+  plannedStartDate:'6-12-2023',
+  plannedEndDate:'9-12-2023',
+  trainingStatus: 'Completed' 
 } ,
 {
   number: '3',
 course: 'PLSQL',
-trainer_name: 'Girish',
-start_date:'10-12-2023',
-end_date:'15-12-2023',
-status: 'Completed' 
-}     ,
-{
-  number: '4',
-  course: 'Angular',
-  trainer_name: 'Bhavana',
-  start_date:'1-12-2023',
-end_date:'5-12-2023',
-  status: 'Completed' 
-},
+trainerName: 'Girish',
+plannedStartDate:'10-12-2023',
+plannedEndDate:'15-12-2023',
+trainingStatus: 'Completed' 
+} 
 
 ]
         };
         this.filteredData = [...this.tableData1.dataRows]
 
-        this.currentPage = Math.min(this.currentPage, this.pages.length);
+//         this.currentPage = Math.min(this.currentPage, this.pages.length);
 
+
+
+const empId = this.userService.getEmpId();
+
+if(empId) {
+  this.fetchTrainingHistory(empId);
+}
+
+
+}
+
+fetchTrainingHistory(empId: string) {
+  const url = `http://localhost:8083/api/training-history/employee/${empId}`;
+
+  this.http.get<TrainingHistory[]>(url).subscribe(
+    (response) => {
+      console.log('Training History Data:', response);
+      this.tableData1.dataRows = response.map((item, index) => ({
+        number: (index + 1).toString(),
+        course: item.course,
+        trainerName: item.trainerName.split('(')[0].trim(),
+        plannedStartDate: item.plannedStartDate,
+        plannedEndDate: item.plannedEndDate,
+        trainingStatus: item.trainingStatus,
+        empId: item.empId,
+      }));
+
+      this.filteredData = [...this.tableData1.dataRows];
+      this.currentPage = Math.min(this.currentPage, this.pages.length)
+    },
+    (error) => {
+      console.error('Error fetching training history:', error);
     }
+  );
+}
 
       
     applyFilter() {
@@ -135,8 +180,6 @@ end_date:'5-12-2023',
         this.itemsPerPage = +event.target.value;
         this.currentPage = 1; // Reset to the first page when changing items per page
       }
-
-     
 
 }
 

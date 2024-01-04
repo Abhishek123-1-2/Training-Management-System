@@ -34,10 +34,9 @@ export class LoginComponent implements OnInit {
             console.log(response);
             console.log('Login success', response);
 
-            const empId = response?.empId;
-            if (empId) {
-              this.userService.setEmpId(empId);
-            }
+            // const empId = this.userService.getEmpId();
+            const empId = response.empId;
+            console.log('EmpId:', empId);
 
             const specificValue = response.role;
             console.log('Value of yourKey:', specificValue);
@@ -49,7 +48,8 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/dashboard']);
                 break;
               case 'ROLE_USER':
-                this.router.navigate(['/user-dashboard']);
+                const empId = response.empId;
+                this.router.navigate(['/user-dashboard',empId]);
                 break;
               case 'ROLE_MANAGER':
                 this.router.navigate(['/manager-dashboard']);

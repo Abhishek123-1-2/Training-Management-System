@@ -1,0 +1,60 @@
+package com.mindcraft.in.Pojos.Employee;
+
+public class CompletedCoursesDTO {
+    private String scheduleId;
+    private String course;
+    private String trainerName;
+    private String plannedStartDate;
+    private String plannedEndDate;
+    private String trainingStatus;
+
+    public CompletedCoursesDTO() {
+
+    }
+
+    public CompletedCoursesDTO(String scheduleId, String course, String trainerName, String plannedStartDate, String plannedEndDate, String trainingStatus) {
+        this.scheduleId = scheduleId;
+        this.course = course;
+        this.trainerName = trainerName;
+        this.plannedStartDate = plannedStartDate;
+        this.plannedEndDate = plannedEndDate;
+        this.trainingStatus = trainingStatus;
+    }
+    
+    public String getScheduleId() {
+        return scheduleId;
+    }
+    public void setScheduleId(String scheduleId) {
+        this.scheduleId = scheduleId;
+    }
+    public String getCourse() {
+        return course;
+    }
+    public void setCourse(String course) {
+        this.course = course;
+    }
+    public String getTrainerName() {
+        return trainerName;
+    }
+    public void setTrainerName(String trainerName) {
+        this.trainerName = trainerName;
+    }
+    public String getPlannedStartDate() {
+        return plannedStartDate;
+    }
+    public void setPlannedStartDate(String plannedStartDate) {
+        this.plannedStartDate = plannedStartDate;
+    }
+    public String getPlannedEndDate() {
+        return plannedEndDate;
+    }
+    public void setPlannedEndDate(String plannedEndDate) {
+        this.plannedEndDate = plannedEndDate;
+    }
+    public String getTrainingStatus() {
+        return trainingStatus;
+    }
+    public void setTrainingStatus(String trainingStatus) {
+        this.trainingStatus = trainingStatus;
+    }
+}

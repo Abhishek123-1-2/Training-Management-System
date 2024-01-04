@@ -52,6 +52,7 @@ import { ReportMainComponent } from 'app/pages/trainer/report-main/report-main.c
 import { ReportOfEmployeeComponent } from 'app/pages/trainer/report-emp/report-emp.component';
 import { TrainerTrainingDetailsComponent } from 'app/pages/trainer/trainer-training-details/trainer-training-details.component';
 import { ParticipantsListComponent } from 'app/pages/admin/participants-list/participants-list.component';
+import { TrainingHistoryComponent } from 'app/pages/employee/training-history/training-history.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -73,7 +74,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'trainer-dashboard', component: TrainerDashboardComponent},
     { path: 'feedback', component:FeedbackComponent},
     { path: 'feedback-details', component:FeedbackDetailsComponent},
-    { path: 'feedback-form/:id', component:FeedbackFormComponent},
+    { path: 'feedback-form/:number', component:FeedbackFormComponent},
     { path: 'student-list', component: StudentListComponent},
     { path: 'student-list1', component: StudentList1Component},
     { path: 'attendance-record', component: AttendanceRecordComponent},
@@ -84,7 +85,7 @@ export const AdminLayoutRoutes: Routes = [
     {path:'student-list2', component: StudentList2Component},
     {path:'training-record', component: TrainingRecordComponent},
     {path:'employee-history/:c_name', component: EmployeeHistoryComponent},
-    {path:'training-history', component: AdminTrainingHistoryComponent},
+    {path:'admin-training-history', component: AdminTrainingHistoryComponent},
     {path:'registration', component: AdminRegistrationComponent},
     {path:'employee-search', component: EmployeeSearchComponent},
     {path:'course-details/:emp_code', component: CourseDetailsComponent},
@@ -103,7 +104,9 @@ export const AdminLayoutRoutes: Routes = [
     {path:'report-employee',component:ReportOfEmployeeComponent},
     {path:'report-courses',component:ReportOfCoursesComponent},
     {path:'participants-list', component: ParticipantsListComponent},
-    {path:'on-request', component: OnRequestComponent},    {path:'on-request', component:OnRequestComponent},
-    {path:'performance', component:PerformanceDashboardComponent}
+    {path:'on-request', component: OnRequestComponent},    
+    {path:'on-request', component:OnRequestComponent},
+    {path:'performance', component:PerformanceDashboardComponent},
 
+    {path:'user-training-history', component: TrainingHistoryComponent}
 ];
