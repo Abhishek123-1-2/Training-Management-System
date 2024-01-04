@@ -48,7 +48,8 @@ public class LoginService {
                 response.put("status", "success");
                 response.put("role", role);
                 response.put("employeeName", employeeName);
-                response.put("empId", String.valueOf(empId)); 
+                response.put("empId", String.valueOf(empId));
+                response.put("empCode", empCode); 
                 response.put("message", "Login successful");
 
                 System.out.println("Employee Name: " + employeeName);

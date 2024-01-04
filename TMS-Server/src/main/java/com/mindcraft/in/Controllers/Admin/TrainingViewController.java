@@ -757,5 +757,6 @@ public List<String> getAllTrainerNames() {
     public List<EmployeeCourseDetailsDTO> getEmployeesCompletedCourseDetails(@PathVariable String course) {
         return trainingViewService.getEmployeesCompletedCourseDetails(course);
     }
+
 }
 
