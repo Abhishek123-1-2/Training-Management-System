@@ -21,7 +21,7 @@ export class FeedbackFormComponent implements OnInit {
   interestQualityValue: number = 0;
   leadershipQualityValue: number = 0;
   problemSolvingAbilityValue: number = 0;
-
+  
 
   @ViewChild('chartCanvas') chartCanvas: ElementRef<HTMLCanvasElement>;; // Reference to the canvas element
   
