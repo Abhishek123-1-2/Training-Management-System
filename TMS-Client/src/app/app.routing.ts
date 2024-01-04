@@ -24,10 +24,10 @@ import { EmployeeSearchComponent } from './pages/admin/employee-search/employee-
 import { CourseDetailsComponent } from './pages/admin/course-details/course-details.component';
 import { TrainingRecordComponent } from './pages/admin/training-record/training-record.component';
 import { EmployeeHistoryComponent } from './pages/admin/employee-history/employee-history.component';
-import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
 import { AttendanceComponent } from './pages/hr/attendance/attendance.component';
 import { Attendance2Component } from './pages/hr/attendance2/attendance2.component';
 import { ManagerDashboardComponent } from './pages/manager/manager-dashboard/manager-dashboard.component';
+import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
 
 
 export const AppRoutes: Routes = [

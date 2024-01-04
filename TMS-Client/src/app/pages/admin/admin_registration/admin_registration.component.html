@@ -22,19 +22,19 @@
         <div class="table-responsive text-nowrap table-container">
           <table class="table">
             <thead class="text-primary">
-              <th *ngFor="let header of tableData1.headerRow">{{ header }}</th>
+              <th class = "text-center" *ngFor="let header of tableData1.headerRow">{{ header }}</th>
             </thead>
             <tbody>
               <ng-container *ngFor="let row of filteredData; let i = index">
                 <tr class="expandable-row">
-                  <td>{{ row.reg_id }}</td>
-                  <td>{{ row.emp_code }}</td>
-                  <td>{{ row.emp_name }}</td>
-                  <td>{{ row.reg_date }}</td>
-                  <td>{{ row.c_name }}</td>
-                  <td>{{ row.status }}</td>
-                  <td>{{ row.response }}</td>
-                  <td>
+                  <td class = "text-center">{{ row.reg_id }}</td>
+                  <td class = "text-center">{{ row.emp_code }}</td>
+                  <td class = "text-center">{{ row.emp_name }}</td>
+                  <td class = "text-center">{{ row.reg_date }}</td>
+                  <td class = "text-center">{{ row.c_name }}</td>
+                  <td class = "text-center">{{ row.status }}</td>
+                  <td class = "text-center">{{ row.response }}</td>
+                  <td class = "text-center">
                     <button class="btn btn-primary" (click)="toggleEditMode(i)">{{ row.actions }}</button>
                   </td>
                 </tr>

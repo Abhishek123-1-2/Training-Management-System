@@ -73,11 +73,11 @@ export class EmployeeSearchComponent implements OnInit {
   }
 
   get pages(): number[] {
-    if (this.tableData1.dataRows.length === 0) {
+    if (this.filteredData.length === 0) {
       return [];
     }
 
-    const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+    const pageCount = Math.ceil(this.filteredData.length / this.itemsPerPage);
     return Array.from({ length: pageCount }, (_, index) => index + 1);
   }
 

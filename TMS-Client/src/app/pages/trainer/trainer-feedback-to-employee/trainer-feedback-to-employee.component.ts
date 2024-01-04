@@ -32,6 +32,7 @@ export class TrainerFeedbackToEmployeeComponent implements OnInit {
   public searchValue: string = '';
   public currentPage = 1;
   public itemsPerPage = 5;
+  
 
   constructor(private trainingService:TrainingService,
     private router: Router,
@@ -39,7 +40,16 @@ export class TrainerFeedbackToEmployeeComponent implements OnInit {
 
  
   ngOnInit(): void {
-      this.fetchTrainingDetails();
+    // this.tableData1 = {
+    //   headerRow: ['Sr No.', 'Course Name', 'Start Date', 'End Date', 'Status', 'Attendees'],
+    //   dataRows: [
+    //     {sr_no:'1', c_name:'Angular',s_date:'10-11-2023', e_date:'15-11-2023', status:'Completed', view: 'View'},
+    //     {sr_no:'2', c_name:'Angular',s_date:'20-11-2023', e_date:'25-11-2023', status:'Completed', view: 'View'}
+    //   ]
+    // };
+
+    // this.filteredData = [...this.tableData1.dataRows];
+    this.fetchTrainingDetails();
   }
 
   fetchTrainingDetails(){
@@ -72,7 +82,6 @@ export class TrainerFeedbackToEmployeeComponent implements OnInit {
     )
   }
 
-
   applyFilter() {
     const searchText=this.searchValue.toLowerCase().trim();
 
@@ -92,7 +101,6 @@ export class TrainerFeedbackToEmployeeComponent implements OnInit {
   viewEmployeesForCourse(course: string) {
     this.router.navigate(['/student-list3'], { queryParams: { course: course } });
   }
-
   get pages(): number[] {
     if (this.originalData.length === 0) {
       return [];

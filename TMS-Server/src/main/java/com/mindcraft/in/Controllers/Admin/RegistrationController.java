@@ -1,5 +1,6 @@
 package com.mindcraft.in.Controllers.Admin;
 
+import com.mindcraft.in.Pojos.Admin.AdditionalRegistrationDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.EmployeeDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.Registration;
 import com.mindcraft.in.Pojos.Admin.RegistrationDetailsDTO;
@@ -92,6 +93,11 @@ public ResponseEntity<List<EmployeeDetailsDTO>> getAttendees(@RequestParam Strin
     @GetMapping("/details")
     public List<RegistrationDetailsDTO> getRegistrationDetails() {
         return registrationService.getRegistrationDetails();
+    }
+
+    @GetMapping("/details-with-additional")
+    public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithAdditionalDetails() {
+        return registrationService.getRegistrationDetailsWithAdditionalDetails();
     }
 
 

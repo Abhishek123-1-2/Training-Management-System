@@ -26,7 +26,9 @@ interface EmployeeDetails {
   templateUrl: './student-list3.component.html',
 })
 export class StudentList3Component implements OnInit {
-
+  public currentPage = 1;
+  public itemsPerPage = 5;
+  
   constructor(
     private route: ActivatedRoute,
     private employeeService:EmployeeService,
@@ -128,6 +130,20 @@ navigateToFeedback(empCode: string, startDate: string, endDate: string, status: 
   this.router.navigate(['/feedback-to-employee'], {
     queryParams: { emp_code: empCode, start_date: startDate, end_date: endDate, tstatus: status }
   });
+}
+
+get pages(): number[] {
+  if (this.filteredData.length === 0) {
+    return [];
+  }
+
+  const pageCount = Math.ceil(this.filteredData.length / this.itemsPerPage);
+  return Array.from({ length: pageCount }, (_, index) => index + 1);
+}
+
+changeItemsPerPage(event: any): void {
+  this.itemsPerPage = +event.target.value;
+  this.currentPage = 1;
 }
 
 }

@@ -8,37 +8,71 @@
 
 
 <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title">Attendance Details</h4>
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Attendance Details</h4>
+      </div>
+      <div class="d-flex justify-content-end mr-3">
+        <button type="button" class="btn btn-primary" (click)="toggleExpandedDates()">Add Attendance</button>
+        <!-- <i class="my-auto fa fa-refresh fa-spin ml-3" (click)="reloadTable()" style="font-size: 145%;"></i> -->
+      </div>
+      <div class="card-body">
+        <div class="form-inline mb-3">
+          <label for="searchTerm" class="mr-1">Search:</label>
+          <input type="text" class="form-control" id="searchTerm" [(ngModel)]="searchTerm" (input)="performSearch()">
         </div>
-        <div class="d-flex justify-content-end mr-3">
-          <button type="button" class="btn btn-primary">Mark Attendance</button>
+        <div class="table-responsive text-nowrap">
+          <table class="table">
+            <thead class="text-primary">
+              <th class="text-center" *ngFor="let header of tableData1.headerRow">
+                {{ header }}
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of tableData1.dataRows.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); let i = index" class="expandable-row">
+                <td class="text-center">{{ row.emp_code }}</td>
+                <td class="text-center">{{ row.emp_name }}</td>
+                <td class="text-center">{{ course_name }}</td>
+                <td class="text-center">{{ trainer_name }}</td>
+                <td class="text-center">{{ start_date }}</td>
+                <td class="text-center">{{ end_date }}</td>
+                <td class="text-center">{{ row.status }}</td>
+                <td *ngFor="let date of tableData1.headerRow.slice(7); let i = index">
+                  <div *ngIf="showExpandedDates">
+                    <button type="button" *ngIf="!row.attendance[date]" class="btn btn-success btn-sm" (click)="markAttendance(row, date, 'Present')">Present</button> 
+                    <button type="button" *ngIf="!row.attendance[date]" class="btn btn-danger btn-sm ml-1" (click)="markAttendance(row, date, 'Absent')">Absent</button>
+                  </div>
+                  <div class = "text-center">
+                  {{ row.attendance[date] }}
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="card-body">
-          <div class="table-responsive text-nowrap">
-            <table class="table">
-              <thead class="text-primary">
-                <th class="text-center" *ngFor="let header of tableData1.headerRow">
-                  {{ header }}
-                </th>
-              </thead>
-              <tbody>
-                <tr *ngFor="let row of tableData1.dataRows; let i = index" class="expandable-row">
-                  <td class="text-center">{{ row.emp_code }}</td>
-                  <td class="text-center">{{ row.emp_name }}</td>
-                  <td class="text-center">{{ row.c_name }}</td>
-                  <td class="text-center">{{ row.t_name }}</td>
-                  <td class="text-center">{{ start_date }}</td>
-                  <td class="text-center">{{ end_date }}</td>
-                  <td class="text-center">{{ row.status }}</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="d-flex justify-content-end mt-3">
+          <div class="form-inline mb-3">
+            <label for="rowsPerPage" class="mr-1">Rows per Page:</label>
+            <select class="form-control" id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage($event)">
+              <option value="5">5</option>
+              <option value="10">10</option>
+            </select>
           </div>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-md">
+              <li class="page-item" (click)="currentPage = (currentPage > 1) ? currentPage - 1 : 1" [class.disabled]="currentPage === 1">
+                <a class="page-link">Previous</a>
+              </li>
+              <li class="page-item" *ngFor="let page of pages" (click)="currentPage = page">
+                <a class="page-link">{{ page }}</a>
+              </li>
+              <li class="page-item" (click)="currentPage = (currentPage < pages.length) ? currentPage + 1 : currentPage">
+                <a class="page-link">Next</a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
-    </div>
+     </div>
   </div>
-  

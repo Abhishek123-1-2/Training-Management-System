@@ -1,34 +1,33 @@
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-      <li class="breadcrumb-item"><a [routerLink]="['/employee-search']">Employee Details</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Course Details</li>
-    </ol>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+    <li class="breadcrumb-item"><a [routerLink]="['/employee-search']">Employee Details</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Course Details</li>
+  </ol>
 </nav>
 <div class="card">
-    <div class="card-header">
-      <h4 class="card-title">Course Completion Details of Employee: 
-        <span [class.text-primary]="true">{{ emp_code }}</span>
-      </h4>
-    </div>
-    <div class="card-body">
-      <div class="table-responsive table-container">
-        <table class="table">
-          <thead class="text-primary">
-            <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
-          </thead>
-          <tbody>
-            <tr *ngFor="let course of tableData1.dataRows" class="text-center">
-              <td>{{ course.sr_no }}</td>
-              <td>{{ course.c_name }}</td>
-              <td>{{ course.t_name }}</td>
-              <td>{{ course.s_date }}</td>
-              <td>{{ course.e_date }}</td>
-              <td>{{ course.status }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="card-header">
+    <h4 class="card-title">Course Completion Details of Employee: 
+      <span [class.text-primary]="true">{{ emp_code }}</span>
+    </h4>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive table-container">
+      <table class="table">
+        <thead class="text-primary">
+          <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let course of tableData1.dataRows" class="text-center">
+            <td>{{ course.sr_no }}</td>
+            <td>{{ course.c_name }}</td>
+            <td>{{ course.t_name }}</td>
+            <td>{{ course.s_date }}</td>
+            <td>{{ course.e_date }}</td>
+            <td>{{ course.status }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  
+</div>

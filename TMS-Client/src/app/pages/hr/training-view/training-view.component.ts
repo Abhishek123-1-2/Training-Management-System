@@ -1,111 +1,162 @@
-  import { Component, OnInit } from '@angular/core';
+// schedule-list.component.ts
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { log } from 'console';
 
+interface TableData {
+  headerRow: string[];
+  dataRows: TableRow[];
+}
 
-  declare interface TableData {
-    headerRow: string[];
-    dataRows: string[][];
+interface TableRow {
+  scheduleId: string;
+  number: string;
+  course: string;
+  trainer_name: string;
+  planned_start_date: string;
+  planned_end_date: string;
+  from_time: string;
+  to_time: string;
+  participants: string;
+  status: string;
+  action: string;
+  view: string;
+}
+
+@Component({
+  selector: 'training-view',
+  moduleId: module.id,
+  templateUrl: './training-view.component.html',
+})
+export class TrainingViewComponent implements OnInit {
+  public tableData1: TableData;
+  public filteredData: TableRow[];
+
+  public statusFilter: string = '';
+  public searchValue: string = '';
+  public isEditMode: boolean = false;
+  public rowIndexBeingEdited: number | null = null;
+  public isAddParticipantsFormVisible = false;
+  public newParticipantName = '';
+  public display = 'none';
+  public currentPage = 1;
+  public itemsPerPage = 5;
+
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.fetchData();
+    this.applyFilter();
+  }
+  fetchData() {
+    this.http.get<any[]>('http://localhost:8083/api/training-views/schedule-list').subscribe(
+      (data) => {
+        // Filter out completed courses
+        const filteredData = data.filter((item) => item.trainingStatus !== 'Completed');
+
+        this.tableData1 = {
+          headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status'],
+          dataRows: filteredData.map((item, index) => ({
+            scheduleId: item.scheduleId,
+            number: (index + 1).toString(),
+            course: item.course,
+            trainer_name: item.trainerName,
+            planned_start_date: item.plannedStartDate ? item.plannedStartDate.split('T')[0] : '',
+            planned_end_date: item.plannedEndDate ? item.plannedEndDate.split('T')[0] : '',
+            from_time: item.fromTime,
+            to_time: item.toTime,
+            participants: item.participants,
+            status: item.trainingStatus,
+            action: '',
+            view:'Attendees',
+          })),
+        };
+        this.applyFilter();
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
+  }
+  onSearchChange() {
+    this.applyFilter();
+  }
+  extractTrainerName(fullName: string): string {
+    const indexOfOpeningBracket = fullName.indexOf('(');
+    if (indexOfOpeningBracket !== -1) {
+      return fullName.substring(0, indexOfOpeningBracket).trim();
+    } else {
+      return fullName.trim();
+    }
+  }
+  applyFilter() {
+    const searchTerm = this.searchValue.toLowerCase().trim();
+
+    if (!searchTerm) {
+      this.filteredData = [...this.tableData1.dataRows.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)];
+      return;
+    }
+
+    this.filteredData = this.tableData1.dataRows
+      .filter((row) =>
+        Object.values(row).some(
+          (value) =>
+            value !== null &&
+            value !== undefined &&
+            value.toString().toLowerCase().includes(searchTerm)
+        )
+      )
+      .slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
   }
 
   
-  @Component({
-    selector: 'training-view',
-    templateUrl: './training-view.component.html',
-    styleUrls: ['./training-view.component.scss']
-  })
-  export class TrainingViewComponent implements OnInit {
 
-    public tableData1: TableData; 
-    public currentPage = 1;
-    public itemsPerPage = 5;
+ 
+  
 
-    public searchTerm = '';
-    public statusFilter: string = '';
+
+  filterByStatus(): void {
+    // this.fetchData(); 
+    const selectedStatus = this.statusFilter.toLowerCase();
+  
+    this.filteredData = this.tableData1.dataRows.filter(row => row.status.toLowerCase() === selectedStatus);
+    console.log("this.filteredData ",this.filteredData );
     
-
-    get pages(): number[] {
-      if (this.tableData1.dataRows.length === 0) {
-        return [];
-      }
-
-      const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
-      return Array.from({ length: pageCount }, (_, index) => index + 1);
-    }
-
-
-    constructor() { }
-
-    ngOnInit(): void {
-      this.tableData1 = {
-        headerRow: ['Sr. No', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status'],
-        dataRows: [
-          ['1', 'Angular Basics', 'John Doe', '2023-01-01', '2023-01-10', 'Upcoming'],
-          ['2', 'React Fundamentals', 'Jane Doe', '2023-02-01', '2023-02-15', 'Ongoing'],
-          ['3', 'Vue.js Essentials', 'Bob Smith', '2023-03-01', '2023-03-10', 'Upcoming'],
-          ['4', 'Node.js Advanced', 'Alice Johnson', '2023-04-01', '2023-04-10', 'Ongoing'],
-          ['5', 'Python for Data Science', 'Chris Davis', '2023-05-01', '2023-05-10', 'Upcoming'],
-          ['6', 'Java Programming', 'Eva Brown', '2023-06-01', '2023-06-10', 'Ongoing'],
-          ['7', 'Web Development Bootcamp', 'Andrew Moore', '2023-07-01', '2023-07-10', 'Upcoming'],
-          ['8', 'Machine Learning Fundamentals', 'Lily Garcia', '2023-08-01', '2023-08-10', 'Ongoing'],
-          ['9', 'React Native Workshop', 'James Anderson', '2023-09-01', '2023-09-10', 'Upcoming'],
-          ['10', 'Docker Essentials', 'Sophia Miller', '2023-10-01', '2023-10-10', 'Ongoing'],
-        ]
-      };
-    }
-
-
-    changeItemsPerPage(event: any): void {
-      this.itemsPerPage = +event.target.value,
-      this.currentPage = 1; 
-    }
-
-    performSearch(): void {
-      if (this.searchTerm.trim() === '') {
-        this.reloadTable();
-      } else {
-        this.tableData1.dataRows = this.tableData1.dataRows.filter(row =>
-          row.some(cell => cell.toLowerCase().includes(this.searchTerm.toLowerCase()))
-        );
-      }
-
-    }
-
-    filterByStatus(): void {
-      // Reload the original data
-      this.reloadTable();
-    
-      const selectedStatus = this.statusFilter.toLowerCase();
-    
-      // Filter the rows based on the selected status
-      this.tableData1.dataRows = this.tableData1.dataRows.filter(row => row[5].toLowerCase() === selectedStatus);
-    
-      this.currentPage = 1;
-    }
-
-
-    
-    
-    
-
-
-
-
-
-
-
-    reloadTable(): void {
-      this.tableData1.dataRows =[
-        ['1', 'Angular Basics', 'John Doe', '2023-01-01', '2023-01-10', 'Upcoming'],
-        ['2', 'React Fundamentals', 'Jane Doe', '2023-02-01', '2023-02-15', 'Ongoing'],
-        ['3', 'Vue.js Essentials', 'Bob Smith', '2023-03-01', '2023-03-10', 'Upcoming'],
-        ['4', 'Node.js Advanced', 'Alice Johnson', '2023-04-01', '2023-04-10', 'Ongoing'],
-        ['5', 'Python for Data Science', 'Chris Davis', '2023-05-01', '2023-05-10', 'Upcoming'],
-        ['6', 'Java Programming', 'Eva Brown', '2023-06-01', '2023-06-10', 'Ongoing'],
-        ['7', 'Web Development Bootcamp', 'Andrew Moore', '2023-07-01', '2023-07-10', 'Upcoming'],
-        ['8', 'Machine Learning Fundamentals', 'Lily Garcia', '2023-08-01', '2023-08-10', 'Ongoing'],
-        ['9', 'React Native Workshop', 'James Anderson', '2023-09-01', '2023-09-10', 'Upcoming'],
-        ['10', 'Docker Essentials', 'Sophia Miller', '2023-10-01', '2023-10-10', 'Ongoing'],
-      ];
-    }
-
+    this.currentPage = 1;
 
   }
+  
+
+  toggleModal() {
+    console.log('Opening Modal form');
+    this.isAddParticipantsFormVisible = !this.isAddParticipantsFormVisible;
+    this.display = 'block';
+  }
+  
+  
+
+  get pages(): number[] {
+    if (this.tableData1.dataRows.length === 0) {
+      return [];
+    }
+
+    const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index +1);
+  }
+
+  changeItemsPerPage(event: any): void {
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1; // Reset to the first page when changing items per page
+    this.applyFilter();
+  }
+
+  onPageChange(page: number): void {
+    if (page >= 1 && page <= this.pages.length) {
+      this.currentPage = page;
+      this.applyFilter();
+    }
+  }
+
+
+}

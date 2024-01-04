@@ -197,6 +197,7 @@ export class UserDashboardComponent implements OnInit {
         { t_id: '1', c_name: 'Angular', t_name: 'Amisha Jangipuria', s_date: '29-11-2023', e_date: '04-12-2023', status: 'Upcoming', enroll: 'Enroll'},
         { t_id: '2', c_name: 'Introduction to Web Development', t_name: 'John Doe', s_date: '30-11-2023', e_date: '07-12-2023', status: 'Upcoming', enroll: 'Enroll'},
         { t_id: '3', c_name: 'Advanced JavaScript', t_name: 'Jane Smith', s_date: '01-12-2023', e_date: '12-12-2023', status: 'Upcoming', enroll: 'Enroll'},
+        
       ]
     };
     this.filteredData = [...this.tableData1.dataRows];

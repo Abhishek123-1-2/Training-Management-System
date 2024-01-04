@@ -57,7 +57,14 @@ export class AdminAttendanceComponent implements OnInit {
       )
     );
   }
-
+  extractTrainerName(fullName: string): string {
+    const indexOfOpeningBracket = fullName.indexOf('(');
+    if (indexOfOpeningBracket !== -1) {
+      return fullName.substring(0, indexOfOpeningBracket).trim();
+    } else {
+      return fullName.trim();
+    }
+  }
   get pages(): number[] {
     if (this.tableData1.dataRows.length === 0) {
       return [];

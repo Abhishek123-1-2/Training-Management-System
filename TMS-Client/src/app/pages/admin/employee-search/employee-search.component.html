@@ -18,7 +18,7 @@
           <div class="table-responsive text-nowrap table-container">
             <table class="table">
               <thead class="text-primary">
-                <th *ngFor="let header of tableData1.headerRow" >{{ header }}</th>
+                <th class = "text-center" *ngFor="let header of tableData1.headerRow" >{{ header }}</th>
               </thead>
               <tbody>
                 <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">

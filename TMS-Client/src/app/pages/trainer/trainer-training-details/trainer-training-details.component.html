@@ -47,7 +47,7 @@
               </tbody>
             </table>
           </div>
-          <div class="d-flex justify-content-end mt-3">
+          <div class="d-flex justify-content-end">
             <div class="form-inline mb-3">
               <label for="rowsPerPage" class="mr-1">Rows per Page:</label>
               <select class="form-control" id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage($event)">
@@ -55,8 +55,7 @@
                 <option value="10">10</option>
               </select>
             </div>
-
-            <nav aria-label="Page navigation example">
+	          <nav aria-label="Page navigation example">
               <ul class="pagination pagination-md">
                 <li class="page-item" (click)="currentPage = (currentPage > 1) ? currentPage - 1 : 1" [class.disabled]="currentPage === 1">
                   <a class="page-link">Previous</a>
