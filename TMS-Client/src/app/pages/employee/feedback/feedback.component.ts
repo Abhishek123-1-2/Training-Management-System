@@ -1,4 +1,32 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'app/pages/login/login.service';
+
+declare interface TableData {
+  headerRow: string[];
+  dataRows: {
+
+number: string;
+course: string;
+trainerName: string;
+trainingStatus: string; 
+plannedStartDate:string;
+plannedEndDate:string; 
+action: string; 
+  }[];
+}
+
+interface TableRow {
+  number: string;
+  course: string;
+  trainerName: string;
+  trainingStatus: string; 
+  plannedStartDate:string;
+  plannedEndDate:string; 
+  action: string; 
+}
+
 
 @Component({
   selector: 'feedback',
@@ -7,84 +35,68 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FeedbackComponent implements OnInit {
 
+  public tableData1: TableData;
+  public filteredData: TableRow[];
+  public searchValue: string = '';
   currentPage = 1;
   itemsPerPage = 5;
 
-  public searchTerm = '';
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private userService: UserService) { }
 
+  ngOnInit(): void {
+    this.tableData1 = {
+      headerRow: ['No.','Course','Trainer Name','Start Date','End Date','Status', 'Action'],
+      dataRows: [{
+        number:'1', course:'Java', trainerName:'Kishor', plannedStartDate:'1-12-2023', plannedEndDate:'5-12-2023', trainingStatus:'Completed', action:'Give Feedback'
+      }]
+  }
 
+    // this.filteredData = [...this.tableData1.dataRows];
+    // this.currentPage = Math.min(this.currentPage, this.pages.length)
 
+    const empId = this.userService.getEmpId();
+    this.httpClient.get<any[]>(`http://localhost:8083/api/completed-courses/${empId}`)
+      .subscribe(data => {
+        // Transform the data received from the backend into the format expected by the table
+        this.tableData1 = {
+          headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'Status', 'Action'],
+          dataRows: data.map((item, index) => ({
+            number: (index + 1).toString(),
+            course: item.course,
+            trainerName: item.trainerName.split('(')[0].trim(),
+            plannedStartDate: item.plannedStartDate,
+            plannedEndDate: item.plannedEndDate,
+            trainingStatus: item.trainingStatus,
+            action: 'Give Feedback'
+          }))
+        };
+
+        // Initialize the filteredData and currentPage
+        this.filteredData = [...this.tableData1.dataRows];
+        this.currentPage = Math.min(this.currentPage, this.pages.length);
+      });
+  }
+
+  applyFilter() {
+    this.filteredData = this.tableData1.dataRows.filter(row =>
+      Object.values(row).some(value =>
+        value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
+      )
+    );
+  }
 
   get pages(): number[] {
-    if (this.trainings.length === 0) {
+    if (this.tableData1.dataRows.length === 0) {
       return [];
     }
 
-    const pageCount = Math.ceil(this.trainings.length / this.itemsPerPage);
+    const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
     return Array.from({ length: pageCount }, (_, index) => index + 1);
   }
 
-
-
-
- 
-
-
-
-
-  trainings = [
-    { id: 1, courseName: 'Java Programming', trainerName: 'John Doe', startDate: '2023-01-01', endDate: '2023-01-10', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-    { id: 2, courseName: 'Agile Project Management', trainerName: 'Alice Williams', startDate: '2023-04-05', endDate: '2023-04-20', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-    { id: 3, courseName: 'Web Development', trainerName: 'Jane Smith', startDate: '2023-02-15', endDate: '2023-02-28', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-    { id: 4, courseName: 'Data Science Fundamentals', trainerName: 'Bob Johnson', startDate: '2023-03-10', endDate: '2023-03-25', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-    { id: 5, courseName: 'Mobile App Development', trainerName: 'Chris Brown', startDate: '2023-05-01', endDate: '2023-05-15', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-    { id: 6, courseName: 'UX/UI Design', trainerName: 'Eva White', startDate: '2023-06-10', endDate: '2023-06-25', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-    { id: 7, courseName: 'Python Programming', trainerName: 'Daniel Miller', startDate: '2023-07-15', endDate: '2023-07-31', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-    { id: 8, courseName: 'Cloud Computing Basics', trainerName: 'Grace Davis', startDate: '2023-08-05', endDate: '2023-08-20', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-    { id: 9, courseName: 'Cybersecurity Essentials', trainerName: 'Frank Wilson', startDate: '2023-09-10', endDate: '2023-09-25', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-    { id: 10, courseName: 'Machine Learning Techniques', trainerName: 'Helen Anderson', startDate: '2023-10-01', endDate: '2023-10-15', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-  ];
-
-  constructor() { }
-
-  ngOnInit(): void {
-   
-    this.currentPage = Math.min(this.currentPage, this.pages.length);
-  }
-
-
   changeItemsPerPage(event: any): void {
     this.itemsPerPage = +event.target.value;
-    this.currentPage = 1;
+    this.currentPage = 1; // Reset to the first page when changing items per page
   }
-  
-  performSearch(): void {
-    if (this.searchTerm.trim() === '') {
-   
-      this.reloadTable();
-    } else {
-      // Filter the data based on the search term
-      this.trainings = this.trainings.filter(row =>
-        Object.values(row).some(cell => cell.toString().toLowerCase().includes(this.searchTerm.toLowerCase()))
-      );
-    }
-  }
-
-  reloadTable(): void {
-    this.trainings = [
-      { id: 1, courseName: 'Java Programming', trainerName: 'John Doe', startDate: '2023-01-01', endDate: '2023-01-10', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-      { id: 2, courseName: 'Agile Project Management', trainerName: 'Alice Williams', startDate: '2023-04-05', endDate: '2023-04-20', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-      { id: 3, courseName: 'Web Development', trainerName: 'Jane Smith', startDate: '2023-02-15', endDate: '2023-02-28', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-      { id: 4, courseName: 'Data Science Fundamentals', trainerName: 'Bob Johnson', startDate: '2023-03-10', endDate: '2023-03-25', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-      { id: 5, courseName: 'Mobile App Development', trainerName: 'Chris Brown', startDate: '2023-05-01', endDate: '2023-05-15', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-      { id: 6, courseName: 'UX/UI Design', trainerName: 'Eva White', startDate: '2023-06-10', endDate: '2023-06-25', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-      { id: 7, courseName: 'Python Programming', trainerName: 'Daniel Miller', startDate: '2023-07-15', endDate: '2023-07-31', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-      { id: 8, courseName: 'Cloud Computing Basics', trainerName: 'Grace Davis', startDate: '2023-08-05', endDate: '2023-08-20', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-      { id: 9, courseName: 'Cybersecurity Essentials', trainerName: 'Frank Wilson', startDate: '2023-09-10', endDate: '2023-09-25', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-      { id: 10, courseName: 'Machine Learning Techniques', trainerName: 'Helen Anderson', startDate: '2023-10-01', endDate: '2023-10-15', status: 'COMPLETED', give_feedback: 'Give Feedback' },
-    ];
-  }
-
-
 
 }

@@ -6,30 +6,24 @@
         </div>
         <div class="card-body">
           <div class="form-inline mb-3">
-            <label for="searchTerm" class="mr-1">Search:</label>
-            <input type="text" class="form-control" id="searchTerm" [(ngModel)]="searchTerm" (input)="performSearch()">
+            <label for="search">Search:</label>
+            <input type="text" class="col-md-12 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
           </div>
           <div class="table-responsive table-container">
             <table class="table">
-              <thead class="text-primary text-center">
-                <th>SR. NO</th>
-                <th>Course Name</th>
-                <th>Trainer Name</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Status</th>
-                <th>Give Feedback</th>
+              <thead class="text-primary">
+                <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
               </thead>
 
               <tbody>
-                <tr *ngFor="let training of trainings.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row text-center"> 
-                  <td>{{ training.id }}</td>
-                  <td>{{ training.courseName }}</td>
-                  <td>{{ training.trainerName }}</td>
-                  <td>{{ training.startDate }}</td>
-                  <td>{{ training.endDate }}</td>
-                  <td>{{ training.status }}</td>
-                  <td><a *ngIf="training.status === 'COMPLETED'" [routerLink]="['/feedback-form', training.id]">Give Feedback</a></td>
+                <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row text-center"> 
+                  <td>{{ row.number }}</td>
+                  <td>{{ row.course }}</td>
+                  <td>{{ row.trainerName }}</td>
+                  <td>{{ row.plannedStartDate }}</td>
+                  <td>{{ row.plannedEndDate }}</td>
+                  <td>{{ row.trainingStatus }}</td>
+                  <td><a [routerLink]="['/feedback-form', row.number]">{{ row.action }}</a></td>
                 </tr>
               </tbody>
             </table>

@@ -155,6 +155,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee-services/employee.service';
 import { UserService } from 'app/pages/login/login.service';
+import { ActivatedRoute } from '@angular/router';
 
 interface TableData {
   headerRow: string[];
@@ -187,10 +188,16 @@ export class UserDashboardComponent implements OnInit {
   enrollmentStatusData = [];
   currentPage = 1;
   itemsPerPage = 5;
+  empId: string;
 
-  constructor(private employeeService: EmployeeService, private loginService: UserService) {}
+  constructor(private employeeService: EmployeeService, private loginService: UserService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.empId = params['empId'];
+      console.log('EmpId:', this.empId);
+      this.fetchDataForUser(this.empId)
+    })
     this.tableData1 = {
       headerRow: ['Sr No.', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status', 'Enroll'],
       dataRows: [
@@ -202,6 +209,12 @@ export class UserDashboardComponent implements OnInit {
     };
     this.filteredData = [...this.tableData1.dataRows];
     this.fetchTrainingSchedule();
+  }
+
+  fetchDataForUser(empId: string): void {
+    // Add logic to fetch data for the user based on empId
+    // For example, you can call a service method to get user-specific data
+    console.log(`Fetching data for user with empId: ${empId}`);
   }
 
   fetchTrainingSchedule(): void {
