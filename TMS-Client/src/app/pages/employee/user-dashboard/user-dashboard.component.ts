@@ -196,7 +196,7 @@ export class UserDashboardComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.empId = params['empId'];
       console.log('EmpId:', this.empId);
-      this.fetchDataForUser(this.empId)
+      // this.fetchDataForUser(this.empId)
     })
     this.tableData1 = {
       headerRow: ['Sr No.', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status', 'Enroll'],
@@ -211,18 +211,18 @@ export class UserDashboardComponent implements OnInit {
     this.fetchTrainingSchedule();
   }
 
-  fetchDataForUser(empId: string): void {
-    // Add logic to fetch data for the user based on empId
-    // For example, you can call a service method to get user-specific data
-    console.log(`Fetching data for user with empId: ${empId}`);
-  }
+  // fetchDataForUser(empId: string): void {
+  //   // Add logic to fetch data for the user based on empId
+  //   // For example, you can call a service method to get user-specific data
+  //   console.log(`Fetching data for user with empId: ${empId}`);
+  // }
 
   fetchTrainingSchedule(): void {
     this.employeeService.getTrainingSchedule().subscribe(
       (scheduleData: any[]) => {
-        scheduleData.forEach(entry => {
-          console.log(`Training ID: ${entry.trainingId}, Schedule ID: ${entry.scheduleId}`);
-        });
+        // scheduleData.forEach(entry => {
+        //   console.log(`Training ID: ${entry.trainingId}, Schedule ID: ${entry.scheduleId}`);
+        // });
 
         const preDefinedSchedules = scheduleData.filter(schedule => schedule.trainingSchedule === 'PRE-DEFINED' && schedule.trainingStatus === 'Upcoming');
 

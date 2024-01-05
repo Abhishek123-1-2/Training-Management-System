@@ -1,26 +1,26 @@
-/* on-request.component.ts */
+  /* on-request.component.ts */
 
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { EmployeeService } from '../employee-services/employee.service';
+import { UserService } from 'app/pages/login/login.service';
 
 
 declare interface TableData {
     headerRow: string[];
-    dataRows: {
-number: string;
-course: string;
-trainer_name: string;
-action: string; 
-    }[];
+    dataRows: TableRow[];
 }
+
 interface TableRow {
 number: string;
 course: string;
 trainer_name: string;
 action: string;
-isEnrolled?: boolean; 
+isEnrolled?: boolean;
+training_id?: string;
+schedule_id?: string;
+emp_id?: string;
 
 }
 
@@ -32,7 +32,7 @@ isEnrolled?: boolean;
 
 export class OnRequestComponent implements OnInit {
 
-  constructor(private router: Router,private toastr: ToastrService, private employeeService: EmployeeService) {}
+  constructor(private router: Router,private toastr: ToastrService, private employeeService: EmployeeService, private loginService: UserService) {}
   
     public tableData1: TableData;
     public filteredData: TableRow[];
@@ -43,7 +43,7 @@ export class OnRequestComponent implements OnInit {
     newParticipantName = '';
     display = 'none';
     enrollmentStatusData = [];
-
+    empId: string;
     currentPage=1;
     itemsPerPage=5;
 
@@ -51,54 +51,23 @@ export class OnRequestComponent implements OnInit {
     ngOnInit()  {
         this.tableData1 = {
             headerRow: ['No.','Course','Trainer Name','Action'],
-            dataRows: [{
-number: '1',
-course: 'Java',
-trainer_name: 'Kishor',
-action: ''  }
-,
-{
-  number: '2',
-  course: 'Spring Boot',
-  trainer_name: 'Kishor',
-  action: '' 
-} ,
-{
-  number: '3',
-course: 'PLSQL',
-trainer_name: 'Girish',
-action: '' 
-}     ,
-{
-  number: '4',
-  course: 'Angular',
-  trainer_name: 'Bhavana',
-  action: '' 
-},
-{
-  number: '5',
-  course: 'Javascript',
-  trainer_name: 'Bhavana',
-  action: '' 
-},
-{
-    number: '6',
-    course: 'Spring Boot',
-    trainer_name: 'Kishor',
-    action: '' 
-  } ,
-  {
-    number: '7',
-    course: 'Spring Boot',
-    trainer_name: 'Kishor',
-    action: '' 
-  } ,
-]
+            dataRows: [
+              {number: '1',course: 'Java',trainer_name: 'Kishor',action: '' },
+              {number: '2',course: 'Spring Boot',trainer_name: 'Kishor',action: '' } ,
+              {number: '3',course: 'PLSQL',trainer_name: 'Girish',action: '' },
+              {number: '4',course: 'Angular',trainer_name: 'Bhavana',action: '' },
+              {number: '5',course: 'Javascript',trainer_name: 'Bhavana',action: '' },
+              {number: '6',course: 'Spring Boot',trainer_name: 'Kishor',action: '' },
+              {number: '7',course: 'Spring Boot',trainer_name: 'Kishor',action: '' },
+            ]
         };
         this.filteredData = [...this.tableData1.dataRows];
 
         this.employeeService.getTrainingSchedule().subscribe(
           (scheduleData: any[]) => {
+            scheduleData.forEach(entry => {
+              console.log(`Training ID: ${entry.trainingId}, Schedule ID: ${entry.scheduleId}`);
+            })
             const onRequestSchedules = scheduleData.filter(schedule => schedule.trainingSchedule === 'ON-REQUEST');
             this.tableData1.dataRows = onRequestSchedules.map((schedule, index): TableRow => ({
               number: String(index + 1),
@@ -106,6 +75,9 @@ action: ''
               trainer_name: schedule.trainerName.split('(')[0].trim(),
               action:'',
               isEnrolled: false,
+              training_id: String(schedule.trainingId),
+              schedule_id: String(schedule.scheduleId),
+              emp_id: String(schedule.empId)
             }));
 
             this.filteredData = [...this.tableData1.dataRows];
@@ -113,12 +85,7 @@ action: ''
           (error) => {
             console.error('Error fetching training schedule data:', error);
           }
-
-        )
-
-        this.currentPage = Math.min(this.currentPage, this.pages.length);
-
-
+        );
     }
       
     applyFilter() {
@@ -145,36 +112,33 @@ action: ''
         this.isEditMode = false;
       }
 
-      sendRequest(row: any){
-        const{ number, course, trainer_name, action } = row;
-        this.enrollmentStatusData = [{sr_no: number, courseName: course, trainer_name: trainer_name}]
-        alert('Your Request has been sent to Reporting Manager Successfully');
-        row.isEnrolled = true;
+      sendRequest(row: TableRow): void {
+        const loggedInUserData = this.loginService.getLoggedInUserData();
+        const empId = this.loginService.getEmpId()
+        // const empId = loggedInUserData ? loggedInUserData.empId : null;
+        if(loggedInUserData) {
+          const empId = loggedInUserData.empId;
+          const registrationData = {
+            schedule_id: row.schedule_id,
+            training_id: row.training_id,
+            emp_id: empId,
+            registration_date: new Date(),
+            registration_comments: '',
+            registration_status: 'Registered',
+            registration_response: '', 
+          };
+
+          this.employeeService.enrollTraining(registrationData).subscribe(
+            (registrationId: number) => {
+              console.log(`Enrollment successful. Registration ID: ${registrationId}`);
+              alert(`Your Enrollment Request has been successfully sent to Reporting Manager for ${row.course} course`);
+            },
+            (error) => {
+              console.error('Error enrolling in training:', error)
+            }
+          );
+        }
       }
-
-      // showNotification(from, align) {
-      //   const color = Math.floor(Math.random() * 5 + 1);
-    
-      //   switch (color) {
-      //     case 1:
-      //       this.toastr.info(
-      //       '<span data-notify="icon" class="nc-icon nc-bell-55"></span><span data-notify="message">Welcome to <b>TMS</b> - Your Request has been sent to <b>Reporting Manager</b> Successfully.</span>',
-      //         "",
-      //         {
-                
-      //           timeOut: 4000,
-      //           closeButton: true,
-      //           enableHtml: true,
-      //           toastClass: "alert alert-info alert-with-icon",
-      //           positionClass: "toast-" + from + "-" + align
-      //         }
-      //       );
-      //       break;
-
-      //     default:
-      //       break;
-      //   }
-      // }
 
       showNotification() {
         alert("Request has been successfully sent to Reporting Manager")
