@@ -1,5 +1,6 @@
 package com.mindcraft.in.Controllers.Admin;
 
+import com.mindcraft.in.Pojos.Admin.AdditionalRegistrationDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.EmployeeDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.Registration;
 import com.mindcraft.in.Pojos.Admin.RegistrationDetailsDTO;
@@ -24,7 +25,7 @@ public class RegistrationController {
         this.registrationService = registrationService;
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<Long> register(@RequestBody Registration registration) {
         Long registrationId = registrationService.register(registration);
 
@@ -93,6 +94,16 @@ public ResponseEntity<List<EmployeeDetailsDTO>> getAttendees(@RequestParam Strin
     public List<RegistrationDetailsDTO> getRegistrationDetails() {
         return registrationService.getRegistrationDetails();
     }
+
+    // @GetMapping("/details-with-additional")
+    // public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithAdditionalDetails() {
+    //     return registrationService.getRegistrationDetailsWithAdditionalDetails();
+    // }
+    @GetMapping("/details-with-additional/{empId}")
+public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithAdditionalDetails(@PathVariable String empId) {
+    return registrationService.getRegistrationDetailsWithAdditionalDetails(empId);
+}
+
 
 
 

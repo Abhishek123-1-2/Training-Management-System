@@ -42,7 +42,7 @@ export class OnRequestComponent implements OnInit {
     isAddParticipantsFormVisible = false;
     newParticipantName = '';
     display = 'none';
-    enrollmentStatusData = [];
+    enrollmentStatusData: TableRow[] = [];
     empId: string;
     currentPage=1;
     itemsPerPage=5;
@@ -81,6 +81,7 @@ export class OnRequestComponent implements OnInit {
             }));
 
             this.filteredData = [...this.tableData1.dataRows];
+            this.loadEnrollmentStatusFromLocalStorage();
           },
           (error) => {
             console.error('Error fetching training schedule data:', error);
@@ -114,10 +115,26 @@ export class OnRequestComponent implements OnInit {
 
       sendRequest(row: TableRow): void {
         const loggedInUserData = this.loginService.getLoggedInUserData();
-        const empId = this.loginService.getEmpId()
+        // const empId = this.loginService.getEmpId()
         // const empId = loggedInUserData ? loggedInUserData.empId : null;
-        if(loggedInUserData) {
-          const empId = loggedInUserData.empId;
+        if (!loggedInUserData) {
+          // Handle the case where user data is not available
+          return;
+        }
+
+        const empId = loggedInUserData.empId;
+
+        const alreadyEnrolled = this.enrollmentStatusData.some(
+          (enrollment) => 
+          enrollment.number === row.number &&
+          enrollment.course === row.course &&
+          enrollment.trainer_name === row.trainer_name
+        );
+
+        if(alreadyEnrolled) {
+          alert(`You have already enrolled for ${row.course} course.`);
+          return;
+        }
           const registrationData = {
             schedule_id: row.schedule_id,
             training_id: row.training_id,
@@ -132,11 +149,54 @@ export class OnRequestComponent implements OnInit {
             (registrationId: number) => {
               console.log(`Enrollment successful. Registration ID: ${registrationId}`);
               alert(`Your Enrollment Request has been successfully sent to Reporting Manager for ${row.course} course`);
+
+              row.isEnrolled = true;
+
+              this.enrollmentStatusData.push({
+                number: row.number,
+                course: row.course,
+                trainer_name: row.trainer_name,
+                training_id: row.training_id,
+                schedule_id: row.schedule_id,
+                emp_id: empId,
+                isEnrolled: true,
+                action: ''
+              });
+
+              this.saveEnrollmentStatusToLocalStorage();
             },
             (error) => {
               console.error('Error enrolling in training:', error)
             }
           );
+        }
+
+      private saveEnrollmentStatusToLocalStorage(): void {
+        localStorage.setItem(
+          'enrollmentStatusData',
+          JSON.stringify(this.enrollmentStatusData)
+        );
+      }
+
+      private loadEnrollmentStatusFromLocalStorage(): void {
+        const storedData = localStorage.getItem('enrollmentStatusData');
+    
+        if (storedData) {
+          const storedEnrollmentStatus: TableRow[] = JSON.parse(storedData);
+    
+          this.tableData1.dataRows.forEach((row) => {
+            const matchingStoredEntry = storedEnrollmentStatus.find(
+              (storedEntry) =>
+                storedEntry.training_id === row.training_id &&
+                storedEntry.schedule_id === row.schedule_id
+            );
+    
+            if (matchingStoredEntry) {
+              row.isEnrolled = matchingStoredEntry.isEnrolled;
+            }
+          });
+    
+          this.enrollmentStatusData = storedEnrollmentStatus;
         }
       }
 

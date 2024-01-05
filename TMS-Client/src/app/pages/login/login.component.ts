@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/user-dashboard',empId]);
                 break;
               case 'ROLE_MANAGER':
-                this.router.navigate(['/manager-dashboard']);
+                this.router.navigate(['/dashboard']);
                 break;
               case 'ROLE_HR':
                 this.router.navigate(['/hr-dashboard']);

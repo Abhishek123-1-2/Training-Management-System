@@ -42,10 +42,22 @@
                   <div *ngIf="showExpandedDates">
                     <button type="button" *ngIf="!row.attendance[date]" class="btn btn-success btn-sm" (click)="markAttendance(row, date, 'Present')">Present</button> 
                     <button type="button" *ngIf="!row.attendance[date]" class="btn btn-danger btn-sm ml-1" (click)="markAttendance(row, date, 'Absent')">Absent</button>
+
                   </div>
-                  <div class = "text-center">
-                  {{ row.attendance[date] }}
-                  </div>
+
+                  <div class="text-center">
+                    <div *ngIf="isEdit && row == editingRow && date == editDate">
+                        <input type="text" class="form-control" [(ngModel)]="row.attendance[date]" />
+                        <i class="fa fa-check" style="color: green" *ngIf = "row.attendance[date]" (click)="Edit()"></i>
+                        <i class="fa fa-times ml-1" style="color: red" *ngIf = "row.attendance[date]" (click)="cancel()"></i>                     
+                      </div>   
+                    </div>
+                    <div *ngIf="!isEdit">
+                      {{ row.attendance[date] }}
+                      <button type="button" *ngIf="row.attendance[date]" class="btn btn-primary btn-sm" >
+                        <i class="fa fa-edit" (click)="startEdit(row,date)"></i>
+                      </button>
+                    </div>
                 </td>
               </tr>
             </tbody>

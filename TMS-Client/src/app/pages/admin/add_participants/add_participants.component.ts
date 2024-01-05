@@ -156,7 +156,7 @@ export class AddParticipantsComponent {
                 registration_response: null
               };
   
-              this.http.post('http://localhost:8083/api/registrations', registrationData).subscribe(
+              this.http.post('http://localhost:8083/api/registrations/register', registrationData).subscribe(
                 (response) => {
                   const employeeName = this.addParticipantsForm.get('empName').value;
                   const courseName = this.addParticipantsForm.get('cName').value;

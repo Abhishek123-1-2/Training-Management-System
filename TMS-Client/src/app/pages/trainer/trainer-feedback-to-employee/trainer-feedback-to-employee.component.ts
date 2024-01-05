@@ -101,13 +101,12 @@ export class TrainerFeedbackToEmployeeComponent implements OnInit {
   viewEmployeesForCourse(course: string) {
     this.router.navigate(['/student-list3'], { queryParams: { course: course } });
   }
-
   get pages(): number[] {
-    if (this.filteredData.length === 0) {
+    if (this.originalData.length === 0) {
       return [];
     }
 
-    const pageCount = Math.ceil(this.filteredData.length / this.itemsPerPage);
+    const pageCount = Math.ceil(this.originalData.length / this.itemsPerPage);
     return Array.from({ length: pageCount }, (_, index) => index + 1);
   }
 
@@ -115,4 +114,5 @@ export class TrainerFeedbackToEmployeeComponent implements OnInit {
     this.itemsPerPage = +event.target.value;
     this.currentPage = 1;
   }
+
 }

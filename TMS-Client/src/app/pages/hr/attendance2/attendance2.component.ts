@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { log } from 'console';
 import * as moment from 'moment';
 
 interface TableData {
@@ -9,6 +10,7 @@ interface TableData {
     emp_name: string;
     status: string;
     attendance: { [date: string]: string };
+    
   }[];
 }
 
@@ -25,10 +27,45 @@ export class Attendance2Component implements OnInit {
   trainer_name: any;
   showExpandedDates: boolean = false;
   public searchTerm = '';
+  isEdit: boolean = false;
+
+  public editingRow: any;
+  public editDate: string | null = null;
+
 
   currentPage = 1;
   itemsPerPage = 5;
+  
 
+
+  startEdit(row:any,date:string)
+  {
+    this.isEdit = true;
+    this.editingRow = row;
+    console.log(row);
+    
+    if(date){
+      this.editDate = date;
+      
+    }
+  
+  }
+
+  cancel()
+  {
+    this.isEdit = false;
+    this.editingRow = null;
+    this.editDate = null;
+  }
+
+  Edit() 
+  {
+
+    this.isEdit = false;
+    this.editingRow = null;
+    this.editDate = null;
+    
+  }
  
 
  
@@ -104,6 +141,7 @@ export class Attendance2Component implements OnInit {
           
 
         }
+
       ]
     };
 

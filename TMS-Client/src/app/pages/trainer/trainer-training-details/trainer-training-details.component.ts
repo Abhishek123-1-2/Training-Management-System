@@ -33,25 +33,25 @@ export class TrainerTrainingDetailsComponent implements OnInit {
   itemsPerPage = 5;
 
 
-  get pages(): number[]
-  {
-    if(this.filteredData.length===0)
-    {
-      return [];
+  // get pages(): number[]
+  // {
+  //   if(this.filteredData.length===0)
+  //   {
+  //     return [];
 
-    }
+  //   }
 
-    const pageCount = Math.ceil(this.filteredData.length / this.itemsPerPage);
-    return Array.from({length: pageCount}, (_,index) => index +1);
-
-
-  }
+  //   const pageCount = Math.ceil(this.filteredData.length / this.itemsPerPage);
+  //   return Array.from({length: pageCount}, (_,index) => index +1);
 
 
-  changeItemsPerPage(event:any):void{
-    this.itemsPerPage = +event.target.value;
-    this.currentPage = Math.min(this.currentPage,this.pages.length);
-  }
+  // }
+
+
+  // changeItemsPerPage(event:any):void{
+  //   this.itemsPerPage = +event.target.value;
+  //   this.currentPage = Math.min(this.currentPage,this.pages.length);
+  // }
 
 
 
@@ -115,6 +115,21 @@ export class TrainerTrainingDetailsComponent implements OnInit {
     this.filteredData = [...this.originalData]; // Reset filteredData to originalData
 
     // this.fetchTrainingDetails(); // Reset filters to initial state by fetching all data again
+  }
+  
+
+  get pages(): number[] {
+    if (this.originalData.length === 0) {
+      return [];
+    }
+
+    const pageCount = Math.ceil(this.originalData.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
+
+  changeItemsPerPage(event: any): void {
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1;
   }
 
 }
