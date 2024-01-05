@@ -95,10 +95,15 @@ public ResponseEntity<List<EmployeeDetailsDTO>> getAttendees(@RequestParam Strin
         return registrationService.getRegistrationDetails();
     }
 
-    @GetMapping("/details-with-additional")
-    public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithAdditionalDetails() {
-        return registrationService.getRegistrationDetailsWithAdditionalDetails();
-    }
+    // @GetMapping("/details-with-additional")
+    // public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithAdditionalDetails() {
+    //     return registrationService.getRegistrationDetailsWithAdditionalDetails();
+    // }
+    @GetMapping("/details-with-additional/{empId}")
+public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithAdditionalDetails(@PathVariable String empId) {
+    return registrationService.getRegistrationDetailsWithAdditionalDetails(empId);
+}
+
 
 
 

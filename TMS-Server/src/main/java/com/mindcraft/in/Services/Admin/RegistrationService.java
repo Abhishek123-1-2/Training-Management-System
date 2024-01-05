@@ -271,7 +271,72 @@ public Long register(Registration registration) {
     //     return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(AdditionalRegistrationDetailsDTO.class));
     // }
 
-    public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithAdditionalDetails() {
+    // public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithAdditionalDetails() {
+       
+    //     String sql = "SELECT " +
+    //     "e.emp_code AS empCode, " +
+    //     "e.emp_name AS empName, " +
+    //     "r.registration_id AS registrationId, " +
+    //     "r.registration_date AS registrationDate, " +
+    //     "t.course AS courseName, " +
+    //     "r.registration_comments AS registrationComments, " +
+    //     "r.registration_status AS status, " +
+    //     "r.registration_response AS registrationResponse, " +
+    //     "t.trainer_names AS trainerName, " +
+    //     "s.planned_start_date AS startDate, " +
+    //     "s.planned_end_date AS endDate, " +
+    //     "s.from_time AS fromTime, " + // Include from_time
+    //     "s.to_time AS toTime, " +     // Include to_time
+    //     "s.actual_start_date AS actualStartDate, " +
+    //     "s.actual_end_date AS actualEndDate " +
+    //     "FROM " +
+    //     "m_employee e " +
+    //     "JOIN " +
+    //     "registration r ON e.emp_id = r.emp_id " +
+    //     "JOIN " +
+    //     "training_schedule s ON r.schedule_id = s.schedule_id " +
+    //     "JOIN " +
+    //     "m_trainings t ON s.training_id = t.training_id " +
+    //     "ORDER BY " +
+    //     "r.registration_date DESC";
+
+    
+    //     return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(AdditionalRegistrationDetailsDTO.class));
+    // }
+    // public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithAdditionalDetails(String empId) {
+
+    //     String sql = "SELECT " +
+    //             "e.emp_code AS empCode, " +
+    //             "e.emp_name AS empName, " +
+    //             "r.registration_id AS registrationId, " +
+    //             "r.registration_date AS registrationDate, " +
+    //             "t.course AS courseName, " +
+    //             "r.registration_comments AS registrationComments, " +
+    //             "r.registration_status AS status, " +
+    //             "r.registration_response AS registrationResponse, " +
+    //             "t.trainer_names AS trainerName, " +
+    //             "s.planned_start_date AS startDate, " +
+    //             "s.planned_end_date AS endDate, " +
+    //             "s.from_time AS fromTime, " +
+    //             "s.to_time AS toTime, " +
+    //             "s.actual_start_date AS actualStartDate, " +
+    //             "s.actual_end_date AS actualEndDate " +
+    //             "FROM " +
+    //             "m_employee e " +
+    //             "JOIN " +
+    //             "registration r ON e.emp_id = r.emp_id " +
+    //             "JOIN " +
+    //             "training_schedule s ON r.schedule_id = s.schedule_id " +
+    //             "JOIN " +
+    //             "m_trainings t ON s.training_id = t.training_id " +
+    //             "WHERE e.emp_id = ? " +  // Add the condition to filter by emp_id
+    //             "ORDER BY " +
+    //             "r.registration_date DESC";
+    
+    //     return jdbcTemplate.query(sql, new Object[]{empId}, new BeanPropertyRowMapper<>(AdditionalRegistrationDetailsDTO.class));
+    // }
+    
+    public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithAdditionalDetails(String empId) {
         // String sql = "SELECT " +
         //         "e.emp_code AS empCode, " +
         //         "e.emp_name AS empName, " +
@@ -281,9 +346,11 @@ public Long register(Registration registration) {
         //         "r.registration_comments AS registrationComments, " +
         //         "r.registration_status AS status, " +
         //         "r.registration_response AS registrationResponse, " +
-        //         "t.trainer_names AS trainerName, " + // Corrected field name
+        //         "t.trainer_names AS trainerName, " +
         //         "s.planned_start_date AS startDate, " +
         //         "s.planned_end_date AS endDate, " +
+        //         "s.from_time AS fromTime, " +
+        //         "s.to_time AS toTime, " +
         //         "s.actual_start_date AS actualStartDate, " +
         //         "s.actual_end_date AS actualEndDate " +
         //         "FROM " +
@@ -294,8 +361,37 @@ public Long register(Registration registration) {
         //         "training_schedule s ON r.schedule_id = s.schedule_id " +
         //         "JOIN " +
         //         "m_trainings t ON s.training_id = t.training_id " +
+        //         "WHERE e.emp_id = CAST(? AS BIGINT) " +  // Cast empId to BIGINT
         //         "ORDER BY " +
         //         "r.registration_date DESC";
+        // String sql = "SELECT " +
+        // "e.emp_code AS empCode, " +
+        // "e.emp_name AS empName, " +
+        // "r.registration_id AS registrationId, " +
+        // "r.registration_date AS registrationDate, " +
+        // "t.course AS courseName, " +
+        // "r.registration_comments AS registrationComments, " +
+        // "r.registration_status AS status, " +
+        // "r.registration_response AS registrationResponse, " +
+        // "t.trainer_names AS trainerName, " +
+        // "s.planned_start_date AS startDate, " +
+        // "s.planned_end_date AS endDate, " +
+        // "s.from_time AS fromTime, " +
+        // "s.to_time AS toTime, " +
+        // "s.actual_start_date AS actualStartDate, " +
+        // "s.actual_end_date AS actualEndDate, " +
+        // "e.emp_id AS empId " +  // Map emp_id to empId property
+        // "FROM " +
+        // "m_employee e " +
+        // "JOIN " +
+        // "registration r ON e.emp_id = r.emp_id " +
+        // "JOIN " +
+        // "training_schedule s ON r.schedule_id = s.schedule_id " +
+        // "JOIN " +
+        // "m_trainings t ON s.training_id = t.training_id " +
+        // "WHERE e.emp_id = CAST(? AS BIGINT) " +  // Cast empId to BIGINT
+        // "ORDER BY " +
+        // "r.registration_date DESC";
         String sql = "SELECT " +
         "e.emp_code AS empCode, " +
         "e.emp_name AS empName, " +
@@ -308,10 +404,11 @@ public Long register(Registration registration) {
         "t.trainer_names AS trainerName, " +
         "s.planned_start_date AS startDate, " +
         "s.planned_end_date AS endDate, " +
-        "s.from_time AS fromTime, " + // Include from_time
-        "s.to_time AS toTime, " +     // Include to_time
+        "s.from_time AS fromTime, " +
+        "s.to_time AS toTime, " +
         "s.actual_start_date AS actualStartDate, " +
-        "s.actual_end_date AS actualEndDate " +
+        "s.actual_end_date AS actualEndDate, " +
+        "e.emp_id AS empId " +
         "FROM " +
         "m_employee e " +
         "JOIN " +
@@ -320,13 +417,12 @@ public Long register(Registration registration) {
         "training_schedule s ON r.schedule_id = s.schedule_id " +
         "JOIN " +
         "m_trainings t ON s.training_id = t.training_id " +
+        "WHERE e.emp_id = CAST(? AS BIGINT) AND r.registration_status = 'confirmed' " +
         "ORDER BY " +
         "r.registration_date DESC";
 
-    
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(AdditionalRegistrationDetailsDTO.class));
+        return jdbcTemplate.query(sql, new Object[]{empId}, new BeanPropertyRowMapper<>(AdditionalRegistrationDetailsDTO.class));
     }
     
-
     
 }

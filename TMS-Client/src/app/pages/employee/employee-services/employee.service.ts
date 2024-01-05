@@ -15,7 +15,7 @@ export interface PerformanceData {
 })
 export class EmployeeService {
   constructor(private http: HttpClient) {}
-  
+  private baseUrl = 'http://localhost:8083/api';
   private empId: string | null = null;
 
   setEmpId(empId: string): void {
@@ -75,6 +75,11 @@ export class EmployeeService {
 
   getFeedback(empId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/completed-courses/${empId}`);
+  }
+
+  getEnrollmentData(empId: string): Observable<any[]> {
+    const url = `${this.baseUrl}/registrations/training/${empId}`;
+    return this.http.get<any[]>(url);
   }
 
   
