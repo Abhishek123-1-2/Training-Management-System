@@ -60,6 +60,24 @@ private String performanceStatus;
 @Column(name="feedback_comments")
 private String commentsFromTrainer;
 
+@Column(name="feedback_paramters_11")
+private int effectiveness;
+
+@Column(name="feedback_paramters_12")
+private int content;
+
+@Column(name="feedback_paramters_13")
+private int methodology;
+
+@Column(name="feedback_paramters_14")
+private int organization;
+
+@Column(name="feedback_paramters_15")
+private int trainer_rating;
+
+@Column(name="feedback_comments_employee")
+private String commentsFromEmployee;
+
 @Column(name = "feedback_type")
     private String feedback_type;
 
@@ -94,6 +112,9 @@ Long empId,
 int technicalSkills, int graspingPower, int proActiveness,
 int interestQuality, int leadershipQuality, 
 int problemSolvingAbility, String commentsFromTrainer,
+int effectiveness, int content, int methodology,
+int organization, int trainer_rating,
+String commentsFromEmpoyee,
 char active_yn, 
 String performanceStatus,
 String created_by, 
@@ -117,6 +138,12 @@ Timestamp created_on, String updated_by, Timestamp updated_on) {
         this.smartnessRate=smartnessRate;
         this.spokenEnglishRate=spokenEnglishRate;
         this.commentsFromTrainer = commentsFromTrainer;
+        this.effectiveness = effectiveness;
+        this.content = content;
+        this.methodology = methodology;
+        this.organization = organization;
+        this.trainer_rating = trainer_rating;
+        this.commentsFromEmployee = commentsFromEmpoyee;
         this.active_yn = active_yn;
         this.created_by = created_by;
         this.feedback_type=feedback_type;
@@ -307,6 +334,54 @@ Timestamp created_on, String updated_by, Timestamp updated_on) {
     public void setAssignmentStatus(String assignmentStatus) {
         this.assignmentStatus = assignmentStatus;
     }
+
+    public int getEffectiveness() {
+    return effectiveness;
+}
+
+public void setEffectiveness(int effectiveness) {
+    this.effectiveness = effectiveness;
+}
+
+public int getContent() {
+    return content;
+}
+
+public void setContent(int content) {
+    this.content = content;
+}
+
+public int getMethodology() {
+    return methodology;
+}
+
+public void setMethodology(int methodology) {
+    this.methodology = methodology;
+}
+
+public int getOrganization() {
+    return organization;
+}
+
+public void setOrganization(int organization) {
+    this.organization = organization;
+}
+
+public int getTrainer_rating() {
+    return trainer_rating;
+}
+
+public void setTrainer_rating(int trainer_rating) {
+    this.trainer_rating = trainer_rating;
+}
+
+public String getCommentsFromEmployee() {
+    return commentsFromEmployee;
+}
+
+public void setCommentsFromEmployee(String commentsFromEmployee) {
+    this.commentsFromEmployee = commentsFromEmployee;
+}
 
     @Override
     public String toString() {
