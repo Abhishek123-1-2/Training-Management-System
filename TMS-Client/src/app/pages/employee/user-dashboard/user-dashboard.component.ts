@@ -113,9 +113,39 @@ export class UserDashboardComponent implements OnInit {
     this.loadEnrollmentStatusFromLocalStorage();
     this.fetchConfirmationStatusData();
   }
-  fetchConfirmationStatusData(): void {
-    const empId = this.empId; // Use the employee ID as needed
+  // fetchConfirmationStatusData(): void {
+  //   const empId = this.empId; // Use the employee ID as needed
 
+  //   this.httpClient.get<any[]>(`http://localhost:8083/api/registrations/details-with-additional/${empId}`).subscribe(
+  //     (data: any[]) => {
+  //       // Process the API response and extract the courseName
+  //       const confirmationStatusData = data.map((entry, index) => ({
+  //         t_id: String(index + 1),
+  //         c_name: entry.courseName, // Display courseName in the table
+  //         t_name: entry.trainerName,
+  //         s_date: entry.startDate,
+  //         e_date: entry.endDate,
+  //         status: entry.status,
+  //         enroll: 'Enroll',
+  //       }));
+
+  //       this.confirmationStatusData = confirmationStatusData;
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching confirmation status data:', error);
+  //     }
+  //   );
+  // }
+  fetchConfirmationStatusData(): void {
+    // Use the stored empId from localStorage
+    const empId = this.loginService.getEmpId();
+  
+    if (!empId) {
+      // Handle the case where empId is not available
+      console.error('EmpId not available.');
+      return;
+    }
+  
     this.httpClient.get<any[]>(`http://localhost:8083/api/registrations/details-with-additional/${empId}`).subscribe(
       (data: any[]) => {
         // Process the API response and extract the courseName
@@ -128,7 +158,7 @@ export class UserDashboardComponent implements OnInit {
           status: entry.status,
           enroll: 'Enroll',
         }));
-
+  
         this.confirmationStatusData = confirmationStatusData;
       },
       (error) => {
@@ -136,6 +166,7 @@ export class UserDashboardComponent implements OnInit {
       }
     );
   }
+  
   fetchDataForUser(empId: string): void {
     console.log(`Fetching data for user with empId: ${empId}`);
     // Implement logic to fetch data for the user based on empId
