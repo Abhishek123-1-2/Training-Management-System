@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'app/pages/login/login.service';
 
 declare interface TableData {
@@ -25,6 +25,7 @@ interface TableRow {
   plannedStartDate:string;
   plannedEndDate:string; 
   action: string; 
+  scheduleId?: string;
 }
 
 
@@ -41,7 +42,7 @@ export class FeedbackComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 5;
 
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private userService: UserService) { }
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.tableData1 = {
@@ -51,9 +52,6 @@ export class FeedbackComponent implements OnInit {
       }]
   }
 
-    // this.filteredData = [...this.tableData1.dataRows];
-    // this.currentPage = Math.min(this.currentPage, this.pages.length)
-
     const empId = this.userService.getEmpId();
     this.httpClient.get<any[]>(`http://localhost:8083/api/completed-courses/${empId}`)
       .subscribe(data => {
@@ -61,6 +59,7 @@ export class FeedbackComponent implements OnInit {
         this.tableData1 = {
           headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'Status', 'Action'],
           dataRows: data.map((item, index) => ({
+            scheduleId: item.scheduleId,
             number: (index + 1).toString(),
             course: item.course,
             trainerName: item.trainerName.split('(')[0].trim(),
@@ -71,7 +70,7 @@ export class FeedbackComponent implements OnInit {
           }))
         };
 
-        // Initialize the filteredData and currentPage
+        console.log('Schedule Ids:', data.map(item => item.scheduleId).join(', '));
         this.filteredData = [...this.tableData1.dataRows];
         this.currentPage = Math.min(this.currentPage, this.pages.length);
       });
@@ -96,7 +95,8 @@ export class FeedbackComponent implements OnInit {
 
   changeItemsPerPage(event: any): void {
     this.itemsPerPage = +event.target.value;
-    this.currentPage = 1; // Reset to the first page when changing items per page
+    this.currentPage = 1;
   }
+
 
 }

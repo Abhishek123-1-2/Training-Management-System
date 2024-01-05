@@ -27,7 +27,7 @@
                         <td>{{ row.course }}</td> 
                         <td>{{ row.trainer_name }}</td>
                     <td>
-                        <button class="btn btn-primary" (click)="showNotification('top','center')" >Request{{ row.action }}</button> <!-- (click)="toggleEditMode(i)" -->
+                        <button class="btn btn-primary" (click)="sendRequest(row)">Request{{ row.action }}</button> <!-- (click)="toggleEditMode(i)" -->
 <!--                       <button class="btn btn-primary" (click)="sendRequest()">Request{{ row.action }}</button> 
  -->                      <!-- (click)="toggleEditMode(i)" -->
                     </td>

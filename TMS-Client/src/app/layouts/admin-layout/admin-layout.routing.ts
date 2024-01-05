@@ -43,7 +43,6 @@ import { FeedbackToEmployeeComponent } from 'app/pages/trainer/feedback-to-emplo
 import { AttendanceComponent } from 'app/pages/hr/attendance/attendance.component';
 import { Attendance2Component } from 'app/pages/hr/attendance2/attendance2.component';
 import { OnRequestComponent } from 'app/pages/employee/on-request/on-request.component';
-import { PerformanceDashboardComponent } from 'app/pages/employee/performance-dashboard/performance.component';
 import { TrainingRequestComponent } from 'app/pages/manager/training-request/training-request.component';
 import { TrainingRequest1Component } from 'app/pages/manager/training-request1/training-request1.component';
 import { ApprovedRequestComponent } from 'app/pages/manager/approved-request/approved-request.component';
@@ -106,7 +105,6 @@ export const AdminLayoutRoutes: Routes = [
     {path:'participants-list', component: ParticipantsListComponent},
     {path:'on-request', component: OnRequestComponent},    
     {path:'on-request', component:OnRequestComponent},
-    {path:'performance', component:PerformanceDashboardComponent},
 
     {path:'user-training-history', component: TrainingHistoryComponent}
 ];

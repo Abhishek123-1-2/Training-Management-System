@@ -33,34 +33,4 @@ public class TrainingEnrollmentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error enrolling training");
         }
     }
-
-    // @GetMapping("/{empId}")  // Update the path
-    // public ResponseEntity<List<Map<String, Object>>> getEnrollmentData(@PathVariable Long empId) {
-    //     try {
-    //         List<Map<String, Object>> enrollmentData = enrollmentService.getEnrollmentData(empId);
-    //         return ResponseEntity.ok(enrollmentData);
-    //     } catch (Exception e) {
-    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
-    //     }
-    // }
-    //  @GetMapping("/{empId}")
-    // public ResponseEntity<List<TrainingEnrollmentDTO>> getEnrollmentData(@PathVariable Long empId) {
-    //     try {
-    //         List<TrainingEnrollmentDTO> enrollmentData = enrollmentService.getEnrollmentData(empId);
-    //         return ResponseEntity.ok(enrollmentData);
-    //     } catch (Exception e) {
-    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
-    //     }
-    // }
-    @GetMapping("/{empId}")
-public ResponseEntity<List<TrainingEnrollmentDTO>> getEnrollmentData(@PathVariable Long empId) {
-    try {
-        List<TrainingEnrollmentDTO> enrollmentData = enrollmentService.getEnrollmentData(empId);
-        return ResponseEntity.ok(enrollmentData);
-    } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.emptyList());
-    }
-    
-}
-
 }
