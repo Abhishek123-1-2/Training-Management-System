@@ -15,13 +15,13 @@
               <label for="search">Search:</label>
               <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
           </div>
-        <div class="table-responsive text-nowrap table-container">
+        <div class="table-responsive table-container">
           <table class="table">
             <thead class="text-primary">
-              <th class = "text-center" *ngFor="let header of tableData1.headerRow">{{ header }}</th>
+              <th class = "text-center" *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
             </thead>
             <tbody>
-              <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
+              <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row text-center">
                   <td class = "text-center">{{ row.sr_no }}</td>
                   <td class = "text-center">{{ row.c_name }}</td>
                   <td class = "text-center">{{  extractTrainerName(row.t_name) }}</td>

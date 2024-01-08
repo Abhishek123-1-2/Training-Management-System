@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import * as XLSX from 'xlsx';
 
 interface TableRow {
   sr_no: string;
   emp_code: string; 
-  emp_name: string; 
+  emp_name: string;
+  course: string;
   start_date: string; 
   end_date: string; 
   status: string; 
@@ -44,11 +46,12 @@ export class EmployeeHistoryComponent implements OnInit {
     ).subscribe(
       (data) => {
         this.tableData1 = {
-          headerRow: ['Sr No.', 'Employee Code', 'Employee Name', 'Start Date', 'End Date', 'Status'],
+          headerRow: ['Sr No.', 'Employee Code', 'Employee Name', 'Course Name', 'Start Date', 'End Date', 'Status'],
           dataRows: data.map((item, index) => ({
             sr_no: (index + 1).toString(),
             emp_code: item.empCode,
             emp_name: item.empName,
+            course: this.c_name,
             start_date: item.plannedStartDate ? new Date(item.plannedStartDate).toLocaleDateString() : '',
             end_date: item.plannedEndDate ? new Date(item.plannedEndDate).toLocaleDateString() : '',
             status: item.trainingStatus,
@@ -83,5 +86,12 @@ export class EmployeeHistoryComponent implements OnInit {
   changeItemsPerPage(event: any): void {
     this.itemsPerPage = +event.target.value;
     this.currentPage = 1;
+  }
+
+  exportToExcel(): void {
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.filteredData);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    XLSX.writeFile(wb, `${this.c_name}_records.xlsx`);
   }
 }

@@ -69,10 +69,9 @@ export class FeedbackComponent implements OnInit {
             action: 'Give Feedback'
           }))
         };
-
-        console.log('Schedule Ids:', data.map(item => item.scheduleId).join(', '));
         this.filteredData = [...this.tableData1.dataRows];
         this.currentPage = Math.min(this.currentPage, this.pages.length);
+        console.log('Schedule Ids:', data.map(item => item.scheduleId).join(', '));
       });
   }
 

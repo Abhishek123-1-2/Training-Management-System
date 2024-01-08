@@ -56,6 +56,7 @@ import { TrainingRequest1Component } from './pages/manager/training-request1/tra
 import { ApprovedRequestComponent } from './pages/manager/approved-request/approved-request.component';
 import { TrainerTrainingDetailsComponent } from './pages/trainer/trainer-training-details/trainer-training-details.component';
 import { ConfirmationstatusDetailsComponent } from './pages/employee/confirmationstatus-details/confirmationstatus-details.component';
+import { HrTrainingHistoryComponent } from './pages/hr/hr-training-history/hr-training-history.component';
 
 
 @NgModule({

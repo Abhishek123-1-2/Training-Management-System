@@ -53,6 +53,7 @@ import { TrainerTrainingDetailsComponent } from 'app/pages/trainer/trainer-train
 import { ParticipantsListComponent } from 'app/pages/admin/participants-list/participants-list.component';
 import { TrainingHistoryComponent } from 'app/pages/employee/training-history/training-history.component';
 import { ConfirmationstatusDetailsComponent } from 'app/pages/employee/confirmationstatus-details/confirmationstatus-details.component';
+import { HrTrainingHistoryComponent } from 'app/pages/hr/hr-training-history/hr-training-history.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -74,7 +75,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'trainer-dashboard', component: TrainerDashboardComponent},
     { path: 'feedback', component:FeedbackComponent},
     { path: 'feedback-details', component:FeedbackDetailsComponent},
-    { path: 'feedback-form/:number', component:FeedbackFormComponent},
+    { path: 'feedback-form/:number/:scheduleId', component:FeedbackFormComponent},
     { path: 'student-list', component: StudentListComponent},
     { path: 'student-list1', component: StudentList1Component},
     { path: 'attendance-record', component: AttendanceRecordComponent},
@@ -88,7 +89,7 @@ export const AdminLayoutRoutes: Routes = [
     {path:'admin-training-history', component: AdminTrainingHistoryComponent},
     {path:'registration', component: AdminRegistrationComponent},
     {path:'employee-search', component: EmployeeSearchComponent},
-    {path:'course-details/:emp_code', component: CourseDetailsComponent},
+    {path:'course-details/:emp_code/:emp_name', component: CourseDetailsComponent},
     {path:'view-training', component: ViewTrainingComponent},
     {path:'upcoming-training', component: UpcomingTrainingComponent},
     {path:'completed-training', component: CompletedTrainingComponent},
@@ -107,5 +108,6 @@ export const AdminLayoutRoutes: Routes = [
     {path:'on-request', component: OnRequestComponent},    
     {path:'on-request', component:OnRequestComponent},
     {path:'confirmationstatus-details',component:ConfirmationstatusDetailsComponent},
-    {path:'user-training-history', component: TrainingHistoryComponent}
+    {path:'user-training-history', component: TrainingHistoryComponent},
+    {path:'hr-training-history', component: HrTrainingHistoryComponent}
 ];

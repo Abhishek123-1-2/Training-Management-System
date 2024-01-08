@@ -66,7 +66,7 @@ submenu:[
 
   {path: '/admin-training', title: 'History', icon:'nc-tile-56', class: '', roles: ['ROLE_HR'], submenu: [
     {path:'/training-record', title:'Training Record', icon:'', class:'', roles:['ROLE_HR']},
-    {path:'/training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_HR']},
+    {path:'/hr-training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_HR']},
 
   ]},
 

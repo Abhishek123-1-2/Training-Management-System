@@ -58,6 +58,7 @@ import { AttendanceComponent } from 'app/pages/hr/attendance/attendance.componen
 import { ParticipantsListComponent } from 'app/pages/admin/participants-list/participants-list.component';
 import { ViewTrainingComponent } from 'app/pages/admin/view-training/view-training.component';
 import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
+import { HrTrainingHistoryComponent } from 'app/pages/hr/hr-training-history/hr-training-history.component';
 
 
 
@@ -130,7 +131,8 @@ import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.
     CourseDetailsComponent,
     EmployeeFeedbackDetailsComponent,
     ViewTrainingComponent,
-    TrainingViewComponent
+    TrainingViewComponent,
+    HrTrainingHistoryComponent,
 
 
 
