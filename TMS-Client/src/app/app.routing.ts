@@ -28,6 +28,7 @@ import { AttendanceComponent } from './pages/hr/attendance/attendance.component'
 import { Attendance2Component } from './pages/hr/attendance2/attendance2.component';
 import { ManagerDashboardComponent } from './pages/manager/manager-dashboard/manager-dashboard.component';
 import { TrainingViewComponent } from './pages/hr/training-view/training-view.component';
+import { ConfirmationstatusDetailsComponent } from './pages/employee/confirmationstatus-details/confirmationstatus-details.component';
 
 
 export const AppRoutes: Routes = [
@@ -112,9 +113,11 @@ export const AppRoutes: Routes = [
         {
           path: 'attendance2',
           component: Attendance2Component
-        }
+        },
+        { path: 'confirmationstatus-details/:courseName', component: ConfirmationstatusDetailsComponent}
         
       ]},
+     
   {
     path: '**',
     redirectTo: 'error'

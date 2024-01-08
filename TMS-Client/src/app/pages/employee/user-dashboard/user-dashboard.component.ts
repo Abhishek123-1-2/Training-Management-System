@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee-services/employee.service';
 import { UserService } from 'app/pages/login/login.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 interface TableData {
@@ -45,19 +45,15 @@ export class UserDashboardComponent implements OnInit {
 
   empId: string;
 
-  // confirmationStatusData: TableRow[] = [
-  //   { t_id: '1', c_name: 'Course A', t_name: 'Trainer A', s_date: '2024-01-01', e_date: '2024-01-10', status: 'Confirmed', enroll: 'Enroll' },
-  //   { t_id: '2', c_name: 'Course B', t_name: 'Trainer B', s_date: '2024-02-01', e_date: '2024-02-10', status: 'Pending', enroll: 'Enroll' },
-  //   { t_id: '3', c_name: 'Course C', t_name: 'Trainer C', s_date: '2024-03-01', e_date: '2024-03-10', status: 'Confirmed', enroll: 'Enroll' },
-  //   // Add more sample data as needed
-  // ];
+  
   confirmationStatusData: TableRow[] = [];
 
   constructor(
     private employeeService: EmployeeService,
     private loginService: UserService,
     private route: ActivatedRoute,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private router: Router 
   ) {}
 
   ngOnInit(): void {
@@ -113,22 +109,114 @@ export class UserDashboardComponent implements OnInit {
     this.loadEnrollmentStatusFromLocalStorage();
     this.fetchConfirmationStatusData();
   }
-  fetchConfirmationStatusData(): void {
-    const empId = this.empId; // Use the employee ID as needed
+  // fetchConfirmationStatusData(): void {
+  //   const empId = this.empId; // Use the employee ID as needed
 
+  //   this.httpClient.get<any[]>(`http://localhost:8083/api/registrations/details-with-additional/${empId}`).subscribe(
+  //     (data: any[]) => {
+  //       // Process the API response and extract the courseName
+  //       const confirmationStatusData = data.map((entry, index) => ({
+  //         t_id: String(index + 1),
+  //         c_name: entry.courseName, // Display courseName in the table
+  //         t_name: entry.trainerName,
+  //         s_date: entry.startDate,
+  //         e_date: entry.endDate,
+  //         status: entry.status,
+  //         enroll: 'Enroll',
+  //       }));
+
+  //       this.confirmationStatusData = confirmationStatusData;
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching confirmation status data:', error);
+  //     }
+  //   );
+  // }
+  // fetchConfirmationStatusData(): void {
+  //   // Use the stored empId from localStorage
+  //   const empId = this.loginService.getEmpId();
+  
+  //   if (!empId) {
+  //     // Handle the case where empId is not available
+  //     console.error('EmpId not available.');
+  //     return;
+  //   }
+  
+  //   this.httpClient.get<any[]>(`http://localhost:8083/api/registrations/details-with-additional/${empId}`).subscribe(
+  //     (data: any[]) => {
+  //       // Process the API response and extract the courseName
+  //       const confirmationStatusData = data.map((entry, index) => ({
+  //         t_id: String(index + 1),
+  //         c_name: entry.courseName, // Display courseName in the table
+  //         t_name: entry.trainerName,
+  //         s_date: entry.startDate,
+  //         e_date: entry.endDate,
+  //         status: entry.status,
+  //         enroll: 'Enroll',
+  //       }));
+  
+  //       this.confirmationStatusData = confirmationStatusData;
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching confirmation status data:', error);
+  //     }
+  //   );
+  // }
+  // fetchConfirmationStatusData(): void {
+  //   const empId = this.loginService.getEmpId();
+  
+  //   if (!empId) {
+  //     console.error('EmpId not available.');
+  //     return;
+  //   }
+  
+  //   this.httpClient.get<any[]>(`http://localhost:8083/api/registrations/details-with-additional/${empId}`).subscribe(
+  //     (data: any[]) => {
+  //       // Filter data based on "trainingStatus" being "Completed"
+  //       const completedStatusData = data.filter(entry => entry.trainingStatus === 'Completed');
+  
+  //       // Process the filtered data and extract the courseName
+  //       const confirmationStatusData = completedStatusData.map((entry, index) => ({
+  //         t_id: String(index + 1),
+  //         c_name: entry.courseName,
+  //         t_name: entry.trainerName,
+  //         s_date: entry.startDate,
+  //         e_date: entry.endDate,
+  //         status: entry.status,
+  //         enroll: 'Enroll',
+  //       }));
+  
+  //       this.confirmationStatusData = confirmationStatusData;
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching confirmation status data:', error);
+  //     }
+  //   );
+  // }
+  fetchConfirmationStatusData(): void {
+    const empId = this.loginService.getEmpId();
+  
+    if (!empId) {
+      console.error('EmpId not available.');
+      return;
+    }
+  
     this.httpClient.get<any[]>(`http://localhost:8083/api/registrations/details-with-additional/${empId}`).subscribe(
       (data: any[]) => {
-        // Process the API response and extract the courseName
-        const confirmationStatusData = data.map((entry, index) => ({
+        // Filter data based on "trainingStatus" being "Upcoming" or "On-Going"
+        const filteredStatusData = data.filter(entry => entry.trainingStatus !== 'Completed');
+  
+        // Process the filtered data and extract the courseName
+        const confirmationStatusData = filteredStatusData.map((entry, index) => ({
           t_id: String(index + 1),
-          c_name: entry.courseName, // Display courseName in the table
+          c_name: entry.courseName,
           t_name: entry.trainerName,
           s_date: entry.startDate,
           e_date: entry.endDate,
           status: entry.status,
           enroll: 'Enroll',
         }));
-
+  
         this.confirmationStatusData = confirmationStatusData;
       },
       (error) => {
@@ -136,6 +224,13 @@ export class UserDashboardComponent implements OnInit {
       }
     );
   }
+  
+  
+  viewConfirmationDetails(courseName: string): void {
+    // Navigate to confirmationstatus-details component with the selected courseName
+    this.router.navigate(['/confirmationstatus-details', courseName]);
+  }
+
   fetchDataForUser(empId: string): void {
     console.log(`Fetching data for user with empId: ${empId}`);
     // Implement logic to fetch data for the user based on empId
