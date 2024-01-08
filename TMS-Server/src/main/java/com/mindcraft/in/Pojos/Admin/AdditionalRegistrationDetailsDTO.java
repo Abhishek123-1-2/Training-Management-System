@@ -12,6 +12,7 @@ public class AdditionalRegistrationDetailsDTO {
     private String toTime;
     private String status;
     private Long empId;
+    private String trainingStatus;
 
     // Constructors, getters, and setters
 
@@ -19,7 +20,7 @@ public class AdditionalRegistrationDetailsDTO {
     public AdditionalRegistrationDetailsDTO() {
     }
 
-    public AdditionalRegistrationDetailsDTO(String courseName, String trainerName, Date startDate, Date endDate, String fromTime, String toTime, String status,String empCode,Long empId) {
+    public AdditionalRegistrationDetailsDTO(String courseName, String trainerName, Date startDate, Date endDate, String fromTime, String toTime, String status,String empCode,Long empId,String trainingStatus) {
         this.courseName = courseName;
         this.trainerName = trainerName;
         this.startDate = startDate;
@@ -29,6 +30,7 @@ public class AdditionalRegistrationDetailsDTO {
         this.status = status;
         this.empCode=empCode;
         this.empId = empId;
+        this.trainingStatus = trainingStatus;
     }
 
     // Getters and Setters
@@ -102,5 +104,13 @@ public class AdditionalRegistrationDetailsDTO {
 
     public void setEmpId(Long empId) {
         this.empId = empId;
+    }
+
+    public String getTrainingStatus() {
+        return trainingStatus;
+    }
+
+    public void setTrainingStatus(String trainingStatus) {
+        this.trainingStatus = trainingStatus;
     }
 }

@@ -52,6 +52,7 @@ import { ReportOfEmployeeComponent } from 'app/pages/trainer/report-emp/report-e
 import { TrainerTrainingDetailsComponent } from 'app/pages/trainer/trainer-training-details/trainer-training-details.component';
 import { ParticipantsListComponent } from 'app/pages/admin/participants-list/participants-list.component';
 import { TrainingHistoryComponent } from 'app/pages/employee/training-history/training-history.component';
+import { ConfirmationstatusDetailsComponent } from 'app/pages/employee/confirmationstatus-details/confirmationstatus-details.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -105,6 +106,6 @@ export const AdminLayoutRoutes: Routes = [
     {path:'participants-list', component: ParticipantsListComponent},
     {path:'on-request', component: OnRequestComponent},    
     {path:'on-request', component:OnRequestComponent},
-
+    {path:'confirmationstatus-details',component:ConfirmationstatusDetailsComponent},
     {path:'user-training-history', component: TrainingHistoryComponent}
 ];

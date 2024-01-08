@@ -105,6 +105,17 @@ public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithAddition
 }
 
 
+@GetMapping("/details-for-course/{courseName}")
+    public ResponseEntity<List<AdditionalRegistrationDetailsDTO>> getDetailsForCourse(@PathVariable String courseName) {
+        List<AdditionalRegistrationDetailsDTO> detailsForCourse = registrationService.getDetailsForCourse(courseName);
+
+        if (detailsForCourse != null && !detailsForCourse.isEmpty()) {
+            return new ResponseEntity<>(detailsForCourse, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 
 }

@@ -1,1 +1,93 @@
-<p>confirmationstatus-details works!</p>
+<!-- <div class="container" *ngIf="detailsForCourse.length > 0; ">
+    <h2>Confirmation Status Details for {{ detailsForCourse[0].courseName }}</h2>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Trainer Name</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>From Time</th>
+          <th>To Time</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detail of detailsForCourse">
+          <td>{{ detail.trainerName }}</td>
+          <td>{{ detail.startDate | date }}</td>
+          <td>{{ detail.endDate | date }}</td>
+          <td>{{ detail.fromTime }}</td>
+          <td>{{ detail.toTime }}</td>
+          <td>{{ detail.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="container" *ngIf="detailsForCourse.length === 0">
+    <p>Loading...</p>
+  </div>
+
+ -->
+ <!-- confirmationstatus-details.component.html -->
+<div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Confirmation Status Details for: {{ detailsForCourse[0]?.courseName }}</h4>
+      </div>
+      <div class="card-body">
+        <div *ngIf="detailsForCourse.length > 0">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="trainerName">Trainer Name:</label>
+                <div>{{ detailsForCourse[0].trainerName }}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="startDate">Start Date:</label>
+                <div>{{ detailsForCourse[0].startDate | date }}</div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="endDate">End Date:</label>
+                <div>{{ detailsForCourse[0].endDate | date }}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="fromTime">From Time:</label>
+                <div>{{ detailsForCourse[0].fromTime }}</div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="toTime">To Time:</label>
+                <div>{{ detailsForCourse[0].toTime }}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="status">Status:</label>
+                <div>{{ detailsForCourse[0].status }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div *ngIf="detailsForCourse.length === 0">
+          <p>Loading...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
