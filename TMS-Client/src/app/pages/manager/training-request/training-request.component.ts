@@ -46,7 +46,7 @@ export class TrainingRequestComponent implements OnInit {
         {sr_no:'1',emp_code:'3647',emp_name:'Yash Gavanang',c_name:'Angular', start_date:'11-12-2023', end_date:'15-12-2023', action:'Approve'},
         {sr_no:'2',emp_code:'3646',emp_name:'Abhishek Pillai',c_name:'Angular', start_date:'14-12-2023', end_date:'19-12-2023', action:'Approve'},
         {sr_no:'3',emp_code:'3639',emp_name:'Mukul Gupta',c_name:'Angular', start_date:'13-12-2023', end_date:'18-12-2023', action:'Approve'},
-      ] 
+      ]
     };
     this.filteredData = [...this.tableData1.dataRows];
   }

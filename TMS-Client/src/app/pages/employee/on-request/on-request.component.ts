@@ -62,7 +62,6 @@ export class OnRequestComponent implements OnInit {
             ]
         };
         this.filteredData = [...this.tableData1.dataRows];
-
         this.employeeService.getTrainingSchedule().subscribe(
           (scheduleData: any[]) => {
             scheduleData.forEach(entry => {
@@ -115,15 +114,11 @@ export class OnRequestComponent implements OnInit {
 
       sendRequest(row: TableRow): void {
         const loggedInUserData = this.loginService.getLoggedInUserData();
-        // const empId = this.loginService.getEmpId()
-        // const empId = loggedInUserData ? loggedInUserData.empId : null;
         if (!loggedInUserData) {
           // Handle the case where user data is not available
           return;
         }
-
         const empId = loggedInUserData.empId;
-
         const alreadyEnrolled = this.enrollmentStatusData.some(
           (enrollment) => 
           enrollment.number === row.number &&

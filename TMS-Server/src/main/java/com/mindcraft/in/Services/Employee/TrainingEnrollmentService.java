@@ -58,57 +58,6 @@ public class TrainingEnrollmentService {
         }
     }
 
-    // public List<Map<String, Object>> getEnrollmentData(Long empId) {
-    //     // Implement logic to fetch enrollment data based on empId
-    //     String sql = "SELECT * FROM registration WHERE emp_id = ?";
-    //     return jdbcTemplate.queryForList(sql, empId);
-    // }
-//     public List<TrainingEnrollmentDTO> getEnrollmentData(Long empId) {
-//     // String sql = "SELECT t.training_id, t.schedule_id, r.emp_id, t.course " +
-//     //         "FROM registration r " +
-//     //         "JOIN training_schedule t ON r.training_id = t.training_id " +
-//     //         "WHERE r.emp_id = ?";
-//     // String sql = "SELECT * FROM registration WHERE emp_id = ?";
-//     String sql = "SELECT r.training_id, r.schedule_id, r.emp_id, t.course " +
-//                  "FROM registration r " +
-//                  "JOIN training_schedule t ON r.training_id = t.training_id " +
-//                  "WHERE r.emp_id = ?";
-
-//     List<Map<String, Object>> enrollmentData = jdbcTemplate.queryForList(sql, empId);
-
-//     return enrollmentData.stream()
-//             .map(enrollmentRow -> new TrainingEnrollmentDTO(
-//                     (Long) enrollmentRow.get("training_id"),
-//                     (Long) enrollmentRow.get("schedule_id"),
-//                     empId,
-//                     (String) enrollmentRow.get("course")
-//             ))
-//             .collect(Collectors.toList());
-// }
-// public List<TrainingEnrollmentDTO> getEnrollmentData(Long empId) {
-//     String sql = "SELECT t.training_id, t.schedule_id, r.emp_id, t.course " +
-//                  "FROM registration r " +
-//                  "JOIN training_schedule t ON r.training_id = t.training_id " +
-//                  "WHERE r.emp_id = ?";
-
-//     try {
-//         List<Map<String, Object>> enrollmentData = jdbcTemplate.queryForList(sql, empId);
-
-//         return enrollmentData.stream()
-//                 .map(enrollmentRow -> new TrainingEnrollmentDTO(
-//                         (Long) enrollmentRow.get("training_id"),
-//                         (Long) enrollmentRow.get("schedule_id"),
-//                         empId,
-//                         (String) enrollmentRow.get("course")
-//                 ))
-//                 .collect(Collectors.toList());
-//     } catch (Exception e) {
-//         // Handle the exception or log it
-//         e.printStackTrace();
-//         return Collections.emptyList();
-//     }
-// }
-
 public List<TrainingEnrollmentDTO> getEnrollmentData(Long empId) {
     String sql = "SELECT t.training_id, t.schedule_id, r.emp_id, m.course " +
                  "FROM registration r " +

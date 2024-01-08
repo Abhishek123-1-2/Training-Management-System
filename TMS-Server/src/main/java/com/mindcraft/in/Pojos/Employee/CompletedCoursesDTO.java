@@ -1,6 +1,7 @@
 package com.mindcraft.in.Pojos.Employee;
 
 public class CompletedCoursesDTO {
+    private String trainingId;
     private String scheduleId;
     private String course;
     private String trainerName;
@@ -12,7 +13,8 @@ public class CompletedCoursesDTO {
 
     }
 
-    public CompletedCoursesDTO(String scheduleId, String course, String trainerName, String plannedStartDate, String plannedEndDate, String trainingStatus) {
+    public CompletedCoursesDTO(String trainingId,String scheduleId, String course, String trainerName, String plannedStartDate, String plannedEndDate, String trainingStatus) {
+        this.trainingId = trainingId;
         this.scheduleId = scheduleId;
         this.course = course;
         this.trainerName = trainerName;
@@ -20,7 +22,14 @@ public class CompletedCoursesDTO {
         this.plannedEndDate = plannedEndDate;
         this.trainingStatus = trainingStatus;
     }
-    
+
+    public String getTrainingId() {
+        return trainingId;
+    }
+
+    public void setTrainingId(String trainingId) {
+        this.trainingId = trainingId;
+    }
     public String getScheduleId() {
         return scheduleId;
     }
