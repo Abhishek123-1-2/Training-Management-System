@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title">On-Request Deatils</h4>
+          <h4 class="card-title">On-Request Details</h4>
         </div>
         <div class="card-body">
           <div class="d-flex justify-content-between">
@@ -23,11 +23,16 @@
                 <ng-container *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) ; let i = index">
                   
                   <tr class="expandable-row text-center">
-                        <td>{{ row.number }}</td>
-                        <td>{{ row.course }}</td> 
+                        <td>{{ row.t_id }}</td>
+                        <td>{{ row.c_name }}</td> 
                         <td>{{ row.trainer_name }}</td>
                     <td>
                         <button class="btn btn-primary" (click)="sendRequest(row)">Request{{ row.action }}</button>
+                    </td>
+                    <td *ngIf="row.isEnrolled">{{ row.status }}</td>
+                    <td *ngIf="!row.isEnrolled"></td>
+                    <td>
+                      <button class="btn btn-primary" *ngIf="row.isEnrolled && row.view === ''" [disabled]="row.status !== 'Confirmed'">View</button>
                     </td>
                   </tr>
                 </ng-container>

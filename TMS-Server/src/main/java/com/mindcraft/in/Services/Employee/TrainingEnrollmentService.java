@@ -83,5 +83,17 @@ public List<TrainingEnrollmentDTO> getEnrollmentData(Long empId) {
     }
 }
 
+public String getRegistrationStatus(Long trainingId, Long scheduleId, Long empId) {
+    String sql = "SELECT registration_status FROM registration WHERE training_id = ? AND schedule_id = ? AND emp_id = ?";
+
+    try {
+        return jdbcTemplate.queryForObject(sql, String.class, trainingId, scheduleId, empId);
+    } catch (Exception e) {
+        e.printStackTrace();
+        // Handle the exception or log it
+        return null;
+    }
+}
+
 
 }
