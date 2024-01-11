@@ -59,6 +59,11 @@ import { ParticipantsListComponent } from 'app/pages/admin/participants-list/par
 import { ViewTrainingComponent } from 'app/pages/admin/view-training/view-training.component';
 import { TrainingViewComponent } from 'app/pages/hr/training-view/training-view.component';
 import { HrTrainingHistoryComponent } from 'app/pages/hr/hr-training-history/hr-training-history.component';
+import { ManagerEmployeeHistoryComponent } from 'app/pages/manager/manager-employee-history/manager-employee-history.component';
+import { ManagerTrainingHistoryComponent } from 'app/pages/manager/manager-training-history/manager-training-history.component';
+import { ManagerTrainingRecordComponent } from 'app/pages/manager/manager-training-record/manager-training-record.component';
+import { UserDashboardComponent } from 'app/pages/employee/user-dashboard/user-dashboard.component';
+import { FeedbackComponent } from 'app/pages/employee/feedback/feedback.component';
 
 
 
@@ -133,6 +138,12 @@ import { HrTrainingHistoryComponent } from 'app/pages/hr/hr-training-history/hr-
     ViewTrainingComponent,
     TrainingViewComponent,
     HrTrainingHistoryComponent,
+    ManagerEmployeeHistoryComponent,
+    ManagerTrainingHistoryComponent,
+    ManagerTrainingRecordComponent,
+    UserDashboardComponent,
+    FeedbackComponent,
+    
 
 
 

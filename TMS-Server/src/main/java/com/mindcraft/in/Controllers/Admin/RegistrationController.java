@@ -12,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/registrations")
@@ -116,6 +118,60 @@ public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithAddition
         }
     }
 
+    @GetMapping("/details-with-planned-dates")
+public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithPlannedDates() {
+    return registrationService.getRegistrationDetailsWithPlannedDates();
+}
 
+   @GetMapping("/details-with-planned-dates-on-request")
+public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithPlannedDatesOnRequest() {
+    return registrationService.getRegistrationDetailsWithPlannedDatesOnRequest();
+}
+
+//  @PutMapping("/{registrationId}/status")
+//     public ResponseEntity<Void> updateStatus(@PathVariable Long registrationId, @RequestBody Map<String, String> statusRequest) {
+//         String newStatus = statusRequest.get("registration_status");
+
+//         // Check if the provided status is valid (you may add additional validation logic if needed)
+//         if (!Arrays.asList("confirmed", "rejected", "joined").contains(newStatus)) {
+//             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//         }
+
+//         // Check if the registration with the given ID exists
+//         Registration existingRegistration = registrationService.getRegistrationDetails(registrationId);
+//         if (existingRegistration == null) {
+//             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//         }
+
+//         // Update the status
+//         existingRegistration.setRegistration_status(newStatus);
+//         registrationService.updateRegistration(existingRegistration);
+
+//         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//     }
+
+@PutMapping("/{registrationId}/status")
+public ResponseEntity<Void> updateStatus(@PathVariable Long registrationId, @RequestBody Map<String, String> statusRequest) {
+    String newStatus = statusRequest.get("registration_status");
+    String registrationResponse = statusRequest.get("registrationResponse");
+
+    // Check if the provided status is valid (you may add additional validation logic if needed)
+    if (!Arrays.asList("confirmed", "rejected", "joined").contains(newStatus)) {
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    // Check if the registration with the given ID exists
+    Registration existingRegistration = registrationService.getRegistrationDetails(registrationId);
+    if (existingRegistration == null) {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    // Update the status and registrationResponse
+    existingRegistration.setRegistration_status(newStatus);
+    existingRegistration.setRegistration_response(registrationResponse);
+    registrationService.updateRegistration(existingRegistration);
+
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+}
 
 }

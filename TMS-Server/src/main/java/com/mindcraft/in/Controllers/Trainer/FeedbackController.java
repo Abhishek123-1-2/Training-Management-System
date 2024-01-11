@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,7 +55,44 @@ public class FeedbackController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+ 
+//     @GetMapping("/api/feedback/retrieve/{empId}/{courseName}")
+// public ResponseEntity<List<FeedbackDTO>> retrieveFeedbackDataForEmployeeAndCourse(
+//         @PathVariable int empId,
+//         @PathVariable String courseName
+// ) {
+//     try {
+//         List<FeedbackDTO> feedbackData = feedbackService.retrieveFeedbackDataForEmployeeAndCourse(empId, courseName);
+//         return new ResponseEntity<>(feedbackData, HttpStatus.OK);
+//     } catch (Exception e) {
+//         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//     }
+// }
+// @GetMapping("/retrieve/{empCode}/{courseName}")
+//     public ResponseEntity<List<FeedbackDTO>> retrieveFeedbackDataForEmployeeAndCourse(
+//             @PathVariable String empCode,
+//             @PathVariable String courseName
+//     ) {
+//         try {
+//             List<FeedbackDTO> feedbackData = feedbackService.retrieveFeedbackDataForEmployeeAndCourse(empCode, courseName);
+//             return new ResponseEntity<>(feedbackData, HttpStatus.OK);
+//         } catch (Exception e) {
+//             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//         }
+//     }
 
+@GetMapping("/api/feedback/retrieve/{empCode}/{courseName}")
+public ResponseEntity<List<FeedbackDTO>> retrieveFeedbackDataForEmployeeAndCourse(
+        @PathVariable String empCode,
+        @PathVariable String courseName
+) {
+    try {
+        List<FeedbackDTO> feedbackData = feedbackService.retrieveFeedbackDataForEmployeeAndCourse(empCode, courseName);
+        return new ResponseEntity<>(feedbackData, HttpStatus.OK);
+    } catch (Exception e) {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
 }
 
 

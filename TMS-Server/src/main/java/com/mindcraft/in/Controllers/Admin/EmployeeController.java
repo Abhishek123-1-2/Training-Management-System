@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mindcraft.in.Pojos.Admin.Employee;
@@ -34,7 +35,16 @@ public List<String> getEmployeeCodes() {
     }
 
     
+    @GetMapping("/subordinates")
+public List<Long> getSubordinateEmployeeIds(@RequestParam String reportingManagerName) {
+    System.out.println("Controller: Reporting Manager Name (parameter): " + reportingManagerName);
     
+    List<Long> subordinateEmpIds = employeeService.getSubordinateEmployeeIds(reportingManagerName);
+
+    System.out.println("Controller: Subordinate Employee IDs: " + subordinateEmpIds);
+    return subordinateEmpIds;
+}
+
 
 }
 

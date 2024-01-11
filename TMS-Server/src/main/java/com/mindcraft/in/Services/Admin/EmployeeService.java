@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.mindcraft.in.Pojos.Admin.Employee;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -56,5 +57,84 @@ public class EmployeeService {
         }
     } 
     
+    // EmployeeService.java
+// public List<Long> getSubordinateEmployeeIds(Long reportingManagerId) {
+//     try {
+//         String sql = "SELECT emp_id FROM m_employee WHERE reporting_manager_id = ?";
+//         return jdbcTemplate.queryForList(sql, Long.class, reportingManagerId);
+//     } catch (Exception e) {
+//         e.printStackTrace();
+//         return Collections.emptyList();
+//     }
+// }
+
+// public List<Long> getSubordinateEmployeeIds(String employeeName) {
+//     try {
+//         String sql = "SELECT emp_id FROM m_employee WHERE reporting_manager_name = ?";
+//         return jdbcTemplate.queryForList(sql, Long.class, employeeName);
+//     } catch (Exception e) {
+//         e.printStackTrace();
+//         return Collections.emptyList();
+//     }
+// }
+// public List<Long> getSubordinateEmployeeIds(String employeeName) {
+//     try {
+//         String sql = "SELECT emp_id FROM m_employee WHERE reporting_manager_name = ? AND emp_name = ?";
+//         return jdbcTemplate.queryForList(sql, Long.class, employeeName, employeeName);
+//     } catch (Exception e) {
+//         e.printStackTrace();
+//         return Collections.emptyList();
+//     }
+// }
+
+// public List<Long> getSubordinateEmployeeIds(String reportingManagerName) {
+//     try {
+//         System.out.println("Reporting Manager Name: " + reportingManagerName);
+//         String sql = "SELECT emp_id FROM m_employee WHERE reporting_manager_name = ?";
+//         List<Long> subordinateEmpIds = jdbcTemplate.queryForList(sql, Long.class, reportingManagerName);
+//         System.out.println("Subordinate Employee IDs: " + subordinateEmpIds);
+//         return subordinateEmpIds;
+//     } catch (Exception e) {
+//         e.printStackTrace();
+//         return Collections.emptyList();
+//     }
+// }
+// public List<Long> getSubordinateEmployeeIds(String employeeName) {
+//     try {
+//         String sql = "SELECT emp_id FROM m_employee WHERE reporting_manager_name = ? AND emp_name = ?";
+//         return jdbcTemplate.queryForList(sql, Long.class, employeeName, employeeName);
+//     } catch (Exception e) {
+//         e.printStackTrace();
+//         return Collections.emptyList();
+//     }
+// }
+
+// public List<Long> getSubordinateEmployeeIds(String employeeName) {
+//     try {
+//         String sql = "SELECT emp_id FROM m_employee WHERE reporting_manager_name = ?";
+//         return jdbcTemplate.queryForList(sql, Long.class, employeeName);
+//     } catch (Exception e) {
+//         e.printStackTrace();
+//         return Collections.emptyList();
+//     }
+// }
+public List<Long> getSubordinateEmployeeIds(String employeeName) {
+    try {
+        String sql = "SELECT emp_id FROM m_employee WHERE TRIM(reporting_manager_name) = ?";;
+        System.out.println("SQL Query: " + sql);
+        System.out.println("Reporting Manager Name (parameter): " + employeeName);
+
+        List<Long> subordinateEmpIds = jdbcTemplate.queryForList(sql, Long.class, employeeName);
+
+        System.out.println("Subordinate Employee IDs: " + subordinateEmpIds);
+        return subordinateEmpIds;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return Collections.emptyList();
+    }
+}
+
+
+
 }
 

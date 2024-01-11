@@ -64,11 +64,9 @@ import { HrTrainingHistoryComponent } from './pages/hr/hr-training-history/hr-tr
 
     AppComponent,
     AdminLayoutComponent,
-    FeedbackComponent,
     FeedbackDetailsComponent,
-    UserDashboardComponent,
     ConfirmationstatusDetailsComponent,
-    
+   
 
 
   
