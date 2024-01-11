@@ -4,19 +4,30 @@ import { TrainingService } from '../trainer-services/trainer.service';
 import { filter } from 'rxjs';
 import { error } from 'console';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 
 interface TableRow {
-  sr_no: string;
-  c_name: string;
-  s_date: string;
-  e_date: string;
-  status: string;
+  number: string;
+  course: string;
+  plannedStartDate: string;
+  plannedEndDate: string;
+  training_status: string;
   view:string;
-  schedule_id:string;
-  training_id:string;
-  attendance_id:string;
+  // schedule_id:string;
+  // training_id:string;
+  // attendance_id:string;
   
+}
+
+interface Trainings {
+  empName: string;
+  number: string;
+  course: string;
+  plannedStartDate: string;
+  plannedEndDate: string;
+  training_status: string;
+  view: string; 
 }
 
 @Component({
@@ -35,7 +46,7 @@ export class TrainerFeedbackToEmployeeComponent implements OnInit {
   
 
   constructor(private trainingService:TrainingService,
-    private router: Router,
+    private router: Router, private http: HttpClient
     ) { }
 
  
@@ -49,37 +60,48 @@ export class TrainerFeedbackToEmployeeComponent implements OnInit {
     // };
 
     // this.filteredData = [...this.tableData1.dataRows];
-    this.fetchTrainingDetails();
+    // this.fetchTrainingDetails();
+    const empName = localStorage.getItem('employeeName');
+    if (empName) {
+      this.fetchTrainings(empName);
+    } else {
+      console.error('employeeName not found in localStorage');
+    }
   }
 
-  fetchTrainingDetails(){
-    this.trainingService.getCompletedTrainingDetails().subscribe(
-      (data:any[])=>{
-        this.originalData=data.map((item,index)=>({
-          sr_no:(index+1).toString(),
-          c_name:item.course,
-          s_date:item.plannedStartDate,
-          e_date:item.plannedEndDate,
-          status:item.trainingStatus,
-          view:'View',
-          schedule_id:item.scheduleId,
-          training_id:item.trainingId,
-          attendance_id:item.attendanceId,
-          // view: `/student-list3?start_date=${item.plannedStartDate}&end_date=${item.plannedEndDate}&status=${item.trainingStatus}`
+  fetchTrainings(empName: string) {
+    const url = `http://localhost:8083/api/training-history/trainer/${empName}`;
+
+    this.http.get<Trainings[]>(url).subscribe(
+      (response) => {
+        console.log('Training Data: ', response);
+        this.originalData = response
+        .filter(item => item.training_status.toLowerCase() === 'completed')
+        .map((item, index) => ({
+          number: (index + 1).toString(),
+          course: item.course,
+          plannedStartDate: this.formatDate(item.plannedStartDate),
+          plannedEndDate: this.formatDate(item.plannedEndDate),
+          training_status: item.training_status,
+          empName: item.empName,
+          view: 'View',
         }));
 
-        console.log('Completed Trainings:');
-        this.originalData.forEach(item =>{
-          console.log('Schedule ID: ',item.schedule_id+',Training ID :',item.training_id);
-          console.log('Attendance ID : ',item.attendance_id);
-        });
-
-        this.filteredData=[...this.originalData];
+        this.filteredData = [...this.originalData];
+        this.currentPage = Math.min(this.currentPage, this.pages.length);
       },
-      error=>{
-        console.error('Error fetching training details:', error);
+      (error) => {
+        console.error('Error fetch the training data: ', error);
       }
     )
+  }
+
+  formatDate(timestamp: string): string {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${day}-${month}-${year}`;
   }
 
   applyFilter() {

@@ -38,11 +38,11 @@
 
               <tbody>
                 <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row text-center">
-                    <td>{{ row.sr_no}}</td>
-                    <td>{{ row.c_name }}</td>
-                    <td>{{ row.s_date }}</td>
-                    <td>{{ row.e_date }}</td>
-                    <td>{{ row.status }}</td>
+                    <td>{{ row.number }}</td>
+                    <td>{{ row.course }}</td>
+                    <td>{{ row.plannedStartDate }}</td>
+                    <td>{{ row.plannedEndDate }}</td>
+                    <td>{{ row.training_status }}</td>
                   </tr>
               </tbody>
             </table>

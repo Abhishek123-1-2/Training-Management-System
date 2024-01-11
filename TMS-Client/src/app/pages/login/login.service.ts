@@ -69,9 +69,14 @@ export class UserService {
           // Store the logged-in user data, including empId, in localStorage
           this.loggedInUserData = response;
           localStorage.setItem('empId', response.empId);
+          localStorage.setItem('employeeName', response.employeeName);
         }
       })
     );
+  }
+
+  getEmpName(): string | null {
+    return localStorage.getItem('employeeName') || null;
   }
 
   getEmpId(): string | null {

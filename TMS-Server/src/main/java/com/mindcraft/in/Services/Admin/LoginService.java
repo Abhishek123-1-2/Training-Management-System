@@ -31,7 +31,7 @@ public class LoginService {
         System.out.println("Attempting login with username: " + username + " and password: " + password);
 
         try {
-            String sql = "SELECT u.user_role, e.emp_code, e.emp_id FROM users u " +
+            String sql = "SELECT u.user_role, e.emp_code, e.emp_id, e.emp_name FROM users u " +
                          "JOIN m_employee e ON u.username = e.emp_code " +
                          "WHERE u.username = ? AND u.password = ?";
             List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, user.getUsername(), user.getPassword());
@@ -40,6 +40,7 @@ public class LoginService {
                 String role = (String) result.get(0).get("user_role");
                 String empCode = (String) result.get(0).get("emp_code");
                 Long empId = (Long) result.get(0).get("emp_id");
+                String trainerName =(String) result.get(0).get("emp_name");
 
                 // Fetch employee name based on empCode from the employee table
                 String employeeName = employeeService.getEmployeeName(empCode);
@@ -50,6 +51,7 @@ public class LoginService {
                 response.put("employeeName", employeeName);
                 response.put("empId", String.valueOf(empId));
                 response.put("empCode", empCode); 
+                response.put("trainerName", trainerName);
                 response.put("message", "Login successful");
 
                 System.out.println("Employee Name: " + employeeName);

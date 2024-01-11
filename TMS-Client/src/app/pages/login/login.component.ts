@@ -293,6 +293,8 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("role", specificValue);
             console.log(specificValue);
 
+            console.log('Employee Name',response.employeeName);
+
             switch (specificValue) {
               case 'ROLE_ADMIN':
                 this.router.navigate(['/dashboard']);

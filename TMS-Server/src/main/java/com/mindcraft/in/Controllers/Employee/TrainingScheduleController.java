@@ -2,7 +2,10 @@ package com.mindcraft.in.Controllers.Employee;
 
 import com.mindcraft.in.Pojos.Admin.TrainingSchedule;
 import com.mindcraft.in.Pojos.Employee.TrainingScheduleDTO;
+import com.mindcraft.in.Pojos.Trainer.TrainingsDTO;
 import com.mindcraft.in.Services.Employee.TrainingScheduleService;
+import com.mindcraft.in.Services.Trainer.TrainingsService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,10 +19,12 @@ import java.util.List;
 public class TrainingScheduleController {
     
     private final TrainingScheduleService trainingScheduleService;
+    private final TrainingsService trainingsService;
 
     @Autowired
-    public TrainingScheduleController(TrainingScheduleService trainingScheduleService) {
+    public TrainingScheduleController(TrainingScheduleService trainingScheduleService, TrainingsService trainingsService) {
         this.trainingScheduleService = trainingScheduleService;
+        this.trainingsService = trainingsService;
     }
 
     @GetMapping("/PRE-DEFINED")
@@ -35,5 +40,10 @@ public class TrainingScheduleController {
     @GetMapping("/schedule")
     public List<TrainingScheduleDTO> getTrainings() {
         return trainingScheduleService.getTrainings();
+    }
+
+    @GetMapping("/{empName}")
+    public List<TrainingsDTO> getTrainingsByTrainerName(@PathVariable String empName) {
+        return trainingsService.getTrainingsByTrainerName(empName);
     }
 }

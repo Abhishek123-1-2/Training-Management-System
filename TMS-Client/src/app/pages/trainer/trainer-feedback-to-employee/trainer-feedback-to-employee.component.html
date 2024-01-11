@@ -34,15 +34,15 @@
 
               <tbody>
                 <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row text-center">
-                    <td>{{ row.sr_no }}</td>
-                    <td>{{ row.c_name }}</td>
-                    <td>{{ row.s_date }}</td>
-                    <td>{{ row.e_date }}</td>
-                    <td>{{ row.status }}</td>
+                    <td>{{ row.number }}</td>
+                    <td>{{ row.course }}</td>
+                    <td>{{ row.plannedStartDate }}</td>
+                    <td>{{ row.plannedEndDate }}</td>
+                    <td>{{ row.training_status }}</td>
 
                     <!-- <td><a [routerLink]="['/student-list3', {start_date: row.s_date, end_date: row.e_date, status: row.status}]">{{ row.view }}</a></td> -->
                     <td >
-                      <button (click)="viewEmployeesForCourse(row.c_name)" class="btn btn-primary">View</button>
+                      <button (click)="viewEmployeesForCourse(row.course)" class="btn btn-primary">View</button>
                     </td>
                   </tr>
               </tbody>

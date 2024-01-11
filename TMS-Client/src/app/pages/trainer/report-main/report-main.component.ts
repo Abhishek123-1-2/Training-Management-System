@@ -5,14 +5,16 @@ interface TrainingSchedule {
   scheduleId: number;
   course: string;
   trainerName: string;
+  training_status: string;
 }
 
 interface TableRow {
-  sr_no: string;
+  number: string;
   scheduleId: number; // Added scheduleId
-  c_name: string; // Course Name
+  course: string; // Course Name
   t_name: string; // Trainer Name
   view: string;
+  training_status: string;
 }
 
 interface TableData {
@@ -35,19 +37,29 @@ export class ReportMainComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.fetchTrainingScheduleList();
+    // this.fetchTrainingScheduleList();
+    const empName = localStorage.getItem('employeeName');
+    if (empName) {
+      // this.fetchTrainings(empName);
+      this.fetchTrainingScheduleList(empName);
+    } else {
+      console.error('employeeName not found in localStorage');
+    }
   }
 
-  fetchTrainingScheduleList(): void {
-    this.http.get<TrainingSchedule[]>('http://localhost:8083/api/training-views/schedule-list').subscribe(
+  fetchTrainingScheduleList(empName: string): void {
+    this.http.get<TrainingSchedule[]>(`http://localhost:8083/api/training-views/schedule-list/${empName}`).subscribe(
       (data) => {
         this.tableData1 = {
           headerRow: ['Sr No.', 'Course Name', 'Trainer Name', 'Records'],
-          dataRows: data.map((item, index) => ({
-            sr_no: (index + 1).toString(),
+          dataRows: data
+          .filter(item => item.training_status.toLowerCase() === 'completed')
+          .map((item, index) => ({
+            number: (index + 1).toString(),
             scheduleId: item.scheduleId, // Added scheduleId
-            c_name: item.course,
-            t_name: this.extractTrainerName(item.trainerName),
+            course: item.course,
+            t_name: empName,
+            training_status: item.training_status,
             view: 'View',
           })),
         };
@@ -67,14 +79,14 @@ export class ReportMainComponent implements OnInit {
     );
   }
   
-  private extractTrainerName(fullName: string): string {
-    const indexOfOpeningBracket = fullName.indexOf('(');
-    if (indexOfOpeningBracket !== -1) {
-      return fullName.substring(0, indexOfOpeningBracket).trim();
-    } else {
-      return fullName.trim();
-    }
-  }
+  // private extractTrainerName(fullName: string): string {
+  //   const indexOfOpeningBracket = fullName.indexOf('(');
+  //   if (indexOfOpeningBracket !== -1) {
+  //     return fullName.substring(0, indexOfOpeningBracket).trim();
+  //   } else {
+  //     return fullName.trim();
+  //   }
+  // }
   get pages(): number[] {
     if (this.tableData1.dataRows.length === 0) {
       return [];
