@@ -192,28 +192,20 @@ export class OnRequestComponent implements OnInit {
 
       private loadEnrollmentStatusFromLocalStorage(): void {
         const storedData = localStorage.getItem('enrollmentStatusData');
-    
         if (storedData) {
           const storedEnrollmentStatus: TableRow[] = JSON.parse(storedData);
-    
           this.tableData1.dataRows.forEach((row) => {
             const matchingStoredEntry = storedEnrollmentStatus.find(
               (storedEntry) =>
                 storedEntry.training_id === row.training_id &&
                 storedEntry.schedule_id === row.schedule_id
             );
-    
             if (matchingStoredEntry) {
               row.isEnrolled = matchingStoredEntry.isEnrolled;
             }
           });
-    
           this.enrollmentStatusData = storedEnrollmentStatus;
         }
-      }
-
-      showNotification() {
-        alert("Request has been successfully sent to Reporting Manager")
       }
 
       get pages(): number[] {

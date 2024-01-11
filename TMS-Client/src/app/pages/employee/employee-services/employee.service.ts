@@ -104,7 +104,7 @@ export class EmployeeService {
   }
 
   getRegistrationStatus(trainingId: string, scheduleId: string, empId: string): Observable<string> {
-    const url = `http://localhost:8083/api/registrations/training/status?trainingId=${trainingId}&scheduleId=${scheduleId}&empId=${empId}`;
+    const url = `http://localhost8083/api/registrations/training/status?trainingId=${trainingId}&scheduleId=${scheduleId}&empId=${empId}`;
     return this.http.get<string>(url);
   }
 

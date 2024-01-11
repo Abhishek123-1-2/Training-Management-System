@@ -52,8 +52,10 @@ export class EmployeeHistoryComponent implements OnInit {
             emp_code: item.empCode,
             emp_name: item.empName,
             course: this.c_name,
-            start_date: item.plannedStartDate ? new Date(item.plannedStartDate).toLocaleDateString() : '',
-            end_date: item.plannedEndDate ? new Date(item.plannedEndDate).toLocaleDateString() : '',
+            // start_date: item.plannedStartDate ? new Date(item.plannedStartDate).toLocaleDateString() : '',
+            // end_date: item.plannedEndDate ? new Date(item.plannedEndDate).toLocaleDateString() : '',
+            start_date: this.formatDate(item.plannedStartDate),
+            end_date: this.formatDate(item.plannedEndDate),
             status: item.trainingStatus,
           })),
         };
@@ -65,6 +67,13 @@ export class EmployeeHistoryComponent implements OnInit {
     );
   }
   
+  formatDate(timestamp: string): string {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${day}-${month}-${year}`;
+  }
 
   applyFilter() {
     this.filteredData = this.tableData1.dataRows.filter((row) =>

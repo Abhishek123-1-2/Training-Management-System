@@ -22,6 +22,7 @@ public class TrainingScheduleDTO {
     private String course;
     private String training_schedule;
     private Long empId;
+    private String registrationStatus;
 
     // Constructors, getters, and setters
 
@@ -32,7 +33,7 @@ public class TrainingScheduleDTO {
     public TrainingScheduleDTO(Long trainingId, Long scheduleId, Long empId, String trainerName, Timestamp plannedStartDate,
     Timestamp plannedEndDate, Timestamp actualStartDate, Timestamp actualEndDate, String trainingStatus,
     char activeYn, String createdBy, Timestamp createdOn, String updatedBy, Timestamp updatedOn,
-    String course,String training_schedule,String fromTime,String toTime) {
+    String course,String training_schedule,String fromTime,String toTime, String registrationStatus) {
         this.trainingId = trainingId;
         this.scheduleId = scheduleId;
         this.trainerName = trainerName;
@@ -51,6 +52,7 @@ public class TrainingScheduleDTO {
         this.course = course;
         this.training_schedule = training_schedule;
         this.empId = empId;
+        this.registrationStatus = registrationStatus;
     }
 
     // Getters and Setters
@@ -194,5 +196,13 @@ public class TrainingScheduleDTO {
 
     public void setEmpId(Long empId) {
         this.empId = empId;
+    }
+
+     public String getRegistrationStatus() {
+        return registrationStatus;
+    }
+
+    public void setRegistrationStatus(String registrationStatus) {
+        this.registrationStatus = registrationStatus;
     }
 }

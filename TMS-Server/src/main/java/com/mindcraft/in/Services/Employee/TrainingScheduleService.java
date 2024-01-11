@@ -34,9 +34,10 @@ public class TrainingScheduleService {
                  "t.username, t.password, ts.schedule_id, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, " +
                  "ts.actual_start_date, ts.actual_end_date, ts.training_status, CAST(ts.active_yn AS CHAR) AS active_yn, " +
                  "ts.from_time, ts.to_time, ts.created_by, ts.created_on, ts.updated_by, ts.updated_on, " +
-                 "e.emp_id " +  // Include emp_id from m_employee table
+                 "e.emp_id, r.registration_status  " +  // Include emp_id from m_employee table
                  "FROM m_trainings t " +
                  "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+                 "JOIN registration r on t.training_id = r.training_id " +
                  "JOIN m_employee e ON t.username = e.emp_code";
         
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrainingScheduleDTO.class));

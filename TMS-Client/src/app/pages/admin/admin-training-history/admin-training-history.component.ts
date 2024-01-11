@@ -50,8 +50,8 @@ export class AdminTrainingHistoryComponent implements OnInit {
             sr_no: (index + 1).toString(),
             c_name: item.course,
             t_name: this.extractTrainerName(item.trainerName),
-            s_date: item.plannedStartDate? item.plannedStartDate.split('T')[0] : '',
-            e_date: item.plannedEndDate? item.plannedEndDate.split('T')[0] : '',
+            s_date: this.formatDate(item.plannedStartDate),
+            e_date: this.formatDate(item.plannedEndDate),
             t_status: item.trainingStatus,
           })),
         };
@@ -61,6 +61,14 @@ export class AdminTrainingHistoryComponent implements OnInit {
         console.error('Error fetching training history:', error);
       }
     );
+  }
+
+  formatDate(timestamp: string): string {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${day}-${month}-${year}`;
   }
 
   applyFilter() {
