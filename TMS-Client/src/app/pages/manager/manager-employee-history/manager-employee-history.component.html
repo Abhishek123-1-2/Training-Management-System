@@ -1,34 +1,34 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+    <li class="breadcrumb-item"><a [routerLink]="['/training-record']">Course Details</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Attendees Details</li>
+  </ol>
+</nav>
 <div class="row">
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <h4 class="card-title">Scheduled Course Request's</h4>
+        <h4 class="card-title">Employee Details for course: {{ courseName }}</h4>
       </div>
       <div class="card-body">
         <div class="form-group">
           <label for="search">Search:</label>
           <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
         </div>
-        <div class="table-responsive text-nowrap table-container">
+        <div class="table-responsive table-container">
           <table class="table">
             <thead class="text-primary">
-              <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+              <th *ngFor="let header of tableData.headerRow">{{ header }}</th>
             </thead>
             <tbody>
-              <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)"
-                  class="expandable-row text-center">
-                <td >{{ row.sr_no }}</td>
-                <td >{{ row.emp_code }}</td>
-                <td >{{ row.emp_name }}</td>
-                <td>{{ row.c_name }}</td>
-                <td >{{ row.start_date }}</td>
-                <td >{{ row.end_date }}</td>
-                <td >{{ row.status }}</td>
-                <td >
-                  <span><button class="btn btn-success" (click)="approveRequest(row)" [disabled]="row.isApproved">Approve</button></span>
-                  &nbsp;
-                  <span><button class="btn btn-danger" (click)="rejectRequest(row)" [disabled]="row.isRejected">Reject</button></span>
-                </td>
+              <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
+                <td>{{ row.sr_no }}</td>
+                <td>{{ row.emp_code }}</td>
+                <td>{{ row.emp_name }}</td>
+                <td>{{ row.start_date }}</td>
+                <td>{{ row.end_date }}</td>
+                <td>{{ row.status }}</td>
               </tr>
             </tbody>
           </table>
@@ -59,3 +59,4 @@
     </div>
   </div>
 </div>
+

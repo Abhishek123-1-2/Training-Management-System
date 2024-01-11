@@ -93,8 +93,8 @@ submenu:[
 ]},
 {path: '/admin-attendance' ,title :'Reports' ,icon :'nc-chart-bar-32' , class : '', roles: ['ROLE_MANAGER'],},
 {path:'/admin-training',title:'History', icon:'nc-caps-small', class:'', roles:['ROLE_MANAGER'], submenu: [
-{path:'/training-record', title:'Training Record', icon:'', class:'', roles:['ROLE_MANAGER']},
-  {path:'/training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_MANAGER']},
+{path:'/manager-training-record', title:'Training Record', icon:'', class:'', roles:['ROLE_MANAGER']},
+  {path:'/manager-training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_MANAGER']},
 ]},
 
     

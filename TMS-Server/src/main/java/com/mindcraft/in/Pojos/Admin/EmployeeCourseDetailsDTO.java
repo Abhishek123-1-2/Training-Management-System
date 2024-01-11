@@ -2,6 +2,7 @@
 package com.mindcraft.in.Pojos.Admin;
 
 public class EmployeeCourseDetailsDTO {
+    private long empId; 
     private String empCode;
     private String empName;
     private String courseName;
@@ -15,7 +16,8 @@ public class EmployeeCourseDetailsDTO {
 
    }
 
-    public EmployeeCourseDetailsDTO(String empCode, String empName, String courseName, String trainerName, String startDate, String endDate, String trainingStatus) {
+    public EmployeeCourseDetailsDTO(long empId,String empCode, String empName, String courseName, String trainerName, String startDate, String endDate, String trainingStatus) {
+        this.empId = empId;
         this.empCode = empCode;
         this.empName = empName;
         this.courseName = courseName;
@@ -79,6 +81,14 @@ public class EmployeeCourseDetailsDTO {
 
     public void setTrainingStatus(String trainingStatus) {
         this.trainingStatus = trainingStatus;
+    }
+
+    public long getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(long empId) {
+        this.empId = empId;
     }
     
     // Getters and setters

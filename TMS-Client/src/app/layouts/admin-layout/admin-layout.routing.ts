@@ -53,6 +53,9 @@ import { TrainerTrainingDetailsComponent } from 'app/pages/trainer/trainer-train
 import { ParticipantsListComponent } from 'app/pages/admin/participants-list/participants-list.component';
 import { TrainingHistoryComponent } from 'app/pages/employee/training-history/training-history.component';
 import { ConfirmationstatusDetailsComponent } from 'app/pages/employee/confirmationstatus-details/confirmationstatus-details.component';
+import { ManagerTrainingHistoryComponent } from 'app/pages/manager/manager-training-history/manager-training-history.component';
+import { ManagerTrainingRecordComponent } from 'app/pages/manager/manager-training-record/manager-training-record.component';
+import { ManagerEmployeeHistoryComponent } from 'app/pages/manager/manager-employee-history/manager-employee-history.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -107,5 +110,8 @@ export const AdminLayoutRoutes: Routes = [
     {path:'on-request', component: OnRequestComponent},    
     {path:'on-request', component:OnRequestComponent},
     {path:'confirmationstatus-details',component:ConfirmationstatusDetailsComponent},
-    {path:'user-training-history', component: TrainingHistoryComponent}
+    {path:'user-training-history', component: TrainingHistoryComponent},
+    {path:'manager-training-history',component:ManagerTrainingHistoryComponent},
+    {path:'manager-training-record',component:ManagerTrainingRecordComponent},
+    {path:'manager-employee-history/:course',component:ManagerEmployeeHistoryComponent}
 ];

@@ -2,7 +2,7 @@ package com.mindcraft.in.Pojos.Employee;
 
 public class TrainingHistoryDTO {
 
-    private String empId;
+    private Long empId;
     private String course;
     private String trainerName;
     private String plannedStartDate;
@@ -13,7 +13,7 @@ public class TrainingHistoryDTO {
 
     }
 
-    public TrainingHistoryDTO(String empId, String course, String trainerName, String plannedStartDate, String plannedEndDate, String trainingStatus) {
+    public TrainingHistoryDTO(Long empId, String course, String trainerName, String plannedStartDate, String plannedEndDate, String trainingStatus) {
         this.empId = empId;
         this.course = course;
         this.trainerName = trainerName;
@@ -22,11 +22,11 @@ public class TrainingHistoryDTO {
         this.trainingStatus = trainingStatus;    
     }
 
-    public String getEmpId() {
+    public Long getEmpId() {
         return empId;
     }
 
-    public void setEmpId(String empId) {
+    public void setEmpId(Long empId) {
         this.empId = empId;
     }
 

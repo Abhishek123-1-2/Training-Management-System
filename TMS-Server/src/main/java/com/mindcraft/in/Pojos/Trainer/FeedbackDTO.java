@@ -12,6 +12,7 @@ public class FeedbackDTO {
     private Long attendanceId;
     private Long empId;
     private Long scheduleId;
+    private String course;
     private int technicalSkills;
 
     private int graspingPower;
@@ -63,7 +64,7 @@ private double totalRating;
 
 public FeedbackDTO(
 Long attendanceId,    
-Long empId, Long scheduleId, 
+Long empId, Long scheduleId, String course,
 int technicalSkills, 
 int graspingPower, int proActiveness,
 int interestQuality, int leadershipQuality, 
@@ -99,10 +100,19 @@ this.updated_by = updated_by;
 this.updated_on = updated_on;
 this.assignmentStatus=assignmentStatus;
 this.performanceStatus=performanceStatus;
+this.course=course;
 }
 
     public double getTotalRating() {
         return totalRating;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
 
     public void setTotalRating(double totalRating) {

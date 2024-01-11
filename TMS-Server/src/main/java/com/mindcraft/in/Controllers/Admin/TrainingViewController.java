@@ -388,6 +388,8 @@ import com.mindcraft.in.Pojos.Admin.EmployeeTrainingDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.TrainingSchedule;
 import com.mindcraft.in.Pojos.Admin.TrainingView;
 import com.mindcraft.in.Pojos.Admin.TrainingViewDto;
+import com.mindcraft.in.Services.Admin.EmployeeService;
+import com.mindcraft.in.Services.Admin.LoginService;
 import com.mindcraft.in.Services.Admin.TrainingViewService;
 import com.mindcraft.in.Services.Employee.TrainingScheduleService;
 
@@ -405,11 +407,14 @@ public class TrainingViewController {
 
     private final TrainingViewService trainingViewService;
     private final TrainingScheduleService trainingScheduleService;
-
+    private final EmployeeService employeeService;
+    private final LoginService loginService;
     @Autowired
-    public TrainingViewController(TrainingViewService trainingViewService, TrainingScheduleService trainingScheduleService) {
+    public TrainingViewController(TrainingViewService trainingViewService, TrainingScheduleService trainingScheduleService,EmployeeService employeeService,LoginService loginService) {
         this.trainingViewService = trainingViewService;
         this.trainingScheduleService = trainingScheduleService;
+        this.employeeService=employeeService;
+        this.loginService=loginService;
     }
 
     // @GetMapping("/schedule")
@@ -758,5 +763,17 @@ public List<String> getAllTrainerNames() {
         return trainingViewService.getEmployeesCompletedCourseDetails(course);
     }
 
+
+    @GetMapping("/completedDetailsForSubordinates/{course}")
+    public ResponseEntity<List<EmployeeCourseDetailsDTO>> getEmployeesCompletedCourseDetailsForSubordinateEmpIds(
+            @PathVariable String course, @RequestParam List<Long> subordinateEmpIds) {
+    
+        // Call the new service method to get completed course details for subordinate employees
+        List<EmployeeCourseDetailsDTO> completedCoursesDetails = 
+            trainingViewService.getEmployeesCompletedCourseDetailsForSubordinateEmpIds(course, subordinateEmpIds);
+    
+        return ResponseEntity.ok(completedCoursesDetails);
+    }
+    
 }
 
