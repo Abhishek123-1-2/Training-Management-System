@@ -13,10 +13,12 @@ declare interface TableData {
 }
 
 interface TableRow {
-number: string;
-course: string;
+t_id: string;
+c_name: string;
 trainer_name: string;
+status: string;
 action: string;
+view: string;
 isEnrolled?: boolean;
 training_id?: string;
 schedule_id?: string;
@@ -50,19 +52,18 @@ export class OnRequestComponent implements OnInit {
 
     ngOnInit()  {
         this.tableData1 = {
-            headerRow: ['No.','Course','Trainer Name','Action'],
+            headerRow: ['No.','Course','Trainer Name', 'Action','Status', 'View' ],
             dataRows: [
-              {number: '1',course: 'Java',trainer_name: 'Kishor',action: '' },
-              {number: '2',course: 'Spring Boot',trainer_name: 'Kishor',action: '' } ,
-              {number: '3',course: 'PLSQL',trainer_name: 'Girish',action: '' },
-              {number: '4',course: 'Angular',trainer_name: 'Bhavana',action: '' },
-              {number: '5',course: 'Javascript',trainer_name: 'Bhavana',action: '' },
-              {number: '6',course: 'Spring Boot',trainer_name: 'Kishor',action: '' },
-              {number: '7',course: 'Spring Boot',trainer_name: 'Kishor',action: '' },
+              {t_id: '1',c_name: 'Java',trainer_name: 'Kishor', status: '', action: '', view: '' },
+              {t_id: '2',c_name: 'Spring Boot',trainer_name: 'Kishor', status: '',action: '', view: '' } ,
+              {t_id: '3',c_name: 'PLSQL',trainer_name: 'Girish', status: '',action: '', view: '' },
+              {t_id: '4',c_name: 'Angular',trainer_name: 'Bhavana', status: '',action: '', view: '' },
+              {t_id: '5',c_name: 'Javascript',trainer_name: 'Bhavana', status: '',action: '', view: '' },
+              {t_id: '6',c_name: 'Spring Boot',trainer_name: 'Kishor', status: '',action: '' , view: ''},
+              {t_id: '7',c_name: 'Spring Boot',trainer_name: 'Kishor', status: '',action: '', view: '' },
             ]
         };
         this.filteredData = [...this.tableData1.dataRows];
-
         this.employeeService.getTrainingSchedule().subscribe(
           (scheduleData: any[]) => {
             scheduleData.forEach(entry => {
@@ -70,10 +71,12 @@ export class OnRequestComponent implements OnInit {
             })
             const onRequestSchedules = scheduleData.filter(schedule => schedule.trainingSchedule === 'ON-REQUEST');
             this.tableData1.dataRows = onRequestSchedules.map((schedule, index): TableRow => ({
-              number: String(index + 1),
-              course: schedule.course,
+              t_id: String(index + 1),
+              c_name: schedule.course,
               trainer_name: schedule.trainerName.split('(')[0].trim(),
+              status:'Registered',
               action:'',
+              view: '',
               isEnrolled: false,
               training_id: String(schedule.trainingId),
               schedule_id: String(schedule.scheduleId),
@@ -115,24 +118,20 @@ export class OnRequestComponent implements OnInit {
 
       sendRequest(row: TableRow): void {
         const loggedInUserData = this.loginService.getLoggedInUserData();
-        // const empId = this.loginService.getEmpId()
-        // const empId = loggedInUserData ? loggedInUserData.empId : null;
         if (!loggedInUserData) {
           // Handle the case where user data is not available
           return;
         }
-
         const empId = loggedInUserData.empId;
-
         const alreadyEnrolled = this.enrollmentStatusData.some(
           (enrollment) => 
-          enrollment.number === row.number &&
-          enrollment.course === row.course &&
+          enrollment.t_id === row.t_id &&
+          enrollment.c_name === row.c_name &&
           enrollment.trainer_name === row.trainer_name
         );
 
         if(alreadyEnrolled) {
-          alert(`You have already enrolled for ${row.course} course.`);
+          alert(`You have already enrolled for ${row.c_name} course.`);
           return;
         }
           const registrationData = {
@@ -148,14 +147,27 @@ export class OnRequestComponent implements OnInit {
           this.employeeService.enrollTraining(registrationData).subscribe(
             (registrationId: number) => {
               console.log(`Enrollment successful. Registration ID: ${registrationId}`);
-              alert(`Your Enrollment Request has been successfully sent to Reporting Manager for ${row.course} course`);
+              alert(`Your Enrollment Request has been successfully sent to Reporting Manager for ${row.c_name} course`);
 
+              // row.status = 'Registered'
+              row.view = '',
               row.isEnrolled = true;
 
+              this.employeeService.getRegistrationStatus(row.training_id, row.schedule_id, empId).subscribe(
+                (status: string) => {
+                  row.status = status || 'Registered'; // Use the fetched status, fallback to 'Registered' if not available
+                },
+                (error) => {
+                  console.error('Error fetching registration status:', error);
+                }
+              );
+
               this.enrollmentStatusData.push({
-                number: row.number,
-                course: row.course,
+                t_id: row.t_id,
+                c_name: row.c_name,
                 trainer_name: row.trainer_name,
+                status: row.status,
+                view: '',
                 training_id: row.training_id,
                 schedule_id: row.schedule_id,
                 emp_id: empId,

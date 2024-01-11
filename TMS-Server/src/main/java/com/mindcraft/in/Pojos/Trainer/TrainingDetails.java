@@ -30,6 +30,7 @@ public class TrainingDetails {
     @Column(name = "training_status")
     private String trainingStatus;
 
+
     public TrainingDetails(){}
 
     public TrainingDetails(String course, 

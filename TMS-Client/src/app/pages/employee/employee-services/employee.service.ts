@@ -94,5 +94,18 @@ export class EmployeeService {
   //   return this.http.post<boolean>(checkEnrollmentUrl, { params });
   // }
   
+  saveFeedback(formData: any): Observable<any> {
+    const url = `http://localhost:8083/api/emp-feedback`;
+    const headers = {
+      'Content-Type': 'application/json',
+      // Add any other headers as needed
+    };
+    return this.http.post<any>(url, formData ,{ headers });
+  }
+
+  getRegistrationStatus(trainingId: string, scheduleId: string, empId: string): Observable<string> {
+    const url = `http://localhost:8083/api/registrations/training/status?trainingId=${trainingId}&scheduleId=${scheduleId}&empId=${empId}`;
+    return this.http.get<string>(url);
+  }
 
 }

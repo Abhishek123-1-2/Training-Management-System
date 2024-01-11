@@ -11,6 +11,7 @@ public class FeedbackDTO {
     
     private Long attendanceId;
     private Long empId;
+    private String empCode;
     private Long scheduleId;
     private String course;
     private int technicalSkills;
@@ -64,7 +65,7 @@ private double totalRating;
 
 public FeedbackDTO(
 Long attendanceId,    
-Long empId, Long scheduleId, String course,
+Long empId, String empCode,Long scheduleId, String course,
 int technicalSkills, 
 int graspingPower, int proActiveness,
 int interestQuality, int leadershipQuality, 
@@ -278,6 +279,14 @@ public void setFeedback_type(String feedback_type) {
 
     public void setAttendanceId(Long attendanceId) {
         this.attendanceId = attendanceId;
+    }
+
+    public String getEmpCode() {
+        return empCode;
+    }
+
+    public void setEmpCode(String empCode) {
+        this.empCode = empCode;
     }
 
     //getters and setters

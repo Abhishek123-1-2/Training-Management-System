@@ -20,6 +20,7 @@
         <tbody>
           <tr *ngFor="let course of tableData1.dataRows" class="text-center">
             <td>{{ course.sr_no }}</td>
+            <td>{{ emp_name }}</td>
             <td>{{ course.c_name }}</td>
             <td>{{ course.t_name }}</td>
             <td>{{ course.s_date }}</td>
@@ -29,5 +30,8 @@
         </tbody>
       </table>
     </div>
+  </div>
+  <div class="card-footer d-flex justify-content-end">
+    <button class="btn btn-success" (click)="exportToExcel()">Export to Excel</button>
   </div>
 </div>

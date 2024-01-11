@@ -56,19 +56,43 @@ public class FeedbackController {
         }
     }
  
-    @GetMapping("/api/feedback/retrieve/{empId}/{courseName}")
+//     @GetMapping("/api/feedback/retrieve/{empId}/{courseName}")
+// public ResponseEntity<List<FeedbackDTO>> retrieveFeedbackDataForEmployeeAndCourse(
+//         @PathVariable int empId,
+//         @PathVariable String courseName
+// ) {
+//     try {
+//         List<FeedbackDTO> feedbackData = feedbackService.retrieveFeedbackDataForEmployeeAndCourse(empId, courseName);
+//         return new ResponseEntity<>(feedbackData, HttpStatus.OK);
+//     } catch (Exception e) {
+//         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//     }
+// }
+// @GetMapping("/retrieve/{empCode}/{courseName}")
+//     public ResponseEntity<List<FeedbackDTO>> retrieveFeedbackDataForEmployeeAndCourse(
+//             @PathVariable String empCode,
+//             @PathVariable String courseName
+//     ) {
+//         try {
+//             List<FeedbackDTO> feedbackData = feedbackService.retrieveFeedbackDataForEmployeeAndCourse(empCode, courseName);
+//             return new ResponseEntity<>(feedbackData, HttpStatus.OK);
+//         } catch (Exception e) {
+//             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//         }
+//     }
+
+@GetMapping("/api/feedback/retrieve/{empCode}/{courseName}")
 public ResponseEntity<List<FeedbackDTO>> retrieveFeedbackDataForEmployeeAndCourse(
-        @PathVariable int empId,
+        @PathVariable String empCode,
         @PathVariable String courseName
 ) {
     try {
-        List<FeedbackDTO> feedbackData = feedbackService.retrieveFeedbackDataForEmployeeAndCourse(empId, courseName);
+        List<FeedbackDTO> feedbackData = feedbackService.retrieveFeedbackDataForEmployeeAndCourse(empCode, courseName);
         return new ResponseEntity<>(feedbackData, HttpStatus.OK);
     } catch (Exception e) {
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
-
 }
 
 

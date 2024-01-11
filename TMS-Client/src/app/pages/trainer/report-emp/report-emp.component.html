@@ -33,7 +33,19 @@
                     <td class="text-center">{{ row.end_date }}</td>
 
                     <td class="text-center">{{ row.status }}</td>
-                    <td class="text-center" ><a class="btn btn-primary" [routerLink]="['/report-courses', {c_name: c_name}]">View</a></td>
+                    <td class="text-center">
+                      <!-- <a class="btn btn-primary" [routerLink]="['/report-courses', c_name, emp_code]">View</a> -->
+                      
+                        <!-- <a class="btn btn-primary" [routerLink]="['/report-courses', row.emp_code, { c_name: c_name }]">View</a> -->
+                        <a class="btn btn-primary" [routerLink]="['/report-courses', c_name, row.emp_code]">View</a>
+                      
+                      
+
+                    </td>
+                    
+                    <!-- Add a click event to trigger the navigation -->
+<!-- <td (click)="navigateToReportCourses(item.empCode)">{{ item.emp_code }}</td> -->
+
                     
                   </tr>
               </tbody>

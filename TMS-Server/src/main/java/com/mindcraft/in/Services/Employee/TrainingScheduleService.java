@@ -49,8 +49,12 @@ public class TrainingScheduleService {
         }
 
         public List<TrainingSchedule> getOnRequestTrainingSchedules() {
-           String sql = "SELECT training_id, trainer_name, planned_start_date, planned_end_date, training_status FROM training_schedule WHERE training_id = ? AND training_schedule = 'ON-REQUEST'";
-
+        //    String sql = "SELECT training_id, trainer_name, planned_start_date, planned_end_date, training_status FROM training_schedule WHERE training_id = ? AND training_schedule = 'ON-REQUEST'";
+        String sql = "SELECT m.training_id, t.trainer_name, t.planned_start_date, t.planned_end_date, t.training_status, m.training_schedule " +
+        "FROM m_trainings m " +
+        "JOIN training_schedule t ON m.training_id = t.training_id " +
+        "WHERE m.training_id = ? AND m.training_schedule = 'ON-REQUEST'";
+        
             return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrainingSchedule.class));
         }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+
 
 interface TableRow {
   sr_no: string;
@@ -28,7 +29,7 @@ export class ReportOfEmployeeComponent implements OnInit {
   public currentPage = 1;
   public itemsPerPage = 5;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient,private router:Router) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -60,7 +61,9 @@ export class ReportOfEmployeeComponent implements OnInit {
       }
     );
   }
-  
+  navigateToReportCourses(empCode: string): void {
+    this.router.navigate(['/report-courses', { c_name: this.c_name, empCode: empCode }]);
+  }
 
   applyFilter() {
     this.filteredData = this.tableData1.dataRows.filter((row) =>

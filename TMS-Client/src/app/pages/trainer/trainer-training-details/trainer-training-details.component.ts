@@ -1,20 +1,35 @@
 // trainer-training-details.component.ts
 
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { TrainingService } from '../trainer-services/trainer.service';
+import { UserService } from 'app/pages/login/login.service';
 
+declare interface TableData {
+  headerRow: string[];
+  dataRows: {
+    number: string;
+    course: string;
+    plannedStartDate: string;
+    plannedEndDate: string;
+    training_status: string; 
+  }[];
+}
 
 interface TableRow {
-  sr_no: string;
-  c_name: string;
-  s_date: string;
-  e_date: string;
-  status: string;
-  schedule_id:string;
-  training_id:string;
-  //attendance_id:string;
+  number: string;
+  course: string;
+  plannedStartDate: string;
+  plannedEndDate: string;
+  training_status: string; 
+}
 
-  
+interface Trainings {
+  empName: string;
+  number: string;
+  course: string;
+  plannedStartDate: string;
+  plannedEndDate: string;
+  training_status: string; 
 }
 
 @Component({
@@ -23,99 +38,91 @@ interface TableRow {
   styleUrls: ['./trainer-training-details.component.scss']
 })
 export class TrainerTrainingDetailsComponent implements OnInit {
-  // public tableData1: TableData;
+  public tableData1: TableData;
   public originalData: TableRow[] = [];
-  public filteredData: TableRow[]=[];
+  public filteredData: TableRow[];
   public searchValue: string = '';
   public selectedStatus: string = '';
 
   currentPage = 1;
   itemsPerPage = 5;
 
-
-  // get pages(): number[]
-  // {
-  //   if(this.filteredData.length===0)
-  //   {
-  //     return [];
-
-  //   }
-
-  //   const pageCount = Math.ceil(this.filteredData.length / this.itemsPerPage);
-  //   return Array.from({length: pageCount}, (_,index) => index +1);
-
-
-  // }
-
-
-  // changeItemsPerPage(event:any):void{
-  //   this.itemsPerPage = +event.target.value;
-  //   this.currentPage = Math.min(this.currentPage,this.pages.length);
-  // }
-
-
-
-
-
-  constructor(private trainingService:TrainingService) { }
+  constructor(private userService: UserService, private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.fetchTrainingDetails();
-     }
+    this.tableData1 = {
+      headerRow: ['Sr No.', 'Course Name', 'Start Date', 'End Date', 'Status'],
+      dataRows: [
+        {number: '1', course:'Angular', plannedStartDate:'12-01-2023', plannedEndDate:'15-01-2023', training_status:'Upcoming'},
+      ]
+    };
 
-  fetchTrainingDetails() {
-    this.trainingService.getCombinedTrainingDetails().subscribe(
-      (data: any[]) => {
-        this.originalData = data.map((item,index) => ({
-          sr_no: (index + 1).toString(),
-          c_name: item.course,
-          s_date: item.plannedStartDate,
-          e_date: item.plannedEndDate,
-          status: item.trainingStatus,
-          schedule_id:item.scheduleId,
-          training_id:item.trainingId,
-          //attendance_id:item.attendanceId,
+    this.filteredData = [...this.tableData1.dataRows];
+
+    const empName = localStorage.getItem('employeeName');
+    if (empName) {
+      this.fetchTrainings(empName);
+    } else {
+      console.error('employeeName not found in localStorage');
+    }
+    
+  }
+  
+  
+
+  fetchTrainings(empName: string) {
+    const url = `http://localhost:8083/api/training-history/trainer/${empName}`;
+
+    this.http.get<Trainings[]>(url).subscribe(
+      (response) => {
+        console.log('Training Data: ', response);
+        this.originalData = response.map((item, index) => ({
+          number: (index + 1).toString(),
+          course: item.course,
+          plannedStartDate: this.formatDate(item.plannedStartDate),
+          plannedEndDate: this.formatDate(item.plannedEndDate),
+          training_status: item.training_status,
+          empName: item.empName
         }));
 
-       
-        this.originalData.forEach(item =>{
-          console.log('Schedule ID: ',item.schedule_id +',Training Id :',item.training_id);
-          
-        });
-
-       
         this.filteredData = [...this.originalData];
-
+        this.currentPage = Math.min(this.currentPage, this.pages.length);
       },
-      error => {
-        console.error('Error fetching training details:', error);
+      (error) => {
+        console.error('Error fetch the training data: ', error);
       }
-    );
+    )
   }
 
-  applyFilter() {
-    const searchText = this.searchValue.toLowerCase().trim();
+  formatDate(timestamp: string): string {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${day}-${month}-${year}`;
+  }
+  
 
-    this.filteredData = this.originalData.filter(row =>
+  applyFilter() {
+    this.filteredData = this.tableData1.dataRows.filter(row =>
       Object.values(row).some(value =>
-     value && value.toString().toLowerCase().includes(searchText)
+      value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
       ) 
     )
       .filter(row =>
         (this.selectedStatus === '' 
-      || row.status.toLowerCase() === this.selectedStatus.toLowerCase()
+      || row.training_status.toLowerCase() === this.selectedStatus.toLowerCase()
       || this.selectedStatus === 'all')
     )
     ;
   }
 
-  resetFilters() {
-    this.searchValue = '';
-    this.selectedStatus = '';
-    this.filteredData = [...this.originalData]; // Reset filteredData to originalData
+  // resetFilters() {
+  //   this.searchValue = '';
+  //   this.selectedStatus = '';
+  //   this.filteredData = [...this.originalData]; // Reset filteredData to originalData
 
-    // this.fetchTrainingDetails(); // Reset filters to initial state by fetching all data again
-  }
+  // }
   
 
   get pages(): number[] {

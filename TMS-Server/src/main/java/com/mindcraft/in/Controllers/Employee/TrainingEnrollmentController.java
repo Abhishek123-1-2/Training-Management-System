@@ -33,4 +33,19 @@ public class TrainingEnrollmentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error enrolling training");
         }
     }
+
+    @GetMapping("/status")  // New endpoint to fetch registration status
+    public ResponseEntity<String> getRegistrationStatus(@RequestParam Long trainingId, @RequestParam Long scheduleId, @RequestParam Long empId) {
+        try {
+            String registrationStatus = enrollmentService.getRegistrationStatus(trainingId, scheduleId, empId);
+            // if (registrationStatus != null) {
+            //     return ResponseEntity.ok(registrationStatus);
+            // } else {
+            //     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Registration status not found");
+            // }
+            return ResponseEntity.ok("\"" + registrationStatus + "\"");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching registration status");
+        }
+    }
 }

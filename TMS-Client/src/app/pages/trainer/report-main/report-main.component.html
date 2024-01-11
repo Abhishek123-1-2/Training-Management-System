@@ -23,10 +23,10 @@
               </thead>
               <tbody>
                 <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
-                    <td class="text-center">{{ row.sr_no }}</td>
-                    <td class="text-center">{{ row.c_name }}</td>
+                    <td class="text-center">{{ row.number }}</td>
+                    <td class="text-center">{{ row.course }}</td>
                     <td class="text-center">{{ row.t_name }}</td>  <!-- report-courses -->
-                    <td class="text-center"><a class="btn btn-primary"[routerLink]="['/report-employee',{ c_name: row.c_name }]">View</a></td>
+                    <td class="text-center"><a class="btn btn-primary"[routerLink]="['/report-employee',{ c_name: row.course }]">View</a></td>
                   </tr>
               </tbody>
             </table>

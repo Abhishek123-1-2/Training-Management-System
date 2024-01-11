@@ -17,7 +17,7 @@ public class CompletedCoursesService {
 
     public List<CompletedCoursesDTO> getFeedbackByEmployeeId(String empId) {
         // Modify this query based on your database
-        String query = "SELECT t.course, ts.schedule_id, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, ts.training_status " +
+        String query = "SELECT t.course, ts.training_id, ts.schedule_id, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, ts.training_status " +
                        "FROM m_trainings t " +
                        "JOIN training_schedule ts ON t.training_id = ts.training_id " +
                        "JOIN registration r ON ts.schedule_id = r.schedule_id " +
