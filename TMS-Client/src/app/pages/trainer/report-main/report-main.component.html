@@ -25,8 +25,9 @@
                 <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
                     <td class="text-center">{{ row.number }}</td>
                     <td class="text-center">{{ row.course }}</td>
-                    <td class="text-center">{{ row.t_name }}</td>  <!-- report-courses -->
-                    <td class="text-center"><a class="btn btn-primary"[routerLink]="['/report-employee',{ c_name: row.course }]">View</a></td>
+                    <td class="text-center">{{ extractTrainerName(row.t_name)}}</td>  <!-- report-courses -->
+                    <!-- <td class="text-center"><a class="btn btn-primary"[routerLink]="['/report-employee',{ c_name: row.course }]">View</a></td> -->
+                    <a class="btn btn-primary" (click)="navigateToReportEmployee(row.course, row.t_name)">View</a>
                   </tr>
               </tbody>
             </table>

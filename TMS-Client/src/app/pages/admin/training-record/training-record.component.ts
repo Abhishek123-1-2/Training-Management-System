@@ -47,7 +47,7 @@ export class TrainingRecordComponent implements OnInit {
             sr_no: (index + 1).toString(),
             scheduleId: item.scheduleId, // Added scheduleId
             c_name: item.course,
-            t_name: this.extractTrainerName(item.trainerName),
+            t_name: item.trainerName,
             view: 'View',
           })),
         };

@@ -142,8 +142,7 @@ import { FeedbackComponent } from 'app/pages/employee/feedback/feedback.componen
     ManagerTrainingHistoryComponent,
     ManagerTrainingRecordComponent,
     UserDashboardComponent,
-    FeedbackComponent,
-    
+    FeedbackComponent
 
 
 

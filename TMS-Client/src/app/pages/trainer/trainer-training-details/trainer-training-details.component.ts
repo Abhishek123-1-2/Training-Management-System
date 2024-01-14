@@ -43,12 +43,30 @@ export class TrainerTrainingDetailsComponent implements OnInit {
   public filteredData: TableRow[];
   public searchValue: string = '';
   public selectedStatus: string = '';
-
+  public trainerName: string = ''; // Add this line
   currentPage = 1;
   itemsPerPage = 5;
 
   constructor(private userService: UserService, private http: HttpClient) { }
 
+  // ngOnInit(): void {
+  //   this.tableData1 = {
+  //     headerRow: ['Sr No.', 'Course Name', 'Start Date', 'End Date', 'Status'],
+  //     dataRows: [
+  //       {number: '1', course:'Angular', plannedStartDate:'12-01-2023', plannedEndDate:'15-01-2023', training_status:'Upcoming'},
+  //     ]
+  //   };
+
+  //   this.filteredData = [...this.tableData1.dataRows];
+
+  //   const empName = localStorage.getItem('employeeName');
+  //   if (empName) {
+  //     this.fetchTrainings(empName);
+  //   } else {
+  //     console.error('employeeName not found in localStorage');
+  //   }
+    
+  // }
   ngOnInit(): void {
     this.tableData1 = {
       headerRow: ['Sr No.', 'Course Name', 'Start Date', 'End Date', 'Status'],
@@ -61,17 +79,39 @@ export class TrainerTrainingDetailsComponent implements OnInit {
 
     const empName = localStorage.getItem('employeeName');
     if (empName) {
+      this.trainerName = empName; // Set trainerName
       this.fetchTrainings(empName);
     } else {
       console.error('employeeName not found in localStorage');
     }
-    
   }
   
-  
 
+  // fetchTrainings(empName: string) {
+  //   const url = `http://localhost:8083/api/training-history/trainer/${empName}`;
+
+  //   this.http.get<Trainings[]>(url).subscribe(
+  //     (response) => {
+  //       console.log('Training Data: ', response);
+  //       this.originalData = response.map((item, index) => ({
+  //         number: (index + 1).toString(),
+  //         course: item.course,
+  //         plannedStartDate: this.formatDate(item.plannedStartDate),
+  //         plannedEndDate: this.formatDate(item.plannedEndDate),
+  //         training_status: item.training_status,
+  //         empName: item.empName
+  //       }));
+
+  //       this.filteredData = [...this.originalData];
+  //       this.currentPage = Math.min(this.currentPage, this.pages.length);
+  //     },
+  //     (error) => {
+  //       console.error('Error fetch the training data: ', error);
+  //     }
+  //   )
+  // }
   fetchTrainings(empName: string) {
-    const url = `http://localhost:8083/api/training-history/trainer/${empName}`;
+    const url = `http://localhost:8083/api/training-history/trainer/${this.trainerName}/${empName}`; // Use this.trainerName
 
     this.http.get<Trainings[]>(url).subscribe(
       (response) => {

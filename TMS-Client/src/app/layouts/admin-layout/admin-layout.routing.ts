@@ -88,7 +88,7 @@ export const AdminLayoutRoutes: Routes = [
     {path:'ongoing-training', component: OngoingTrainingComponent},
     {path:'student-list2', component: StudentList2Component},
     {path:'training-record', component: TrainingRecordComponent},
-    {path:'employee-history/:c_name', component: EmployeeHistoryComponent},
+    {path:'employee-history/:courseName/:trainerName', component: EmployeeHistoryComponent},
     {path:'admin-training-history', component: AdminTrainingHistoryComponent},
     {path:'registration', component: AdminRegistrationComponent},
     {path:'employee-search', component: EmployeeSearchComponent},
@@ -97,7 +97,10 @@ export const AdminLayoutRoutes: Routes = [
     {path:'upcoming-training', component: UpcomingTrainingComponent},
     {path:'completed-training', component: CompletedTrainingComponent},
     {path:'give-feedback', component: TrainerFeedbackToEmployeeComponent },
-    {path:'student-list3', component: StudentList3Component},
+    // {path:'student-list3', component: StudentList3Component},
+    // { path: 'student-list3/:course/:trainerName', component: StudentList3Component },
+    { path: 'student-list3/:course/:trainerName', component: StudentList3Component },
+
     {path:'feedback-to-employee', component: FeedbackToEmployeeComponent},
     {path:'training-request', component: TrainingRequestComponent},
     {path:'training-request1', component: TrainingRequest1Component},
@@ -105,7 +108,10 @@ export const AdminLayoutRoutes: Routes = [
     {path:'training-details', component: TrainerTrainingDetailsComponent},  
     {path:'on-request',component:OnRequestComponent},
     {path:'report-main',component:ReportMainComponent},
-    {path:'report-employee',component:ReportOfEmployeeComponent},
+    // {path:'report-employee',component:ReportOfEmployeeComponent},
+    // { path: 'report-employee/:c_name/:trainer_name', component: ReportOfEmployeeComponent },
+    { path: 'report-employee/:c_name/:trainer_name', component: ReportOfEmployeeComponent },
+
     { path: 'report-courses/:c_name/:empCode', component: ReportOfCoursesComponent },
     {path:'participants-list', component: ParticipantsListComponent},
     {path:'on-request', component: OnRequestComponent},    
@@ -116,5 +122,10 @@ export const AdminLayoutRoutes: Routes = [
 
     {path:'manager-training-history',component:ManagerTrainingHistoryComponent},
     {path:'manager-training-record',component:ManagerTrainingRecordComponent},
-    {path:'manager-employee-history',component:ManagerEmployeeHistoryComponent}
+    // {path:'manager-employee-history/:course',component:ManagerEmployeeHistoryComponent}
+    {
+        path: 'manager-employee-history/:course/:trainerName',
+        component: ManagerEmployeeHistoryComponent,
+      }
+      
 ];

@@ -12,6 +12,8 @@ public class RegistrationDetailsDTO {
     private String registrationComments;
     private String status;
     private String registrationResponse;
+    private Date plannedStartDate;
+private Date plannedEndDate;
 
     // Constructors, getters, and setters
 
@@ -19,7 +21,7 @@ public class RegistrationDetailsDTO {
     public RegistrationDetailsDTO() {
     }
 
-    public RegistrationDetailsDTO(String empCode, String empName, Date registrationDate, String courseName, String registrationComments, String status,String registrationResponse,Long registrationId) {
+    public RegistrationDetailsDTO(String empCode, String empName, Date registrationDate, String courseName, String registrationComments, String status,String registrationResponse,Long registrationId,Date plannedStartDate,Date plannedEndDate) {
         this.empCode = empCode;
         this.empName = empName;
         this.registrationDate = registrationDate;
@@ -28,7 +30,25 @@ public class RegistrationDetailsDTO {
         this.status = status;
         this.registrationResponse = registrationResponse;
         this.registrationId = registrationId;
+        this.plannedStartDate=plannedStartDate;
+        this.plannedEndDate=plannedEndDate;
         
+    }
+
+    public Date getPlannedStartDate() {
+        return plannedStartDate;
+    }
+
+    public void setPlannedStartDate(Date plannedStartDate) {
+        this.plannedStartDate = plannedStartDate;
+    }
+
+    public Date getPlannedEndDate() {
+        return plannedEndDate;
+    }
+
+    public void setPlannedEndDate(Date plannedEndDate) {
+        this.plannedEndDate = plannedEndDate;
     }
 
     // Getters and Setters

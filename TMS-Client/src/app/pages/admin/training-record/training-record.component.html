@@ -24,9 +24,11 @@
                 <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
                     <td class = "text-center">{{ row.sr_no }}</td>
                     <td class = "text-center">{{ row.c_name }}</td>
-                    <td class = "text-center">{{ row.t_name }}</td>
+                    <td class = "text-center">{{ extractTrainerName(row.t_name) }}</td>
                     <td class = "text-center">
-                      <a class="btn btn-primary" [routerLink]="['/employee-history', row.c_name]">{{ row.view }}</a>
+                      <!-- <a class="btn btn-primary" [routerLink]="['/employee-history', row.c_name]">{{ row.view }}</a> -->
+                      <a class="btn btn-primary" [routerLink]="['/employee-history', row.c_name, row.t_name]">{{ row.view }}</a>
+
                     </td>
                   </tr>
               </tbody>

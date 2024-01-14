@@ -6,19 +6,22 @@ public class EmployeeTrainingDetailsDTO {
     private String plannedStartDate;
     private String plannedEndDate;
     private String trainingStatus;
+    private String trainerName;
 
     // Constructors, getters, and setters
    public EmployeeTrainingDetailsDTO(){
 
    }
     // Adjust your constructor accordingly
-    public EmployeeTrainingDetailsDTO(String empCode, String empName, String plannedStartDate, String plannedEndDate, String trainingStatus) {
+    public EmployeeTrainingDetailsDTO(String empCode, String empName, String plannedStartDate, String plannedEndDate, String trainingStatus,String trainerName) {
         this.empCode = empCode;
         this.empName = empName;
         this.plannedStartDate = plannedStartDate;
         this.plannedEndDate = plannedEndDate;
         this.trainingStatus = trainingStatus;
+        this.trainerName=trainerName;
     }
+    
     public String getEmpCode() {
         return empCode;
     }
@@ -48,6 +51,12 @@ public class EmployeeTrainingDetailsDTO {
     }
     public void setTrainingStatus(String trainingStatus) {
         this.trainingStatus = trainingStatus;
+    }
+    public String getTrainerName() {
+        return trainerName;
+    }
+    public void setTrainerName(String trainerName) {
+        this.trainerName = trainerName;
     }
     
     // Getters and setters

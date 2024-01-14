@@ -6,5 +6,5 @@ import com.mindcraft.in.Pojos.Trainer.TrainingsDTO;
 
 public interface TrainingsService {
 
-    List<TrainingsDTO> getTrainingsByTrainerName(String empName);
+    List<TrainingsDTO> getTrainingsByTrainerAndEmpName(String trainerName, String empName);
 }

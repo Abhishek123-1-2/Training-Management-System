@@ -25,6 +25,7 @@ interface TableData {
 })
 export class EmployeeHistoryComponent implements OnInit {
   c_name: string;
+  trainerName: string; 
   public tableData1: TableData;
   public filteredData: TableRow[];
   public searchValue: string = '';
@@ -33,38 +34,72 @@ export class EmployeeHistoryComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
+  // ngOnInit(): void {
+  //   this.route.params.subscribe((params) => {
+  //     this.c_name = params['c_name'];
+  //     this.fetchEmployeeDetails();
+  //   });
+  // }
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.c_name = params['c_name'];
+      this.c_name = params['courseName'];
+      this.trainerName = params['trainerName']; // Add this line
       this.fetchEmployeeDetails();
     });
   }
-
-  fetchEmployeeDetails(): void {
-    this.http.get<{ empCode: string, empName: string, plannedStartDate: string, plannedEndDate: string, trainingStatus: string }[]>(
-      `http://localhost:8083/api/training-views/completed-course-details/${this.c_name}`
-    ).subscribe(
-      (data) => {
-        this.tableData1 = {
-          headerRow: ['Sr No.', 'Employee Code', 'Employee Name', 'Course Name', 'Start Date', 'End Date', 'Status'],
-          dataRows: data.map((item, index) => ({
-            sr_no: (index + 1).toString(),
-            emp_code: item.empCode,
-            emp_name: item.empName,
-            course: this.c_name,
-            start_date: item.plannedStartDate ? new Date(item.plannedStartDate).toLocaleDateString() : '',
-            end_date: item.plannedEndDate ? new Date(item.plannedEndDate).toLocaleDateString() : '',
-            status: item.trainingStatus,
-          })),
-        };
-        this.filteredData = [...this.tableData1.dataRows];
-      },
-      (error) => {
-        console.error('Error fetching employee details:', error);
-      }
-    );
-  }
   
+  
+
+  // fetchEmployeeDetails(): void {
+  //   this.http.get<{ empCode: string, empName: string, plannedStartDate: string, plannedEndDate: string, trainingStatus: string }[]>(
+  //     `http://localhost:8083/api/training-views/completed-course-details/${this.c_name}`
+  //   ).subscribe(
+  //     (data) => {
+  //       this.tableData1 = {
+  //         headerRow: ['Sr No.', 'Employee Code', 'Employee Name', 'Course Name', 'Start Date', 'End Date', 'Status'],
+  //         dataRows: data.map((item, index) => ({
+  //           sr_no: (index + 1).toString(),
+  //           emp_code: item.empCode,
+  //           emp_name: item.empName,
+  //           course: this.c_name,
+  //           start_date: item.plannedStartDate ? new Date(item.plannedStartDate).toLocaleDateString() : '',
+  //           end_date: item.plannedEndDate ? new Date(item.plannedEndDate).toLocaleDateString() : '',
+  //           status: item.trainingStatus,
+  //         })),
+  //       };
+  //       this.filteredData = [...this.tableData1.dataRows];
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching employee details:', error);
+  //     }
+  //   );
+  // }
+  fetchEmployeeDetails(): void {
+    this.http
+      .get<{ empCode: string; empName: string; plannedStartDate: string; plannedEndDate: string; trainingStatus: string }[]>(
+        `http://localhost:8083/api/training-views/completed-course-details/${this.c_name}/${this.trainerName}`
+      )
+      .subscribe(
+        (data) => {
+          this.tableData1 = {
+            headerRow: ['Sr No.', 'Employee Code', 'Employee Name', 'Course Name', 'Start Date', 'End Date', 'Status'],
+            dataRows: data.map((item, index) => ({
+              sr_no: (index + 1).toString(),
+              emp_code: item.empCode,
+              emp_name: item.empName,
+              course: this.c_name,
+              start_date: item.plannedStartDate ? new Date(item.plannedStartDate).toLocaleDateString() : '',
+              end_date: item.plannedEndDate ? new Date(item.plannedEndDate).toLocaleDateString() : '',
+              status: item.trainingStatus,
+            })),
+          };
+          this.filteredData = [...this.tableData1.dataRows];
+        },
+        (error) => {
+          console.error('Error fetching employee details:', error);
+        }
+      );
+  }
 
   applyFilter() {
     this.filteredData = this.tableData1.dataRows.filter((row) =>

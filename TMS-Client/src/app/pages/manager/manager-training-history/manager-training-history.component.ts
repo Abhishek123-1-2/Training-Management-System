@@ -120,6 +120,50 @@ export class ManagerTrainingHistoryComponent implements OnInit {
       }
     );
   }
+  // fetchTrainingHistory(subordinateEmpIds: number[]) {
+  //   console.log('Inside fetchTrainingHistory');
+  //   console.log('Fetching training history for empIds:', subordinateEmpIds);
+  
+  //   const empIdsParam = subordinateEmpIds.join(',');
+  //   const url = `http://localhost:8083/api/manager/training-history/employee?empIds=${empIdsParam}`;
+  
+  //   console.log('Request URL:', url);
+  
+  //   this.http.get<TrainingHistory[]>(url).subscribe(
+  //     (response) => {
+  //       console.log('Manager Training History Data:', response);
+  
+  //       // Use a Set to track unique records
+  //       const uniqueRecords = new Set<string>();
+  
+  //       this.tableData.dataRows = response
+  //         .filter((item) => {
+  //           const recordKey = `${item.empId}-${item.course}-${item.plannedStartDate}-${item.plannedEndDate}`;
+  //           const isUnique = !uniqueRecords.has(recordKey);
+  //           if (isUnique) {
+  //             uniqueRecords.add(recordKey);
+  //           }
+  //           return isUnique;
+  //         })
+  //         .map((item, index) => ({
+  //           number: (index + 1).toString(),
+  //           course: item.course,
+  //           trainerName: item.trainerName.split('(')[0].trim(),
+  //           plannedStartDate: item.plannedStartDate,
+  //           plannedEndDate: item.plannedEndDate,
+  //           trainingStatus: item.trainingStatus,
+  //           empId: item.empId,
+  //         }));
+  
+  //       this.filteredData = [...this.tableData.dataRows];
+  //       this.applyFilter();
+  //       this.currentPage = Math.min(this.currentPage, this.pages.length);
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching manager training history:', error);
+  //     }
+  //   );
+  // }
   
 
   applyFilter() {
