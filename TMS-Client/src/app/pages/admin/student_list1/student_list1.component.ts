@@ -27,6 +27,7 @@ export class StudentList1Component implements OnInit {
   start_date: string;  // Add these declarations
   end_date: string;
   status: string;
+  trainerName:string;
   public studentList: TableData;
   public filteredData: any[];
   public searchValue: string = '';
@@ -35,15 +36,25 @@ export class StudentList1Component implements OnInit {
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
+  // ngOnInit(): void {
+  //   this.route.params.subscribe((params) => {
+  //     this.course = params['course'];
+  //     this.start_date = params['start_date'];
+  //     this.end_date = params['end_date'];
+  //     this.status = params['status'];
+  //     this.fetchStudentList(this.course);
+  //   });
+    
+  // }
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.course = params['course'];
+      this.trainerName = params['trainerName'];
       this.start_date = params['start_date'];
       this.end_date = params['end_date'];
       this.status = params['status'];
-      this.fetchStudentList(this.course);
+      this.fetchStudentList(this.course, this.trainerName);
     });
-    
   }
 
   // fetchStudentList(course: string): void {
@@ -65,15 +76,53 @@ export class StudentList1Component implements OnInit {
   //       this.filteredData = [...this.studentList.dataRows];
   //     });
   // }
-  fetchStudentList(course: string): void {
-    this.http.get<any[]>(`http://localhost:8083/api/training-views/completedDetails/${course}`)
+  // fetchStudentList(course: string): void {
+  //   this.http.get<any[]>(`http://localhost:8083/api/training-views/completedDetails/${course}`)
+  //     .subscribe(data => {
+  //       this.studentList = {
+  //         headerRow: ['Employee Code', 'Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status', 'Reports'],
+  //         dataRows: data.map(item => ({
+  //           emp_code: item.empCode,
+  //           emp_name: item.empName,
+  //           c_name: item.courseName,
+  //           t_name: item.trainerName,
+  //           start_date: new Date(item.startDate).toLocaleDateString(),
+  //           end_date: new Date(item.endDate).toLocaleDateString(),
+  //           status: item.trainingStatus,
+  //           view: 'View',
+  //         })),
+  //       };
+  //       this.filteredData = [...this.studentList.dataRows];
+  //     });
+  // }
+  // fetchStudentList(course: string, trainerName: string): void {
+  //   this.http.get<any[]>(`http://localhost:8083/api/training-views/completed-course-details/${course}/${trainerName}`)
+  //     .subscribe(data => {
+  //       this.studentList = {
+  //         headerRow: ['Employee Code', 'Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status', 'Reports'],
+  //         dataRows: data.map(item => ({
+  //           emp_code: item.empCode,
+  //           emp_name: item.empName,
+  //           c_name: item.courseName,
+  //           t_name: item.trainerName,
+  //           start_date: new Date(item.startDate).toLocaleDateString(),
+  //           end_date: new Date(item.endDate).toLocaleDateString(),
+  //           status: item.trainingStatus,
+  //           view: 'View',
+  //         })),
+  //       };
+  //       this.filteredData = [...this.studentList.dataRows];
+  //     });
+  // }
+  fetchStudentList(course: string, trainerName: string): void {
+    this.http.get<any[]>(`http://localhost:8083/api/training-views/completed-course-details/${course}/${trainerName}`)
       .subscribe(data => {
         this.studentList = {
           headerRow: ['Employee Code', 'Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status', 'Reports'],
           dataRows: data.map(item => ({
             emp_code: item.empCode,
             emp_name: item.empName,
-            c_name: item.courseName,
+            c_name: item.course,
             t_name: item.trainerName,
             start_date: new Date(item.startDate).toLocaleDateString(),
             end_date: new Date(item.endDate).toLocaleDateString(),
@@ -83,8 +132,8 @@ export class StudentList1Component implements OnInit {
         };
         this.filteredData = [...this.studentList.dataRows];
       });
-  }
-  
+}
+
 
   applyFilter(): void {
     this.filteredData = this.studentList.dataRows.filter(row =>

@@ -473,8 +473,29 @@ public void updateTrainingStatusToCompleted(Long scheduleId) {
 //             rs.getString("training_status")
 //     ));
 // }
+// public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String course, String trainerName) {
+//     String sql = "SELECT e.emp_code, e.emp_name, ts.trainer_name, " +
+//                  "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
+//                  "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
+//                  "ts.training_status " +
+//                  "FROM m_trainings t " +
+//                  "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+//                  "JOIN registration r ON ts.schedule_id = r.schedule_id " +
+//                  "JOIN m_employee e ON r.emp_id = e.emp_id " +
+//                  "WHERE t.course = ? AND ts.trainer_name = ? AND ts.training_status = 'Completed' " +
+//                  "ORDER BY ts.planned_start_date DESC";
+
+//     return jdbcTemplate.query(sql, new Object[]{course, trainerName}, (rs, rowNum) -> new EmployeeTrainingDetailsDTO(
+//             rs.getString("emp_code"),
+//             rs.getString("emp_name"),
+//             rs.getString("planned_start_date"),  // Corrected mapping
+//             rs.getString("planned_end_date"),
+//             rs.getString("training_status"),
+//             rs.getString("trainer_name")  // Corrected mapping
+//     ));
+// }
 public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String course, String trainerName) {
-    String sql = "SELECT e.emp_code, e.emp_name, ts.trainer_name, " +
+    String sql = "SELECT e.emp_code, e.emp_name, t.course, ts.trainer_name, " +
                  "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
                  "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
                  "ts.training_status " +
@@ -488,10 +509,11 @@ public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String c
     return jdbcTemplate.query(sql, new Object[]{course, trainerName}, (rs, rowNum) -> new EmployeeTrainingDetailsDTO(
             rs.getString("emp_code"),
             rs.getString("emp_name"),
-            rs.getString("planned_start_date"),  // Corrected mapping
+            rs.getString("planned_start_date"),
             rs.getString("planned_end_date"),
             rs.getString("training_status"),
-            rs.getString("trainer_name")  // Corrected mapping
+            rs.getString("trainer_name"),
+            rs.getString("course")
     ));
 }
 

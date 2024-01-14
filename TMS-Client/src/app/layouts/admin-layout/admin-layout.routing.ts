@@ -81,7 +81,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'feedback-form/:number/:scheduleId', component:FeedbackFormComponent},
     { path: 'student-list', component: StudentListComponent},
     { path: 'student-list1', component: StudentList1Component},
-    { path: 'attendance-record', component: AttendanceRecordComponent},
+    { path: 'attendance-record/:c_name/:empCode', component: AttendanceRecordComponent},
     { path: 'schedule-list', component: ScheduleListComponent},
     {path:'tid',component:TIDComponent},
     {path:'type/:course',component:TypeComponent},
