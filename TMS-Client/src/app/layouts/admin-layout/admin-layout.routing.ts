@@ -57,6 +57,7 @@ import { HrTrainingHistoryComponent } from 'app/pages/hr/hr-training-history/hr-
 import { ManagerTrainingHistoryComponent } from 'app/pages/manager/manager-training-history/manager-training-history.component';
 import { ManagerTrainingRecordComponent } from 'app/pages/manager/manager-training-record/manager-training-record.component';
 import { ManagerEmployeeHistoryComponent } from 'app/pages/manager/manager-employee-history/manager-employee-history.component';
+import { EmployeeFeedbackComponent } from 'app/pages/admin/employee-feedback/employee-feedback.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -126,6 +127,6 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'manager-employee-history/:course/:trainerName',
         component: ManagerEmployeeHistoryComponent,
-      }
+      }, { path: 'employee-feedback/:c_name/:empCode', component: EmployeeFeedbackComponent },
       
 ];

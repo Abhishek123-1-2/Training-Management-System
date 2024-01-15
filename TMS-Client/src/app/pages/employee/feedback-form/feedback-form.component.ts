@@ -30,6 +30,25 @@ export class FeedbackFormComponent implements OnInit {
   chart: any;
 
   constructor(private fb:FormBuilder, private employeeService: EmployeeService, private loginService: UserService, private route: ActivatedRoute, private dataService: DataService) { }
+  // ngOnInit(): void {
+  //   this.saveForm = this.fb.group({
+  //     // effectiveness: ['', Validators.required],  // Add appropriate validators
+  //     // content: ['', Validators.required], 
+  //     // methodology: ['', Validators.required],
+  //     // organization: ['', Validators.required],
+  //     // trainer_rating: ['', Validators.required],
+  //     commentsFromEmp: ['', Validators.required],  // Add appropriate validators
+  //   });
+
+  //   this.emp_Id = this.loginService.getEmpId();
+  //   console.log("Employee Id: ", this.emp_Id);
+
+  //   this.route.params.subscribe((params) => {
+  //     this.schedule_Id = params['scheduleId'];
+  //     console.log('Schedule ID:', this.schedule_Id);
+  //   });
+
+  // }
   ngOnInit(): void {
     this.saveForm = this.fb.group({
       // effectiveness: ['', Validators.required],  // Add appropriate validators
@@ -39,17 +58,18 @@ export class FeedbackFormComponent implements OnInit {
       // trainer_rating: ['', Validators.required],
       commentsFromEmp: ['', Validators.required],  // Add appropriate validators
     });
-
+  
     this.emp_Id = this.loginService.getEmpId();
     console.log("Employee Id: ", this.emp_Id);
-
-    this.route.params.subscribe((params) => {
+  
+    // Use ActivatedRoute.snapshot to get the initial snapshot of the route parameters
+    const params = this.route.snapshot.params;
+    if (params) {
       this.schedule_Id = params['scheduleId'];
       console.log('Schedule ID:', this.schedule_Id);
-    });
-
+    }
   }
-
+  
   updateRating(inputId: string, displayProperty: string): void {
     const inputElement = document.getElementById(inputId) as HTMLInputElement;
     this[displayProperty] = +inputElement.value;

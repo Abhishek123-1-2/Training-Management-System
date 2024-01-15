@@ -231,6 +231,9 @@ public class EmpFeedbackDTO {
     
     private Long attendanceId;
     private Long empId;
+    private String empCode;
+    private String course;
+
     private Long scheduleId;
     private String feedbackType;
     private Integer effectiveness;
@@ -246,7 +249,7 @@ public class EmpFeedbackDTO {
     }
 
     public EmpFeedbackDTO(Long attendanceId, Long empId, Long scheduleId, String feedbackType, Integer effectiveness,
-            Integer content, Integer methodology, Integer organization, Integer trainerRating, String commentsFromEmp) {
+            Integer content, Integer methodology, Integer organization, Integer trainerRating, String commentsFromEmp,String empCode,String course) {
         this.attendanceId = attendanceId;
         this.empId = empId;
         this.scheduleId = scheduleId;
@@ -257,6 +260,24 @@ public class EmpFeedbackDTO {
         this.organization = organization;
         this.trainer_rating = trainer_rating;
         this.commentsFromEmp = commentsFromEmp;
+        this.empCode=empCode;
+        this.course=course;
+    }
+
+    public String getEmpCode() {
+        return empCode;
+    }
+
+    public void setEmpCode(String empCode) {
+        this.empCode = empCode;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
 
     public Long getAttendanceId() {

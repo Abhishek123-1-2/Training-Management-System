@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,10 +34,39 @@ public class EmpFeedbackController {
             return new ResponseEntity<>("Failed to save feedback: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("all-feedback")
-public ResponseEntity<List<EmpFeedbackDTO>> getAllFeedback() {
+//     @GetMapping("all-feedback")
+// public ResponseEntity<List<EmpFeedbackDTO>> getAllFeedback() {
+//     try {
+//         List<EmpFeedbackDTO> feedbackList = empFeedbackService.getAllFeedback();
+//         return ResponseEntity.ok(feedbackList);
+//     } catch (Exception e) {
+//         // Log the exception details for debugging purposes
+//         e.printStackTrace();
+
+//         // Return internal server error response with details
+//         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+//     }
+// }
+// @GetMapping("all-feedback")
+// public ResponseEntity<List<EmpFeedbackDTO>> getAllFeedback() {
+//     try {
+//         List<EmpFeedbackDTO> feedbackList = empFeedbackService.getAllFeedback();
+//         return ResponseEntity.ok(feedbackList);
+//     } catch (Exception e) {
+//         // Log the exception details for debugging purposes
+//         e.printStackTrace();
+
+//         // Return internal server error response with details
+//         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+//     }
+// }
+@GetMapping("all-feedback/{empCode}/{course}")
+public ResponseEntity<List<EmpFeedbackDTO>> getAllFeedback(
+        @PathVariable String empCode,
+        @PathVariable String course
+) {
     try {
-        List<EmpFeedbackDTO> feedbackList = empFeedbackService.getAllFeedback();
+        List<EmpFeedbackDTO> feedbackList = empFeedbackService.getAllFeedback(empCode, course);
         return ResponseEntity.ok(feedbackList);
     } catch (Exception e) {
         // Log the exception details for debugging purposes

@@ -57,6 +57,7 @@ import { ApprovedRequestComponent } from './pages/manager/approved-request/appro
 import { TrainerTrainingDetailsComponent } from './pages/trainer/trainer-training-details/trainer-training-details.component';
 import { ConfirmationstatusDetailsComponent } from './pages/employee/confirmationstatus-details/confirmationstatus-details.component';
 import { HrTrainingHistoryComponent } from './pages/hr/hr-training-history/hr-training-history.component';
+import { EmployeeFeedbackComponent } from './pages/admin/employee-feedback/employee-feedback.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { HrTrainingHistoryComponent } from './pages/hr/hr-training-history/hr-tr
     AdminLayoutComponent,
     FeedbackDetailsComponent,
     ConfirmationstatusDetailsComponent,
+    EmployeeFeedbackComponent,
    
 
 

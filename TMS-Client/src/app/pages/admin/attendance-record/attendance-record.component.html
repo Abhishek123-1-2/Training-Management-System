@@ -1,205 +1,12 @@
-<!-- <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-      <li class="breadcrumb-item"><a [routerLink]="['/admin-attendance']">Training Details</a></li>
-      <li class="breadcrumb-item"><a [routerLink]="['/student-list1', {start_date: start_date, end_date: end_date, status: status}]">Attendees Details</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Reports</li>
-    </ol>
-  </nav>
 
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title">Feedback for Employee: 
-            <span [class.text-primary]="true">{{ emp_code }}</span>
-          </h4>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="technical_skills"><strong>Technical Skills:</strong></label>
-                <div>{{ feedback.technical_skills }}</div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="grasping_power"><strong>Grasping Power:</strong></label>
-                <div>{{ feedback.grasping_power }}</div>
-              </div>
-            </div>
-          </div>
-  
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="proactiveness"><strong>Pro-Activeness:</strong></label>
-                <div>{{ feedback.proactiveness }}</div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="interest"><strong>Interest Rate:</strong></label>
-                <div>{{ feedback.interest }}</div>
-              </div>
-            </div>
-          </div>
-  
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="leadership_quality"><strong>Leadership Quality:</strong></label>
-                <div>{{ feedback.leadership_quality }}</div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="problem"><strong>Problem Solving Ability:</strong></label>
-                <div>{{ feedback.problem }}</div>
-              </div>
-            </div>
-          </div>
-  
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="comments"><strong>Comments from Trainer:</strong></label>
-                <div>{{ feedback.comments }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title">Feedback for Training: 
-            <span [class.text-primary]="true">{{ emp_code }}</span>
-          </h4>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="effectiveness"><strong>Effectiveness of Training:</strong></label>
-                <div>{{ feedback.effectiveness }}</div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="content"><strong>Content of Training:</strong></label>
-                <div>{{ feedback.content }}</div>
-              </div>
-            </div>
-          </div>
-    
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="methodology"><strong>Effectiveness of Training Methodology:</strong></label>
-                <div>{{ feedback.methodology }}</div>
-              </div>
-            </div>
-            
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="organization"><strong>Organization of Training:</strong></label>
-                <div>{{ feedback.organization }}</div>
-              </div>
-            </div>
-          </div>
-    
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="trainer_rating"><strong>Trainer Rating:</strong></label>
-                <div>{{ feedback.trainer_rating }}</div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="comments"><strong>Comments from Employee:</strong></label>
-                <div>{{ feedback.comments1 }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-
-<div class="card">
-    <div class="card-header">
-      <h4 class="card-title">Attendance Details for Employee: 
-        <span [class.text-primary]="true">{{ emp_code }}</span>
-      </h4>
-    </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-6">
-          <p><strong>Course Name:</strong> {{ c_name }}</p>
-          <p><strong>Trainer Name:</strong> {{ t_name }}</p>
-          <p><strong>Status:</strong> {{ status }}</p>
-        </div>
-        <div class="col-md-6">
-          <p><strong>Start Date:</strong> {{ start_date }}</p>
-          <p><strong>End Date:</strong> {{ end_date }}</p>
-        </div>
-        <div class="col-md-6">
-            <button class="btn btn-primary" (click)="addDates()">Add Dates</button>
-        </div>
-      </div>
-  
-      <div class="table-responsive">
-        <table class="table">
-          <thead class="text-primary">
-            <th class="text-center">Date</th>
-            <th class="text-center">Attendance Status</th>
-            <th class="text-center ">Edit</th>
-          </thead>
-          <tbody>
-            <tr *ngFor="let record of attendanceDetails">
-              <td class="text-center">{{ record.date }}</td>
-              <td class="text-center">{{ record.status }}</td>
-              <td class="text-center">
-                <button class="btn btn-primary" (click)="editStatus(record)">{{ record.edit }}</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-   -->
-<!-- <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a >Dashboard</a></li>
-  </ol>
-</nav> -->
-
-<!-- <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-    <li class="breadcrumb-item"><a [routerLink]="['/report-main']">Course Details</a></li>
-    <li class="breadcrumb-item"><a [routerLink]="['/report-employee', { c_name: c_name }]">Employee Details</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Performance</li>
-  </ol>
-</nav>
-
-<div class="card">
-  
-    <canvas #chartCanvas id="feedbackChart" width="400" height="200"></canvas>
-  </div> -->
-  <nav aria-label="breadcrumb">
+   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
       <li class="breadcrumb-item"><a [routerLink]="['/admin-attendance']">Course Details</a></li>
       <li class="breadcrumb-item"><a [routerLink]="['/student-list1']">Employee Details</a></li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/employee-feedback', c_name, empCode]">Performance</a>
+      </li>
       <li class="breadcrumb-item active" aria-current="page">Performance</li>
     </ol>
   </nav>
@@ -212,4 +19,14 @@
       <canvas #chartCanvas id="feedbackChart" width="400" height="200"></canvas>
     </div>
   </div>
+   
+  <!-- <div>
+    <h2>Trainer to Employee Feedback Chart</h2>
+    <canvas #chartCanvas></canvas>
+  </div>
+  
+  <div>
+    <h2>Employee Feedback Chart</h2>
+    <canvas #chartCanvasEmployee></canvas>
+  </div> -->
   
