@@ -22,6 +22,9 @@ public class TrainingViewDto {
     private String course;
     private String training_schedule;
     // private Long empId;
+    private String registrationStatus;
+
+    
 
     // Default constructor
     public TrainingViewDto() {
@@ -32,7 +35,7 @@ public class TrainingViewDto {
     public TrainingViewDto(Long scheduleId, Long trainingId,Long empId, String trainerName, Timestamp plannedStartDate,
             Timestamp plannedEndDate, Timestamp actualStartDate, Timestamp actualEndDate, String trainingStatus,
             char activeYn, String createdBy, Timestamp createdOn, String updatedBy, Timestamp updatedOn,
-            String course,String training_schedule,String fromTime,String toTime) {
+            String course,String training_schedule,String fromTime,String toTime, String registrationStatus) {
         this.scheduleId = scheduleId;
         this.trainingId = trainingId;
         this.trainerName = trainerName;
@@ -51,6 +54,15 @@ public class TrainingViewDto {
         this.course = course;
         this.training_schedule = training_schedule;
         // this.empId = empId;
+        this.registrationStatus = registrationStatus;
+    }
+
+    public String getRegistrationStatus() {
+        return registrationStatus;
+    }
+
+    public void setRegistrationStatus(String registrationStatus) {
+        this.registrationStatus = registrationStatus;
     }
 
     public String getFromTime() {

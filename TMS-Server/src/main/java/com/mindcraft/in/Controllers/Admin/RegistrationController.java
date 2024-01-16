@@ -106,6 +106,11 @@ public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithAddition
     return registrationService.getRegistrationDetailsWithAdditionalDetails(empId);
 }
 
+@GetMapping("/registered-details/{empId}")
+public List<AdditionalRegistrationDetailsDTO> getDetails(@PathVariable String empId) {
+    return registrationService.getRegisteredDetails(empId);
+}
+
 
 @GetMapping("/details-for-course/{courseName}")
     public ResponseEntity<List<AdditionalRegistrationDetailsDTO>> getDetailsForCourse(@PathVariable String courseName) {
