@@ -34,28 +34,129 @@ public class TrainingScheduleService {
                  "t.username, t.password, ts.schedule_id, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, " +
                  "ts.actual_start_date, ts.actual_end_date, ts.training_status, CAST(ts.active_yn AS CHAR) AS active_yn, " +
                  "ts.from_time, ts.to_time, ts.created_by, ts.created_on, ts.updated_by, ts.updated_on, " +
-                 "e.emp_id " +  // Include emp_id from m_employee table
+                 "e.emp_id, r.registration_status  " +  // Include emp_id from m_employee table
                  "FROM m_trainings t " +
                  "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+                 "JOIN registration r on t.training_id = r.training_id " +
                  "JOIN m_employee e ON t.username = e.emp_code";
         
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrainingScheduleDTO.class));
     }
 
-        public List<TrainingSchedule> getPreDefinedTrainingSchedules() {
-           String sql = "SELECT training_id, trainer_name, planned_start_date, planned_end_date, training_status FROM training_schedule WHERE training_id = ? AND training_schedule = 'PRE-DEFINED'";
+        public List<TrainingScheduleDTO> getPreDefinedTrainingSchedules() {
 
-            return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrainingSchedule.class));
-        }
+        // String sql = "SELECT t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, t.trainer_names, t.prerequisites, " +
+        //         "t.course_description, t.daily_hrs, t.total_days, t.url, t.username, t.password, ts.schedule_id, ts.trainer_name, ts.planned_start_date, " +
+        //         "ts.planned_end_date, ts.actual_start_date, ts.actual_end_date, ts.training_status, CAST(ts.active_yn AS CHAR) AS active_yn, ts.from_time, " +
+        //         "ts.to_time, ts.created_by, ts.created_on, ts.updated_by, ts.updated_on, r.registration_status, r.registration_response" +
+        //         "FROM m_trainings t " +
+        //         "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+        //         "JOIN registration r ON t.training_id = r.training_id " +
+        //         "WHERE t.training_schedule = 'PRE-DEFINED' AND ts.training_status = 'Upcoming' " +
+        //         "ORDER BY ts.planned_start_date DESC";
 
-        public List<TrainingSchedule> getOnRequestTrainingSchedules() {
+        // String sql = "SELECT t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, t.trainer_names, t.prerequisites, " +
+        //     "t.course_description, t.daily_hrs, t.total_days, t.url, t.username, t.password, ts.schedule_id, ts.trainer_name, ts.planned_start_date, " +
+        //     "ts.planned_end_date, ts.actual_start_date, ts.actual_end_date, ts.training_status, CAST(ts.active_yn AS CHAR) AS active_yn, ts.from_time, " +
+        //     "ts.to_time, ts.created_by, ts.created_on, ts.updated_by, ts.updated_on, r.registration_status, r.registration_response " +
+        //     "FROM m_trainings t " +
+        //     "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+        //     "JOIN registration r ON t.training_id = r.training_id " +
+        //     "WHERE t.training_schedule = 'PRE-DEFINED' AND ts.training_status = 'Upcoming' " +
+        //     "ORDER BY ts.planned_start_date DESC";
+
+        // String sql = "SELECT t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, t.trainer_names, t.prerequisites, " +
+        //     "t.course_description, t.daily_hrs, t.total_days, t.url, t.username, t.password, ts.schedule_id, ts.trainer_name, ts.planned_start_date, " +
+        //     "ts.planned_end_date, ts.actual_start_date, ts.actual_end_date, ts.training_status, CAST(ts.active_yn AS CHAR) AS active_yn, ts.from_time, " +
+        //     "ts.to_time, ts.created_by, ts.created_on, ts.updated_by, ts.updated_on, r.registration_status, r.registration_response " +
+        //     "FROM m_trainings t " +
+        //     "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+        //     "JOIN registration r ON t.training_id = r.training_id " +
+        //     "WHERE t.training_schedule = 'PRE-DEFINED' AND ts.training_status = 'Upcoming' " +
+        //     "GROUP BY t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, t.trainer_names, t.prerequisites, " +
+        //     "t.course_description, t.daily_hrs, t.total_days, t.url, t.username, t.password, ts.schedule_id, ts.trainer_name, ts.planned_start_date, " +
+        //     "ts.planned_end_date, ts.actual_start_date, ts.actual_end_date, ts.training_status, ts.active_yn, ts.from_time, ts.to_time, " +
+        //     "ts.created_by, ts.created_on, ts.updated_by, ts.updated_on, r.registration_status, r.registration_response " +
+        //     "ORDER BY ts.planned_start_date DESC";
+
+        String sql = "SELECT t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, t.trainer_names, t.prerequisites, " +
+            "t.course_description, t.daily_hrs, t.total_days, t.url, t.username, t.password, ts.schedule_id, ts.trainer_name, ts.planned_start_date, " +
+            "ts.planned_end_date, ts.actual_start_date, ts.actual_end_date, ts.training_status, CAST(ts.active_yn AS CHAR) AS active_yn, ts.from_time, " +
+            "ts.to_time, ts.created_by, ts.created_on, ts.updated_by, ts.updated_on, r.registration_status, r.registration_response " +
+            "FROM m_trainings t " +
+            "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+            "LEFT JOIN registration r ON t.training_id = r.training_id " +
+            "WHERE t.training_schedule = 'PRE-DEFINED' AND ts.training_status = 'Upcoming' " +
+            "GROUP BY t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, t.trainer_names, t.prerequisites, " +
+            "t.course_description, t.daily_hrs, t.total_days, t.url, t.username, t.password, ts.schedule_id, ts.trainer_name, ts.planned_start_date, " +
+            "ts.planned_end_date, ts.actual_start_date, ts.actual_end_date, ts.training_status, ts.active_yn, ts.from_time, ts.to_time, " +
+            "ts.created_by, ts.created_on, ts.updated_by, ts.updated_on, r.registration_status, r.registration_response " +
+            "ORDER BY ts.planned_start_date DESC";
+
+
+
+
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrainingScheduleDTO.class));
+    }
+
+
+        public List<TrainingScheduleDTO> getOnRequestTrainingSchedules() {
         //    String sql = "SELECT training_id, trainer_name, planned_start_date, planned_end_date, training_status FROM training_schedule WHERE training_id = ? AND training_schedule = 'ON-REQUEST'";
-        String sql = "SELECT m.training_id, t.trainer_name, t.planned_start_date, t.planned_end_date, t.training_status, m.training_schedule " +
-        "FROM m_trainings m " +
-        "JOIN training_schedule t ON m.training_id = t.training_id " +
-        "WHERE m.training_id = ? AND m.training_schedule = 'ON-REQUEST'";
+        // String sql = "SELECT m.training_id, t.trainer_name, t.planned_start_date, t.planned_end_date, t.training_status, m.training_schedule " +
+        // "FROM m_trainings m " +
+        // "JOIN training_schedule t ON m.training_id = t.training_id " +
+        // "WHERE m.training_id = ? AND m.training_schedule = 'ON-REQUEST'";
+        // String sql = "SELECT t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, t.trainer_names, t.prerequisites, " +
+        //         "t.course_description, t.daily_hrs, t.total_days, t.url, t.username, t.password, ts.schedule_id, ts.trainer_name, ts.planned_start_date, " +
+        //         "ts.planned_end_date, ts.actual_start_date, ts.actual_end_date, ts.training_status, CAST(ts.active_yn AS CHAR) AS active_yn, ts.from_time, " +
+        //         "ts.to_time, ts.created_by, ts.created_on, ts.updated_by, ts.updated_on, r.registration_status " +
+        //         "FROM m_trainings t " +
+        //         "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+        //         "JOIN registration r ON t.training_id = r.training_id" +
+        //         "WHERE t.training_schedule = 'ON-REQUEST'" +
+        //         "ORDER BY ts.planned_start_date DESC";
+        // String sql = "SELECT " +
+        //     "t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, t.trainer_names, t.prerequisites, " +
+        //     "t.course_description, t.daily_hrs, t.total_days, t.url, t.username, t.password, " +
+        //     "ts.schedule_id, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, ts.actual_start_date, ts.actual_end_date, " +
+        //     "ts.training_status, CAST(ts.active_yn AS CHAR) AS active_yn, ts.from_time, ts.to_time, ts.created_by, ts.created_on, ts.updated_by, ts.updated_on, " +
+        //     "r.registration_status " +
+        //     "FROM " +
+        //     "m_trainings t " +
+        //     "JOIN " +
+        //     "training_schedule ts ON t.training_id = ts.training_id " +
+        //     "LEFT JOIN " +
+        //     "registration r ON t.training_id = r.training_id " +
+        //     "WHERE " +
+        //     "t.training_schedule = 'ON-REQUEST' AND ts.training_status = 'Upcoming' " +
+        //     "ORDER BY " +
+        //     "ts.planned_start_date DESC";
+
+        String sql = "SELECT " +
+            "t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, t.trainer_names, t.prerequisites, " +
+            "t.course_description, t.daily_hrs, t.total_days, t.url, t.username, t.password, " +
+            "MAX(ts.schedule_id) AS schedule_id, MAX(ts.trainer_name) AS trainer_name, " +
+            "MAX(ts.planned_start_date) AS planned_start_date, MAX(ts.planned_end_date) AS planned_end_date, " +
+            "MAX(ts.actual_start_date) AS actual_start_date, MAX(ts.actual_end_date) AS actual_end_date, " +
+            "MAX(ts.training_status) AS training_status, MAX(CAST(ts.active_yn AS CHAR)) AS active_yn, " +
+            "MAX(ts.from_time) AS from_time, MAX(ts.to_time) AS to_time, MAX(ts.created_by) AS created_by, " +
+            "MAX(ts.created_on) AS created_on, MAX(ts.updated_by) AS updated_by, MAX(ts.updated_on) AS updated_on, " +
+            "MAX(r.registration_status) AS registration_status " +
+            "FROM " +
+            "m_trainings t " +
+            "JOIN " +
+            "training_schedule ts ON t.training_id = ts.training_id " +
+            "LEFT JOIN " +
+            "registration r ON t.training_id = r.training_id " +
+            "WHERE " +
+            "t.training_schedule = 'ON-REQUEST' AND ts.training_status = 'Upcoming' " +
+            "GROUP BY " +
+            "t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, t.trainer_names, t.prerequisites, " +
+            "t.course_description, t.daily_hrs, t.total_days, t.url, t.username, t.password " +
+            "ORDER BY " +
+            "MAX(ts.planned_start_date) DESC";
         
-            return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrainingSchedule.class));
+            return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrainingScheduleDTO.class));
         }
 
 }

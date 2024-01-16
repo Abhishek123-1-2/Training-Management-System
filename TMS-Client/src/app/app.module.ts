@@ -67,7 +67,6 @@ import { EmployeeFeedbackComponent } from './pages/admin/employee-feedback/emplo
     AdminLayoutComponent,
     FeedbackDetailsComponent,
     ConfirmationstatusDetailsComponent,
-    EmployeeFeedbackComponent,
    
 
 

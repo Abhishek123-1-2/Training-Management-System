@@ -39,14 +39,24 @@ export class AdminAttendanceComponent implements OnInit {
             sr_no: (index + 1).toString(),
             c_name: item.course,
             t_name: item.trainerName,
-            s_date: new Date(item.plannedStartDate).toLocaleDateString(),
-            e_date: new Date(item.plannedEndDate).toLocaleDateString(),
+            // s_date: new Date(item.plannedStartDate).toLocaleDateString(),
+            // e_date: new Date(item.plannedEndDate).toLocaleDateString(),
+            s_date: this.formatDate(item.plannedStartDate),
+            e_date: this.formatDate(item.plannedEndDate),
             status: item.trainingStatus,
             v_attendees: 'View'
           }))
         };
         this.filteredData = [...this.tableData1.dataRows];
       });
+  }
+
+  formatDate(timestamp: string): string {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${day}-${month}-${year}`;
   }
   
 

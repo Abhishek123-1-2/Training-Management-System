@@ -13,6 +13,7 @@ export interface RouteInfo {
 
 export const ROUTES: RouteInfo[] = [
     // { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '', roles: ['ROLE_ADMIN'] },
+    {path: '/dashboard', title: 'Dashboard', icon: 'nc-circle-10', class: '', roles: ['ROLE_ADMIN']},
     { path: '/employee-search', title: 'Employee', icon: 'nc-circle-10', class:'', roles: ['ROLE_ADMIN']},
     { path:'/admin-training',title: 'Training' , icon :'nc-caps-small' , class : ' ', roles: ['ROLE_ADMIN'] ,submenu:[
         { path:'/add-training',title:'Add-Training',icon:'',class:'', roles: ['ROLE_ADMIN']},
@@ -47,8 +48,9 @@ submenu:[
 { path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_USER']},
 
  
+// { path: '/user-dashboard/:empId', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_HR']},
+{path:'/hr-dashboard', title: 'Dashboard', icon: 'nc-circle-10', class: '', roles: ['ROLE_HR']},
 { path: '/employee-search', title: 'Employee', icon: 'nc-circle-10', class:'', roles: ['ROLE_HR']},
-
 { path: '', title: 'Training', class: '', icon: 'nc-caps-small', roles:['ROLE_HR'], submenu: [
   { path: '/training-view', title: 'View Training', class: '', icon: '', roles:['ROLE_HR']}
 

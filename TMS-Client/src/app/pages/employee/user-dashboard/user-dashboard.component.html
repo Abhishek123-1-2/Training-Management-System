@@ -142,7 +142,7 @@
             <input class="col-md-12 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
           </div>
         </div>
-          <div class="table-responsive table-container">
+          <div class="table-responsive text-nowrap table-container">
             <table class="table">
               <thead class="text-primary">
                 <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
@@ -156,8 +156,10 @@
                   <td class="text-center">{{ row.e_date }}</td>
                   <td class="text-center">{{ row.status }}</td>
                   <td class="text-center">
-                    <button class="btn btn-primary" (click)="enrollButtonClicked(row)">Enroll</button>
+                    <button class="btn btn-primary" (click)="enrollButtonClicked(row)" [disabled]="['Registered', 'confirmed', 'rejected']">Enroll</button>
                   </td>
+                  <td class="text-center">{{ row.registration_status }}</td>
+                  <td class="text-center">{{ row.reason }}</td>
                 </tr>
               </tbody>
             </table>

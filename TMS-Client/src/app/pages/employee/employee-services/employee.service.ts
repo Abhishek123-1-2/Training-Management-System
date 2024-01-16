@@ -25,7 +25,7 @@ export class EmployeeService {
   getEmpId(): string | null {
     return this.empId;
   }
-  private apiUrl = 'http://localhost:8083/api/training-views/schedule-list';
+  // private apiUrl = 'http://localhost:8083/api/training-views/schedule-list/PRE-DEFINED';
 
   // getPerformanceData(): Observable<PerformanceData[]> {
   //   // Mock backend endpoint or generate dummy data
@@ -43,10 +43,14 @@ export class EmployeeService {
   //   return of(dummyData);
   // }
 
-  getTrainingSchedule(): Observable<any[]> {
+  getTrainingPreDefinedSchedule(): Observable<any[]> {
     // Implement your logic to fetch training schedule data
     // For example, using HttpClient to make an HTTP request
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>('http://localhost:8083/api/training-views/schedule-list/PRE-DEFINED');
+  }
+
+  getTrainingOnRequestSchedule(): Observable<any[]> {
+    return this.http.get<any[]>('http://localhost:8083/api/training-views/schedule-list/ON-REQUEST');
   }
 
   // enrollTraining(): Observable<any> {
@@ -74,7 +78,7 @@ export class EmployeeService {
   }
 
   getFeedback(empId: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/completed-courses/${empId}`);
+    return this.http.get<any[]>(`http://localhost:8083/api/training-views/schedule-list/PRE-DEFINED/completed-courses/${empId}`);
   }
 
   getEnrollmentData(empId: string): Observable<any[]> {

@@ -122,8 +122,8 @@ fetchTrainingHistory(empId: string) {
         number: (index + 1).toString(),
         course: item.course,
         trainerName: item.trainerName.split('(')[0].trim(),
-        plannedStartDate: item.plannedStartDate,
-        plannedEndDate: item.plannedEndDate,
+        plannedStartDate: this.formatDate(item.plannedStartDate),
+        plannedEndDate: this.formatDate(item.plannedEndDate),
         trainingStatus: item.trainingStatus,
         empId: item.empId,
       }));
@@ -135,6 +135,14 @@ fetchTrainingHistory(empId: string) {
       console.error('Error fetching training history:', error);
     }
   );
+}
+
+formatDate(timestamp: string): string {
+  const date = new Date(timestamp);
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  return `${day}-${month}-${year}`;
 }
 
       

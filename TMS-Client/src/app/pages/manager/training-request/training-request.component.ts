@@ -110,6 +110,7 @@
 // }
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { StatusUpdateService } from '../status/status-update.service';
 
 interface TableData {
   headerRow: string[];
@@ -152,7 +153,7 @@ export class TrainingRequestComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 5;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private statusUpdateService: StatusUpdateService) { }
 
   ngOnInit(): void {
     const apiEndpoint = 'http://localhost:8083/api/registrations/details-with-planned-dates';
@@ -178,6 +179,7 @@ export class TrainingRequestComponent implements OnInit {
         console.error('Error fetching data from the API', error);
       }
     );
+
   }
 
   applyFilter() {
@@ -232,6 +234,7 @@ export class TrainingRequestComponent implements OnInit {
   
         // Update the status in the local data
         row.status = 'Confirmed';
+        this.statusUpdateService.updateStatus('Confirmed');
       } else {
         console.error('Invalid registrationId:', row.registrationId);
       }

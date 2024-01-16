@@ -27,12 +27,13 @@
                         <td>{{ row.c_name }}</td> 
                         <td>{{ row.trainer_name }}</td>
                     <td>
-                        <button class="btn btn-primary" (click)="sendRequest(row)">Request{{ row.action }}</button>
+                        <button class="btn btn-primary" (click)="sendRequest(row)" [disabled]="['Registered', 'confirmed', 'rejected'].includes(row.status)">Request{{ row.action }}</button>
                     </td>
-                    <td *ngIf="row.isEnrolled">{{ row.status }}</td>
-                    <td *ngIf="!row.isEnrolled"></td>
+                    <td>{{ row.status}}</td>
+                    <!-- <td *ngIf="row.isEnrolled">{{ row.status }}</td>
+                    <td *ngIf="!row.isEnrolled"></td> -->
                     <td>
-                      <button class="btn btn-primary" *ngIf="row.isEnrolled && row.view === ''" [disabled]="row.status !== 'Confirmed'">View</button>
+                      <button class="btn btn-primary" *ngIf="row.status === 'confirmed'" [routerLink]="['/view-details', row.c_name]">View</button>
                     </td>
                   </tr>
                 </ng-container>

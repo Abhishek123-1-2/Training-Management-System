@@ -29,12 +29,12 @@ public class TrainingScheduleController {
     }
 
     @GetMapping("/PRE-DEFINED")
-    public List<TrainingSchedule> getPreDefinedTrainingSchedules() {
+    public List<TrainingScheduleDTO> getPreDefinedTrainingSchedules() {
         return trainingScheduleService.getPreDefinedTrainingSchedules();
     }
 
     @GetMapping("/ON-REQUEST")
-    public List<TrainingSchedule> getOnRequestTrainingSchedules() {
+    public List<TrainingScheduleDTO> getOnRequestTrainingSchedules() {
         return trainingScheduleService.getOnRequestTrainingSchedules();
     }
 

@@ -62,8 +62,8 @@ export class TrainingViewComponent implements OnInit {
             number: (index + 1).toString(),
             course: item.course,
             trainer_name: item.trainerName,
-            planned_start_date: item.plannedStartDate ? item.plannedStartDate.split('T')[0] : '',
-            planned_end_date: item.plannedEndDate ? item.plannedEndDate.split('T')[0] : '',
+            planned_start_date: this.formatDate(item.plannedStartDate) ,
+            planned_end_date: this.formatDate(item.plannedEndDate),
             from_time: item.fromTime,
             to_time: item.toTime,
             participants: item.participants,
@@ -79,6 +79,15 @@ export class TrainingViewComponent implements OnInit {
       }
     );
   }
+
+  formatDate(timestamp: string): string {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${day}-${month}-${year}`;
+  }
+
   onSearchChange() {
     this.applyFilter();
   }

@@ -66,10 +66,15 @@ export class CourseDetailsComponent implements OnInit {
     });
   }
 
-  private formatDate(dateString: string): string {
-    const date = new Date(dateString);
-    const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
-    return date.toLocaleDateString(undefined, options);
+  private formatDate(timestamp: string): string {
+    // const date = new Date(dateString);
+    // const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
+    // return date.toLocaleDateString(undefined, options);
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${day}-${month}-${year}`;
   }
 
   changeItemsPerPage(event: any): void {

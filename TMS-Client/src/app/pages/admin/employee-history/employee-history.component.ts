@@ -100,6 +100,7 @@ export class EmployeeHistoryComponent implements OnInit {
         }
       );
   }
+  
 
   applyFilter() {
     this.filteredData = this.tableData1.dataRows.filter((row) =>
