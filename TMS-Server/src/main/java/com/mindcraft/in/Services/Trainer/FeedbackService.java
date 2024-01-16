@@ -167,23 +167,23 @@ public class FeedbackService {
 
     //     return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(FeedbackDTO.class));
     // }
-    public List<FeedbackDTO> retrieveFeedbackData() {
-      String sql = "SELECT f.emp_id AS empId, ts.schedule_id AS scheduleId, " +
-              "ts.trainer_name AS trainerName, " +
-              "f.feedback_type, f.feedback_parameters_1 AS technicalSkills, " +
-              "f.feedback_parameters_2 AS graspingPower, f.feedback_parameters_3 AS proActiveness, " +
-              "f.feedback_parameters_4 AS interestQuality, f.feedback_parameters_5 AS leadershipQuality, " +
-              "f.feedback_parameters_6 AS problemSolvingAbility, f.feedback_parameters_7 AS smartnessRate, " +
-              "f.feedback_parameters_8 AS spokenEnglishRate, f.feedback_parameters_9 AS assignmentStatus, " +
-              "f.feedback_parameters_10 AS performanceStatus, f.feedback_comments AS commentsFromTrainer, " +
-              "f.active_yn, f.created_by, f.created_on, f.updated_by, f.updated_on, f.Overall_Rate AS totalRating, " +
-              "mt.course " +
-              "FROM feedback f " +
-              "INNER JOIN training_schedule ts ON f.schedule_id = ts.schedule_id " +
-              "INNER JOIN m_trainings mt ON ts.training_id = mt.training_id";
+  //   public List<FeedbackDTO> retrieveFeedbackData() {
+  //     String sql = "SELECT f.emp_id AS empId, ts.schedule_id AS scheduleId, " +
+  //             "ts.trainer_name AS trainerName, " +
+  //             "f.feedback_type, f.feedback_parameters_1 AS technicalSkills, " +
+  //             "f.feedback_parameters_2 AS graspingPower, f.feedback_parameters_3 AS proActiveness, " +
+  //             "f.feedback_parameters_4 AS interestQuality, f.feedback_parameters_5 AS leadershipQuality, " +
+  //             "f.feedback_parameters_6 AS problemSolvingAbility, f.feedback_parameters_7 AS smartnessRate, " +
+  //             "f.feedback_parameters_8 AS spokenEnglishRate, f.feedback_parameters_9 AS assignmentStatus, " +
+  //             "f.feedback_parameters_10 AS performanceStatus, f.feedback_comments AS commentsFromTrainer, " +
+  //             "f.active_yn, f.created_by, f.created_on, f.updated_by, f.updated_on, f.Overall_Rate AS totalRating, " +
+  //             "mt.course " +
+  //             "FROM feedback f " +
+  //             "INNER JOIN training_schedule ts ON f.schedule_id = ts.schedule_id " +
+  //             "INNER JOIN m_trainings mt ON ts.training_id = mt.training_id";
   
-      return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(FeedbackDTO.class));
-  }
+  //     return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(FeedbackDTO.class));
+  // }
   
   //   public List<FeedbackDTO> retrieveFeedbackData() {
   //     String sql = "SELECT f.emp_id AS empId, f.schedule_id AS scheduleId, " +
@@ -256,6 +256,44 @@ public class FeedbackService {
 
 //   return jdbcTemplate.query(sql, new Object[]{empCode, courseName}, new BeanPropertyRowMapper<>(FeedbackDTO.class));
 // }
+// public List<FeedbackDTO> retrieveFeedbackDataForEmployeeAndCourse(String empCode, String courseName) {
+//   String sql = "SELECT " +
+//           "f.emp_id AS empId, " +
+//           "e.emp_code AS empCode, " +
+//           "ts.schedule_id AS scheduleId, " +
+//           "ts.trainer_name AS trainerName, " +
+//           "f.feedback_type, " +
+//           "f.feedback_parameters_1 AS technicalSkills, " +
+//           "f.feedback_parameters_2 AS graspingPower, " +
+//           "f.feedback_parameters_3 AS proActiveness, " +
+//           "f.feedback_parameters_4 AS interestQuality, " +
+//           "f.feedback_parameters_5 AS leadershipQuality, " +
+//           "f.feedback_parameters_6 AS problemSolvingAbility, " +
+//           "f.feedback_parameters_7 AS smartnessRate, " +
+//           "f.feedback_parameters_8 AS spokenEnglishRate, " +
+//           "f.feedback_parameters_9 AS assignmentStatus, " +
+//           "f.feedback_parameters_10 AS performanceStatus, " +
+//           "f.feedback_comments AS commentsFromTrainer, " +
+//           "f.active_yn, " +
+//           "f.created_by, " +
+//           "f.created_on, " +
+//           "f.updated_by, " +
+//           "f.updated_on, " +
+//           "f.Overall_Rate AS totalRating, " +
+//           "mt.course " +
+//           "FROM " +
+//           "feedback f " +
+//           "INNER JOIN " +
+//           "training_schedule ts ON f.schedule_id = ts.schedule_id " +
+//           "INNER JOIN " +
+//           "m_trainings mt ON ts.training_id = mt.training_id " +
+//           "INNER JOIN " +
+//           "m_employee e ON f.emp_id = e.emp_id " +
+//           "WHERE " +
+//           "e.emp_code = ? AND mt.course = ?";
+
+//   return jdbcTemplate.query(sql, new Object[]{empCode, courseName}, new BeanPropertyRowMapper<>(FeedbackDTO.class));
+// }
 public List<FeedbackDTO> retrieveFeedbackDataForEmployeeAndCourse(String empCode, String courseName) {
   String sql = "SELECT " +
           "f.emp_id AS empId, " +
@@ -290,7 +328,7 @@ public List<FeedbackDTO> retrieveFeedbackDataForEmployeeAndCourse(String empCode
           "INNER JOIN " +
           "m_employee e ON f.emp_id = e.emp_id " +
           "WHERE " +
-          "e.emp_code = ? AND mt.course = ?";
+          "e.emp_code = ? AND mt.course = ? AND f.feedback_type = 'Trainer_Feedback'";
 
   return jdbcTemplate.query(sql, new Object[]{empCode, courseName}, new BeanPropertyRowMapper<>(FeedbackDTO.class));
 }
