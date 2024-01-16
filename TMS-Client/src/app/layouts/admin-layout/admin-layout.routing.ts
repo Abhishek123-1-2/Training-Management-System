@@ -57,6 +57,7 @@ import { HrTrainingHistoryComponent } from 'app/pages/hr/hr-training-history/hr-
 import { ManagerTrainingHistoryComponent } from 'app/pages/manager/manager-training-history/manager-training-history.component';
 import { ManagerTrainingRecordComponent } from 'app/pages/manager/manager-training-record/manager-training-record.component';
 import { ManagerEmployeeHistoryComponent } from 'app/pages/manager/manager-employee-history/manager-employee-history.component';
+import { ViewDetailsComponent } from 'app/pages/employee/view-details/view-details.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -116,5 +117,6 @@ export const AdminLayoutRoutes: Routes = [
 
     {path:'manager-training-history',component:ManagerTrainingHistoryComponent},
     {path:'manager-training-record',component:ManagerTrainingRecordComponent},
-    {path:'manager-employee-history',component:ManagerEmployeeHistoryComponent}
+    {path:'manager-employee-history',component:ManagerEmployeeHistoryComponent},
+    {path:'view-details/:c_name', component: ViewDetailsComponent}
 ];

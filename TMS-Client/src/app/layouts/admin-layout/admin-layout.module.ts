@@ -64,6 +64,7 @@ import { ManagerTrainingHistoryComponent } from 'app/pages/manager/manager-train
 import { ManagerTrainingRecordComponent } from 'app/pages/manager/manager-training-record/manager-training-record.component';
 import { UserDashboardComponent } from 'app/pages/employee/user-dashboard/user-dashboard.component';
 import { FeedbackComponent } from 'app/pages/employee/feedback/feedback.component';
+import { ViewDetailsComponent } from 'app/pages/employee/view-details/view-details.component';
 
 
 
@@ -143,6 +144,7 @@ import { FeedbackComponent } from 'app/pages/employee/feedback/feedback.componen
     ManagerTrainingRecordComponent,
     UserDashboardComponent,
     FeedbackComponent,
+    ViewDetailsComponent,
     
 
 
