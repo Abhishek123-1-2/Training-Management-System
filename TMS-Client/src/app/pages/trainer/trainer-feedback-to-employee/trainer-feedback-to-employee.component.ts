@@ -20,6 +20,15 @@ interface TableRow {
   
 }
 
+// interface Trainings {
+//   empName: string;
+//   number: string;
+//   course: string;
+//   plannedStartDate: string;
+//   plannedEndDate: string;
+//   training_status: string;
+//   view: string; 
+// }
 interface Trainings {
   empName: string;
   number: string;
@@ -27,7 +36,8 @@ interface Trainings {
   plannedStartDate: string;
   plannedEndDate: string;
   training_status: string;
-  view: string; 
+  view: string;
+  trainerName: string; // Add this property
 }
 
 @Component({
@@ -43,6 +53,7 @@ export class TrainerFeedbackToEmployeeComponent implements OnInit {
   public searchValue: string = '';
   public currentPage = 1;
   public itemsPerPage = 5;
+  public trainerName: string = ''; // Add this line
   
 
   constructor(private trainingService:TrainingService,
@@ -50,42 +61,78 @@ export class TrainerFeedbackToEmployeeComponent implements OnInit {
     ) { }
 
  
-  ngOnInit(): void {
-    // this.tableData1 = {
-    //   headerRow: ['Sr No.', 'Course Name', 'Start Date', 'End Date', 'Status', 'Attendees'],
-    //   dataRows: [
-    //     {sr_no:'1', c_name:'Angular',s_date:'10-11-2023', e_date:'15-11-2023', status:'Completed', view: 'View'},
-    //     {sr_no:'2', c_name:'Angular',s_date:'20-11-2023', e_date:'25-11-2023', status:'Completed', view: 'View'}
-    //   ]
-    // };
+  // ngOnInit(): void {
+  //   // this.tableData1 = {
+  //   //   headerRow: ['Sr No.', 'Course Name', 'Start Date', 'End Date', 'Status', 'Attendees'],
+  //   //   dataRows: [
+  //   //     {sr_no:'1', c_name:'Angular',s_date:'10-11-2023', e_date:'15-11-2023', status:'Completed', view: 'View'},
+  //   //     {sr_no:'2', c_name:'Angular',s_date:'20-11-2023', e_date:'25-11-2023', status:'Completed', view: 'View'}
+  //   //   ]
+  //   // };
 
-    // this.filteredData = [...this.tableData1.dataRows];
-    // this.fetchTrainingDetails();
+  //   // this.filteredData = [...this.tableData1.dataRows];
+  //   // this.fetchTrainingDetails();
+  //   const empName = localStorage.getItem('employeeName');
+  //   if (empName) {
+  //     this.fetchTrainings(empName);
+  //   } else {
+  //     console.error('employeeName not found in localStorage');
+  //   }
+  // }
+  ngOnInit(): void {
     const empName = localStorage.getItem('employeeName');
     if (empName) {
+      this.trainerName = empName; // Set trainerName
       this.fetchTrainings(empName);
     } else {
       console.error('employeeName not found in localStorage');
     }
   }
 
+  // fetchTrainings(empName: string) {
+  //   const url = `http://localhost:8083/api/training-history/trainer/${empName}`;
+
+  //   this.http.get<Trainings[]>(url).subscribe(
+  //     (response) => {
+  //       console.log('Training Data: ', response);
+  //       this.originalData = response
+  //       .filter(item => item.training_status.toLowerCase() === 'completed')
+  //       .map((item, index) => ({
+  //         number: (index + 1).toString(),
+  //         course: item.course,
+  //         plannedStartDate: this.formatDate(item.plannedStartDate),
+  //         plannedEndDate: this.formatDate(item.plannedEndDate),
+  //         training_status: item.training_status,
+  //         empName: item.empName,
+  //         view: 'View',
+  //       }));
+
+  //       this.filteredData = [...this.originalData];
+  //       this.currentPage = Math.min(this.currentPage, this.pages.length);
+  //     },
+  //     (error) => {
+  //       console.error('Error fetch the training data: ', error);
+  //     }
+  //   )
+  // }
   fetchTrainings(empName: string) {
-    const url = `http://localhost:8083/api/training-history/trainer/${empName}`;
+    const url = `http://localhost:8083/api/training-history/trainer/${this.trainerName}/${empName}`;
 
     this.http.get<Trainings[]>(url).subscribe(
       (response) => {
         console.log('Training Data: ', response);
         this.originalData = response
-        .filter(item => item.training_status.toLowerCase() === 'completed')
-        .map((item, index) => ({
-          number: (index + 1).toString(),
-          course: item.course,
-          plannedStartDate: this.formatDate(item.plannedStartDate),
-          plannedEndDate: this.formatDate(item.plannedEndDate),
-          training_status: item.training_status,
-          empName: item.empName,
-          view: 'View',
-        }));
+          .filter(item => item.training_status.toLowerCase() === 'completed')
+          .map((item, index) => ({
+            number: (index + 1).toString(),
+            course: item.course,
+            plannedStartDate: this.formatDate(item.plannedStartDate),
+            plannedEndDate: this.formatDate(item.plannedEndDate),
+            training_status: item.training_status,
+            empName: item.empName,
+            view: 'View',
+            trainerName: item.trainerName,
+          }));
 
         this.filteredData = [...this.originalData];
         this.currentPage = Math.min(this.currentPage, this.pages.length);
@@ -95,7 +142,6 @@ export class TrainerFeedbackToEmployeeComponent implements OnInit {
       }
     )
   }
-
   formatDate(timestamp: string): string {
     const date = new Date(timestamp);
     const year = date.getFullYear();
@@ -120,9 +166,29 @@ export class TrainerFeedbackToEmployeeComponent implements OnInit {
   }
  
   //newly added for referencing
-  viewEmployeesForCourse(course: string) {
-    this.router.navigate(['/student-list3'], { queryParams: { course: course } });
+  // viewEmployeesForCourse(course: string) {
+  //   this.router.navigate(['/student-list3'], { queryParams: { course: course } });
+  // }
+  // viewEmployeesForCourse(course: string, trainerName: string) {
+  //   this.router.navigate(['/student-list3', course, trainerName]);
+  // }
+
+  // viewEmployeesForCourse(course: string, trainer: Trainings) {
+  //   const trainerNameFromApi = trainer.trainerName; // Extract trainerName from API response
+  //   this.router.navigate(['/student-list3', course], {
+  //     state: { trainerName: trainerNameFromApi },
+  //   });
+  // }
+  // viewEmployeesForCourse(course: string, trainer: Trainings) {
+  //   const trainerNameFromApi = trainer.trainerName; // Extract trainerName from API response
+  //   this.router.navigate(['/student-list3', course, trainerNameFromApi]);
+  // }
+  viewEmployeesForCourse(course: string, trainer: Trainings) {
+    const { trainerName, ...rest } = trainer;
+    this.router.navigate(['/student-list3', course, trainerName]);
   }
+  
+  
   get pages(): number[] {
     if (this.originalData.length === 0) {
       return [];

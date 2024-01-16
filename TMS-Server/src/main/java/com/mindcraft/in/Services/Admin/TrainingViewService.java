@@ -410,8 +410,92 @@ public void updateTrainingStatusToCompleted(Long scheduleId) {
     String sql = "UPDATE training_schedule SET training_status = 'Completed' WHERE schedule_id = ?";
     jdbcTemplate.update(sql, scheduleId);
 }
-public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String course) {
-    String sql = "SELECT e.emp_code, e.emp_name, " +
+// public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String course) {
+//     String sql = "SELECT e.emp_code, e.emp_name, " +
+//                  "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
+//                  "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
+//                  "ts.training_status " +
+//                  "FROM m_trainings t " +
+//                  "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+//                  "JOIN registration r ON ts.schedule_id = r.schedule_id " +
+//                  "JOIN m_employee e ON r.emp_id = e.emp_id " +
+//                  "WHERE t.course = ? AND ts.training_status = 'Completed' " +
+//                  "ORDER BY ts.planned_start_date DESC";
+
+//     return jdbcTemplate.query(sql, new Object[]{course}, (rs, rowNum) -> new EmployeeTrainingDetailsDTO(
+//             rs.getString("emp_code"),
+//             rs.getString("emp_name"),
+//             rs.getString("planned_start_date"),
+//             rs.getString("planned_end_date"),
+//             rs.getString("training_status")
+//     ));
+// }
+
+// public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String course) {
+//     String sql = "SELECT e.emp_code, e.emp_name, ts.trainer_name, " +
+//                  "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
+//                  "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
+//                  "ts.training_status " +
+//                  "FROM m_trainings t " +
+//                  "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+//                  "JOIN registration r ON ts.schedule_id = r.schedule_id " +
+//                  "JOIN m_employee e ON r.emp_id = e.emp_id " +
+//                  "WHERE t.course = ? AND ts.training_status = 'Completed' " +
+//                  "ORDER BY ts.planned_start_date DESC";
+
+//     return jdbcTemplate.query(sql, new Object[]{course}, (rs, rowNum) -> new EmployeeTrainingDetailsDTO(
+//             rs.getString("emp_code"),
+//             rs.getString("emp_name"),
+//             rs.getString("trainer_name"),  // Added trainer_name
+//             rs.getString("planned_start_date"),
+//             rs.getString("planned_end_date"),
+//             rs.getString("training_status")
+//     ));
+// }
+// public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String course, String trainerName) {
+//     String sql = "SELECT e.emp_code, e.emp_name, ts.trainer_name, " +
+//                  "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
+//                  "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
+//                  "ts.training_status " +
+//                  "FROM m_trainings t " +
+//                  "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+//                  "JOIN registration r ON ts.schedule_id = r.schedule_id " +
+//                  "JOIN m_employee e ON r.emp_id = e.emp_id " +
+//                  "WHERE t.course = ? AND ts.trainer_name = ? AND ts.training_status = 'Completed' " +
+//                  "ORDER BY ts.planned_start_date DESC";
+
+//     return jdbcTemplate.query(sql, new Object[]{course, trainerName}, (rs, rowNum) -> new EmployeeTrainingDetailsDTO(
+//             rs.getString("emp_code"),
+//             rs.getString("emp_name"),
+//             rs.getString("trainer_name"),
+//             rs.getString("planned_start_date"),
+//             rs.getString("planned_end_date"),
+//             rs.getString("training_status")
+//     ));
+// }
+// public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String course, String trainerName) {
+//     String sql = "SELECT e.emp_code, e.emp_name, ts.trainer_name, " +
+//                  "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
+//                  "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
+//                  "ts.training_status " +
+//                  "FROM m_trainings t " +
+//                  "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+//                  "JOIN registration r ON ts.schedule_id = r.schedule_id " +
+//                  "JOIN m_employee e ON r.emp_id = e.emp_id " +
+//                  "WHERE t.course = ? AND ts.trainer_name = ? AND ts.training_status = 'Completed' " +
+//                  "ORDER BY ts.planned_start_date DESC";
+
+//     return jdbcTemplate.query(sql, new Object[]{course, trainerName}, (rs, rowNum) -> new EmployeeTrainingDetailsDTO(
+//             rs.getString("emp_code"),
+//             rs.getString("emp_name"),
+//             rs.getString("planned_start_date"),  // Corrected mapping
+//             rs.getString("planned_end_date"),
+//             rs.getString("training_status"),
+//             rs.getString("trainer_name")  // Corrected mapping
+//     ));
+// }
+public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String course, String trainerName) {
+    String sql = "SELECT e.emp_code, e.emp_name, t.course, ts.trainer_name, " +
                  "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
                  "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
                  "ts.training_status " +
@@ -419,17 +503,20 @@ public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String c
                  "JOIN training_schedule ts ON t.training_id = ts.training_id " +
                  "JOIN registration r ON ts.schedule_id = r.schedule_id " +
                  "JOIN m_employee e ON r.emp_id = e.emp_id " +
-                 "WHERE t.course = ? AND ts.training_status = 'Completed' " +
+                 "WHERE t.course = ? AND ts.trainer_name = ? AND ts.training_status = 'Completed' " +
                  "ORDER BY ts.planned_start_date DESC";
 
-    return jdbcTemplate.query(sql, new Object[]{course}, (rs, rowNum) -> new EmployeeTrainingDetailsDTO(
+    return jdbcTemplate.query(sql, new Object[]{course, trainerName}, (rs, rowNum) -> new EmployeeTrainingDetailsDTO(
             rs.getString("emp_code"),
             rs.getString("emp_name"),
             rs.getString("planned_start_date"),
             rs.getString("planned_end_date"),
-            rs.getString("training_status")
+            rs.getString("training_status"),
+            rs.getString("trainer_name"),
+            rs.getString("course")
     ));
 }
+
 
 public List<CompletedCourseInfoDTO> getCompletedCourses() {
     String sql = "SELECT t.course, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, ts.training_status " +
@@ -589,8 +676,38 @@ public List<EmployeeCourseDetailsDTO> getEmployeesCompletedCourseDetails(String 
 //     return filteredResults;
 // }
 
-public List<EmployeeCourseDetailsDTO> getEmployeesCompletedCourseDetailsForSubordinateEmpIds(String course, List<Long> subordinateEmpIds) {
-    String sql = "SELECT e.emp_id, e.emp_code, e.emp_name, t.course, t.trainer_names, " +
+// public List<EmployeeCourseDetailsDTO> getEmployeesCompletedCourseDetailsForSubordinateEmpIds(String course, List<Long> subordinateEmpIds) {
+//     String sql = "SELECT e.emp_id, e.emp_code, e.emp_name, t.course, t.trainer_names, " +
+//                  "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
+//                  "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
+//                  "ts.training_status " +
+//                  "FROM m_trainings t " +
+//                  "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+//                  "JOIN registration r ON ts.schedule_id = r.schedule_id " +
+//                  "JOIN m_employee e ON r.emp_id = e.emp_id " +
+//                  "WHERE t.course = :course AND ts.training_status = 'Completed' " +
+//                  "AND e.emp_id IN (:empIds) " +
+//                  "ORDER BY ts.planned_start_date DESC";
+
+//     MapSqlParameterSource parameters = new MapSqlParameterSource();
+//     parameters.addValue("course", course);
+//     parameters.addValue("empIds", subordinateEmpIds);
+
+//     return namedParameterJdbcTemplate.query(sql, parameters, (rs, rowNum) -> new EmployeeCourseDetailsDTO(
+//             rs.getLong("emp_id"),
+//             rs.getString("emp_code"),
+//             rs.getString("emp_name"),
+//             rs.getString("course"),
+//             rs.getString("trainer_names"),
+//             rs.getString("planned_start_date"),
+//             rs.getString("planned_end_date"),
+//             rs.getString("training_status")
+//     ));
+// }
+public List<EmployeeCourseDetailsDTO> getEmployeesCompletedCourseDetailsForSubordinateEmpIds(
+    String course, List<Long> subordinateEmpIds, String trainerName) {
+    
+    String sql = "SELECT e.emp_id, e.emp_code, e.emp_name, t.course, ts.trainer_name, " +
                  "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
                  "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
                  "ts.training_status " +
@@ -600,21 +717,23 @@ public List<EmployeeCourseDetailsDTO> getEmployeesCompletedCourseDetailsForSubor
                  "JOIN m_employee e ON r.emp_id = e.emp_id " +
                  "WHERE t.course = :course AND ts.training_status = 'Completed' " +
                  "AND e.emp_id IN (:empIds) " +
+                 "AND ts.trainer_name = :trainerName " + // Include trainerName in the condition
                  "ORDER BY ts.planned_start_date DESC";
 
     MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue("course", course);
     parameters.addValue("empIds", subordinateEmpIds);
+    parameters.addValue("trainerName", trainerName); // Add trainerName to parameters
 
     return namedParameterJdbcTemplate.query(sql, parameters, (rs, rowNum) -> new EmployeeCourseDetailsDTO(
-            rs.getLong("emp_id"),
-            rs.getString("emp_code"),
-            rs.getString("emp_name"),
-            rs.getString("course"),
-            rs.getString("trainer_names"),
-            rs.getString("planned_start_date"),
-            rs.getString("planned_end_date"),
-            rs.getString("training_status")
+        rs.getLong("emp_id"),
+        rs.getString("emp_code"),
+        rs.getString("emp_name"),
+        rs.getString("course"),
+        rs.getString("trainer_name"), // Use trainer_name from the result set
+        rs.getString("planned_start_date"),
+        rs.getString("planned_end_date"),
+        rs.getString("training_status")
     ));
 }
 

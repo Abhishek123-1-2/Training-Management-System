@@ -84,11 +84,26 @@ public class RegistrationController {
     }
 }
 
+// @GetMapping("/attendees")
+// public ResponseEntity<List<EmployeeDetailsDTO>> getAttendees(@RequestParam String course, @RequestParam String trainingStatus) {
+//     List<EmployeeDetailsDTO> attendees = registrationService.getAttendees(course, trainingStatus);
+//     return ResponseEntity.ok(attendees);
+// }
+// @GetMapping("/attendees")
+// public ResponseEntity<List<EmployeeDetailsDTO>> getAttendees(@RequestParam String course, @RequestParam String trainingStatus) {
+//     List<EmployeeDetailsDTO> attendees = registrationService.getAttendees(course, trainingStatus);
+//     return ResponseEntity.ok(attendees);
+// }
 @GetMapping("/attendees")
-public ResponseEntity<List<EmployeeDetailsDTO>> getAttendees(@RequestParam String course, @RequestParam String trainingStatus) {
-    List<EmployeeDetailsDTO> attendees = registrationService.getAttendees(course, trainingStatus);
+public ResponseEntity<List<EmployeeDetailsDTO>> getAttendees(
+        @RequestParam String course,
+        @RequestParam String trainingStatus,
+        @RequestParam(required = false) String trainerName) {
+
+    List<EmployeeDetailsDTO> attendees = registrationService.getAttendees(course, trainingStatus, trainerName);
     return ResponseEntity.ok(attendees);
 }
+
 
     // Add other endpoints as needed...
 

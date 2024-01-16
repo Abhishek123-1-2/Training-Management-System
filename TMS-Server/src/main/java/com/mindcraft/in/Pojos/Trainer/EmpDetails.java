@@ -33,10 +33,13 @@ public class EmpDetails {
     @Column(name="training_status")
     private String status;
 
+    @Column(name = "trainer_name")
+    private String trainerName;
+
     public EmpDetails(){   
     }
 
-    public EmpDetails(Long empId,Long scheduleId,String empCode, String empName, Date plannedStartDate, Date plannedEndDate, String status) {
+    public EmpDetails(Long empId,Long scheduleId,String empCode, String empName, Date plannedStartDate, Date plannedEndDate, String status,String trainerName) {
         this.empId=empId;
         this.scheduleId=scheduleId;
         this.empCode = empCode;
@@ -44,6 +47,7 @@ public class EmpDetails {
         this.plannedStartDate = plannedStartDate;
         this.plannedEndDate = plannedEndDate;
         this.status = status;
+        this.trainerName=trainerName;
     }
 
     public Long getScheduleId() {
@@ -106,6 +110,14 @@ public class EmpDetails {
     @Override
     public String toString() {
         return "EmpDetails [empId=" + empId + ", scheduleId=" + scheduleId + ", empCode=" + empCode + "]";
+    }
+
+    public String getTrainerName() {
+        return trainerName;
+    }
+
+    public void setTrainerName(String trainerName) {
+        this.trainerName = trainerName;
     }
 
     

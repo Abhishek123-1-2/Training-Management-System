@@ -744,10 +744,24 @@ public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
         // Optionally, you can return a response or handle as needed
         return ResponseEntity.ok(completedCourseInfoDTO);
     }
-    @GetMapping("/completed-course-details/{course}")
-public List<EmployeeTrainingDetailsDTO> getCompletedCourseDetails(@PathVariable String course) {
-    return trainingViewService.getEmployeesCompletedCourseInfo(course);
+//     @GetMapping("/completed-course-details/{course}")
+// public List<EmployeeTrainingDetailsDTO> getCompletedCourseDetails(@PathVariable String course) {
+//     return trainingViewService.getEmployeesCompletedCourseInfo(course);
+// }
+
+// @GetMapping("/completed-course-details/{course}")
+// public List<EmployeeTrainingDetailsDTO> getCompletedCourseDetails(@PathVariable String course) {
+//     return trainingViewService.getEmployeesCompletedCourseInfo(course);
+// }
+
+@GetMapping("/completed-course-details/{course}/{trainerName}")
+public List<EmployeeTrainingDetailsDTO> getCompletedCourseDetails(
+    @PathVariable String course,
+    @PathVariable String trainerName) {
+    return trainingViewService.getEmployeesCompletedCourseInfo(course, trainerName);
 }
+
+
 @GetMapping("/completed-courses")
     public List<CompletedCourseInfoDTO> getCompletedCourses() {
         return trainingViewService.getCompletedCourses();
@@ -764,16 +778,29 @@ public List<String> getAllTrainerNames() {
     }
 
 
+    // @GetMapping("/completedDetailsForSubordinates/{course}")
+    // public ResponseEntity<List<EmployeeCourseDetailsDTO>> getEmployeesCompletedCourseDetailsForSubordinateEmpIds(
+    //         @PathVariable String course, @RequestParam List<Long> subordinateEmpIds) {
+    
+    //     // Call the new service method to get completed course details for subordinate employees
+    //     List<EmployeeCourseDetailsDTO> completedCoursesDetails = 
+    //         trainingViewService.getEmployeesCompletedCourseDetailsForSubordinateEmpIds(course, subordinateEmpIds);
+    
+    //     return ResponseEntity.ok(completedCoursesDetails);
+    // }
     @GetMapping("/completedDetailsForSubordinates/{course}")
-    public ResponseEntity<List<EmployeeCourseDetailsDTO>> getEmployeesCompletedCourseDetailsForSubordinateEmpIds(
-            @PathVariable String course, @RequestParam List<Long> subordinateEmpIds) {
-    
-        // Call the new service method to get completed course details for subordinate employees
-        List<EmployeeCourseDetailsDTO> completedCoursesDetails = 
-            trainingViewService.getEmployeesCompletedCourseDetailsForSubordinateEmpIds(course, subordinateEmpIds);
-    
-        return ResponseEntity.ok(completedCoursesDetails);
-    }
+public ResponseEntity<List<EmployeeCourseDetailsDTO>> getEmployeesCompletedCourseDetailsForSubordinateEmpIds(
+        @PathVariable String course, 
+        @RequestParam List<Long> subordinateEmpIds,
+        @RequestParam String trainerName) { // Add trainerName as a request parameter
+
+    List<EmployeeCourseDetailsDTO> completedCoursesDetails = 
+        trainingViewService.getEmployeesCompletedCourseDetailsForSubordinateEmpIds(
+            course, subordinateEmpIds, trainerName);
+
+    return ResponseEntity.ok(completedCoursesDetails);
+}
+
     
 }
 

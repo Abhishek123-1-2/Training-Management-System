@@ -6,22 +6,33 @@ public class EmployeeDetailsDTO {
     private String designationName;
     private String functionName;
     private String email;
-
+    private String registrationStatus;
+    private String trainerName;
     public EmployeeDetailsDTO(){
 
     }
 
     public EmployeeDetailsDTO(String empCode, String empName, String designationName, String functionName,
-            String email) {
+            String email,String registrationStatus, String trainerName) {
         this.empCode = empCode;
         this.empName = empName;
         this.designationName = designationName;
         this.functionName = functionName;
         this.email = email;
+        this.registrationStatus=registrationStatus;
+        this.trainerName=trainerName;
     }
 
     public String getEmpCode() {
         return empCode;
+    }
+
+    public String getTrainerName() {
+        return trainerName;
+    }
+
+    public void setTrainerName(String trainerName) {
+        this.trainerName = trainerName;
     }
 
     public void setEmpCode(String empCode) {
@@ -58,6 +69,14 @@ public class EmployeeDetailsDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRegistrationStatus() {
+        return registrationStatus;
+    }
+
+    public void setRegistrationStatus(String registrationStatus) {
+        this.registrationStatus = registrationStatus;
     }
     
     // Constructors, getters, and setters

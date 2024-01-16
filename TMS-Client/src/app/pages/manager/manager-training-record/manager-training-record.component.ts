@@ -167,7 +167,7 @@ export class ManagerTrainingRecordComponent implements OnInit {
             sr_no: (index + 1).toString(),
             scheduleId: +item.empId, // Use empId as scheduleId, convert to number if needed
             c_name: item.course,
-            t_name: item.trainerName.split('(')[0].trim(),
+            t_name: item.trainerName,
             view: 'View',
           })),
         };

@@ -20,17 +20,41 @@ public class TrainingsServiceImpl implements TrainingsService{
     }
 
     @Override
-    public List<TrainingsDTO> getTrainingsByTrainerName(String empName) {
-        // String sql = "SELECT t.training_id, t.schedule_id, t.course, t.planned_start_date, t.planned_end_date, t.training_status " +
-        //              "FROM training_schedule t " +
-        //              "JOIN m_trainings mt ON t.training_id = mt.training_id" + 
-        //              "WHERE t.trainer_name = ?";
+    // public List<TrainingsDTO> getTrainingsByTrainerName(String empName) {
+    //     // String sql = "SELECT t.training_id, t.schedule_id, t.course, t.planned_start_date, t.planned_end_date, t.training_status " +
+    //     //              "FROM training_schedule t " +
+    //     //              "JOIN m_trainings mt ON t.training_id = mt.training_id" + 
+    //     //              "WHERE t.trainer_name = ?";
 
+    //     String sql = "SELECT t.training_id, t.schedule_id, t.trainer_name, mt.course, t.planned_start_date, t.planned_end_date, t.training_status " +
+    //          "FROM training_schedule t " +
+    //          "JOIN m_trainings mt ON t.training_id = mt.training_id " + 
+    //          "WHERE t.trainer_name LIKE ?";
+
+    //     return jdbcTemplate.query(sql, new Object[]{"%" + empName + "%"}, new BeanPropertyRowMapper<>(TrainingsDTO.class));
+    // }
+    // public List<TrainingsDTO> getTrainingsByTrainerName(String empName) {
+    //     String sql = "SELECT t.training_id, t.schedule_id, t.trainer_name, mt.course, t.planned_start_date, t.planned_end_date, t.training_status " +
+    //                  "FROM training_schedule t " +
+    //                  "JOIN m_trainings mt ON t.training_id = mt.training_id " +
+    //                  "WHERE t.trainer_name LIKE ?";
+
+    //     return jdbcTemplate.query(sql, new Object[]{"%" + empName + "%"}, new BeanPropertyRowMapper<>(TrainingsDTO.class));
+    // }
+    // public List<TrainingsDTO> getTrainingsByTrainerAndEmpName(String trainerName, String empName) {
+    //     String sql = "SELECT t.training_id, t.schedule_id, t.trainer_name, mt.course, t.planned_start_date, t.planned_end_date, t.training_status " +
+    //                  "FROM training_schedule t " +
+    //                  "JOIN m_trainings mt ON t.training_id = mt.training_id " +
+    //                  "WHERE t.trainer_name LIKE ? AND t.emp_name LIKE ?";
+    
+    //     return jdbcTemplate.query(sql, new Object[]{"%" + trainerName + "%", "%" + empName + "%"}, new BeanPropertyRowMapper<>(TrainingsDTO.class));
+    // }
+    public List<TrainingsDTO> getTrainingsByTrainerAndEmpName(String trainerName, String empName) {
         String sql = "SELECT t.training_id, t.schedule_id, t.trainer_name, mt.course, t.planned_start_date, t.planned_end_date, t.training_status " +
-             "FROM training_schedule t " +
-             "JOIN m_trainings mt ON t.training_id = mt.training_id " + 
-             "WHERE t.trainer_name LIKE ?";
-
-        return jdbcTemplate.query(sql, new Object[]{"%" + empName + "%"}, new BeanPropertyRowMapper<>(TrainingsDTO.class));
+                     "FROM training_schedule t " +
+                     "JOIN m_trainings mt ON t.training_id = mt.training_id " + 
+                     "WHERE t.trainer_name LIKE ? AND t.trainer_name LIKE ?";
+    
+        return jdbcTemplate.query(sql, new Object[]{"%" + trainerName + "%", "%" + empName + "%"}, new BeanPropertyRowMapper<>(TrainingsDTO.class));
     }
 }

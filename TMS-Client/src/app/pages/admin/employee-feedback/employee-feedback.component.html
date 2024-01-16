@@ -1,0 +1,19 @@
+<!-- employee-feedback.component.html -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/admin-attendance']">Course Details</a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/student-list1']">Employee Details</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Employee Feedback to Trainer</li>
+    </ol>
+  </nav>
+  
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title text-center">Employee Feedback to Trainer</h4>
+    </div>
+    <div class="card-body">
+      <canvas #chartCanvas id="employeeFeedbackChart" width="400" height="200"></canvas>
+    </div>
+  </div>
+  

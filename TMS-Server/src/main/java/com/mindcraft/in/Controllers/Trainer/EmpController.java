@@ -23,8 +23,20 @@ public class EmpController {
     }
     
 
+    // @GetMapping("/employees")
+    // public List<EmpDetails> getEmployeesByCourse(@RequestParam String course) {
+    //     return employeeService.getEmployeesByCourse(course);
+    // }
     @GetMapping("/employees")
-    public List<EmpDetails> getEmployeesByCourse(@RequestParam String course) {
-        return employeeService.getEmployeesByCourse(course);
+public List<EmpDetails> getEmployeesByCourseAndTrainer(
+    @RequestParam String course,
+    @RequestParam(required = false) String trainerName
+) {
+    if (trainerName == null) {
+        // If trainerName is not provided, use an empty string to include all trainers
+        trainerName = "";
     }
+    return employeeService.getEmployeesByCourseAndTrainer(course, trainerName);
+}
+
 }

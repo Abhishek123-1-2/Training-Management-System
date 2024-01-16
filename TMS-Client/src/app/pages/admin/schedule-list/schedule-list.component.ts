@@ -213,9 +213,13 @@ export class ScheduleListComponent implements OnInit {
     this.display = 'block';
   }
   
-  viewAttendees(course: string, trainingStatus: string): void {
-    this.router.navigate(['/participants-list'], { queryParams: { course, trainingStatus } });
+  // viewAttendees(course: string, trainingStatus: string): void {
+  //   this.router.navigate(['/participants-list'], { queryParams: { course, trainingStatus } });
+  // }
+  viewAttendees(course: string, trainingStatus: string, trainerName: string): void {
+    this.router.navigate(['/participants-list'], { queryParams: { course, trainingStatus, trainerName } });
   }
+  
 
   get pages(): number[] {
     if (this.tableData1.dataRows.length === 0) {

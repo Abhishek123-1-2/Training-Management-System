@@ -57,7 +57,7 @@ import { HrTrainingHistoryComponent } from 'app/pages/hr/hr-training-history/hr-
 import { ManagerTrainingHistoryComponent } from 'app/pages/manager/manager-training-history/manager-training-history.component';
 import { ManagerTrainingRecordComponent } from 'app/pages/manager/manager-training-record/manager-training-record.component';
 import { ManagerEmployeeHistoryComponent } from 'app/pages/manager/manager-employee-history/manager-employee-history.component';
-import { ViewDetailsComponent } from 'app/pages/employee/view-details/view-details.component';
+import { EmployeeFeedbackComponent } from 'app/pages/admin/employee-feedback/employee-feedback.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -82,14 +82,14 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'feedback-form/:number/:scheduleId', component:FeedbackFormComponent},
     { path: 'student-list', component: StudentListComponent},
     { path: 'student-list1', component: StudentList1Component},
-    { path: 'attendance-record', component: AttendanceRecordComponent},
+    { path: 'attendance-record/:c_name/:empCode', component: AttendanceRecordComponent},
     { path: 'schedule-list', component: ScheduleListComponent},
     {path:'tid',component:TIDComponent},
     {path:'type/:course',component:TypeComponent},
     {path:'ongoing-training', component: OngoingTrainingComponent},
     {path:'student-list2', component: StudentList2Component},
     {path:'training-record', component: TrainingRecordComponent},
-    {path:'employee-history/:c_name', component: EmployeeHistoryComponent},
+    {path:'employee-history/:courseName/:trainerName', component: EmployeeHistoryComponent},
     {path:'admin-training-history', component: AdminTrainingHistoryComponent},
     {path:'registration', component: AdminRegistrationComponent},
     {path:'employee-search', component: EmployeeSearchComponent},
@@ -98,7 +98,10 @@ export const AdminLayoutRoutes: Routes = [
     {path:'upcoming-training', component: UpcomingTrainingComponent},
     {path:'completed-training', component: CompletedTrainingComponent},
     {path:'give-feedback', component: TrainerFeedbackToEmployeeComponent },
-    {path:'student-list3', component: StudentList3Component},
+    // {path:'student-list3', component: StudentList3Component},
+    // { path: 'student-list3/:course/:trainerName', component: StudentList3Component },
+    { path: 'student-list3/:course/:trainerName', component: StudentList3Component },
+
     {path:'feedback-to-employee', component: FeedbackToEmployeeComponent},
     {path:'training-request', component: TrainingRequestComponent},
     {path:'training-request1', component: TrainingRequest1Component},
@@ -106,7 +109,10 @@ export const AdminLayoutRoutes: Routes = [
     {path:'training-details', component: TrainerTrainingDetailsComponent},  
     {path:'on-request',component:OnRequestComponent},
     {path:'report-main',component:ReportMainComponent},
-    {path:'report-employee',component:ReportOfEmployeeComponent},
+    // {path:'report-employee',component:ReportOfEmployeeComponent},
+    // { path: 'report-employee/:c_name/:trainer_name', component: ReportOfEmployeeComponent },
+    { path: 'report-employee/:c_name/:trainer_name', component: ReportOfEmployeeComponent },
+
     { path: 'report-courses/:c_name/:empCode', component: ReportOfCoursesComponent },
     {path:'participants-list', component: ParticipantsListComponent},
     {path:'on-request', component: OnRequestComponent},    
@@ -117,6 +123,10 @@ export const AdminLayoutRoutes: Routes = [
 
     {path:'manager-training-history',component:ManagerTrainingHistoryComponent},
     {path:'manager-training-record',component:ManagerTrainingRecordComponent},
-    {path:'manager-employee-history',component:ManagerEmployeeHistoryComponent},
-    {path:'view-details/:c_name', component: ViewDetailsComponent}
+    // {path:'manager-employee-history/:course',component:ManagerEmployeeHistoryComponent}
+    {
+        path: 'manager-employee-history/:course/:trainerName',
+        component: ManagerEmployeeHistoryComponent,
+      }, { path: 'employee-feedback/:c_name/:empCode', component: EmployeeFeedbackComponent },
+      
 ];

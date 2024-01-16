@@ -21,18 +21,45 @@ public class EmpService {
         this.jdbcTemplate = jdbcTemplate;
     }
     
-    public List<EmpDetails> getEmployeesByCourse(String course) {
-String sql = " SELECT e.emp_id,r.schedule_id,e.emp_code, e.emp_name, t.planned_start_date, t.planned_end_date, t.training_status " +
-                "FROM registration r " +
-                "JOIN m_employee e ON e.emp_id = r.emp_id " +
-                "JOIN training_schedule t ON r.schedule_id = t.schedule_id " +
-                "JOIN m_trainings c ON c.training_id = t.training_id " +
-                "WHERE (t.training_status = 'Completed' or t.training_status = 'COMPLETED' ) AND c.course = ?";
+//     public List<EmpDetails> getEmployeesByCourse(String course) {
+// String sql = " SELECT e.emp_id,r.schedule_id,e.emp_code, e.emp_name, t.planned_start_date, t.planned_end_date, t.training_status " +
+//                 "FROM registration r " +
+//                 "JOIN m_employee e ON e.emp_id = r.emp_id " +
+//                 "JOIN training_schedule t ON r.schedule_id = t.schedule_id " +
+//                 "JOIN m_trainings c ON c.training_id = t.training_id " +
+//                 "WHERE (t.training_status = 'Completed' or t.training_status = 'COMPLETED' ) AND c.course = ?";
 
 
-        return jdbcTemplate.query(sql,preparedStatement -> preparedStatement.setString(1, course) ,new EmployeeDetailsMapper());
-    }
+//         return jdbcTemplate.query(sql,preparedStatement -> preparedStatement.setString(1, course) ,new EmployeeDetailsMapper());
+//     }
+public List<EmpDetails> getEmployeesByCourseAndTrainer(String course, String trainerName) {
+    String sql = "SELECT e.emp_id, r.schedule_id, e.emp_code, e.emp_name, t.planned_start_date, t.planned_end_date, t.training_status, t.trainer_name " +
+                 "FROM registration r " +
+                 "JOIN m_employee e ON e.emp_id = r.emp_id " +
+                 "JOIN training_schedule t ON r.schedule_id = t.schedule_id " +
+                 "JOIN m_trainings c ON c.training_id = t.training_id " +
+                 "WHERE (t.training_status = 'Completed' OR t.training_status = 'COMPLETED') AND c.course = ? AND t.trainer_name = ?";
 
+    return jdbcTemplate.query(sql, preparedStatement -> {
+        preparedStatement.setString(1, course);
+        preparedStatement.setString(2, trainerName);
+    }, new EmployeeDetailsMapper());
+}
+
+    // private static class EmployeeDetailsMapper implements RowMapper<EmpDetails> {
+    //     @Override
+    //     public EmpDetails mapRow(ResultSet resultSet, int i) throws SQLException {
+    //         EmpDetails employee = new EmpDetails();
+    //         employee.setEmpId(resultSet.getLong("emp_id"));
+    //         employee.setScheduleId(resultSet.getLong("schedule_id"));
+    //         employee.setEmpCode(resultSet.getString("emp_code"));
+    //         employee.setEmpName(resultSet.getString("emp_name"));
+    //         employee.setPlannedStartDate(resultSet.getDate("planned_start_date"));
+    //         employee.setPlannedEndDate(resultSet.getDate("planned_end_date"));
+    //         employee.setStatus(resultSet.getString("training_status"));
+    //         return employee;
+    //     }
+    // }
     private static class EmployeeDetailsMapper implements RowMapper<EmpDetails> {
         @Override
         public EmpDetails mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -44,9 +71,11 @@ String sql = " SELECT e.emp_id,r.schedule_id,e.emp_code, e.emp_name, t.planned_s
             employee.setPlannedStartDate(resultSet.getDate("planned_start_date"));
             employee.setPlannedEndDate(resultSet.getDate("planned_end_date"));
             employee.setStatus(resultSet.getString("training_status"));
+            employee.setTrainerName(resultSet.getString("trainer_name")); // Add this line
             return employee;
         }
     }
+    
 
 }
 

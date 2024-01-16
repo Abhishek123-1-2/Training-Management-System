@@ -3,6 +3,7 @@ package com.mindcraft.in.Controllers.Trainer;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +23,16 @@ public class TrainingsController {
         this.trainingsService = trainingsService;
     }
 
-    @GetMapping("/trainer/{empName}")
-    public List<TrainingsDTO> getTrainingsByTrainerName(@PathVariable String empName) {
-        return trainingsService.getTrainingsByTrainerName(empName);
-    }
+    // @GetMapping("/trainer/{empName}")
+    // public List<TrainingsDTO> getTrainingsByTrainerName(@PathVariable String empName) {
+    //     return trainingsService.getTrainingsByTrainerName(empName);
+    // }
+    // TrainingsController.java
+
+@GetMapping("/trainer/{trainerName}/{empName}")
+public ResponseEntity<List<TrainingsDTO>> getTrainingsByTrainerAndEmpName(@PathVariable String trainerName, @PathVariable String empName) {
+    List<TrainingsDTO> trainings = trainingsService.getTrainingsByTrainerAndEmpName(trainerName, empName);
+    return ResponseEntity.ok(trainings);
+}
+
 }

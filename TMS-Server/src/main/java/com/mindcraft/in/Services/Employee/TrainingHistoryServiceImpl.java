@@ -34,6 +34,18 @@ public class TrainingHistoryServiceImpl implements TrainingHistoryService{
                      "JOIN registration r ON ts.schedule_id = r.schedule_id " +
                      "WHERE r.emp_id = CAST(? AS bigint) AND ts.training_status = 'Completed' " +
                      "ORDER BY ts.planned_start_date DESC";
+        // String sql = "SELECT " +
+        // "r.emp_id, t.course, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, ts.training_status " +
+        // "FROM " +
+        // "m_trainings t " +
+        // "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+        // "JOIN registration r ON ts.schedule_id = r.schedule_id " +
+        // "WHERE " +
+        // "r.emp_id = CAST(? AS bigint) AND ts.training_status = 'Completed' " +
+        // "GROUP BY " +
+        // "r.emp_id, t.course, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, ts.training_status " +
+        // "ORDER BY " +
+        // "ts.planned_start_date DESC";
 
         return jdbcTemplate.query(sql, new Object[]{empId}, new BeanPropertyRowMapper<>(TrainingHistoryDTO.class));
     }

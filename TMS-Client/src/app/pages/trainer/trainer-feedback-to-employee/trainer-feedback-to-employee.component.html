@@ -29,6 +29,7 @@
                 <th class="text-center">Start Date</th>
                 <th class="text-center">End Date</th>
                 <th class="text-center">Status</th>
+                <th class="text-center">Trainer Name</th>
                 <th class="text-center">View</th>
               </thead>
 
@@ -39,10 +40,13 @@
                     <td>{{ row.plannedStartDate }}</td>
                     <td>{{ row.plannedEndDate }}</td>
                     <td>{{ row.training_status }}</td>
-
+                    <td>{{ row.trainerName.split('(')[0].trim() }}</td> 
                     <!-- <td><a [routerLink]="['/student-list3', {start_date: row.s_date, end_date: row.e_date, status: row.status}]">{{ row.view }}</a></td> -->
                     <td >
-                      <button (click)="viewEmployeesForCourse(row.course)" class="btn btn-primary">View</button>
+                      <!-- <button (click)="viewEmployeesForCourse(row.course)" class="btn btn-primary">View</button> -->
+                      <!-- <button (click)="viewEmployeesForCourse(row.course, trainerName)" class="btn btn-primary">View</button> -->
+                      <!-- <button (click)="viewEmployeesForCourse(row.course, row.trainerName)" class="btn btn-primary">View</button> -->
+                      <a class="btn btn-primary" [routerLink]="['/student-list3', row.course, row.trainerName]">{{ row.view }}</a>
                     </td>
                   </tr>
               </tbody>

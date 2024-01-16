@@ -10,6 +10,7 @@ public class TrainingsDTO {
     private String training_status;
     private Timestamp plannedStartDate;
     private Timestamp plannedEndDate;
+    private String trainerName;
 
 
     public TrainingsDTO() {
@@ -17,13 +18,14 @@ public class TrainingsDTO {
     }
 
     public TrainingsDTO(Long trainigId, Long scheduleId, String course, 
-    String training_status, Timestamp plannedStartDate, Timestamp plannedEndDate) {
+    String training_status, Timestamp plannedStartDate, Timestamp plannedEndDate,String trainerName) {
         this.trainingId = trainigId;
         this.scheduleId = scheduleId;
         this.course = course;
         this.training_status = training_status;
         this.plannedStartDate = plannedStartDate;
         this.plannedEndDate = plannedEndDate;
+        this.trainerName=trainerName;
     }
 
     public Long getTrainingId() {
@@ -72,6 +74,14 @@ public class TrainingsDTO {
 
     public void setPlannedEndDate(Timestamp plannedEndDate) {
         this.plannedEndDate = plannedEndDate;
+    }
+
+    public String getTrainerName() {
+        return trainerName;
+    }
+
+    public void setTrainerName(String trainerName) {
+        this.trainerName = trainerName;
     }
 
 }

@@ -45,7 +45,7 @@
                     <button class="btn btn-primary" (click)="toggleEditMode(i)">Edit{{ row.action }}</button>
                   </td>
                   <td class="text-center">
-                    <button class="btn btn-primary" (click)="viewAttendees(row.course, row.status)" [disabled]="row.status !== 'On-Going'">
+                    <button class="btn btn-primary" (click)="viewAttendees(row.course, row.status, row.trainer_name)" [disabled]="row.status !== 'On-Going'">
                       {{ row.view }}
                     </button>
                   </td>
@@ -74,6 +74,7 @@
                   </td>
                   <td class="text-center">
                     <select [(ngModel)]="filteredData[i].status" [disabled]="false" class="text-center">
+                      <option value="Upcoming">Upcoming</option>
                       <option value="On-Going">On-Going</option>
                       <option value="Completed">Completed</option>
                     </select>

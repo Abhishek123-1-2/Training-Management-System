@@ -1,64 +1,52 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, Input, OnInit } from "@angular/core";
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { Chart } from 'chart.js';
-
 import { HttpClient } from '@angular/common/http';
-
 @Component({
-  selector: 'report-courses',
-  moduleId: module.id,
-  templateUrl: 'report-courses.component.html',
+  selector: 'employee-feedback',
+  templateUrl: './employee-feedback.component.html',
+  styleUrls: ['./employee-feedback.component.scss']
 })
-export class ReportOfCoursesComponent implements AfterViewInit, OnInit {
+export class EmployeeFeedbackComponent implements OnInit {
+
   c_name: string;
   empCode: string;
   @ViewChild('chartCanvas') chartCanvas: ElementRef<HTMLCanvasElement>;
-  @Input() employeeData: { sr_no: string; emp_code: string; emp_name: string; start_date: string; end_date: string; status: string; view: string };
-
   chart: Chart;
 
-  constructor(
-    private route: ActivatedRoute,
-    private http: HttpClient,
-  ) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.c_name = params['c_name'];
       this.empCode = params['empCode'];
-      this.fetchFeedbackDataAndCreateChart();
+      this.fetchEmployeeFeedbackAndCreateChart();
     });
   }
 
-  ngAfterViewInit(): void {
-    // No need to call fetchFeedbackDataAndCreateChart here since it's now called in ngOnInit
-  }
-
-  fetchFeedbackDataAndCreateChart(): void {
-    const apiUrl = `http://localhost:8083/api/feedback/retrieve/${this.empCode}/${this.c_name}`;
+  fetchEmployeeFeedbackAndCreateChart(): void {
+    const apiUrl = `http://localhost:8083/api/all-feedback/${this.empCode}/${this.c_name}`;
 
     this.http.get(apiUrl).subscribe(
-      (feedbackData: any[]) => {
-        const ratings = feedbackData.map(feedback => ({
-          technicalSkillsValue: feedback.technicalSkills,
-          graspingPowerValue: feedback.graspingPower,
-          proActivenessValue: feedback.proActiveness,
-          interestQualityValue: feedback.interestQuality,
-          leadershipQualityValue: feedback.leadershipQuality,
-          problemSolvingAbilityValue: feedback.problemSolvingAbility,
-          smartnessRateValue: feedback.smartnessRate,
-          spokenEnglishRateValue: feedback.spokenEnglishRate,
+      (employeeFeedback: any[]) => {
+        const ratings = employeeFeedback.map(feedback => ({
+          effectiveness: feedback.effectiveness,
+          content: feedback.content,
+          methodology: feedback.methodology,
+          organization: feedback.organization,
+          trainer_rating: feedback.trainer_rating,
+          commentsFromEmp: feedback.commentsFromEmp,
         }));
 
-        this.createChart(ratings);
+        this.createChartForEmployeeFeedback(ratings);
       },
       (error) => {
-        console.error('Error fetching feedback data:', error);
+        console.error('Error fetching employee feedback data:', error);
       }
     );
   }
- 
-  createChart(feedbackData: any[]): void {
+
+  createChartForEmployeeFeedback(feedbackData: any[]): void {
     const canvas: HTMLCanvasElement = this.chartCanvas.nativeElement;
     const ctx = canvas.getContext('2d');
 
@@ -107,13 +95,10 @@ export class ReportOfCoursesComponent implements AfterViewInit, OnInit {
     });
   }
 
-  
   getLabelForParameter(param: string): string {
     return param.replace('Value', '').replace(/([a-z])([A-Z])/g, '$1 $2').toUpperCase();
   }
 
-  
-  
   getRandomColor(): string {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -122,4 +107,5 @@ export class ReportOfCoursesComponent implements AfterViewInit, OnInit {
     }
     return color;
   }
+
 }
