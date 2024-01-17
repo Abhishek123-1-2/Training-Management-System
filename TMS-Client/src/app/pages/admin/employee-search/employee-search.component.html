@@ -33,7 +33,7 @@
               </tbody>
             </table>
           </div>
-          <div class="d-flex justify-content-end mt-3 mt-3">
+          <div class="d-flex justify-content-end mt-3">
             <div class="form-inline mb-3">
               <label for="rowsPerPage" class="mr-1">Rows per Page:</label>
               <select class="form-control" id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage($event)">
@@ -41,23 +41,40 @@
                 <option value="10">10</option>
               </select>
             </div>
-
+  
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="checkbox" id="rollingPaginator" [(ngModel)]="rollPaginator">
+              <label class="form-check-label" for="rollingPaginator">Rolling Paginator</label>
+            </div>
+  
             <nav aria-label="Page navigation example">
               <ul class="pagination pagination-md">
-                <li class="page-item" (click)="currentPage = (currentPage > 1) ? currentPage - 1 : 1" [class.disabled]="currentPage === 1">
+                <li class="page-item" (click)="onPageChange(currentPage - 1)" [class.disabled]="currentPage === 1">
                   <a class="page-link">Previous</a>
                 </li>
-                <li class="page-item" *ngFor="let page of pages" (click)="currentPage = page">
+                <li class="page-item" *ngIf="visiblePages[0] !== 1">
+                  <a class="page-link" (click)="onPageChange(1)">1</a>
+                </li>
+                <li class="page-item" *ngIf="visiblePages[0] > 2">
+                  <span class="page-link">...</span>
+                </li>
+                <li class="page-item" *ngFor="let page of visiblePages" (click)="onPageChange(page)" [class.active]="currentPage === page">
                   <a class="page-link">{{ page }}</a>
                 </li>
-                <li class="page-item" (click)="currentPage = (currentPage < pages.length) ? currentPage + 1 : currentPage">
+                <li class="page-item" *ngIf="visiblePages[visiblePages.length - 1] < pages.length - 1">
+                  <span class="page-link">...</span>
+                </li>
+                <li class="page-item" *ngIf="visiblePages[visiblePages.length - 1] !== pages.length">
+                  <a class="page-link" (click)="onPageChange(pages.length)">{{ pages.length }}</a>
+                </li>
+                <li class="page-item" (click)="onPageChange(currentPage + 1)" [class.disabled]="currentPage === pages.length">
                   <a class="page-link">Next</a>
                 </li>
               </ul>
             </nav>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
   

@@ -851,6 +851,7 @@ export class AdminRegistrationComponent implements OnInit {
   public tableData1: TableData;
   public filteredData: TableRow[];
   public searchValue: string = '';
+  
   public isEditMode: boolean = false;
   public rowIndexBeingEdited: number | null = null;
   public currentPage = 1;
@@ -899,6 +900,7 @@ export class AdminRegistrationComponent implements OnInit {
       }
     );
   }
+ 
 
   applyFilter() {
     const searchTerm = this.searchValue.toLowerCase().trim();
