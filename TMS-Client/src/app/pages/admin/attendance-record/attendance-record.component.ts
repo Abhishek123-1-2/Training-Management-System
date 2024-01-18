@@ -294,103 +294,103 @@ export class AttendanceRecordComponent implements OnInit {
     );
   }
 
-  // createChartForEmployeeFeedback(feedbackData: any[]): void {
-  //   const canvas: HTMLCanvasElement = this.employeeFeedbackChart.nativeElement; // Use the new canvas reference
-  //   const ctx = canvas.getContext('2d');
+  createChartForEmployeeFeedback(feedbackData: any[]): void {
+    const canvas: HTMLCanvasElement = this.employeeFeedbackChart.nativeElement; // Use the new canvas reference
+    const ctx = canvas.getContext('2d');
 
-  //   const labels = feedbackData.map((_, index) => `Ratings`);
-  //   const parameters = Object.keys(feedbackData[0]);
+    const labels = feedbackData.map((_, index) => `Ratings`);
+    const parameters = Object.keys(feedbackData[0]);
 
-  //   const datasets = parameters.map(param => ({
-  //     label: this.getLabelForParameter(param),
-  //     data: feedbackData.map(feedback => feedback[param]),
-  //     backgroundColor: this.getRandomColor(),
-  //     borderColor: this.getRandomColor(),
-  //     borderWidth: 1
-  //   }));
+    const datasets = parameters.map(param => ({
+      label: this.getLabelForParameter(param),
+      data: feedbackData.map(feedback => feedback[param]),
+      backgroundColor: this.getRandomColor(),
+      borderColor: this.getRandomColor(),
+      borderWidth: 1
+    }));
 
-  //   this.employeeFeedbackChartInstance = new Chart(ctx, {
-  //     type: 'bar',
-  //     data: {
-  //       labels: labels,
-  //       datasets: datasets
-  //     },
-  //     options: {
-  //       scales: {
-  //         x: {
-  //           beginAtZero: true,
-  //           ticks: {
-  //             stepSize: 1
-  //           }
-  //         },
-  //         y: {
-  //           beginAtZero: true,
-  //           min: 0,
-  //           max: 5,
-  //           ticks: {
-  //             stepSize: 1,
-  //             suggestedMin: 0,
-  //             suggestedMax: 5
-  //           },
-  //           display: true,
-  //           title: {
-  //             display: true,
-  //             text: 'Fields'
-  //           }
-  //         }
-  //       }
-  //     }
-  //   });
-  // }
+    this.employeeFeedbackChartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: datasets
+      },
+      options: {
+        scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          },
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 5,
+            ticks: {
+              stepSize: 1,
+              suggestedMin: 0,
+              suggestedMax: 5
+            },
+            display: true,
+            title: {
+              display: true,
+              text: 'Fields'
+            }
+          }
+        }
+      }
+    });
+  }
 
-  // createChart(feedbackData: any[]): void {
-  //   const canvas: HTMLCanvasElement = this.chartCanvas.nativeElement;
-  //   const ctx = canvas.getContext('2d');
+  createChart(feedbackData: any[]): void {
+    const canvas: HTMLCanvasElement = this.chartCanvas.nativeElement;
+    const ctx = canvas.getContext('2d');
 
-  //   const labels = feedbackData.map((_, index) => `Ratings`);
-  //   const parameters = Object.keys(feedbackData[0]);
+    const labels = feedbackData.map((_, index) => `Ratings`);
+    const parameters = Object.keys(feedbackData[0]);
 
-  //   const datasets = parameters.map(param => ({
-  //     label: this.getLabelForParameter(param),
-  //     data: feedbackData.map(feedback => feedback[param]),
-  //     backgroundColor: this.getRandomColor(),
-  //     borderColor: this.getRandomColor(),
-  //     borderWidth: 1
-  //   }));
+    const datasets = parameters.map(param => ({
+      label: this.getLabelForParameter(param),
+      data: feedbackData.map(feedback => feedback[param]),
+      backgroundColor: this.getRandomColor(),
+      borderColor: this.getRandomColor(),
+      borderWidth: 1
+    }));
 
-  //   this.chart = new Chart(ctx, {
-  //     type: 'bar',
-  //     data: {
-  //       labels: labels,
-  //       datasets: datasets
-  //     },
-  //     options: {
-  //       scales: {
-  //         x: {
-  //           beginAtZero: true,
-  //           ticks: {
-  //             stepSize: 1
-  //           }
-  //         },
-  //         y: {
-  //           beginAtZero: true,
-  //           min: 0,
-  //           max: 5,
-  //           ticks: {
-  //             stepSize: 1,
-  //             suggestedMin: 0,
-  //             suggestedMax: 5
-  //           },
-  //           display: true,
-  //           title: {
-  //             display: true,
-  //             text: 'Fields'
-  //           }
-  //         }
-  //       }
-  //     }
-  //   });
-  // }
+    this.chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: datasets
+      },
+      options: {
+        scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          },
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 5,
+            ticks: {
+              stepSize: 1,
+              suggestedMin: 0,
+              suggestedMax: 5
+            },
+            display: true,
+            title: {
+              display: true,
+              text: 'Fields'
+            }
+          }
+        }
+      }
+    });
+  }
   // createChart(feedbackData: any[]): void {
   //   const canvas: HTMLCanvasElement = this.chartCanvas.nativeElement;
   //   const ctx = canvas.getContext('2d');
@@ -1150,118 +1150,118 @@ export class AttendanceRecordComponent implements OnInit {
 //   });
 // }
 // For createChart method
-createChart(feedbackData: any[]): void {
-  const canvas: HTMLCanvasElement = this.chartCanvas.nativeElement;
-  const ctx = canvas.getContext('2d');
+// createChart(feedbackData: any[]): void {
+//   const canvas: HTMLCanvasElement = this.chartCanvas.nativeElement;
+//   const ctx = canvas.getContext('2d');
 
-  const labels = feedbackData.map((_, index) => `Ratings`);
-  const parameters = Object.keys(feedbackData[0]);
+//   const labels = feedbackData.map((_, index) => `Ratings`);
+//   const parameters = Object.keys(feedbackData[0]);
 
-  const datasets = parameters.map((param, index) => ({
-    label: this.getLabelForParameter(param),
-    data: feedbackData.map(feedback => feedback[param]),
-    backgroundColor: this.getGradient(ctx, index, 'vertical'),
-    borderColor: this.getRandomColor(),
-    borderWidth: 1
-  }));
+//   const datasets = parameters.map((param, index) => ({
+//     label: this.getLabelForParameter(param),
+//     data: feedbackData.map(feedback => feedback[param]),
+//     backgroundColor: this.getGradient(ctx, index, 'vertical'),
+//     borderColor: this.getRandomColor(),
+//     borderWidth: 1
+//   }));
 
-  this.chart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: labels,
-      datasets: datasets
-    },
-    options: {
-      scales: {
-        x: {
-          beginAtZero: true,
-          ticks: {
-            stepSize: 1
-          }
-        },
-        y: {
-          beginAtZero: true,
-          max: 5,
-          ticks: {
-            stepSize: 1,
-          },
-          display: true,
-          title: {
-            display: true,
-            text: 'Fields'
-          }
-        }
-      },
-      plugins: {
-        legend: {
-          display: true,
-          position: 'top',
-        }
-      },
-      events: ['afterLayout'],
-      afterLayout: (chart) => {
-        chart.options.scales.y.min = 0;
-      },
-    }
-  });
-}
+//   this.chart = new Chart(ctx, {
+//     type: 'bar',
+//     data: {
+//       labels: labels,
+//       datasets: datasets
+//     },
+//     options: {
+//       scales: {
+//         x: {
+//           beginAtZero: true,
+//           ticks: {
+//             stepSize: 1
+//           }
+//         },
+//         y: {
+//           beginAtZero: true,
+//           max: 5,
+//           ticks: {
+//             stepSize: 1,
+//           },
+//           display: true,
+//           title: {
+//             display: true,
+//             text: 'Fields'
+//           }
+//         }
+//       },
+//       plugins: {
+//         legend: {
+//           display: true,
+//           position: 'top',
+//         }
+//       },
+//       events: ['afterLayout'],
+//       afterLayout: (chart) => {
+//         chart.options.scales.y.min = 0;
+//       },
+//     }
+//   });
+// }
 
-// For createChartForEmployeeFeedback method
-createChartForEmployeeFeedback(feedbackData: any[]): void {
-  const canvas: HTMLCanvasElement = this.employeeFeedbackChart.nativeElement;
-  const ctx = canvas.getContext('2d');
+// // For createChartForEmployeeFeedback method
+// createChartForEmployeeFeedback(feedbackData: any[]): void {
+//   const canvas: HTMLCanvasElement = this.employeeFeedbackChart.nativeElement;
+//   const ctx = canvas.getContext('2d');
 
-  const labels = feedbackData.map((_, index) => `Ratings`);
-  const parameters = Object.keys(feedbackData[0]);
+//   const labels = feedbackData.map((_, index) => `Ratings`);
+//   const parameters = Object.keys(feedbackData[0]);
 
-  const datasets = parameters.map((param, index) => ({
-    label: this.getLabelForParameter(param),
-    data: feedbackData.map(feedback => feedback[param]),
-    backgroundColor: this.getGradient(ctx, index, 'vertical'),
-    borderColor: this.getGradient(ctx, index, 'vertical'),
-    borderWidth: 1
-  }));
+//   const datasets = parameters.map((param, index) => ({
+//     label: this.getLabelForParameter(param),
+//     data: feedbackData.map(feedback => feedback[param]),
+//     backgroundColor: this.getGradient(ctx, index, 'vertical'),
+//     borderColor: this.getGradient(ctx, index, 'vertical'),
+//     borderWidth: 1
+//   }));
 
-  this.employeeFeedbackChartInstance = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: labels,
-      datasets: datasets
-    },
-    options: {
-      scales: {
-        x: {
-          beginAtZero: true,
-          ticks: {
-            stepSize: 1
-          }
-        },
-        y: {
-          beginAtZero: true,
-          max: 5,
-          ticks: {
-            stepSize: 1,
-          },
-          display: true,
-          title: {
-            display: true,
-            text: 'Fields'
-          }
-        }
-      },
-      plugins: {
-        legend: {
-          display: true,
-          position: 'top',
-        }
-      },
-      events: ['afterLayout'],
-      afterLayout: (chart) => {
-        chart.options.scales.y.min = 0;
-      },
-    }
-  });
-}
+//   this.employeeFeedbackChartInstance = new Chart(ctx, {
+//     type: 'bar',
+//     data: {
+//       labels: labels,
+//       datasets: datasets
+//     },
+//     options: {
+//       scales: {
+//         x: {
+//           beginAtZero: true,
+//           ticks: {
+//             stepSize: 1
+//           }
+//         },
+//         y: {
+//           beginAtZero: true,
+//           max: 5,
+//           ticks: {
+//             stepSize: 1,
+//           },
+//           display: true,
+//           title: {
+//             display: true,
+//             text: 'Fields'
+//           }
+//         }
+//       },
+//       plugins: {
+//         legend: {
+//           display: true,
+//           position: 'top',
+//         }
+//       },
+//       events: ['afterLayout'],
+//       afterLayout: (chart) => {
+//         chart.options.scales.y.min = 0;
+//       },
+//     }
+//   });
+// }
 
 // Add this method for creating gradients
 // getGradient(ctx: CanvasRenderingContext2D, index: number, direction: 'horizontal' | 'vertical'): CanvasGradient {
@@ -1278,24 +1278,24 @@ createChartForEmployeeFeedback(feedbackData: any[]): void {
 //   gradient.addColorStop(1, baseColor);
 //   return gradient;
 // }
-getGradient(ctx: CanvasRenderingContext2D, index: number, direction: 'horizontal' | 'vertical'): CanvasGradient {
-  const baseColor = this.getRandomColor(); // Use a single base color
+// getGradient(ctx: CanvasRenderingContext2D, index: number, direction: 'horizontal' | 'vertical'): CanvasGradient {
+//   const baseColor = this.getRandomColor(); // Use a single base color
 
-  // Function to lighten or darken a color
-  const adjustColor = (color: string, factor: number): string => {
-    const num = parseInt(color.slice(1), 16);
-    const r = Math.min(255, Math.max(0, (num >> 16) + factor));
-    const g = Math.min(255, Math.max(0, ((num >> 8) & 0x00FF) + factor));
-    const b = Math.min(255, Math.max(0, (num & 0x0000FF) + factor));
-    return `#${(1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1)}`;
-  };
+//   // Function to lighten or darken a color
+//   const adjustColor = (color: string, factor: number): string => {
+//     const num = parseInt(color.slice(1), 16);
+//     const r = Math.min(255, Math.max(0, (num >> 16) + factor));
+//     const g = Math.min(255, Math.max(0, ((num >> 8) & 0x00FF) + factor));
+//     const b = Math.min(255, Math.max(0, (num & 0x0000FF) + factor));
+//     return `#${(1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1)}`;
+//   };
 
-  const gradient = ctx.createLinearGradient(0, 0, direction === 'horizontal' ? 200 : 0, direction === 'horizontal' ? 0 : 200);
-  gradient.addColorStop(0, baseColor);
-  gradient.addColorStop(1, adjustColor(baseColor, 20)); // Adjust the factor as needed
+//   const gradient = ctx.createLinearGradient(0, 0, direction === 'horizontal' ? 200 : 0, direction === 'horizontal' ? 0 : 200);
+//   gradient.addColorStop(0, baseColor);
+//   gradient.addColorStop(1, adjustColor(baseColor, 20)); // Adjust the factor as needed
 
-  return gradient;
-}
+//   return gradient;
+// }
 
 
 

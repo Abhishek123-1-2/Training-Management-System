@@ -40,7 +40,7 @@ export class ConfirmationstatusDetailsComponent implements OnInit {
           // Process the API response and extract the properties
           this.detailsForCourse = data.map(entry => ({
             courseName: entry.courseName,
-            trainerName: entry.trainerName,
+            trainerName: entry.trainerName.split('(')[0].trim(),
             startDate: entry.startDate,
             endDate: entry.endDate,
             fromTime: entry.fromTime,

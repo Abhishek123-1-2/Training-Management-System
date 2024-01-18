@@ -59,6 +59,7 @@ import { ManagerTrainingRecordComponent } from 'app/pages/manager/manager-traini
 import { ManagerEmployeeHistoryComponent } from 'app/pages/manager/manager-employee-history/manager-employee-history.component';
 import { EmployeeFeedbackComponent } from 'app/pages/admin/employee-feedback/employee-feedback.component';
 import { ViewDetailsComponent } from 'app/pages/employee/view-details/view-details.component';
+// import { ViewDetailsComponent } from 'app/pages/employee/view-details/view-details.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -130,4 +131,5 @@ export const AdminLayoutRoutes: Routes = [
         component: ManagerEmployeeHistoryComponent,
       }, { path: 'employee-feedback/:c_name/:empCode', component: EmployeeFeedbackComponent },
       {path:'view-details/:c_name',component:ViewDetailsComponent}
+      
 ];

@@ -42,7 +42,9 @@ export class TrainingViewComponent implements OnInit {
   public display = 'none';
   public currentPage = 1;
   public itemsPerPage = 5;
-
+  public rollPaginator: boolean = false; // Added line
+  public visiblePages: number[] = []; // Added line
+  private rollingPaginatorSize = 5;
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
@@ -151,21 +153,36 @@ export class TrainingViewComponent implements OnInit {
     }
 
     const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
-    return Array.from({ length: pageCount }, (_, index) => index +1);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
   }
 
   changeItemsPerPage(event: any): void {
     this.itemsPerPage = +event.target.value;
-    this.currentPage = 1; // Reset to the first page when changing items per page
+    this.currentPage = 1;
     this.applyFilter();
   }
 
   onPageChange(page: number): void {
-    if (page >= 1 && page <= this.pages.length) {
-      this.currentPage = page;
-      this.applyFilter();
-    }
+    this.currentPage = page;
+    this.updateVisiblePages();
+    this.applyFilter();
   }
 
+  updateVisiblePages(): void {
+    const totalPages = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+    const halfPaginatorSize = Math.floor(this.rollingPaginatorSize / 2);
+
+    if (totalPages <= this.rollingPaginatorSize) {
+      this.visiblePages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    } else {
+      if (this.currentPage <= halfPaginatorSize) {
+        this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => i + 1);
+      } else if (this.currentPage >= totalPages - halfPaginatorSize) {
+        this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => totalPages - this.rollingPaginatorSize + i + 1);
+      } else {
+        this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => this.currentPage - halfPaginatorSize + i);
+      }
+    }
+  }
 
 }

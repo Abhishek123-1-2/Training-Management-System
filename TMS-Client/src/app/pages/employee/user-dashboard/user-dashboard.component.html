@@ -96,7 +96,7 @@
                 <td class="text-center">{{ row.e_date }}</td>
                 <td class="text-center">{{ row.status }}</td>
                 <td class="text-center">
-                  <button class="btn btn-primary" (click)="enrollButtonClicked(row)" [disabled]="['Registered', 'confirmed', 'rejected']">Enroll</button>
+                  <button class="btn btn-primary" (click)="enrollButtonClicked(row)" [disabled]="['Registered', 'confirmed', 'rejected'].includes(row.registration_status)">Enroll</button>
                 </td>
                 <td class="text-center">{{ row.registration_status }}</td>
                 <td class="text-center">{{ row.reason }}</td>
@@ -131,6 +131,3 @@
     </div>
   </div>
 </div>
-
-
-

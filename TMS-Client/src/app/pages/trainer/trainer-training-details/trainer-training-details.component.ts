@@ -1,3 +1,4 @@
+
 // trainer-training-details.component.ts
 
 import { HttpClient } from '@angular/common/http';
@@ -46,6 +47,9 @@ export class TrainerTrainingDetailsComponent implements OnInit {
   public trainerName: string = ''; // Add this line
   currentPage = 1;
   itemsPerPage = 5;
+  public rollPaginator: boolean = false; // Added line
+  public visiblePages: number[] = []; // Added line
+  private rollingPaginatorSize = 5;
 
   constructor(private userService: UserService, private http: HttpClient) { }
 
@@ -133,7 +137,41 @@ export class TrainerTrainingDetailsComponent implements OnInit {
       }
     )
   }
+  // get pages(): number[] {
+  //   if (this.tableData1.dataRows.length === 0) {
+  //     return [];
+  //   }
 
+  //   const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+  //   return Array.from({ length: pageCount }, (_, index) => index + 1);
+  // }
+
+  // changeItemsPerPage(event: any): void {
+  //   this.itemsPerPage = +event.target.value;
+  //   this.currentPage = 1;
+  //   this.applyFilter();
+  // }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.updateVisiblePages();
+    this.applyFilter();
+  }
+
+  
+  updateVisiblePages(): void {
+    const totalPages = Math.ceil(this.originalData.length / this.itemsPerPage);
+    const halfPaginatorSize = Math.floor(this.rollingPaginatorSize / 2);
+
+    if (totalPages <= this.rollingPaginatorSize) {
+      this.visiblePages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    } else {
+      const startPage = Math.max(1, this.currentPage - halfPaginatorSize);
+      const endPage = Math.min(totalPages, startPage + this.rollingPaginatorSize - 1);
+
+      this.visiblePages = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+    }
+  }
   formatDate(timestamp: string): string {
     const date = new Date(timestamp);
     const year = date.getFullYear();
@@ -143,20 +181,28 @@ export class TrainerTrainingDetailsComponent implements OnInit {
   }
   
 
+  // applyFilter() {
+  //   this.filteredData = this.tableData1.dataRows.filter(row =>
+  //     Object.values(row).some(value =>
+  //     value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
+  //     ) 
+  //   )
+  //     .filter(row =>
+  //       (this.selectedStatus === '' 
+  //     || row.training_status.toLowerCase() === this.selectedStatus.toLowerCase()
+  //     || this.selectedStatus === 'all')
+  //   )
+  //   ;
+  // }
   applyFilter() {
-    this.filteredData = this.tableData1.dataRows.filter(row =>
-      Object.values(row).some(value =>
-      value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
-      ) 
-    )
-      .filter(row =>
-        (this.selectedStatus === '' 
-      || row.training_status.toLowerCase() === this.selectedStatus.toLowerCase()
-      || this.selectedStatus === 'all')
-    )
-    ;
-  }
+    const searchText=this.searchValue.toLowerCase().trim();
 
+    this.filteredData = this.originalData.filter(row =>
+      Object.values(row).some(value =>
+        value && value.toString().toLowerCase().includes(searchText)
+      )
+    );
+  }
   // resetFilters() {
   //   this.searchValue = '';
   //   this.selectedStatus = '';
@@ -182,5 +228,3 @@ export class TrainerTrainingDetailsComponent implements OnInit {
 }
 
     
-
-  

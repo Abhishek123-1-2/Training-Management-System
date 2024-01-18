@@ -137,28 +137,28 @@ export class UserDashboardComponent implements OnInit {
   //   this.applyFilter();
   // }
 
-  onPageChange(page: number): void {
-    this.currentPage = page;
-    this.updateVisiblePages();
-    this.applyFilter();
-  }
+  // onPageChange(page: number): void {
+  //   this.currentPage = page;
+  //   this.updateVisiblePages();
+  //   this.applyFilter();
+  // }
 
-  updateVisiblePages(): void {
-    const totalPages = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
-    const halfPaginatorSize = Math.floor(this.rollingPaginatorSize / 2);
+  // updateVisiblePages(): void {
+  //   const totalPages = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+  //   const halfPaginatorSize = Math.floor(this.rollingPaginatorSize / 2);
 
-    if (totalPages <= this.rollingPaginatorSize) {
-      this.visiblePages = Array.from({ length: totalPages }, (_, i) => i + 1);
-    } else {
-      if (this.currentPage <= halfPaginatorSize) {
-        this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => i + 1);
-      } else if (this.currentPage >= totalPages - halfPaginatorSize) {
-        this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => totalPages - this.rollingPaginatorSize + i + 1);
-      } else {
-        this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => this.currentPage - halfPaginatorSize + i);
-      }
-    }
-  }
+  //   if (totalPages <= this.rollingPaginatorSize) {
+  //     this.visiblePages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  //   } else {
+  //     if (this.currentPage <= halfPaginatorSize) {
+  //       this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => i + 1);
+  //     } else if (this.currentPage >= totalPages - halfPaginatorSize) {
+  //       this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => totalPages - this.rollingPaginatorSize + i + 1);
+  //     } else {
+  //       this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => this.currentPage - halfPaginatorSize + i);
+  //     }
+  //   }
+  // }
   fetchConfirmationStatusData(): void {
     const empId = this.loginService.getEmpId();
   
