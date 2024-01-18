@@ -59,7 +59,9 @@ export class TrainingHistoryComponent implements OnInit {
 
     currentPage=1;
     itemsPerPage=5;
-
+    public rollPaginator: boolean = false; // Added line
+    public visiblePages: number[] = []; // Added line
+    private rollingPaginatorSize = 5;
 
     ngOnInit()  {
       this.route.params.subscribe(params => {
@@ -136,7 +138,43 @@ fetchTrainingHistory(empId: string) {
     }
   );
 }
+get pages(): number[] {
+  if (this.tableData1.dataRows.length === 0) {
+    return [];
+  }
 
+  const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+  return Array.from({ length: pageCount }, (_, index) => index + 1);
+}
+
+changeItemsPerPage(event: any): void {
+  this.itemsPerPage = +event.target.value;
+  this.currentPage = 1;
+  this.applyFilter();
+}
+
+onPageChange(page: number): void {
+  this.currentPage = page;
+  this.updateVisiblePages();
+  this.applyFilter();
+}
+
+updateVisiblePages(): void {
+  const totalPages = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+  const halfPaginatorSize = Math.floor(this.rollingPaginatorSize / 2);
+
+  if (totalPages <= this.rollingPaginatorSize) {
+    this.visiblePages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  } else {
+    if (this.currentPage <= halfPaginatorSize) {
+      this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => i + 1);
+    } else if (this.currentPage >= totalPages - halfPaginatorSize) {
+      this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => totalPages - this.rollingPaginatorSize + i + 1);
+    } else {
+      this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => this.currentPage - halfPaginatorSize + i);
+    }
+  }
+}
 formatDate(timestamp: string): string {
   const date = new Date(timestamp);
   const year = date.getFullYear();
@@ -175,19 +213,19 @@ formatDate(timestamp: string): string {
         console.log('Success');
       }
 
-      get pages(): number[] {
-        if (this.tableData1.dataRows.length === 0) {
-          return [];
-        }
+      // get pages(): number[] {
+      //   if (this.tableData1.dataRows.length === 0) {
+      //     return [];
+      //   }
     
-        const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
-        return Array.from({ length: pageCount }, (_, index) => index + 1);
-      }
+      //   const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+      //   return Array.from({ length: pageCount }, (_, index) => index + 1);
+      // }
 
-      changeItemsPerPage(event: any): void {
-        this.itemsPerPage = +event.target.value;
-        this.currentPage = 1; // Reset to the first page when changing items per page
-      }
+      // changeItemsPerPage(event: any): void {
+      //   this.itemsPerPage = +event.target.value;
+      //   this.currentPage = 1; // Reset to the first page when changing items per page
+      // }
 
 }
 

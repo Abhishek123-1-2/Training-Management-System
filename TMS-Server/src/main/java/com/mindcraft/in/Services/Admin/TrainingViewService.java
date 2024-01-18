@@ -218,6 +218,7 @@ public void scheduleTraining(Long trainingId, TrainingSchedule request) {
         // Handle the exception according to your application's needs
     }
 }
+
 public void updateTrainingSchedule(TrainingSchedule updatedSchedule) {
     String sql = "UPDATE training_schedule " +
                  "SET planned_start_date = ?, planned_end_date = ?, actual_start_date = ?, actual_end_date = ?, " +

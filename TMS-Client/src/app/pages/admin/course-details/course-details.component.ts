@@ -5,15 +5,7 @@ import * as XLSX from 'xlsx';
 
 declare interface TableData {
   headerRow: string[];
-  dataRows: {
-    sr_no: string;
-    emp_name: string;
-    c_name: string;
-    t_name: string;
-    s_date: string;
-    e_date: string;
-    status: string;
-  }[];
+  dataRows: TableRow[];
 }
 
 interface TableRow {
@@ -34,11 +26,18 @@ interface TableRow {
 export class CourseDetailsComponent implements OnInit {
   emp_code: string;
   emp_name: string;
+  public searchValue: string = '';
   public tableData1: TableData;
   currentPage = 1;
   itemsPerPage = 5;
+  public filteredData: TableRow[] = [];
+  totalPages: number;
+  visiblePages: number[];
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient) {
+    // Initialize visible pages with the first page
+    this.visiblePages = [1];
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -60,6 +59,13 @@ export class CourseDetailsComponent implements OnInit {
               status: item.trainingStatus,
             })),
           };
+
+          // Initialize the filteredData array with the original data
+          this.filteredData = [...this.tableData1.dataRows];
+
+          // Update the visible pages and data after fetching the data
+          this.updateVisiblePages();
+          this.updateVisibleData();
         }, error => {
           console.error('Error fetching data:', error);
         });
@@ -67,19 +73,11 @@ export class CourseDetailsComponent implements OnInit {
   }
 
   private formatDate(timestamp: string): string {
-    // const date = new Date(dateString);
-    // const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
-    // return date.toLocaleDateString(undefined, options);
     const date = new Date(timestamp);
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
     return `${day}-${month}-${year}`;
-  }
-
-  changeItemsPerPage(event: any): void {
-    this.itemsPerPage = +event.target.value;
-    this.currentPage = 1; // Reset to the first page when changing items per page
   }
 
   exportToExcel(): void {
@@ -101,5 +99,39 @@ export class CourseDetailsComponent implements OnInit {
     XLSX.writeFile(wb, `${this.emp_name} course_details.xlsx`);
   }
 
+  private updateVisiblePages(): void {
+    const totalPages = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
 
+    // Update visible pages based on the current page and total pages
+    const currentPage = this.currentPage;
+    const maxVisiblePages = 5; // You can adjust this based on your preference
+
+    const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    this.visiblePages = Array.from({ length: endPage - startPage + 1 }, (_, i) => i + startPage);
+    this.totalPages = totalPages;
+  }
+
+  private updateVisibleData(): void {
+    const startIdx = (this.currentPage - 1) * this.itemsPerPage;
+    const endIdx = startIdx + this.itemsPerPage;
+    this.filteredData = this.tableData1.dataRows.slice(startIdx, endIdx);
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updateVisiblePages();
+      this.updateVisibleData();
+    }
+  }
+
+  goToPreviousPage(): void {
+    this.goToPage(this.currentPage - 1);
+  }
+
+  goToNextPage(): void {
+    this.goToPage(this.currentPage + 1);
+  }
 }
