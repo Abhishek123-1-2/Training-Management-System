@@ -302,7 +302,13 @@ export class HrDashboardComponent implements OnInit {
   }
 
   fetchTrainingSchedule(): void {
-    this.employeeService.getTrainingPreDefinedSchedule().subscribe(
+    const empId = this.loginService.getEmpId();
+
+    if (!empId) {
+      console.error('EmpId not available.');
+      return;
+    }
+    this.employeeService.getTrainingPreDefinedSchedule(empId).subscribe(
       (scheduleData: any[]) => {
         scheduleData.forEach((entry) => {
           console.log(

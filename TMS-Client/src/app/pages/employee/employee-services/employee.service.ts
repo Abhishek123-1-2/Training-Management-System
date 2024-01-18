@@ -43,10 +43,10 @@ export class EmployeeService {
   //   return of(dummyData);
   // }
 
-  getTrainingPreDefinedSchedule(): Observable<any[]> {
+  getTrainingPreDefinedSchedule(empId: string): Observable<any[]> {
     // Implement your logic to fetch training schedule data
     // For example, using HttpClient to make an HTTP request
-    return this.http.get<any[]>('http://localhost:8083/api/training-views/schedule-list/PRE-DEFINED');
+    return this.http.get<any[]>(`http://localhost:8083/api/training-views/schedule-list/PRE-DEFINED/${empId}`);
   }
 
   getTrainingOnRequestSchedule(): Observable<any[]> {
