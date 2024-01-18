@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -28,9 +29,9 @@ public class TrainingScheduleController {
         this.trainingsService = trainingsService;
     }
 
-    @GetMapping("/PRE-DEFINED")
-    public List<TrainingScheduleDTO> getPreDefinedTrainingSchedules() {
-        return trainingScheduleService.getPreDefinedTrainingSchedules();
+    @GetMapping("/PRE-DEFINED/{empId}")
+    public List<TrainingScheduleDTO> getPreDefinedTrainingSchedules(@PathVariable String empId) {
+        return trainingScheduleService.getPreDefinedTrainingSchedules(empId);
     }
 
     @GetMapping("/ON-REQUEST")
