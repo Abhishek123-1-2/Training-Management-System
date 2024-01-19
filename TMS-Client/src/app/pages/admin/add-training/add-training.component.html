@@ -1,178 +1,177 @@
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card ">
-                    <div class="card-header">
-                        <h5 class="card-title">Training Information</h5>
-                    </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card ">
+            <div class="card-header">
+                <h5 class="card-title">Training Information</h5>
+            </div>
 
-                    <div class="card-body">
-                        <form (ngSubmit)="onSubmit()" [formGroup]="trainingForm">
-                            <div class="row">
+            <div class="card-body">
+                <form (ngSubmit)="onSubmit()" [formGroup]="trainingForm">
+                    <div class="row">
 
-                                <!-- First Row -->
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Training Category</label>
-                                        <select class="form-control" id="training_category" name="training_category" formControlName="training_category" required>
-                                            <option value="MANDATORY">Mandatory</option>
-                                            <option value="OPTIONAL">Optional</option>
-                                        </select>
-                                        <small class="text-danger" *ngIf="trainingForm.get('training_category').hasError('required') && (trainingForm.get('training_category').touched || trainingForm.get('training_category').dirty)">
-                                            Training Category is required.
-                                        </small>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label>Training Type </label>
-                                        <select class="form-control" id="training_type" name="training_type" formControlName="training_type" required>
-                                            <option value="INSTRUCTOR-LED">Instructor-Led</option>
-                                            <option value="SME-LED">SME-Led</option>
-                                            <option value="ONLINE">Online</option>
-                                        </select>
-                                        <small class="text-danger" *ngIf="trainingForm.get('training_type').hasError('required') && (trainingForm.get('training_type').touched || trainingForm.get('training_type').dirty)">
-                                            Training Type is required.
-                                        </small>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label>Training Schedule </label>
-                                        <select class="form-control" id="training_schedule" name="training_schedule" formControlName="training_schedule" required>
-                                            <option value="PRE-DEFINED">Pre-Defined</option>
-                                            <option value="ON-REQUEST">On-Request</option>
-                                        </select>
-                                        <small class="text-danger" *ngIf="trainingForm.get('training_schedule').hasError('required') && (trainingForm.get('training_schedule').touched || trainingForm.get('training_schedule').dirty)">
-                                            Training Schedule is required.
-                                        </small>
-                                    </div>
-                                </div>
-
+                        <!-- First Row -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Training Category</label>
+                                <select class="form-control" id="training_category" name="training_category" formControlName="training_category" required>
+                                    <option value="MANDATORY">Mandatory</option>
+                                    <option value="OPTIONAL">Optional</option>
+                                </select>
+                                <small class="text-danger" *ngIf="trainingForm.get('training_category').hasError('required') && (trainingForm.get('training_category').touched || trainingForm.get('training_category').dirty)">
+                                    Training Category is required.
+                                </small>
                             </div>
+                        </div>
 
-                            <!-- Second Row -->
-                            <div class="row">
-
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label>Course</label>
-                                        <input type="text" id="course" name="course" formControlName="course" class="form-control" placeholder="E.g. Angular" required>
-                                        <small class="text-danger" *ngIf="trainingForm.get('course').hasError('required') && (trainingForm.get('course').touched || trainingForm.get('course').dirty)">
-                                            Course is required.
-                                        </small>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label>Trainer Name </label>
-                                        <input type="text" id="trainer_names" name="trainer_names" formControlName="trainer_names" class="form-control" maxlength="25" placeholder="E.g. xyz" required>
-                                        <small class="text-danger" *ngIf="trainingForm.get('trainer_names').hasError('required') && (trainingForm.get('trainer_names').touched || trainingForm.get('trainer_names').dirty)">
-                                            Trainer Name are required.
-                                        </small>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label>Prerequisites</label>
-                                        <input type="text" id="prerequisites" name="prerequisites" formControlName="prerequisites" class="form-control">
-                                        <!-- <small class="text-danger" *ngIf="trainingForm.get('prerequisites').hasError('required') && (trainingForm.get('prerequisites').touched || trainingForm.get('prerequisites').dirty)">
-                                            Prerequisites are required.
-                                        </small> -->
-                                    </div>
-                                </div>
-
+                        <div class="col-md-4 ">
+                            <div class="form-group">
+                                <label>Training Type </label>
+                                <select class="form-control" id="training_type" name="training_type" formControlName="training_type" required>
+                                    <option value="INSTRUCTOR-LED">Instructor-Led</option>
+                                    <option value="SME-LED">SME-Led</option>
+                                    <option value="ONLINE">Online</option>
+                                </select>
+                                <small class="text-danger" *ngIf="trainingForm.get('training_type').hasError('required') && (trainingForm.get('training_type').touched || trainingForm.get('training_type').dirty)">
+                                    Training Type is required.
+                                </small>
                             </div>
+                        </div>
 
-                            <!-- Third Row -->
-                            <div class="row">
-
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label>Course Description</label>
-                                        <input type="text" id="course_description" name="course_description" formControlName="course_description" class="form-control">
-                                        <!-- <small class="text-danger" *ngIf="trainingForm.get('course_description').hasError('required') && (trainingForm.get('course_description').touched || trainingForm.get('course_description').dirty)">
-                                            Course Description is required.
-                                        </small> -->
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label>Daily Hours </label>
-                                        <input type="number" id="daily_hrs" name="daily_hrs" formControlName="daily_hrs" class="form-control" required>
-                                        <small class="text-danger" *ngIf="trainingForm.get('daily_hrs').hasError('required') && (trainingForm.get('daily_hrs').touched || trainingForm.get('daily_hrs').dirty)">
-                                            Daily Hours are required.
-                                        </small>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label>Total Days </label>
-                                        <input type="number" id="total_days" name="total_days" formControlName="total_days" class="form-control" required>
-                                        <small class="text-danger" *ngIf="trainingForm.get('total_days').hasError('required') && (trainingForm.get('total_days').touched || trainingForm.get('total_days').dirty)">
-                                            Total Days are required.
-                                        </small>
-                                    </div>
-                                </div>
-
+                        <div class="col-md-4 ">
+                            <div class="form-group">
+                              <label>Training Schedule </label>
+                              <select class="form-control" id="training_schedule" name="training_schedule" formControlName="training_schedule" required>
+                                <option value="PRE-DEFINED">Pre-Defined</option>
+                                <option value="ON-REQUEST">On-Request</option>
+                                <option value="EXTERNAL">External</option> <!-- Add External option -->
+                              </select>
+                              <small class="text-danger" *ngIf="trainingForm.get('training_schedule').hasError('required') && (trainingForm.get('training_schedule').touched || trainingForm.get('training_schedule').dirty)">
+                                Training Schedule is required.
+                              </small>
                             </div>
-
-                            <!-- Fourth Row -->
-                            <div class="row">
-
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label>Course Link </label>
-                                        <input type="url" id="url" name="url" formControlName="url" class="form-control">
-                                        <small class="text-danger" *ngIf="trainingForm.get('url').hasError('required') && (trainingForm.get('url').touched || trainingForm.get('url').dirty)">
-                                            Course Link is required.
-                                        </small>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label>Username </label>
-                                        <input type="text" id="username" name="username" formControlName="username" class="form-control" maxlength="25">
-                                        <small class="text-danger" *ngIf="trainingForm.get('username').hasError('required') && (trainingForm.get('username').touched || trainingForm.get('username').dirty)">
-                                            Username is required.
-                                        </small>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 ">
-                                    <div class="form-group">
-                                        <label>Password </label>
-                                        <input type="password" id="password" name="password" formControlName="password" class="form-control" maxlength="25">
-                                        <small class="text-danger" *ngIf="trainingForm.get('password').hasError('required') && (trainingForm.get('password').touched || trainingForm.get('password').dirty)">
-                                            Password is required.
-                                        </small>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <!-- Buttons -->
+                          </div>
                           
-
-                        <div class="row justify-content-end mt-3">
-                            <div class="col-md-4">
-                                <div class="d-flex justify-content-end">
-                                <button type="reset" class="btn btn-primary mr-2">Cancel</button>
-                                <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!trainingForm.valid" >Save</button>
-                                </div>
-                            </div>
-                            </div>
-                              
-                        </form>
                     </div>
-                </div>
+
+                    <!-- Second Row -->
+                    <div class="row">
+
+                        <div class="col-md-4 ">
+                            <div class="form-group">
+                                <label>Course</label>
+                                <input type="text" id="course" name="course" formControlName="course" class="form-control" placeholder="E.g. Angular" required>
+                                <small class="text-danger" *ngIf="trainingForm.get('course').hasError('required') && (trainingForm.get('course').touched || trainingForm.get('course').dirty)">
+                                    Course is required.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 ">
+                            <div class="form-group">
+                                <label>Trainer Name </label>
+                                <input type="text" id="trainer_names" name="trainer_names" formControlName="trainer_names" class="form-control" maxlength="25" placeholder="E.g. xyz" required>
+                                <small class="text-danger" *ngIf="trainingForm.get('trainer_names').hasError('required') && (trainingForm.get('trainer_names').touched || trainingForm.get('trainer_names').dirty)">
+                                    Trainer Name are required.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 ">
+                            <div class="form-group">
+                                <label>Prerequisites</label>
+                                <input type="text" id="prerequisites" name="prerequisites" formControlName="prerequisites" class="form-control">
+                                <!-- <small class="text-danger" *ngIf="trainingForm.get('prerequisites').hasError('required') && (trainingForm.get('prerequisites').touched || trainingForm.get('prerequisites').dirty)">
+                                    Prerequisites are required.
+                                </small> -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Third Row -->
+                    <div class="row">
+
+                        <div class="col-md-4 ">
+                            <div class="form-group">
+                                <label>Course Description</label>
+                                <input type="text" id="course_description" name="course_description" formControlName="course_description" class="form-control">
+                                <!-- <small class="text-danger" *ngIf="trainingForm.get('course_description').hasError('required') && (trainingForm.get('course_description').touched || trainingForm.get('course_description').dirty)">
+                                    Course Description is required.
+                                </small> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 ">
+                            <div class="form-group">
+                                <label>Daily Hours </label>
+                                <input type="number" id="daily_hrs" name="daily_hrs" formControlName="daily_hrs" class="form-control" required>
+                                <small class="text-danger" *ngIf="trainingForm.get('daily_hrs').hasError('required') && (trainingForm.get('daily_hrs').touched || trainingForm.get('daily_hrs').dirty)">
+                                    Daily Hours are required.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 ">
+                            <div class="form-group">
+                                <label>Total Days </label>
+                                <input type="number" id="total_days" name="total_days" formControlName="total_days" class="form-control" required>
+                                <small class="text-danger" *ngIf="trainingForm.get('total_days').hasError('required') && (trainingForm.get('total_days').touched || trainingForm.get('total_days').dirty)">
+                                    Total Days are required.
+                                </small>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Fourth Row -->
+                    <div class="row">
+
+                        <div class="col-md-4 ">
+                            <div class="form-group">
+                                <label>Course Link </label>
+                                <input type="url" id="url" name="url" formControlName="url" class="form-control">
+                                <small class="text-danger" *ngIf="trainingForm.get('url').hasError('required') && (trainingForm.get('url').touched || trainingForm.get('url').dirty)">
+                                    Course Link is required.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 ">
+                            <div class="form-group">
+                                <label>Username </label>
+                                <input type="text" id="username" name="username" formControlName="username" class="form-control" maxlength="25">
+                                <small class="text-danger" *ngIf="trainingForm.get('username').hasError('required') && (trainingForm.get('username').touched || trainingForm.get('username').dirty)">
+                                    Username is required.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 ">
+                            <div class="form-group">
+                                <label>Password </label>
+                                <input type="password" id="password" name="password" formControlName="password" class="form-control" maxlength="25">
+                                <small class="text-danger" *ngIf="trainingForm.get('password').hasError('required') && (trainingForm.get('password').touched || trainingForm.get('password').dirty)">
+                                    Password is required.
+                                </small>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Buttons -->
+                  
+
+                <div class="row justify-content-end mt-3">
+                    <div class="col-md-4">
+                        <div class="d-flex justify-content-end">
+                        <button type="reset" class="btn btn-primary mr-2">Cancel</button>
+                        <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!trainingForm.valid" >Save</button>
+                        </div>
+                    </div>
+                    </div>
+                      
+                </form>
             </div>
         </div>
-
-
+    </div>
+</div>

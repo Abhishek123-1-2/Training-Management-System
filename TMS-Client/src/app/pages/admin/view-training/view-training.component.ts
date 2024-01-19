@@ -217,7 +217,7 @@ export class ViewTrainingComponent implements OnInit {
           dataRows: data.map((row, index) => ({
             number: (index + 1).toString(),
             course: row.course,
-            trainer_name: this.extractTrainerName(row.trainer_names),
+            trainer_name: row.trainer_names,
             action: ''
           }))
         };
