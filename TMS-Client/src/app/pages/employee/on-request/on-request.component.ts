@@ -440,7 +440,14 @@ export class OnRequestComponent implements OnInit {
     };
     this.filteredData = [...this.tableData1.dataRows];
 
-    this.employeeService.getTrainingOnRequestSchedule().subscribe(
+    const empId = this.loginService.getEmpId();
+
+    if (!empId) {
+      console.error('EmpId not available.');
+      return;
+    }
+  
+    this.employeeService.getTrainingOnRequestSchedule(empId).subscribe(
       (scheduleData: any[]) => {
         scheduleData.forEach((entry) => {
           console.log(`Training ID: ${entry.trainingId}, Schedule ID: ${entry.scheduleId}`);

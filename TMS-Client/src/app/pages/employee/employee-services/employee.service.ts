@@ -49,8 +49,12 @@ export class EmployeeService {
     return this.http.get<any[]>(`http://localhost:8083/api/training-views/schedule-list/PRE-DEFINED/${empId}`);
   }
 
-  getTrainingOnRequestSchedule(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:8083/api/training-views/schedule-list/ON-REQUEST');
+  getTrainingOnRequestSchedule(empId: string): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:8083/api/training-views/schedule-list/ON-REQUEST/${empId}`);
+  }
+
+  getExternalCourseTrainings(empId: string): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:8083/api/training-views/schedule-list/EXTERNAL/${empId}`);
   }
 
   // enrollTraining(): Observable<any> {

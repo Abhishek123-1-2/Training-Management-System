@@ -43,6 +43,7 @@ export const ROUTES: RouteInfo[] = [
 { path: '/user-dashboard', title: 'Training', class: '', icon: 'nc-user-run', roles:['ROLE_USER'] ,
 submenu:[
 {path:'on-request',title:'On-Request',icon:'',class:'',roles:['ROLE_USER']},
+{path:'external-course', title: 'External Course', icon: '', class: '', roles: ['ROLE_USER']},
 {path:'user-training-history',title:'Training History',icon:'',class:'',roles:['ROLE_USER']},  
 ]},
 { path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_USER']},
@@ -90,6 +91,7 @@ submenu:[
 {path:'training', title:'Training Requests', icon:'nc-caps-small', class:'', roles:['ROLE_MANAGER'], submenu:[
 {path:'training-request', title:'Scheduled Courses', icon:'', class:'', roles:['ROLE_MANAGER']},
 {path:'training-request1', title:'On-Demand Courses', icon:'', class:'', roles:['ROLE_MANAGER']},
+{path:'manager-external-course', title:'External Courses', icon: '', class: '', roles: ['ROLE_MANAGER']},
 {path: '/approved-request', title: 'Request Details', class:'', icon:'', roles:['ROLE_MANAGER']}
 ]},
 {path: '/admin-attendance' ,title :'Reports' ,icon :'nc-chart-bar-32' , class : '', roles: ['ROLE_MANAGER'],},
