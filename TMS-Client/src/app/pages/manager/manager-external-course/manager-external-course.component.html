@@ -23,9 +23,9 @@
                   <td>{{ row.c_name }}</td>
                   <td>{{ row.status }}</td>
                   <td>
-                    <span><button class="btn btn-success">Approve</button></span>
+                    <span><button class="btn btn-success" (click)="approveRequest(row)" [disabled]="row.isApproved">Approve</button></span>
                     &nbsp;
-                    <span><button class="btn btn-danger">Reject</button></span>
+                    <span><button class="btn btn-danger" (click)="rejectRequest(row)" [disabled]="row.isRejected">Reject</button></span>
                   </td>
                 </tr>
               </tbody>

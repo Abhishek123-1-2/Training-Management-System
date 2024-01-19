@@ -57,18 +57,6 @@ export class EmployeeService {
     return this.http.get<any[]>(`http://localhost:8083/api/training-views/schedule-list/EXTERNAL/${empId}`);
   }
 
-  // enrollTraining(): Observable<any> {
-  //   // const url = 'http://localhost:8083/api/registrations';
-  //   // const enrollmentData = {
-  //   //   schedule_id: scheduleId,
-  //   //   training_id: trainingId,
-  //   //   emp_id: empId,
-  //   //   // Add other properties as needed
-  //   // };
-    
-  //   // return this.http.post(url, enrollmentData);
-  // }
-
     enrollTraining(registrationData: any): Observable<number> {
       const enrollUrl = 'http://localhost:8083/api/registrations/enroll';
       const headers = {
@@ -77,9 +65,17 @@ export class EmployeeService {
       };
 
       return this.http.post<number>(enrollUrl, registrationData, { headers });
-
-      
   }
+
+  enrollForExternalTraining(registrationData: any): Observable<number> {
+    const enrollUrl = 'http://localhost:8083/api/registrations/enroll-for-external-course';
+    const headers = {
+      'Content-Type': 'application/json',
+      // Add any other headers as needed
+    };
+
+    return this.http.post<number>(enrollUrl, registrationData, { headers });
+}
 
   getFeedback(empId: string): Observable<any[]> {
     return this.http.get<any[]>(`http://localhost:8083/api/training-views/schedule-list/PRE-DEFINED/completed-courses/${empId}`);

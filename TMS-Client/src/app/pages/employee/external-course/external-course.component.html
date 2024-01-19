@@ -26,11 +26,12 @@
                         <td>{{ row.number }}</td>
                         <td>{{ row.c_name }}</td> 
                     <td>
-                        <button class="btn btn-primary" [disabled]="['Registered', 'confirmed', 'Rejected'].includes(row.status)">Request{{ row.action }}</button>
+                        <button class="btn btn-primary" [disabled]="['Registered', 'confirmed', 'rejected'].includes(row.status)" (click)="sendRequest(row)">Request{{ row.action }}</button>
                     </td>
                     <td>{{ row.status}}</td>
                     <!-- <td *ngIf="row.isEnrolled">{{ row.status }}</td>
                     <td *ngIf="!row.isEnrolled"></td> -->
+                    <td>{{ row.comments }}</td>
                     <td>
                       <button class="btn btn-primary" *ngIf="row.status === 'confirmed'" [routerLink]="['/view-details', row.c_name]">View</button>
                     </td>
