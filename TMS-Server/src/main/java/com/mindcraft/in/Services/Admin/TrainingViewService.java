@@ -67,10 +67,55 @@ public class TrainingViewService {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrainingViewDto.class));
     }
     
+    // public void insertTrainingView(TrainingView trainingView) {
+    //     // Concatenate trainer_names and course
+    //     String concatenatedTrainerNames = trainingView.getTrainer_names() + "(" + trainingView.getCourse() + ")";
+    //     trainingView.setTrainer_names(concatenatedTrainerNames);
+    
+    //     String sql = "INSERT INTO m_trainings " +
+    //             "(training_category, training_type, training_schedule, course, trainer_names, " +
+    //             "prerequisites, course_description, daily_hrs, total_days, url, username, password) " +
+    //             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    //     try (Connection connection = dataSource.getConnection();
+    //          PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+    
+    //         preparedStatement.setString(1, trainingView.getTraining_category());
+    //         preparedStatement.setString(2, trainingView.getTraining_type());
+    //         preparedStatement.setString(3, trainingView.getTraining_schedule());
+    //         preparedStatement.setString(4, trainingView.getCourse());
+    //         preparedStatement.setString(5, trainingView.getTrainer_names());
+    //         preparedStatement.setString(6, trainingView.getPrerequisites());
+    //         preparedStatement.setString(7, trainingView.getCourse_description());
+    //         preparedStatement.setLong(8, trainingView.getDaily_hrs());
+    //         preparedStatement.setLong(9, trainingView.getTotal_days());
+    //         preparedStatement.setString(10, trainingView.getUrl());
+    //         preparedStatement.setString(11, trainingView.getUsername());
+    //         preparedStatement.setString(12, trainingView.getPassword());
+    
+    //         preparedStatement.executeUpdate();
+    
+    //     } catch (SQLException e) {
+    //         e.printStackTrace();
+    //         // Handle the exception according to your application's needs
+    //         System.out.println("SQL State: " + e.getSQLState());
+    //         System.out.println("Error Code: " + e.getErrorCode());
+    //         System.out.println("Message: " + e.getMessage());
+    //         System.out.println("Failed SQL statement: " + sql);
+    //     }
+    // }
+
     public void insertTrainingView(TrainingView trainingView) {
         // Concatenate trainer_names and course
         String concatenatedTrainerNames = trainingView.getTrainer_names() + "(" + trainingView.getCourse() + ")";
         trainingView.setTrainer_names(concatenatedTrainerNames);
+    
+        // Check if training schedule is "EXTERNAL" and set daily_hrs accordingly
+        if ("EXTERNAL".equals(trainingView.getTraining_schedule())) {
+            // Set daily_hrs to null or any default value
+            trainingView.setDaily_hrs(null);
+            trainingView.setTotal_days(null);
+        }
     
         String sql = "INSERT INTO m_trainings " +
                 "(training_category, training_type, training_schedule, course, trainer_names, " +
@@ -87,8 +132,9 @@ public class TrainingViewService {
             preparedStatement.setString(5, trainingView.getTrainer_names());
             preparedStatement.setString(6, trainingView.getPrerequisites());
             preparedStatement.setString(7, trainingView.getCourse_description());
-            preparedStatement.setLong(8, trainingView.getDaily_hrs());
-            preparedStatement.setLong(9, trainingView.getTotal_days());
+            // Use setObject to handle null values for daily_hrs
+            preparedStatement.setObject(8, trainingView.getDaily_hrs());
+            preparedStatement.setObject(9, trainingView.getTotal_days() != null ? trainingView.getTotal_days().longValue() : null);
             preparedStatement.setString(10, trainingView.getUrl());
             preparedStatement.setString(11, trainingView.getUsername());
             preparedStatement.setString(12, trainingView.getPassword());
@@ -103,6 +149,10 @@ public class TrainingViewService {
             System.out.println("Message: " + e.getMessage());
             System.out.println("Failed SQL statement: " + sql);
         }
+    }
+    public List<TrainingView> getAllExternalTrainings() {
+        String sql = "SELECT * FROM m_trainings WHERE training_schedule = 'EXTERNAL' ORDER BY created_on DESC";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrainingView.class));
     }
     public void updateTrainingView(Long trainingId, TrainingView updatedTrainingView) {
         // Concatenate trainer_names and course
@@ -161,10 +211,15 @@ public class TrainingViewService {
     
     
     
+    // public List<TrainingView> getAllTrainingViews() {
+    //     String sql = "SELECT * FROM m_trainings ";
+    //     return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrainingView.class));
+    // }
     public List<TrainingView> getAllTrainingViews() {
-        String sql = "SELECT * FROM m_trainings ORDER BY created_on DESC";
+        String sql = "SELECT * FROM m_trainings WHERE training_schedule IN ('PRE-DEFINED', 'ON-REQUEST') ORDER BY created_on DESC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TrainingView.class));
     }
+    
     public List<String> getAllTrainerNames() {
         String sql = "SELECT DISTINCT trainer_names FROM m_trainings";
         return jdbcTemplate.queryForList(sql, String.class);

@@ -16,6 +16,7 @@ export class AddParticipantsComponent {
   trainer: string;
   s_date: string;
   e_date: string;
+  filteredEmployeeNames: string[] = [];
   // participants: any[] = [
   //   { emp_code: '', emp_name: '',  course_name: '', reg_date: '', status: '', comments: '' },
   // ];
@@ -58,8 +59,20 @@ export class AddParticipantsComponent {
         console.error('Error fetching training courses', error);
       }
     );
+
+    this.addParticipantsForm.get('empName').valueChanges.subscribe((value) => {
+      this.filterEmployeeNames(value);
+    });
   }
 
+// Inside your Angular component
+// closeAutocompleteList() {
+//   this.filteredEmployeeNames = [];
+// }
+// Inside your Angular component
+closeAutocompleteList(autocompleteList: any) {
+  autocompleteList.style.display = 'none';
+}
 
 
   onEmpCodeChange(selectedCode: string) {
@@ -100,7 +113,38 @@ export class AddParticipantsComponent {
       }
     );
   }
+  filterEmployeeNames(value: string) {
+    if (value) {
+      this.http.get<string[]>(`http://localhost:8083/api/employees/names?search=${value}`).subscribe(
+        (employeeNames) => {
+          this.filteredEmployeeNames = employeeNames;
+          this.cdr.detectChanges();
+        },
+        (error) => {
+          console.error('Error fetching employee names', error);
+        }
+      );
+    } else {
+      this.filteredEmployeeNames = [];
+    }
+  }
 
+  onEmpNameSelect(selectedName: string) {
+    const apiUrl = `http://localhost:8083/api/employees/codeByName?empName=${selectedName}`;
+
+    this.http.get<string>(apiUrl).subscribe(
+      (empCode) => {
+        if (empCode) {
+          this.addParticipantsForm.get('empCode').setValue(empCode);
+        } else {
+          console.error('No employee found with the provided empName');
+        }
+      },
+      (error) => {
+        console.error('Error fetching employee code', error);
+      }
+    );
+  }
   onCourseNameChange(index: number, selectedCourse: string) {
     this.http.get<number>(`http://localhost:8083/api/training-views/training-id?course=${selectedCourse}`).subscribe(
       (trainingId) => {

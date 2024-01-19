@@ -45,6 +45,16 @@ public List<Long> getSubordinateEmployeeIds(@RequestParam String reportingManage
     return subordinateEmpIds;
 }
 
+@GetMapping("/names")
+public List<String> getEmployeeNamesBySearch(@RequestParam String search) {
+    return employeeService.getEmployeeNamesBySearch(search);
+}
+
+@GetMapping("/codeByName")
+public String getEmployeeCodeByName(@RequestParam String empName) {
+    return employeeService.getEmployeeCodeByName(empName);
+}
+
 
 }
 

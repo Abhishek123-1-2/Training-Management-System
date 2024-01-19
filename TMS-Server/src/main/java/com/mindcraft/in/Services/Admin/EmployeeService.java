@@ -134,6 +134,22 @@ public List<Long> getSubordinateEmployeeIds(String employeeName) {
     }
 }
 
+public List<String> getEmployeeNamesBySearch(String search) {
+    String sql = "SELECT emp_name FROM m_employee WHERE emp_name LIKE ?";
+    String searchTerm = "%" + search + "%";
+
+    return jdbcTemplate.queryForList(sql, String.class, searchTerm);
+}
+
+public String getEmployeeCodeByName(String empName) {
+    String sql = "SELECT emp_code FROM m_employee WHERE emp_name = ?";
+    try {
+        return jdbcTemplate.queryForObject(sql, new Object[]{empName}, String.class);
+    } catch (Exception e) {
+        // Handle exceptions (e.g., if empName is not found)
+        return null;
+    }
+}
 
 
 }

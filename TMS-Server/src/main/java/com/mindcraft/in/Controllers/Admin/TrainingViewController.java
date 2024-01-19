@@ -478,6 +478,18 @@ public ResponseEntity<Long> createTrainingView(@RequestBody TrainingView trainin
     }
 }
 
+@GetMapping("/external")
+public ResponseEntity<List<TrainingView>> getAllExternalTrainings() {
+    List<TrainingView> externalTrainings = trainingViewService.getAllExternalTrainings();
+
+    if (!externalTrainings.isEmpty()) {
+        return new ResponseEntity<>(externalTrainings, HttpStatus.OK);
+    } else {
+        // Handle the case where no external trainings are found
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+}
+
 //     @PostMapping
 // public ResponseEntity<String> createTrainingView(@RequestBody TrainingView trainingView) {
 //     String course = trainingView.getCourse();

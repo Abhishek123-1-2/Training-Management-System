@@ -32,7 +32,7 @@
                   <td class="text-center">
                     <a [routerLink]="['/type', row.course]">{{ row.course }}</a>
                   </td>
-                  <td class="text-center">{{ row.trainer_name }}</td>
+                  <td class="text-center">{{ row.trainer_name.split('(')[0].trim() }}</td>
                   <td class="text-center">
                     <button class="btn btn-primary" [routerLink]="['/schedule-training',{ course:row.course, trainer:row.trainer_name}]">Schedule{{ row.action }}</button>
                   </td>
