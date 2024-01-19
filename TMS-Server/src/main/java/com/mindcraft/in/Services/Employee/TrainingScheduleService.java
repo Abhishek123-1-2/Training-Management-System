@@ -110,10 +110,10 @@ public class TrainingScheduleService {
             
             String sql = "SELECT " +
             "t.training_id, t.training_category, t.training_type, t.training_schedule, t.course, " +
-            "t.url, t.username, t.password, r.registration_status, r.emp_id " +
+            "t.url, t.username, t.password, r.registration_status, r.emp_id, r.registration_response " +
             "FROM m_trainings t " +
             "LEFT JOIN registration r ON t.training_id = r.training_id AND r.emp_id = COALESCE(CAST(? AS BIGINT)) " +
-            "WHERE t.training_schedule = 'ON-REQUEST' ";
+            "WHERE t.training_schedule = 'EXTERNAL' ";
 
             return jdbcTemplate.query(sql, new Object[]{Long.parseLong(empId)}, new BeanPropertyRowMapper<>(TrainingScheduleDTO.class));
 

@@ -3,6 +3,7 @@ package com.mindcraft.in.Controllers.Admin;
 import com.mindcraft.in.Pojos.Admin.AdditionalRegistrationDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.EmployeeDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.Registration;
+import com.mindcraft.in.Pojos.Admin.RegistrationDTO;
 import com.mindcraft.in.Pojos.Admin.RegistrationDetailsDTO;
 import com.mindcraft.in.Pojos.Employee.EnrollmentRequest;
 import com.mindcraft.in.Services.Admin.RegistrationService;
@@ -73,9 +74,21 @@ public class RegistrationController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
     @PostMapping("/enroll")
     public ResponseEntity<Long> enrollTraining(@RequestBody Registration registration) {
     Long registrationId = registrationService.enrollTraining(registration);
+
+    if (registrationId != null) {
+        return new ResponseEntity<>(registrationId, HttpStatus.CREATED);
+    } else {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
+    @PostMapping("/enroll-for-external-course")
+    public ResponseEntity<Long> enrollForExternalTraining(@RequestBody RegistrationDTO registration) {
+    Long registrationId = registrationService.enrollForExternalTraining(registration);
 
     if (registrationId != null) {
         return new ResponseEntity<>(registrationId, HttpStatus.CREATED);
@@ -126,6 +139,11 @@ public List<AdditionalRegistrationDetailsDTO> getDetails(@PathVariable String em
     return registrationService.getRegisteredDetails(empId);
 }
 
+@GetMapping("/registered-details-external-courses/{empId}")
+public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailForExternalCourse(@PathVariable String empId) {
+    return registrationService.getRegisteredDetailsForExternalCourse(empId);
+}
+
 
 @GetMapping("/details-for-course/{courseName}")
     public ResponseEntity<List<AdditionalRegistrationDetailsDTO>> getDetailsForCourse(@PathVariable String courseName) {
@@ -147,6 +165,11 @@ public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithPlannedD
 public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithPlannedDatesOnRequest() {
     return registrationService.getRegistrationDetailsWithPlannedDatesOnRequest();
 }
+
+    @GetMapping("/details-for-external-course")
+    public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsForExternalCourse() {
+        return registrationService.getRegistrationDetailsForExternalCourse();
+    }
 
 //  @PutMapping("/{registrationId}/status")
 //     public ResponseEntity<Void> updateStatus(@PathVariable Long registrationId, @RequestBody Map<String, String> statusRequest) {
