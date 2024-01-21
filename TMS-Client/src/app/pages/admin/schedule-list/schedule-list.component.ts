@@ -305,11 +305,22 @@ export class ScheduleListComponent implements OnInit {
   // viewAttendees(course: string, trainingStatus: string): void {
   //   this.router.navigate(['/participants-list'], { queryParams: { course, trainingStatus } });
   // }
-  viewAttendees(course: string, trainingStatus: string, trainerName: string): void {
-    this.router.navigate(['/participants-list'], { queryParams: { course, trainingStatus, trainerName } });
+  // viewAttendees(course: string, trainingStatus: string, trainerName: string): void {
+  //   this.router.navigate(['/participants-list'], { queryParams: { course, trainingStatus, trainerName } });
+  // }
+  
+  viewAttendees(course: string, trainingStatus: string, trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
+    this.router.navigate(['/participants-list'], {
+      queryParams: {
+        course,
+        trainingStatus,
+        trainerName,
+        plannedStartDate,
+        plannedEndDate
+      }
+    });
   }
   
-
  
   
 

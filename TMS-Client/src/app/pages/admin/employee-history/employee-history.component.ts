@@ -34,7 +34,8 @@ export class EmployeeHistoryComponent implements OnInit {
   public rollPaginator: boolean = false; // Added line
   public visiblePages: number[] = []; // Added line
   private rollingPaginatorSize = 5;
-
+  plannedStartDate: string; // Add this line
+  plannedEndDate: string;
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   // ngOnInit(): void {
@@ -47,6 +48,8 @@ export class EmployeeHistoryComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.c_name = params['courseName'];
       this.trainerName = params['trainerName']; // Add this line
+      this.plannedStartDate = params['plannedStartDate']; // Add this line
+      this.plannedEndDate = params['plannedEndDate'];
       this.fetchEmployeeDetails();
     });
   }
@@ -80,7 +83,7 @@ export class EmployeeHistoryComponent implements OnInit {
   fetchEmployeeDetails(): void {
     this.http
       .get<{ empCode: string; empName: string; plannedStartDate: string; plannedEndDate: string; trainingStatus: string }[]>(
-        `http://localhost:8083/api/training-views/completed-course-details/${this.c_name}/${this.trainerName}`
+        `http://localhost:8083/api/training-views/completed-course-details/${this.c_name}/${this.trainerName}/${this.plannedStartDate}/${this.plannedEndDate}`
       )
       .subscribe(
         (data) => {

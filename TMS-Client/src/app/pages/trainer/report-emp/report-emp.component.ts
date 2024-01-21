@@ -24,6 +24,8 @@ interface TableData {
 export class ReportOfEmployeeComponent implements OnInit {
   c_name: string;
   trainerName: string; 
+  plannedStartDate: string; // Add this line
+  plannedEndDate: string;  
   public tableData1: TableData;
   public filteredData: TableRow[];
   public searchValue: string = '';
@@ -38,13 +40,23 @@ export class ReportOfEmployeeComponent implements OnInit {
   //     this.fetchEmployeeDetails();
   //   });
   // }
+  // ngOnInit(): void {
+  //   this.route.params.subscribe((params) => {
+  //     this.c_name = params['c_name'];
+  //     this.trainerName = params['trainer_name']; // Get trainerName from route params
+  //     this.fetchEmployeeDetails();
+  //   });
+  // }
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.c_name = params['c_name'];
-      this.trainerName = params['trainer_name']; // Get trainerName from route params
+      this.trainerName = params['trainer_name'];
+      this.plannedStartDate = params['plannedStartDate']; // Add this line
+      this.plannedEndDate = params['plannedEndDate'];     // Add this line
       this.fetchEmployeeDetails();
     });
   }
+  
   // fetchEmployeeDetails(): void {
   //   this.http.get<{ empCode: string, empName: string, plannedStartDate: string, plannedEndDate: string, trainingStatus: string }[]>(
   //     `http://localhost:8083/api/training-views/completed-course-details/${this.c_name}`
@@ -76,7 +88,7 @@ export class ReportOfEmployeeComponent implements OnInit {
         plannedStartDate: string;
         plannedEndDate: string;
         trainingStatus: string;
-      }[]>(`http://localhost:8083/api/training-views/completed-course-details/${this.c_name}/${this.trainerName}`)
+      }[]>(`http://localhost:8083/api/training-views/completed-course-details/${this.c_name}/${this.trainerName}/${this.plannedStartDate}/${this.plannedEndDate}`)
       .subscribe(
         (data) => {
           this.tableData1 = {

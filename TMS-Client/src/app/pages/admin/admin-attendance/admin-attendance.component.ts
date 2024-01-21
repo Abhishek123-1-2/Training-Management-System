@@ -44,8 +44,8 @@ export class AdminAttendanceComponent implements OnInit {
             t_name: item.trainerName,
             // s_date: new Date(item.plannedStartDate).toLocaleDateString(),
             // e_date: new Date(item.plannedEndDate).toLocaleDateString(),
-            s_date: this.formatDate(item.plannedStartDate),
-            e_date: this.formatDate(item.plannedEndDate),
+            s_date: item.plannedStartDate,
+            e_date: item.plannedEndDate,
             status: item.trainingStatus,
             v_attendees: 'View'
           }))

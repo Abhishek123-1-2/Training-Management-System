@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import { DatePipe } from '@angular/common';
 declare interface TableData {
   headerRow: string[];
   dataRows: {
@@ -21,6 +21,7 @@ declare interface TableData {
   selector: 'student-list1-cmp',
   moduleId: module.id,
   templateUrl: './student_list1.component.html',
+  providers: [DatePipe],
 })
 export class StudentList1Component implements OnInit {
   course: string;
@@ -36,7 +37,7 @@ export class StudentList1Component implements OnInit {
  public rollPaginator: boolean = false; // Added line
   public visiblePages: number[] = []; // Added line
   private rollingPaginatorSize = 5;
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient,private datePipe: DatePipe) {}
 
   // ngOnInit(): void {
   //   this.route.params.subscribe((params) => {
@@ -55,7 +56,7 @@ export class StudentList1Component implements OnInit {
       this.start_date = params['start_date'];
       this.end_date = params['end_date'];
       this.status = params['status'];
-      this.fetchStudentList(this.course, this.trainerName);
+      this.fetchStudentList(this.course, this.trainerName,this.start_date,this.end_date);
     });
   }
 
@@ -116,8 +117,11 @@ export class StudentList1Component implements OnInit {
   //       this.filteredData = [...this.studentList.dataRows];
   //     });
   // }
-  fetchStudentList(course: string, trainerName: string): void {
-    this.http.get<any[]>(`http://localhost:8083/api/training-views/completed-course-details/${course}/${trainerName}`)
+  fetchStudentList(course: string, trainerName: string,start_date:string,end_date:string): void {
+    const formattedStartDate = this.datePipe.transform(new Date(start_date), 'yyyy-MM-dd');
+  const formattedEndDate = this.datePipe.transform(new Date(end_date), 'yyyy-MM-dd');
+
+    this.http.get<any[]>(`http://localhost:8083/api/training-views/completed-course-details/${course}/${trainerName}/${formattedStartDate}/${formattedEndDate}`)
       .subscribe(data => {
         this.studentList = {
           headerRow: ['Employee Code', 'Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status', 'Reports'],
@@ -135,6 +139,33 @@ export class StudentList1Component implements OnInit {
         this.filteredData = [...this.studentList.dataRows];
       });
 }
+// fetchStudentList(course: string, trainerName: string, start_date: string, end_date: string): void {
+//   this.http.get<any[]>(`http://localhost:8083/api/training-views/completed-course-details/${course}/${trainerName}/${start_date}/${end_date}`)
+//     .subscribe(data => {
+//       // Check if 'data' is an array and not empty
+//       if (Array.isArray(data) && data.length > 0) {
+//         this.studentList = {
+//           headerRow: ['Employee Code', 'Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status', 'Reports'],
+//           dataRows: data.map(item => ({
+//             emp_code: item.empCode,
+//             emp_name: item.empName,
+//             c_name: item.course,
+//             t_name: item.trainerName,
+//             start_date: new Date(item.plannedStartDate).toLocaleDateString(),
+//             end_date: new Date(item.plannedEndDate).toLocaleDateString(),
+//             status: item.trainingStatus,
+//             view: 'View',
+//           })),
+//         };
+//         this.filteredData = [...this.studentList.dataRows];
+//       } else {
+//         console.error('Invalid or empty response from the API');
+//       }
+//     }, error => {
+//       console.error('Error fetching data from the API', error);
+//     });
+// }
+
 
 
   applyFilter(): void {

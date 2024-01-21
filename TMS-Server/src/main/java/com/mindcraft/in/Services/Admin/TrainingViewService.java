@@ -550,7 +550,30 @@ public void updateTrainingStatusToCompleted(Long scheduleId) {
 //             rs.getString("trainer_name")  // Corrected mapping
 //     ));
 // }
-public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String course, String trainerName) {
+// public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String course, String trainerName) {
+//     String sql = "SELECT e.emp_code, e.emp_name, t.course, ts.trainer_name, " +
+//                  "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
+//                  "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
+//                  "ts.training_status " +
+//                  "FROM m_trainings t " +
+//                  "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+//                  "JOIN registration r ON ts.schedule_id = r.schedule_id " +
+//                  "JOIN m_employee e ON r.emp_id = e.emp_id " +
+//                  "WHERE t.course = ? AND ts.trainer_name = ? AND ts.training_status = 'Completed' " +
+//                  "ORDER BY ts.planned_start_date DESC";
+
+//     return jdbcTemplate.query(sql, new Object[]{course, trainerName}, (rs, rowNum) -> new EmployeeTrainingDetailsDTO(
+//             rs.getString("emp_code"),
+//             rs.getString("emp_name"),
+//             rs.getString("planned_start_date"),
+//             rs.getString("planned_end_date"),
+//             rs.getString("training_status"),
+//             rs.getString("trainer_name"),
+//             rs.getString("course")
+//     ));
+// }
+
+public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String course, String trainerName, LocalDate plannedStartDate, LocalDate plannedEndDate) {
     String sql = "SELECT e.emp_code, e.emp_name, t.course, ts.trainer_name, " +
                  "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
                  "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
@@ -560,9 +583,10 @@ public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String c
                  "JOIN registration r ON ts.schedule_id = r.schedule_id " +
                  "JOIN m_employee e ON r.emp_id = e.emp_id " +
                  "WHERE t.course = ? AND ts.trainer_name = ? AND ts.training_status = 'Completed' " +
+                 "AND ts.planned_start_date >= ? AND ts.planned_end_date <= ? " +
                  "ORDER BY ts.planned_start_date DESC";
 
-    return jdbcTemplate.query(sql, new Object[]{course, trainerName}, (rs, rowNum) -> new EmployeeTrainingDetailsDTO(
+    return jdbcTemplate.query(sql, new Object[]{course, trainerName, plannedStartDate, plannedEndDate}, (rs, rowNum) -> new EmployeeTrainingDetailsDTO(
             rs.getString("emp_code"),
             rs.getString("emp_name"),
             rs.getString("planned_start_date"),
@@ -572,7 +596,6 @@ public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String c
             rs.getString("course")
     ));
 }
-
 
 public List<CompletedCourseInfoDTO> getCompletedCourses() {
     String sql = "SELECT t.course, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, ts.training_status " +
@@ -760,8 +783,41 @@ public List<EmployeeCourseDetailsDTO> getEmployeesCompletedCourseDetails(String 
 //             rs.getString("training_status")
 //     ));
 // }
+// public List<EmployeeCourseDetailsDTO> getEmployeesCompletedCourseDetailsForSubordinateEmpIds(
+//     String course, List<Long> subordinateEmpIds, String trainerName) {
+    
+//     String sql = "SELECT e.emp_id, e.emp_code, e.emp_name, t.course, ts.trainer_name, " +
+//                  "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
+//                  "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
+//                  "ts.training_status " +
+//                  "FROM m_trainings t " +
+//                  "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+//                  "JOIN registration r ON ts.schedule_id = r.schedule_id " +
+//                  "JOIN m_employee e ON r.emp_id = e.emp_id " +
+//                  "WHERE t.course = :course AND ts.training_status = 'Completed' " +
+//                  "AND e.emp_id IN (:empIds) " +
+//                  "AND ts.trainer_name = :trainerName " + // Include trainerName in the condition
+//                  "ORDER BY ts.planned_start_date DESC";
+
+//     MapSqlParameterSource parameters = new MapSqlParameterSource();
+//     parameters.addValue("course", course);
+//     parameters.addValue("empIds", subordinateEmpIds);
+//     parameters.addValue("trainerName", trainerName); // Add trainerName to parameters
+
+//     return namedParameterJdbcTemplate.query(sql, parameters, (rs, rowNum) -> new EmployeeCourseDetailsDTO(
+//         rs.getLong("emp_id"),
+//         rs.getString("emp_code"),
+//         rs.getString("emp_name"),
+//         rs.getString("course"),
+//         rs.getString("trainer_name"), // Use trainer_name from the result set
+//         rs.getString("planned_start_date"),
+//         rs.getString("planned_end_date"),
+//         rs.getString("training_status")
+//     ));
+// }
 public List<EmployeeCourseDetailsDTO> getEmployeesCompletedCourseDetailsForSubordinateEmpIds(
-    String course, List<Long> subordinateEmpIds, String trainerName) {
+    String course, List<Long> subordinateEmpIds, String trainerName,
+    String startDate, String endDate) { // Add startDate and endDate as parameters
     
     String sql = "SELECT e.emp_id, e.emp_code, e.emp_name, t.course, ts.trainer_name, " +
                  "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
@@ -773,20 +829,24 @@ public List<EmployeeCourseDetailsDTO> getEmployeesCompletedCourseDetailsForSubor
                  "JOIN m_employee e ON r.emp_id = e.emp_id " +
                  "WHERE t.course = :course AND ts.training_status = 'Completed' " +
                  "AND e.emp_id IN (:empIds) " +
-                 "AND ts.trainer_name = :trainerName " + // Include trainerName in the condition
+                 "AND ts.trainer_name = :trainerName " +
+                 "AND ts.planned_start_date >= TO_DATE(:startDate, 'YYYY-MM-DD HH24:MI:SS') " +
+                 "AND ts.planned_end_date <= TO_DATE(:endDate, 'YYYY-MM-DD HH24:MI:SS') " + // Add date conditions
                  "ORDER BY ts.planned_start_date DESC";
 
     MapSqlParameterSource parameters = new MapSqlParameterSource();
     parameters.addValue("course", course);
     parameters.addValue("empIds", subordinateEmpIds);
-    parameters.addValue("trainerName", trainerName); // Add trainerName to parameters
+    parameters.addValue("trainerName", trainerName);
+    parameters.addValue("startDate", startDate); // Add startDate to parameters
+    parameters.addValue("endDate", endDate); // Add endDate to parameters
 
     return namedParameterJdbcTemplate.query(sql, parameters, (rs, rowNum) -> new EmployeeCourseDetailsDTO(
         rs.getLong("emp_id"),
         rs.getString("emp_code"),
         rs.getString("emp_name"),
         rs.getString("course"),
-        rs.getString("trainer_name"), // Use trainer_name from the result set
+        rs.getString("trainer_name"),
         rs.getString("planned_start_date"),
         rs.getString("planned_end_date"),
         rs.getString("training_status")

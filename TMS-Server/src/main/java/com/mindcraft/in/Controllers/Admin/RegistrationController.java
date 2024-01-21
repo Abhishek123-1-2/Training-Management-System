@@ -8,11 +8,13 @@ import com.mindcraft.in.Pojos.Employee.EnrollmentRequest;
 import com.mindcraft.in.Services.Admin.RegistrationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -94,13 +96,24 @@ public class RegistrationController {
 //     List<EmployeeDetailsDTO> attendees = registrationService.getAttendees(course, trainingStatus);
 //     return ResponseEntity.ok(attendees);
 // }
+// @GetMapping("/attendees")
+// public ResponseEntity<List<EmployeeDetailsDTO>> getAttendees(
+//         @RequestParam String course,
+//         @RequestParam String trainingStatus,
+//         @RequestParam(required = false) String trainerName) {
+
+//     List<EmployeeDetailsDTO> attendees = registrationService.getAttendees(course, trainingStatus, trainerName);
+//     return ResponseEntity.ok(attendees);
+// }
 @GetMapping("/attendees")
 public ResponseEntity<List<EmployeeDetailsDTO>> getAttendees(
         @RequestParam String course,
         @RequestParam String trainingStatus,
-        @RequestParam(required = false) String trainerName) {
+        @RequestParam(required = false) String trainerName,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date plannedStartDate,
+        @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date plannedEndDate) {
 
-    List<EmployeeDetailsDTO> attendees = registrationService.getAttendees(course, trainingStatus, trainerName);
+    List<EmployeeDetailsDTO> attendees = registrationService.getAttendees(course, trainingStatus, trainerName, plannedStartDate, plannedEndDate);
     return ResponseEntity.ok(attendees);
 }
 

@@ -5,6 +5,8 @@ interface TrainingSchedule {
   scheduleId: number;
   course: string;
   trainerName: string;
+  plannedStartDate: string; // Add Planned Start Date
+  plannedEndDate: string;   // Add Planned End Date
 }
 
 interface TableRow {
@@ -44,13 +46,15 @@ export class TrainingRecordComponent implements OnInit {
     this.http.get<TrainingSchedule[]>('http://localhost:8083/api/training-views/schedule-list').subscribe(
       (data) => {
         this.tableData1 = {
-          headerRow: ['Sr No.', 'Course Name', 'Trainer Name', 'Records'],
+          headerRow: ['Sr No.', 'Course Name', 'Trainer Name','Planned Start Date', 'Planned End Date', 'Records'],
           dataRows: data.map((item, index) => ({
             sr_no: (index + 1).toString(),
             scheduleId: item.scheduleId, // Added scheduleId
             c_name: item.course,
             t_name: item.trainerName,
             view: 'View',
+            plannedStartDate: this.formatDate(item.plannedStartDate), // Add Planned Start Date
+            plannedEndDate: this.formatDate(item.plannedEndDate),
           })),
         };
         this.applyFilter();
@@ -60,7 +64,13 @@ export class TrainingRecordComponent implements OnInit {
       }
     );
   }
-
+  formatDate(timestamp: string): string {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
   applyFilter() {
     this.filteredData = this.tableData1.dataRows.filter((row) =>
       Object.values(row).some((value) =>

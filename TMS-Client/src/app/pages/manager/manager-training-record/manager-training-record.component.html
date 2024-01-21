@@ -25,9 +25,11 @@
                     <td class = "text-center">{{ row.sr_no }}</td>
                     <td class = "text-center">{{ row.c_name }}</td>
                     <td class = "text-center">{{ row.t_name.split('(')[0].trim() }}</td>
+                    <td class="text-center">{{ row.plannedStartDate }}</td>
+                    <td class="text-center">{{ row.plannedEndDate }}</td>
                     <td class = "text-center">
                       <!-- <a class="btn btn-primary" [routerLink]="['/manager-employee-history', row.c_name]">{{ row.view }}</a> -->
-                      <a class="btn btn-primary" [routerLink]="['/manager-employee-history', row.c_name, row.t_name]">{{ row.view }}</a>
+                      <a class="btn btn-primary" [routerLink]="['/manager-employee-history', row.c_name, row.t_name,row.plannedStartDate,row.plannedEndDate]">{{ row.view }}</a>
 
                     </td>
                   </tr>

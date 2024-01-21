@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -145,22 +146,44 @@ public Long register(Registration registration) {
 
 //     return jdbcTemplate.query(sql, new Object[]{course, trainingStatus}, new BeanPropertyRowMapper<>(EmployeeDetailsDTO.class));
 // }
-public List<EmployeeDetailsDTO> getAttendees(String course, String trainingStatus, String trainerName) {
+// public List<EmployeeDetailsDTO> getAttendees(String course, String trainingStatus, String trainerName) {
+//     String sql = "SELECT e.emp_code AS empCode, e.emp_name AS empName, " +
+//                  "e.designation_name AS designationName, e.function_name AS functionName, " +
+//                  "e.email AS email, r.registration_status AS registrationStatus, " +
+//                  "s.trainer_name AS trainerName " +
+//                  "FROM m_employee e " +
+//                  "JOIN registration r ON e.emp_id = r.emp_id " +
+//                  "JOIN training_schedule s ON r.schedule_id = s.schedule_id " +
+//                  "JOIN m_trainings t ON s.training_id = t.training_id " +
+//                  "WHERE t.course = ? AND s.training_status = ? AND r.registration_status = 'confirmed' " +
+//                  "AND s.trainer_name = ? " +
+//                  "ORDER BY r.registration_date DESC";
+
+//     return jdbcTemplate.query(
+//             sql,
+//             new Object[]{course, trainingStatus, trainerName},
+//             new BeanPropertyRowMapper<>(EmployeeDetailsDTO.class)
+//     );
+// }
+public List<EmployeeDetailsDTO> getAttendees(String course, String trainingStatus, String trainerName,
+                                            Date plannedStartDate, Date plannedEndDate) {
     String sql = "SELECT e.emp_code AS empCode, e.emp_name AS empName, " +
                  "e.designation_name AS designationName, e.function_name AS functionName, " +
                  "e.email AS email, r.registration_status AS registrationStatus, " +
-                 "s.trainer_name AS trainerName " +
+                 "s.trainer_name AS trainerName, s.planned_start_date AS plannedStartDate, " +
+                 "s.planned_end_date AS plannedEndDate " +
                  "FROM m_employee e " +
                  "JOIN registration r ON e.emp_id = r.emp_id " +
                  "JOIN training_schedule s ON r.schedule_id = s.schedule_id " +
                  "JOIN m_trainings t ON s.training_id = t.training_id " +
                  "WHERE t.course = ? AND s.training_status = ? AND r.registration_status = 'confirmed' " +
                  "AND s.trainer_name = ? " +
+                 "AND s.planned_start_date >= ? AND s.planned_end_date <= ? " +
                  "ORDER BY r.registration_date DESC";
 
     return jdbcTemplate.query(
             sql,
-            new Object[]{course, trainingStatus, trainerName},
+            new Object[]{course, trainingStatus, trainerName, plannedStartDate, plannedEndDate},
             new BeanPropertyRowMapper<>(EmployeeDetailsDTO.class)
     );
 }

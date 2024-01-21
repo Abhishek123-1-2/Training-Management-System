@@ -46,7 +46,9 @@
                       <!-- <button (click)="viewEmployeesForCourse(row.course)" class="btn btn-primary">View</button> -->
                       <!-- <button (click)="viewEmployeesForCourse(row.course, trainerName)" class="btn btn-primary">View</button> -->
                       <!-- <button (click)="viewEmployeesForCourse(row.course, row.trainerName)" class="btn btn-primary">View</button> -->
-                      <a class="btn btn-primary" [routerLink]="['/student-list3', row.course, row.trainerName]">{{ row.view }}</a>
+                      <!-- <a class="btn btn-primary" [routerLink]="['/student-list3', row.course, row.trainerName]">{{ row.view }}</a> -->
+                      <a class="btn btn-primary" [routerLink]="['/student-list3', row.course, row.trainerName, row.plannedStartDate, row.plannedEndDate]">{{ row.view }}</a>
+
                     </td>
                   </tr>
               </tbody>

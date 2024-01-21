@@ -8,6 +8,8 @@ interface TrainingSchedule {
   course: string;
   trainerName: string;
   training_status: string;
+  plannedStartDate: string;  // Added plannedStartDate
+  plannedEndDate: string;    // Added plannedEndDate
 }
 
 interface TableRow {
@@ -85,17 +87,40 @@ export class ReportMainComponent implements OnInit {
   //     }
   //   );
   // }
+  // fetchTrainingScheduleList(empName: string): void {
+  //   this.http.get<TrainingSchedule[]>(`http://localhost:8083/api/training-views/schedule-list/${this.trainerName}/${empName}`).subscribe(
+
+  //     (data) => {
+  //       this.tableData1 = {
+  //         headerRow: ['Sr No.', 'Course Name', 'Trainer Name', 'Records'],
+  //         dataRows: data.map((item, index) => ({
+  //           number: (index + 1).toString(),
+  //           scheduleId: item.scheduleId,
+  //           course: item.course,
+  //           t_name: item.trainerName, // Extract trainerName
+  //           training_status: item.training_status,
+  //           view: 'View',
+  //         })),
+  //       };
+  //       this.applyFilter();
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching training schedule list:', error);
+  //     }
+  //   );
+  // }
   fetchTrainingScheduleList(empName: string): void {
     this.http.get<TrainingSchedule[]>(`http://localhost:8083/api/training-views/schedule-list/${this.trainerName}/${empName}`).subscribe(
-
       (data) => {
         this.tableData1 = {
-          headerRow: ['Sr No.', 'Course Name', 'Trainer Name', 'Records'],
+          headerRow: ['Sr No.', 'Course Name', 'Trainer Name', 'Planned Start Date', 'Planned End Date', 'Records'],
           dataRows: data.map((item, index) => ({
             number: (index + 1).toString(),
             scheduleId: item.scheduleId,
             course: item.course,
-            t_name: item.trainerName, // Extract trainerName
+            t_name: item.trainerName,
+            plannedStartDate: this.formatDate(item.plannedStartDate), // Extract plannedStartDate
+            plannedEndDate: this.formatDate(item.plannedEndDate),     // Extract plannedEndDate
             training_status: item.training_status,
             view: 'View',
           })),
@@ -106,6 +131,13 @@ export class ReportMainComponent implements OnInit {
         console.error('Error fetching training schedule list:', error);
       }
     );
+  }
+  formatDate(timestamp: string): string {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
   private extractTrainerName(fullName: string): string {
     const indexOfOpeningBracket = fullName.indexOf('(');
@@ -123,9 +155,14 @@ export class ReportMainComponent implements OnInit {
   //     } 
   //   });
   // }
-  navigateToReportEmployee(course: string, trainerName: string): void {
-    this.router.navigate(['/report-employee', course, trainerName]);
+  // navigateToReportEmployee(course: string, trainerName: string): void {
+  //   this.router.navigate(['/report-employee', course, trainerName]);
+  // }
+
+  navigateToReportEmployee(course: string, trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
+    this.router.navigate(['/report-employee', course, trainerName, plannedStartDate, plannedEndDate]);
   }
+  
   
   applyFilter() {
     this.filteredData = this.tableData1.dataRows.filter((row) =>

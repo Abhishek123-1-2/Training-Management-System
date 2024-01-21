@@ -45,7 +45,7 @@
                     <button class="btn btn-primary" (click)="toggleEditMode(i)">Edit{{ row.action }}</button>
                   </td>
                   <td class="text-center">
-                    <button class="btn btn-primary" (click)="viewAttendees(row.course, row.status, row.trainer_name)" [disabled]="row.status !== 'On-Going'">
+                    <button class="btn btn-primary" (click)="viewAttendees(row.course, row.status, row.trainer_name,row.planned_start_date,row.planned_end_date)" [disabled]="row.status !== 'On-Going'">
                       {{ row.view }}
                     </button>
                   </td>

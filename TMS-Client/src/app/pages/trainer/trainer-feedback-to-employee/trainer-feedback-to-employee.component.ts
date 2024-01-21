@@ -195,12 +195,19 @@ export class TrainerFeedbackToEmployeeComponent implements OnInit {
       }
     );
   }
+  // formatDate(timestamp: string): string {
+  //   const date = new Date(timestamp);
+  //   const year = date.getFullYear();
+  //   const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  //   const day = date.getDate().toString().padStart(2, '0');
+  //   return `${day}-${month}-${year}`;
+  // }
   formatDate(timestamp: string): string {
     const date = new Date(timestamp);
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
-    return `${day}-${month}-${year}`;
+    return `${year}-${month}-${day}`;
   }
   get pages(): number[] {
     if (this.tableData1.dataRows.length === 0) {

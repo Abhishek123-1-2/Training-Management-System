@@ -394,10 +394,12 @@ import com.mindcraft.in.Services.Admin.TrainingViewService;
 import com.mindcraft.in.Services.Employee.TrainingScheduleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -766,11 +768,19 @@ public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
 //     return trainingViewService.getEmployeesCompletedCourseInfo(course);
 // }
 
-@GetMapping("/completed-course-details/{course}/{trainerName}")
+// @GetMapping("/completed-course-details/{course}/{trainerName}")
+// public List<EmployeeTrainingDetailsDTO> getCompletedCourseDetails(
+//     @PathVariable String course,
+//     @PathVariable String trainerName) {
+//     return trainingViewService.getEmployeesCompletedCourseInfo(course, trainerName);
+// }
+@GetMapping("/completed-course-details/{course}/{trainerName}/{plannedStartDate}/{plannedEndDate}")
 public List<EmployeeTrainingDetailsDTO> getCompletedCourseDetails(
     @PathVariable String course,
-    @PathVariable String trainerName) {
-    return trainingViewService.getEmployeesCompletedCourseInfo(course, trainerName);
+    @PathVariable String trainerName,
+    @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate plannedStartDate,
+    @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate plannedEndDate) {
+    return trainingViewService.getEmployeesCompletedCourseInfo(course, trainerName, plannedStartDate, plannedEndDate);
 }
 
 
@@ -800,15 +810,29 @@ public List<String> getAllTrainerNames() {
     
     //     return ResponseEntity.ok(completedCoursesDetails);
     // }
-    @GetMapping("/completedDetailsForSubordinates/{course}")
+//     @GetMapping("/completedDetailsForSubordinates/{course}")
+// public ResponseEntity<List<EmployeeCourseDetailsDTO>> getEmployeesCompletedCourseDetailsForSubordinateEmpIds(
+//         @PathVariable String course, 
+//         @RequestParam List<Long> subordinateEmpIds,
+//         @RequestParam String trainerName) { // Add trainerName as a request parameter
+
+//     List<EmployeeCourseDetailsDTO> completedCoursesDetails = 
+//         trainingViewService.getEmployeesCompletedCourseDetailsForSubordinateEmpIds(
+//             course, subordinateEmpIds, trainerName);
+
+//     return ResponseEntity.ok(completedCoursesDetails);
+// }
+@GetMapping("/completedDetailsForSubordinates/{course}")
 public ResponseEntity<List<EmployeeCourseDetailsDTO>> getEmployeesCompletedCourseDetailsForSubordinateEmpIds(
-        @PathVariable String course, 
-        @RequestParam List<Long> subordinateEmpIds,
-        @RequestParam String trainerName) { // Add trainerName as a request parameter
+    @PathVariable String course, 
+    @RequestParam List<Long> subordinateEmpIds,
+    @RequestParam String trainerName,
+    @RequestParam String startDate,
+    @RequestParam String endDate) { // Add startDate and endDate as request parameters
 
     List<EmployeeCourseDetailsDTO> completedCoursesDetails = 
         trainingViewService.getEmployeesCompletedCourseDetailsForSubordinateEmpIds(
-            course, subordinateEmpIds, trainerName);
+            course, subordinateEmpIds, trainerName, startDate, endDate);
 
     return ResponseEntity.ok(completedCoursesDetails);
 }

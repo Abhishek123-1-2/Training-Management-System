@@ -177,14 +177,26 @@ export class ManagerEmployeeHistoryComponent implements OnInit {
   //     this.fetchEmployeeCourseDetails(this.courseName, subordinateEmpIds);
   //   });
   // }
+  // ngOnInit(): void {
+  //   this.route.params.subscribe((params) => {
+  //     const subordinateEmpIds = this.retrieveSubordinateEmpIdsFromLocalStorage();
+  //     this.courseName = params['course'];
+  //     const trainerName = params['trainerName']; // Retrieve trainerName from route params
+  //     this.fetchEmployeeCourseDetails(this.courseName, subordinateEmpIds, trainerName);
+  //   });
+  // }
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       const subordinateEmpIds = this.retrieveSubordinateEmpIdsFromLocalStorage();
       this.courseName = params['course'];
-      const trainerName = params['trainerName']; // Retrieve trainerName from route params
-      this.fetchEmployeeCourseDetails(this.courseName, subordinateEmpIds, trainerName);
+      const trainerName = params['trainerName'];
+      const plannedStartDate = params['plannedStartDate']; // Retrieve plannedStartDate from route params
+      const plannedEndDate = params['plannedEndDate']; // Retrieve plannedEndDate from route params
+  
+      this.fetchEmployeeCourseDetails(this.courseName, subordinateEmpIds, trainerName, plannedStartDate, plannedEndDate);
     });
   }
+  
   retrieveSubordinateEmpIdsFromLocalStorage(): number[] {
     const storedSubordinateEmpIds = localStorage.getItem('subordinateEmpIds');
     let subordinateEmpIds: number[] = [];
@@ -238,9 +250,38 @@ export class ManagerEmployeeHistoryComponent implements OnInit {
   //     }
   //   );
   // }
-  fetchEmployeeCourseDetails(course: string, subordinateEmpIds: number[], trainerName: string): void {
+  // fetchEmployeeCourseDetails(course: string, subordinateEmpIds: number[], trainerName: string): void {
+  //   const empIdsParam = subordinateEmpIds.join(',');
+  //   const url = `http://localhost:8083/api/training-views/completedDetailsForSubordinates/${course}?subordinateEmpIds=${empIdsParam}&trainerName=${trainerName}`;
+  
+  //   this.http.get<EmployeeCourseDetails[]>(url).subscribe(
+  //     (response) => {
+  //       console.log('Employee Course Details Data:', response);
+  
+  //       this.tableData = {
+  //         headerRow: ['Sr No.', 'Employee Code', 'Employee Name', 'Start Date', 'End Date', 'Status'],
+  //         dataRows: response.map((item, index) => ({
+  //           sr_no: (index + 1).toString(),
+  //           emp_code: item.empCode,
+  //           emp_name: item.empName,
+  //           start_date: item.startDate,
+  //           end_date: item.endDate,
+  //           status: item.trainingStatus,
+  //         })),
+  //       };
+  
+  //       this.filteredData = [...this.tableData.dataRows];
+  //       this.applyFilter();
+  //       this.currentPage = Math.min(this.currentPage, this.pages.length);
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching employee course details:', error);
+  //     }
+  //   );
+  // }
+  fetchEmployeeCourseDetails(course: string, subordinateEmpIds: number[], trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
     const empIdsParam = subordinateEmpIds.join(',');
-    const url = `http://localhost:8083/api/training-views/completedDetailsForSubordinates/${course}?subordinateEmpIds=${empIdsParam}&trainerName=${trainerName}`;
+    const url = `http://localhost:8083/api/training-views/completedDetailsForSubordinates/${course}?subordinateEmpIds=${empIdsParam}&trainerName=${trainerName}&startDate=${plannedStartDate}&endDate=${plannedEndDate}`;
   
     this.http.get<EmployeeCourseDetails[]>(url).subscribe(
       (response) => {
@@ -267,6 +308,7 @@ export class ManagerEmployeeHistoryComponent implements OnInit {
       }
     );
   }
+  
   applyFilter() {
     console.log('Applying filter. Search value:', this.searchValue);
     this.filteredData = this.tableData.dataRows.filter((row) =>

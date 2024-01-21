@@ -111,7 +111,9 @@ interface TableRow {
   sr_no: string;
   scheduleId: number; // Added scheduleId
   c_name: string; // Course Name
-  t_name: string; // Trainer Name
+  t_name: string; 
+  plannedStartDate: string; // Added plannedStartDate
+  plannedEndDate: string; // Trainer Name
   view: string;
 }
 
@@ -164,12 +166,14 @@ export class ManagerTrainingRecordComponent implements OnInit {
         console.log('Training History Data:', response);
 
         this.tableData1 = {
-          headerRow: ['Sr No.', 'Course Name', 'Trainer Name', 'Records'],
+          headerRow: ['Sr No.', 'Course Name', 'Trainer Name', 'Planned Start Date', 'Planned End Date', 'Records'],
           dataRows: response.map((item, index) => ({
             sr_no: (index + 1).toString(),
             scheduleId: +item.empId, // Use empId as scheduleId, convert to number if needed
             c_name: item.course,
             t_name: item.trainerName,
+            plannedStartDate: item.plannedStartDate,
+            plannedEndDate: item.plannedEndDate,
             view: 'View',
           })),
         };

@@ -26,9 +26,13 @@
                 <td class="text-center">{{ row.number }}</td>
                 <td class="text-center">{{ row.course }}</td>
                 <td class="text-center">{{ extractTrainerName(row.t_name)}}</td>
+                <td class="text-center">{{ row.plannedStartDate }}</td> <!-- Display plannedStartDate -->
+                <td class="text-center">{{ row.plannedEndDate }}</td>   <!-- Display plannedEndDate -->
                 <td class="text-center">
                   <!-- <a class="btn btn-primary"[routerLink]="['/report-employee',{ c_name: row.course }]">View</a> -->
-                  <a class="btn btn-primary" (click)="navigateToReportEmployee(row.course, row.t_name)">View</a>
+                  <!-- <a class="btn btn-primary" (click)="navigateToReportEmployee(row.course, row.t_name)">View</a> -->
+                  <a class="btn btn-primary" (click)="navigateToReportEmployee(row.course, row.t_name, row.plannedStartDate, row.plannedEndDate)">View</a>
+
                 </td>
               </tr>
             </tbody>

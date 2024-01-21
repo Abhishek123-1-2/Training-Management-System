@@ -427,20 +427,64 @@ export class StudentList3Component implements OnInit {
     private dataService: DataService,
   ) {}
 
+  // ngOnInit(): void {
+  //   this.route.params.subscribe((params) => {
+  //     this.selectedCourse = params['course'];
+  //     this.trainerName = params['trainerName'];
+
+  //     if (this.selectedCourse && this.trainerName) {
+  //       this.viewEmployees(this.selectedCourse);
+  //     }
+  //   });
+  // }
+
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.selectedCourse = params['course'];
       this.trainerName = params['trainerName'];
-
-      if (this.selectedCourse && this.trainerName) {
-        this.viewEmployees(this.selectedCourse);
+      const plannedStartDate = params['start_date'];
+      const plannedEndDate = params['end_date'];
+  
+      if (this.selectedCourse && this.trainerName && plannedStartDate && plannedEndDate) {
+        this.viewEmployees(this.selectedCourse, plannedStartDate, plannedEndDate);
       }
     });
   }
+  
 
-  viewEmployees(course: string) {
-    const apiUrl = `http://localhost:8083/api/employees?course=${course}&trainerName=${this.trainerName}`;
+  // viewEmployees(course: string) {
+  //   const apiUrl = `http://localhost:8083/api/employees?course=${course}&trainerName=${this.trainerName}`;
 
+  //   this.http.get(apiUrl).subscribe(
+  //     (data: any[]) => {
+  //       this.tableData1.dataRows = data.map((row, index) => ({
+  //         s_no: (index + 1).toString(),
+  //         emp_code: row.empCode,
+  //         emp_name: row.empName,
+  //         startDate: row.plannedStartDate,
+  //         endDate: row.plannedEndDate,
+  //         tstatus: row.status,
+  //         feedback: 'Give',
+  //         emp_id: row.empId,
+  //         schedule_id: row.scheduleId,
+  //       }));
+
+  //       this.filteredData = [...this.tableData1.dataRows];
+
+  //       // Displaying empId and scheduleId in the console
+  //       this.filteredData.forEach((employee) => {
+  //         console.log(`empId: ${employee.emp_id}, scheduleId: ${employee.schedule_id}`);
+  //         this.passEmpAndScheduleId(employee.emp_id, employee.schedule_id);
+  //       });
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching data: ', error);
+  //     }
+  //   );
+  // }
+  viewEmployees(course: string, plannedStartDate: string, plannedEndDate: string) {
+    const apiUrl = `http://localhost:8083/api/employees?course=${course}&trainerName=${this.trainerName}&plannedStartDate=${plannedStartDate}&plannedEndDate=${plannedEndDate}`;
+  
     this.http.get(apiUrl).subscribe(
       (data: any[]) => {
         this.tableData1.dataRows = data.map((row, index) => ({
@@ -454,9 +498,9 @@ export class StudentList3Component implements OnInit {
           emp_id: row.empId,
           schedule_id: row.scheduleId,
         }));
-
+  
         this.filteredData = [...this.tableData1.dataRows];
-
+  
         // Displaying empId and scheduleId in the console
         this.filteredData.forEach((employee) => {
           console.log(`empId: ${employee.emp_id}, scheduleId: ${employee.schedule_id}`);
@@ -468,6 +512,7 @@ export class StudentList3Component implements OnInit {
       }
     );
   }
+  
 
   passEmpAndScheduleId(emp_id: string, schedule_id: string) {
     this.dataService.changeEmpId(emp_id);

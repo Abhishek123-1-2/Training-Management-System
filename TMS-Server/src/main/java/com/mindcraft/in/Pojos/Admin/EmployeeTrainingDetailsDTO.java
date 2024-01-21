@@ -7,6 +7,7 @@ public class EmployeeTrainingDetailsDTO {
     private String plannedEndDate;
     private String trainingStatus;
     private String trainerName;
+    
     private String course;
 
     // Constructors, getters, and setters

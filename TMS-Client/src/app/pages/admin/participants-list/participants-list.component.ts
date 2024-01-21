@@ -41,8 +41,11 @@ export class ParticipantsListComponent implements OnInit {
       const course = params['course'];
       const trainingStatus = params['trainingStatus'];
       const trainerName = params['trainerName'];
+      const plannedStartDate = params['plannedStartDate'];
+      const plannedEndDate = params['plannedEndDate'];
   
-      this.fetchEmployeeData(course, trainingStatus, trainerName);
+      this.fetchEmployeeData(course, trainingStatus, trainerName, plannedStartDate, plannedEndDate);
+      
     });
   }
   
@@ -113,15 +116,45 @@ export class ParticipantsListComponent implements OnInit {
   //     }
   //   );
   // }
-  fetchEmployeeData(course: string, trainingStatus: string, trainerName: string): void {
-    // Check if trainingStatus is "On-going" before making the API request
+  // fetchEmployeeData(course: string, trainingStatus: string, trainerName: string): void {
+  //   // Check if trainingStatus is "On-going" before making the API request
+  //   if (trainingStatus !== 'On-Going') {
+  //     this.filteredData = [];
+  //     return;
+  //   }
+  
+  //   const apiUrl = `http://localhost:8083/api/registrations/attendees?course=${course}&trainingStatus=${trainingStatus}&trainerName=${trainerName}`;
+  
+  //   this.http.get<any[]>(apiUrl).subscribe(
+  //     (data) => {
+  //       // Map the API response properties to TableRow properties
+  //       this.tableData1 = {
+  //         headerRow: ['No.', 'Employee Code', 'Employee Name', 'Designation', 'Department', 'Email ID'],
+  //         dataRows: data.map((item, index) => ({
+  //           sr_no: (index + 1).toString(),
+  //           emp_code: item.empCode,
+  //           emp_name: item.empName,
+  //           designation: item.designationName,
+  //           department: item.functionName,
+  //           email_id: item.email,
+  //         })),
+  //       };
+  //       this.filteredData = [...this.tableData1.dataRows];
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching employee data:', error);
+  //     }
+  //   );
+  // }
+  fetchEmployeeData(course: string, trainingStatus: string, trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
+    // Check if trainingStatus is "On-Going" before making the API request
     if (trainingStatus !== 'On-Going') {
       this.filteredData = [];
       return;
     }
-  
-    const apiUrl = `http://localhost:8083/api/registrations/attendees?course=${course}&trainingStatus=${trainingStatus}&trainerName=${trainerName}`;
-  
+
+    const apiUrl = `http://localhost:8083/api/registrations/attendees?course=${course}&trainingStatus=${trainingStatus}&trainerName=${trainerName}&plannedStartDate=${plannedStartDate}&plannedEndDate=${plannedEndDate}`;
+
     this.http.get<any[]>(apiUrl).subscribe(
       (data) => {
         // Map the API response properties to TableRow properties

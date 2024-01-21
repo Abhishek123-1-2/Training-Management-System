@@ -1,5 +1,7 @@
 package com.mindcraft.in.Pojos.Admin;
 
+import java.util.Date;
+
 public class EmployeeDetailsDTO {
     private String empCode;
     private String empName;
@@ -8,12 +10,14 @@ public class EmployeeDetailsDTO {
     private String email;
     private String registrationStatus;
     private String trainerName;
+    private Date plannedStartDate;
+    private Date plannedEndDate;
     public EmployeeDetailsDTO(){
 
     }
 
     public EmployeeDetailsDTO(String empCode, String empName, String designationName, String functionName,
-            String email,String registrationStatus, String trainerName) {
+            String email,String registrationStatus, String trainerName, Date plannedStartDate,Date plannedEndDate) {
         this.empCode = empCode;
         this.empName = empName;
         this.designationName = designationName;
@@ -21,11 +25,30 @@ public class EmployeeDetailsDTO {
         this.email = email;
         this.registrationStatus=registrationStatus;
         this.trainerName=trainerName;
+        this.plannedStartDate=plannedStartDate;
+        this.plannedEndDate=plannedEndDate;
+
     }
 
     public String getEmpCode() {
         return empCode;
-    }
+    }public Date getPlannedStartDate() {
+    return plannedStartDate;
+}
+
+public void setPlannedStartDate(Date plannedStartDate) {
+    this.plannedStartDate = plannedStartDate;
+}
+
+public Date getPlannedEndDate() {
+    return plannedEndDate;
+}
+
+public void setPlannedEndDate(Date plannedEndDate) {
+    this.plannedEndDate = plannedEndDate;
+}
+
+
 
     public String getTrainerName() {
         return trainerName;
