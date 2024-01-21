@@ -1,5 +1,3 @@
-
-
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee-services/employee.service';
 import { UserService } from 'app/pages/login/login.service';
@@ -439,6 +437,28 @@ export class UserDashboardComponent implements OnInit {
   viewConfirmationDetails(courseName: string): void {
     // Navigate to confirmationstatus-details component with the selected courseName
     this.router.navigate(['/confirmationstatus-details', courseName]);
+  }
+
+  getColorStatus(status: string): string {
+    if (status === 'Upcoming') {
+      return '#FFA351';
+    } else if (status === 'On-going') {
+      return '#000080';
+    } else if (status === 'Completed'){
+      return '#00FF00';
+    } else {
+      return '#0000';
+    }
+  }
+
+  getColorRegistrationStatus(reg_status: string): string {
+    if (reg_status === 'Registered') {
+      return '#000080';
+    } else if (reg_status === 'confirmed') {
+      return '#00FF00';
+    } else if (reg_status === 'rejected') {
+      return '#FF0000';
+    }
   }
 }
 

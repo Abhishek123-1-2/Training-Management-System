@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.mindcraft.in.Pojos.Admin.AdditionalRegistrationDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.EmployeeDetailsDTO;
 import com.mindcraft.in.Pojos.Admin.Registration;
+import com.mindcraft.in.Pojos.Admin.RegistrationDTO;
 import com.mindcraft.in.Pojos.Admin.RegistrationDetailsDTO;
 
 import jakarta.persistence.Query;
@@ -73,6 +74,38 @@ public Long register(Registration registration) {
     }
 }
 
+    public Long registerForExternal(RegistrationDTO registration) {
+    String sql = "INSERT INTO registration " +
+            "(training_id, emp_id, registration_date, registration_comments, " +
+            "registration_status, registration_response) " +
+            "VALUES (?, ?, ?, ?, ?, ?)";
+
+    try (Connection connection = dataSource.getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+        preparedStatement.setLong(1, registration.getTraining_id());
+        preparedStatement.setLong(2, registration.getEmp_id());
+        preparedStatement.setTimestamp(3, registration.getRegistration_date());
+        preparedStatement.setString(4, registration.getRegistration_comments());
+        preparedStatement.setString(5, registration.getRegistration_status());
+        preparedStatement.setString(6, registration.getRegistration_response());
+
+        preparedStatement.executeUpdate();
+
+        // Retrieve the generated registration ID
+        ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+        if (generatedKeys.next()) {
+            return generatedKeys.getLong(1);
+        } else {
+            return null;  // Handle the case where no ID is returned
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        // Handle the exception according to your application's needs
+        return null;
+    }
+}
+
     public List<Registration> getAllRegistrations() {
         String sql = "SELECT * FROM registration";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Registration.class));
@@ -116,6 +149,16 @@ public Long register(Registration registration) {
         registration.setActive_yn('Y');  // Assuming 'Y' represents active status
     
         return register(registration);  // Reuse the existing registration method
+    }
+
+    public Long enrollForExternalTraining(RegistrationDTO registration) {
+        // You might want to validate inputs and handle business logic here
+    
+        // Set other properties if needed
+        registration.setRegistration_date(new Timestamp(System.currentTimeMillis()));
+        registration.setActive_yn('Y');  // Assuming 'Y' represents active status
+    
+        return registerForExternal(registration);  // Reuse the existing registration method
     }
 
     // Add other methods as needed...
@@ -304,7 +347,7 @@ public List<RegistrationDetailsDTO> getRegistrationDetails() {
                 "s.to_time AS toTime, " +
                 "s.actual_start_date AS actualStartDate, " +
                 "s.actual_end_date AS actualEndDate, " +
-                "e.emp_id AS empId, " +
+                "e.emp_id AS empId, t.training_schedule AS trainingSchedule, " +
                 "ts.training_status AS trainingStatus " +  // Add this line
                 "FROM " +
                 "m_employee e " +
@@ -322,6 +365,32 @@ public List<RegistrationDetailsDTO> getRegistrationDetails() {
     
         return jdbcTemplate.query(sql, new Object[]{empId}, new BeanPropertyRowMapper<>(AdditionalRegistrationDetailsDTO.class));
     }
+
+    public List<AdditionalRegistrationDetailsDTO> getRegisteredDetailsForExternalCourse(String empId) {
+        String sql = "SELECT " +
+                "e.emp_code AS empCode, " +
+                "e.emp_name AS empName, " +
+                "r.registration_id AS registrationId, " +
+                "r.registration_date AS registrationDate, " +
+                "t.course AS courseName, " +
+                "r.registration_comments AS registrationComments, " +
+                "r.registration_status AS status, " +
+                "r.registration_response AS registrationResponse, " +
+                "e.emp_id AS empId " +
+                "FROM " +
+                "m_employee e " +
+                "JOIN " +
+                "registration r ON e.emp_id = r.emp_id " +
+                "JOIN " +
+                "m_trainings t ON r.training_id = t.training_id " +
+                "WHERE e.emp_id = CAST(? AS BIGINT) AND r.registration_status = 'Registered' " +
+                "ORDER BY " +
+                "r.registration_date DESC";
+    
+        return jdbcTemplate.query(sql, new Object[]{empId}, new BeanPropertyRowMapper<>(AdditionalRegistrationDetailsDTO.class));
+    }
+
+    
    
 
     public List<AdditionalRegistrationDetailsDTO> getDetailsForCourse(String courseName) {
@@ -429,27 +498,7 @@ public List<RegistrationDetailsDTO> getRegistrationDetails() {
     
 
     public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithPlannedDatesOnRequest() {
-        // String sql = "SELECT " +
-        //         "r.registration_id AS registrationId, " +
-        //         "e.emp_code AS empCode, " +
-        //         "e.emp_name AS empName, " +
-        //         "r.registration_date AS registrationDate, " +
-        //         "t.course AS courseName, " +
-        //         "r.registration_comments AS registrationComments, " +
-        //         "r.registration_status AS status, " +
-        //         "r.registration_response AS registrationResponse, " +
-        //         "s.planned_start_date AS plannedStartDate, " +
-        //         "s.planned_end_date AS plannedEndDate " +
-        //         "FROM " +
-        //         "registration r " +
-        //         "JOIN " +
-        //         "m_employee e ON r.emp_id = e.emp_id " +
-        //         "JOIN " +
-        //         "training_schedule s ON r.schedule_id = s.schedule_id " +
-        //         "JOIN " +
-        //         "m_trainings t ON s.training_id = t.training_id " +
-        //         "ORDER BY " +
-        //         "r.registration_date DESC";
+
         String sql = "SELECT " +
         "r.registration_id AS registrationId, " +
         "e.emp_code AS empCode, " +
@@ -477,6 +526,31 @@ public List<RegistrationDetailsDTO> getRegistrationDetails() {
 
     
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(AdditionalRegistrationDetailsDTO.class));
+    }
+    
+    public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsForExternalCourse() {
+        String sql = "SELECT " +
+        "r.registration_id AS registrationId, " +
+        "e.emp_code AS empCode, " +
+        "e.emp_name AS empName, " +
+        "r.registration_date AS registrationDate, " +
+        "t.course AS courseName, " +
+        "r.registration_comments AS registrationComments, " +
+        "r.registration_status AS status, " +
+        "r.registration_response AS registrationResponse, " +
+        "t.training_schedule AS trainingSchedule " +  // Include the training_schedule field
+        "FROM " +
+        "registration r " +
+        "JOIN " +
+        "m_employee e ON r.emp_id = e.emp_id " +
+        "JOIN " +
+        "m_trainings t ON r.training_id = t.training_id " +
+        "WHERE " +
+        "t.training_schedule = 'EXTERNAL' " +  // Add the WHERE clause to filter by training_schedule
+        "ORDER BY " +
+        "r.registration_date DESC";
+
+         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(AdditionalRegistrationDetailsDTO.class));
     }
     
 

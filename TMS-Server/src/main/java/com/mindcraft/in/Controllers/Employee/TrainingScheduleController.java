@@ -1,4 +1,4 @@
-package com.mindcraft.in.Controllers.Employee;
+    package com.mindcraft.in.Controllers.Employee;
 
 import com.mindcraft.in.Pojos.Admin.TrainingSchedule;
 import com.mindcraft.in.Pojos.Employee.TrainingScheduleDTO;
@@ -34,9 +34,14 @@ public class TrainingScheduleController {
         return trainingScheduleService.getPreDefinedTrainingSchedules(empId);
     }
 
-    @GetMapping("/ON-REQUEST")
-    public List<TrainingScheduleDTO> getOnRequestTrainingSchedules() {
-        return trainingScheduleService.getOnRequestTrainingSchedules();
+    @GetMapping("/ON-REQUEST/{empId}")
+    public List<TrainingScheduleDTO> getOnRequestTrainingSchedules(@PathVariable String empId) {
+        return trainingScheduleService.getOnRequestTrainingSchedules(empId);
+    }
+
+    @GetMapping("/EXTERNAL/{empId}")
+    public List<TrainingScheduleDTO> getExternalCourseTrainings(@PathVariable String empId) {
+        return trainingScheduleService.getExternalCourseTrainings(empId);
     }
 
     @GetMapping("/schedule")

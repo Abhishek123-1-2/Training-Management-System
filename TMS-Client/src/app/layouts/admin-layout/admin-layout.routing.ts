@@ -59,6 +59,8 @@ import { ManagerTrainingRecordComponent } from 'app/pages/manager/manager-traini
 import { ManagerEmployeeHistoryComponent } from 'app/pages/manager/manager-employee-history/manager-employee-history.component';
 import { EmployeeFeedbackComponent } from 'app/pages/admin/employee-feedback/employee-feedback.component';
 import { ViewDetailsComponent } from 'app/pages/employee/view-details/view-details.component';
+import { ExternalCourseComponent } from 'app/pages/employee/external-course/external-course.component';
+import { ManagerExternalCourseComponent } from 'app/pages/manager/manager-external-course/manager-external-course.component';
 // import { ViewDetailsComponent } from 'app/pages/employee/view-details/view-details.component';
 
 
@@ -135,6 +137,8 @@ export const AdminLayoutRoutes: Routes = [
         path: 'manager-employee-history/:course/:trainerName/:plannedStartDate/:plannedEndDate',
         component: ManagerEmployeeHistoryComponent,
       }, { path: 'employee-feedback/:c_name/:empCode', component: EmployeeFeedbackComponent },
-      {path:'view-details/:c_name',component:ViewDetailsComponent}
+      {path:'view-details/:c_name',component:ViewDetailsComponent},
+      {path:'external-course', component: ExternalCourseComponent},
+      {path:'manager-external-course', component: ManagerExternalCourseComponent}
       
 ];

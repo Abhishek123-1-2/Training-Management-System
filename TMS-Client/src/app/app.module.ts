@@ -58,6 +58,8 @@ import { TrainerTrainingDetailsComponent } from './pages/trainer/trainer-trainin
 import { ConfirmationstatusDetailsComponent } from './pages/employee/confirmationstatus-details/confirmationstatus-details.component';
 import { HrTrainingHistoryComponent } from './pages/hr/hr-training-history/hr-training-history.component';
 import { EmployeeFeedbackComponent } from './pages/admin/employee-feedback/employee-feedback.component';
+import { ExternalCourseComponent } from './pages/employee/external-course/external-course.component';
+import { ManagerExternalCourseComponent } from './pages/manager/manager-external-course/manager-external-course.component';
 
 
 @NgModule({
