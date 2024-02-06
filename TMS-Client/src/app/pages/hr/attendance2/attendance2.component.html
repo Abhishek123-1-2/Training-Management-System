@@ -15,6 +15,9 @@
       </div>
       <div class="d-flex justify-content-end mr-3">
         <button type="button" class="btn btn-primary" (click)="toggleExpandedDates()">Add Attendance</button>
+        <button type="button" class="btn btn-success ml-2" (click)="exportToExcel()">Convert to Excel</button>
+        
+
         <!-- <i class="my-auto fa fa-refresh fa-spin ml-3" (click)="reloadTable()" style="font-size: 145%;"></i> -->
       </div>
       <div class="card-body">
@@ -38,27 +41,86 @@
                 <td class="text-center">{{ start_date }}</td>
                 <td class="text-center">{{ end_date }}</td>
                 <td class="text-center">{{ row.status }}</td>
-                <td *ngFor="let date of tableData1.headerRow.slice(7); let i = index">
-                  <div *ngIf="showExpandedDates">
-                    <button type="button" *ngIf="!row.attendance[date]" class="btn btn-success btn-sm" (click)="markAttendance(row, date, 'Present')">Present</button> 
-                    <button type="button" *ngIf="!row.attendance[date]" class="btn btn-danger btn-sm ml-1" (click)="markAttendance(row, date, 'Absent')">Absent</button>
+               <!-- Modify this part of your template -->
+<!-- <td *ngFor="let date of tableData1.headerRow.slice(7); let i = index">
+  <div *ngIf="showExpandedDates">
+    <button type="button" *ngIf="row.attendance[date] !== 'Present' && !getAttendanceStatusFromLocalStorage(row.emp_code, date)" class="btn btn-success btn-sm" (click)="markAttendance(row, date, 'Present')">Present</button> 
+    <button type="button" *ngIf="row.attendance[date] !== 'Absent' && !getAttendanceStatusFromLocalStorage(row.emp_code, date)" class="btn btn-danger btn-sm ml-1" (click)="markAttendance(row, date, 'Absent')">Absent</button>
+  </div>
+  
+  <div class="text-center">
+    <div *ngIf="isEdit && row == editingRow && date == editDate">
+      <input type="text" class="form-control" [(ngModel)]="row.attendance[date]" />
+      <i class="fa fa-check" style="color: green" *ngIf="row.attendance[date]" (click)="Edit()"></i>
+      <i class="fa fa-times ml-1" style="color: red" *ngIf="row.attendance[date]" (click)="cancel()"></i>                     
+    </div>   
+    </div>
+    <div *ngIf="!isEdit">
+      {{ getAttendanceStatusFromLocalStorage(row.emp_code, date) || row.attendance[date] || '' }}
+      <button type="button" *ngIf="row.attendance[date]" class="btn btn-primary btn-sm" (click)="startEdit(row, date)">
+        <i class="fa fa-edit"></i>
+      </button>
+    </div>
+    
+    
+    
+</td> -->
+<!-- Inside your component template -->
+<td *ngFor="let date of tableData1.headerRow.slice(7); let i = index">
+  <div *ngIf="showExpandedDates">
+    <button type="button" *ngIf="row.attendance[date] !== 'Present' && !getAttendanceStatusFromLocalStorage(row.emp_code, date)"
+      class="btn btn-success btn-sm" (click)="markAttendance(row, date, 'Present')">Present</button> 
+    <button type="button" *ngIf="row.attendance[date] !== 'Absent' && !getAttendanceStatusFromLocalStorage(row.emp_code, date)"
+      class="btn btn-danger btn-sm ml-1" (click)="markAttendance(row, date, 'Absent')">Absent</button>
+  </div>
+  
+  <div class="text-center">
+    <div *ngIf="isEdit && row == editingRow && date == editDate">
+      <input type="text" class="form-control" [(ngModel)]="editedAttendanceStatus" />
+      <i class="fa fa-check" style="color: green" *ngIf="editedAttendanceStatus" (click)="Edit(row, date)"></i>
+      <i class="fa fa-times ml-1" style="color: red" *ngIf="editedAttendanceStatus" (click)="cancel()"></i>                     
+    </div>   
+    <div *ngIf="!isEdit">
+      <!-- Apply inline style based on attendance status -->
+      <span [ngStyle]="{
+        'color': getAttendanceStatusFromLocalStorage(row.emp_code, date) === 'Present' ? 'white' : (getAttendanceStatusFromLocalStorage(row.emp_code, date) === 'Absent' ? 'white' : ''),
+        'background-color': getAttendanceStatusFromLocalStorage(row.emp_code, date) === 'Present' ? 'green' : (getAttendanceStatusFromLocalStorage(row.emp_code, date) === 'Absent' ? 'red' : ''),
+        'padding': '5px 10px',
+        'border-radius': '5px'
+      }">
+        {{ getAttendanceStatusFromLocalStorage(row.emp_code, date) || row.attendance[date] || '' }}
+      </span>
+      <button type="button" *ngIf="row.attendance[date]" class="btn btn-primary btn-sm" (click)="startEdit(row, date)">
+        <i class="fa fa-edit"></i>
+      </button>
+    </div>
+  </div>
+</td>
 
-                  </div>
 
-                  <div class="text-center">
-                    <div *ngIf="isEdit && row == editingRow && date == editDate">
-                        <input type="text" class="form-control" [(ngModel)]="row.attendance[date]" />
-                        <i class="fa fa-check" style="color: green" *ngIf = "row.attendance[date]" (click)="Edit()"></i>
-                        <i class="fa fa-times ml-1" style="color: red" *ngIf = "row.attendance[date]" (click)="cancel()"></i>                     
-                      </div>   
-                    </div>
-                    <div *ngIf="!isEdit">
-                      {{ row.attendance[date] }}
-                      <button type="button" *ngIf="row.attendance[date]" class="btn btn-primary btn-sm" >
-                        <i class="fa fa-edit" (click)="startEdit(row,date)"></i>
-                      </button>
-                    </div>
-                </td>
+
+<!-- Modify this part of your template -->
+<!-- <td *ngFor="let date of tableData1.headerRow.slice(7); let i = index">
+  <div *ngIf="showExpandedDates">
+    <button type="button" *ngIf="row.attendance[date] !== 'Present' && !getAttendanceStatusFromLocalStorage(row.emp_code, date)" class="btn btn-success btn-sm" (click)="markAttendance(row, date, 'Present')">Present</button> 
+    <button type="button" *ngIf="row.attendance[date] !== 'Absent' && !getAttendanceStatusFromLocalStorage(row.emp_code, date)" class="btn btn-danger btn-sm ml-1" (click)="markAttendance(row, date, 'Absent')">Absent</button>
+  </div>
+  
+  <div class="text-center">
+    <div *ngIf="isEdit && row == editingRow && date == editDate">
+      <input type="text" class="form-control" [(ngModel)]="row.attendance[date]" />
+      <i class="fa fa-check" style="color: green" *ngIf="row.attendance[date]" (click)="Edit()"></i>
+      <i class="fa fa-times ml-1" style="color: red" *ngIf="row.attendance[date]" (click)="cancel()"></i>                     
+    </div>   
+    <div *ngIf="!isEdit">
+      {{ getAttendanceStatusFromLocalStorage(row.emp_code, date) || row.attendance[date] || '' }}
+      <button type="button" *ngIf="row.attendance[date]" class="btn btn-primary btn-sm" (click)="startEdit(row, date)">
+        <i class="fa fa-edit"></i>
+      </button>
+    </div>
+  </div>
+</td> -->
+
               </tr>
             </tbody>
           </table>

@@ -1,67 +1,102 @@
+
+<!-- trainer-feedback-to-employee.component.html -->
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Attendance Table</li>
+    <li class="breadcrumb-item"><a [routerLink]="['/trainer-dashboard']">Dashboard</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Training Details</li>
   </ol>
 </nav>
-
-
 <div class="row">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-header">
-        <h4 class="card-title"> Attendance Table</h4>
-      </div>
-      <div class="card-body">
-        <div class="form-inline mb-3">
-       <label for="searchTerm" class="mr-1">Search:</label>
-       <input type="text" class="form-control" id="searchTerm" [(ngModel)]="searchTerm" (input)="performSearch()">
-     </div>
-      <div class="card-body">
-        <div class="table-responsive text-nowrap">
-          <table class="table">
-            <thead class="text-primary">
-              <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
-            </thead>
-            <tbody>
-              <tr *ngFor="let row of tableData1.dataRows.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
-                <td class="text-center">{{ row.sr_no }}</td>
-                  <td class="text-center">{{ row.c_name }}</td>
-                  <td class="text-center">{{ row.t_name }}</td>
-                  <td class="text-center">{{ row.s_date }}</td>
-                  <td class="text-center">{{ row.e_date }}</td>
-                  <td class="text-center">{{ row.status }}</td>
-                  <td class="text-center">
-                    <a [routerLink]="['/attendance2', { start_date: row.s_date, end_date: row.e_date, course_name: row.c_name, trainer_name:row.t_name }]">
-                      {{ row.v_attendees }}
-                    </a>
-                  </td>                
-              </tr>
-            </tbody>
-          </table>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Training Details</h4>
         </div>
-        <div class="d-flex justify-content-end">
-          <div class="form-inline mb-3">
-            <label for="rowsPerPage" class="mr-1">Rows per Page:</label>
-            <select class="form-control" id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage($event)">
-              <option value="5">5</option>
-              <option value="10">10</option>
-            </select>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="search">Search:</label>
+                <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
+            </div>
+
+          <div class="table-responsive table-container">
+            <table class="table">
+
+              <!-- <thead class="text-primary">
+                <th *ngFor="let header of tableData1" class="text-center">{{ header }}</th>
+              </thead> -->
+              <thead class="text-primary">
+                <th class="text-center">Sr No.</th>
+                <th class="text-center" >Course Name</th>
+                <th class="text-center">Start Date</th>
+                <th class="text-center">End Date</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Trainer Name</th>
+                <th class="text-center">View</th>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row text-center">
+                    <td>{{ row.number }}</td>
+                    <td>{{ row.course }}</td>
+                    <td>{{ row.plannedStartDate }}</td>
+                    <td>{{ row.plannedEndDate }}</td>
+                    <td>{{ row.training_status }}</td>
+                    <td>{{ row.trainerName.split('(')[0].trim() }}</td> 
+                    <!-- <td><a [routerLink]="['/student-list3', {start_date: row.s_date, end_date: row.e_date, status: row.status}]">{{ row.view }}</a></td> -->
+                    <td >
+                      <!-- <button (click)="viewEmployeesForCourse(row.course)" class="btn btn-primary">View</button> -->
+                      <!-- <button (click)="viewEmployeesForCourse(row.course, trainerName)" class="btn btn-primary">View</button> -->
+                      <!-- <button (click)="viewEmployeesForCourse(row.course, row.trainerName)" class="btn btn-primary">View</button> -->
+                      <!-- <a class="btn btn-primary" [routerLink]="['/student-list3', row.course, row.trainerName]">{{ row.view }}</a> -->
+                      <a class="btn btn-primary" [routerLink]="['/attendance2', { start_date: row.plannedStartDate, end_date: row.plannedEndDate, course_name: row.course, trainer_name:row.trainerName }]">{{ row.view }}</a>
+
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
           </div>
-          <nav aria-label="Page navigation example">
-            <ul class="pagination pagination-md">
-              <li class="page-item" (click)="currentPage = (currentPage > 1) ? currentPage - 1 : 1" [class.disabled]="currentPage === 1">
-                <a class="page-link">Previous</a>
-              </li>
-              <li class="page-item" *ngFor="let page of pages" (click)="currentPage = page">
-                <a class="page-link">{{ page }}</a>
-              </li>
-              <li class="page-item" (click)="currentPage = (currentPage < pages.length) ? currentPage + 1 : currentPage">
-                <a class="page-link">Next</a>
-              </li>
-            </ul>
-          </nav>
+          <div class="d-flex justify-content-end mt-3">
+            <div class="form-inline mb-3">
+              <label for="rowsPerPage" class="mr-1">Rows per Page:</label>
+              <select class="form-control" id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage($event)">
+                <option value="5">5</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+  
+            <div class="form-check ml-3">
+              <input class="form-check-input" type="checkbox" id="rollingPaginator" [(ngModel)]="rollPaginator">
+              <label class="form-check-label" for="rollingPaginator">Rolling Paginator</label>
+            </div>
+  
+            <nav aria-label="Page navigation example">
+              <ul class="pagination pagination-md">
+                <li class="page-item" (click)="onPageChange(currentPage - 1)" [class.disabled]="currentPage === 1">
+                  <a class="page-link">Previous</a>
+                </li>
+                <li class="page-item" *ngIf="visiblePages[0] !== 1">
+                  <a class="page-link" (click)="onPageChange(1)">1</a>
+                </li>
+                <li class="page-item" *ngIf="visiblePages[0] > 2">
+                  <span class="page-link">...</span>
+                </li>
+                <li class="page-item" *ngFor="let page of visiblePages" (click)="onPageChange(page)" [class.active]="currentPage === page">
+                  <a class="page-link">{{ page }}</a>
+                </li>
+                <li class="page-item" *ngIf="visiblePages[visiblePages.length - 1] < pages.length - 1">
+                  <span class="page-link">...</span>
+                </li>
+                <li class="page-item" *ngIf="visiblePages[visiblePages.length - 1] !== pages.length">
+                  <a class="page-link" (click)="onPageChange(pages.length)">{{ pages.length }}</a>
+                </li>
+                <li class="page-item" (click)="onPageChange(currentPage + 1)" [class.disabled]="currentPage === pages.length">
+                  <a class="page-link">Next</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  

@@ -35,4 +35,9 @@ public ResponseEntity<List<TrainingsDTO>> getTrainingsByTrainerAndEmpName(@PathV
     return ResponseEntity.ok(trainings);
 }
 
+@GetMapping("/trainer-ongoing/{trainerName}/{empName}")
+public ResponseEntity<List<TrainingsDTO>> getTrainingsByTrainerAndEmpNameOngoing(@PathVariable String trainerName, @PathVariable String empName) {
+    List<TrainingsDTO> trainings = trainingsService.getTrainingsByTrainerAndEmpNameOngoing(trainerName, empName);
+    return ResponseEntity.ok(trainings);
+}
 }

@@ -311,10 +311,10 @@ export class UserDashboardComponent implements OnInit {
             c_name: schedule.course,
             t_name: schedule.trainerName.split('(')[0].trim(),
             s_date: schedule.plannedStartDate
-              ? schedule.plannedStartDate.split('T')[0]
+              ? this.formatDate(schedule.plannedStartDate)
               : '',
             e_date: schedule.plannedEndDate
-              ? schedule.plannedEndDate.split('T')[0]
+              ? this.formatDate(schedule.plannedEndDate)
               : '',
             status: schedule.trainingStatus,
             enroll: 'Enroll',
@@ -334,11 +334,24 @@ export class UserDashboardComponent implements OnInit {
       }
     );
   }
-
-  applyFilter(): void {
+  formatDate(timestamp: string): string {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+  // applyFilter(): void {
+  //   this.filteredData = this.tableData1.dataRows.filter((row) =>
+  //     Object.values(row).some((value) =>
+  //       value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
+  //     )
+  //   );
+  // }
+  applyFilter() {
     this.filteredData = this.tableData1.dataRows.filter((row) =>
-      Object.values(row).some((value) =>
-        value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
+      Object.values(row).some(
+        (value) => value && value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
       )
     );
   }

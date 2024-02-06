@@ -130,8 +130,8 @@ export class StudentList1Component implements OnInit {
             emp_name: item.empName,
             c_name: item.course,
             t_name: item.trainerName,
-            start_date: new Date(item.startDate).toLocaleDateString(),
-            end_date: new Date(item.endDate).toLocaleDateString(),
+            start_date: this.formatDate(item.startDate),
+            end_date: this.formatDate(item.endDate),
             status: item.trainingStatus,
             view: 'View',
           })),
@@ -167,7 +167,13 @@ export class StudentList1Component implements OnInit {
 // }
 
 
-
+formatDate(timestamp: string): string {
+  const date = new Date(timestamp);
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
   applyFilter(): void {
     this.filteredData = this.studentList.dataRows.filter(row =>
       Object.values(row).some(value =>

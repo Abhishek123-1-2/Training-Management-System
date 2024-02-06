@@ -784,6 +784,16 @@ public List<EmployeeTrainingDetailsDTO> getCompletedCourseDetails(
 }
 
 
+
+@GetMapping("/ongoing-course-details/{course}/{trainerName}/{plannedStartDate}/{plannedEndDate}")
+public List<EmployeeTrainingDetailsDTO> getOngoingCourseDetails(
+    @PathVariable String course,
+    @PathVariable String trainerName,
+    @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate plannedStartDate,
+    @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate plannedEndDate) {
+    return trainingViewService.getEmployeesOngoingCourseInfo(course, trainerName, plannedStartDate, plannedEndDate);
+}
+
 @GetMapping("/completed-courses")
     public List<CompletedCourseInfoDTO> getCompletedCourses() {
         return trainingViewService.getCompletedCourses();

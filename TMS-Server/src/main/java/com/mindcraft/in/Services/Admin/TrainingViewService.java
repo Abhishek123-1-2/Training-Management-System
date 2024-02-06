@@ -24,6 +24,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -245,6 +246,34 @@ public Long getTrainingIdByTrainerName(String trainerName) {
 
 
 
+// public void scheduleTraining(Long trainingId, TrainingSchedule request) {
+//     // Assuming you have a separate table named 'training_schedule'
+//     String scheduleSql = "INSERT INTO training_schedule " +
+//             "(training_id, trainer_name, planned_start_date, planned_end_date, actual_start_date, actual_end_date, training_status, from_time, to_time) " +
+//             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+//     try (Connection connection = dataSource.getConnection();
+//          PreparedStatement scheduleStatement = connection.prepareStatement(scheduleSql)) {
+
+//         // Set parameters for the schedule insertion
+//         scheduleStatement.setLong(1, trainingId);
+//         scheduleStatement.setString(2, request.getTrainerName());
+//         scheduleStatement.setDate(3, request.getPlannedStartDate() != null ? new Date(request.getPlannedStartDate().getTime()) : null);
+//         scheduleStatement.setDate(4, request.getPlannedEndDate() != null ? new Date(request.getPlannedEndDate().getTime()) : null);
+//         scheduleStatement.setDate(5, request.getActualStartDate() != null ? new Date(request.getActualStartDate().getTime()) : null);
+//         scheduleStatement.setDate(6, request.getActualEndDate() != null ? new Date(request.getActualEndDate().getTime()) : null);
+//         scheduleStatement.setString(7, request.getTrainingStatus());
+//         scheduleStatement.setString(8, request.getFromTime());
+//         scheduleStatement.setString(9, request.getToTime());
+
+//         // Execute the schedule insertion
+//         scheduleStatement.executeUpdate();
+
+//     } catch (SQLException e) {
+//         e.printStackTrace();
+//         // Handle the exception according to your application's needs
+//     }
+// }
 public void scheduleTraining(Long trainingId, TrainingSchedule request) {
     // Assuming you have a separate table named 'training_schedule'
     String scheduleSql = "INSERT INTO training_schedule " +
@@ -255,8 +284,9 @@ public void scheduleTraining(Long trainingId, TrainingSchedule request) {
          PreparedStatement scheduleStatement = connection.prepareStatement(scheduleSql)) {
 
         // Set parameters for the schedule insertion
+        String uniqueTrainerName = generateUniqueTrainerName(request.getTrainerName());
         scheduleStatement.setLong(1, trainingId);
-        scheduleStatement.setString(2, request.getTrainerName());
+        scheduleStatement.setString(2, uniqueTrainerName);
         scheduleStatement.setDate(3, request.getPlannedStartDate() != null ? new Date(request.getPlannedStartDate().getTime()) : null);
         scheduleStatement.setDate(4, request.getPlannedEndDate() != null ? new Date(request.getPlannedEndDate().getTime()) : null);
         scheduleStatement.setDate(5, request.getActualStartDate() != null ? new Date(request.getActualStartDate().getTime()) : null);
@@ -273,6 +303,46 @@ public void scheduleTraining(Long trainingId, TrainingSchedule request) {
         // Handle the exception according to your application's needs
     }
 }
+
+private String generateUniqueTrainerName(String trainerName) {
+    // Check if the trainer name already exists in the database
+    if (isTrainerNameExists(trainerName)) {
+        int count = 1;
+        String uniqueTrainerName;
+        do {
+            uniqueTrainerName = trainerName + "_" + count;
+            count++;
+        } while (isTrainerNameExists(uniqueTrainerName));
+
+        return uniqueTrainerName;
+    } else {
+        return trainerName;
+    }
+}
+
+public boolean isTrainerNameExists(String trainerName) {
+    String sql = "SELECT COUNT(*) FROM training_schedule WHERE trainer_name = ?";
+    
+    try (Connection connection = dataSource.getConnection();
+         PreparedStatement statement = connection.prepareStatement(sql)) {
+        
+        statement.setString(1, trainerName);
+        
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0;
+            }
+        }
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+        // Handle the exception according to your application's needs
+    }
+    
+    return false;
+}
+
 
 public void updateTrainingSchedule(TrainingSchedule updatedSchedule) {
     String sql = "UPDATE training_schedule " +
@@ -597,6 +667,32 @@ public List<EmployeeTrainingDetailsDTO> getEmployeesCompletedCourseInfo(String c
     ));
 }
 
+
+
+
+public List<EmployeeTrainingDetailsDTO> getEmployeesOngoingCourseInfo(String course, String trainerName, LocalDate plannedStartDate, LocalDate plannedEndDate) {
+    String sql = "SELECT e.emp_code, e.emp_name, t.course, ts.trainer_name, " +
+                 "TO_CHAR(ts.planned_start_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_start_date, " +
+                 "TO_CHAR(ts.planned_end_date, 'YYYY-MM-DD HH24:MI:SS') AS planned_end_date, " +
+                 "ts.training_status " +
+                 "FROM m_trainings t " +
+                 "JOIN training_schedule ts ON t.training_id = ts.training_id " +
+                 "JOIN registration r ON ts.schedule_id = r.schedule_id " +
+                 "JOIN m_employee e ON r.emp_id = e.emp_id " +
+                 "WHERE t.course = ? AND ts.trainer_name = ? AND ts.training_status = 'On-Going' " +
+                 "AND ts.planned_start_date >= ? AND ts.planned_end_date <= ? " +
+                 "ORDER BY ts.planned_start_date DESC";
+
+    return jdbcTemplate.query(sql, new Object[]{course, trainerName, plannedStartDate, plannedEndDate}, (rs, rowNum) -> new EmployeeTrainingDetailsDTO(
+            rs.getString("emp_code"),
+            rs.getString("emp_name"),
+            rs.getString("planned_start_date"),
+            rs.getString("planned_end_date"),
+            rs.getString("training_status"),
+            rs.getString("trainer_name"),
+            rs.getString("course")
+    ));
+}
 public List<CompletedCourseInfoDTO> getCompletedCourses() {
     String sql = "SELECT t.course, ts.trainer_name, ts.planned_start_date, ts.planned_end_date, ts.training_status " +
                  "FROM m_trainings t " +
