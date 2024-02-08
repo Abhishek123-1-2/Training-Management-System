@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
   public rollPaginator: boolean = false; // Added line
   public visiblePages: number[] = []; // Added line
   private rollingPaginatorSize = 5;
-
+  selectedFilterMonth: string = 'All';
   constructor(private http: HttpClient,private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
@@ -58,12 +58,127 @@ export class DashboardComponent implements OnInit {
     this.fetchStatusCounts();
     this.fetchData();
   }
-  fetchData() {
-    this.http.get<any[]>('http://localhost:8083/api/training-views/schedule-list').subscribe(
+  // fetchData() {
+  //   this.http.get<any[]>('http://localhost:8083/api/training-views/schedule-list').subscribe(
+  //     (data) => {
+  //       // Filter out completed courses
+  //       const filteredData = data.filter((item) => item.trainingStatus !== 'Completed');
+
+  //       this.tableData1 = {
+  //         headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status','Add Participants', 'Action', 'View'],
+  //         dataRows: filteredData.map((item, index) => ({
+  //           scheduleId: item.scheduleId,
+  //           number: (index + 1).toString(),
+  //           course: item.course,
+  //           trainer_name: item.trainerName,
+  //           planned_start_date: this.formatDate(item.plannedStartDate),
+  //           planned_end_date: this.formatDate(item.plannedEndDate),
+  //           from_time: item.fromTime,
+  //           to_time: item.toTime,
+  //           participants: item.participants,
+  //           status: item.trainingStatus,
+  //           action: '',
+  //           view:'Attendees',
+  //         })),
+  //       };
+  //       this.applyFilter();
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   );
+  // }
+  // fetchData(month?: string) {
+  //   let apiUrl = 'http://localhost:8083/api/training-views/schedule-list';
+  
+  //   if (month && month !== 'All') {
+  //     apiUrl += `?month=${month}`;
+  //   }
+  
+  //   this.http.get<any[]>(apiUrl).subscribe(
+  //     (data) => {
+  //       // Filter out completed courses
+  //       const filteredData = data.filter((item) => item.trainingStatus !== 'Completed');
+  
+  //       this.tableData1 = {
+  //         headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status','Add Participants', 'Action', 'View'],
+  //         dataRows: filteredData.map((item, index) => ({
+  //           scheduleId: item.scheduleId,
+  //           number: (index + 1).toString(),
+  //           course: item.course,
+  //           trainer_name: item.trainerName,
+  //           planned_start_date: this.formatDate(item.plannedStartDate),
+  //           planned_end_date: this.formatDate(item.plannedEndDate),
+  //           from_time: item.fromTime,
+  //           to_time: item.toTime,
+  //           participants: item.participants,
+  //           status: item.trainingStatus,
+  //           action: '',
+  //           view:'Attendees',
+  //         })),
+  //       };
+  //       this.applyFilter();
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   );
+  // }
+  // onFilterMonthChange() {
+  //   this.fetchData(this.selectedFilterMonth);
+  // }
+  // fetchData(month?: string) {
+  //   let apiUrl = 'http://localhost:8083/api/training-views/schedule-list';
+
+  //   if (month && month !== 'All') {
+  //     apiUrl += `?month=${month}`;
+  //   }
+
+  //   this.http.get<any[]>(apiUrl).subscribe(
+  //     (data) => {
+  //       // Filter out completed courses
+  //       const filteredData = data.filter((item) => item.trainingStatus !== 'Completed' && this.getMonthFromDate(item.plannedStartDate) === month);
+
+  //       this.tableData1 = {
+  //         headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status','Add Participants', 'Action', 'View'],
+  //         dataRows: filteredData.map((item, index) => ({
+  //           scheduleId: item.scheduleId,
+  //           number: (index + 1).toString(),
+  //           course: item.course,
+  //           trainer_name: item.trainerName,
+  //           planned_start_date: this.formatDate(item.plannedStartDate),
+  //           planned_end_date: this.formatDate(item.plannedEndDate),
+  //           from_time: item.fromTime,
+  //           to_time: item.toTime,
+  //           participants: item.participants,
+  //           status: item.trainingStatus,
+  //           action: '',
+  //           view:'Attendees',
+  //         })),
+  //       };
+  //       this.applyFilter();
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   );
+  // }
+  fetchData(month?: string) {
+    let apiUrl = 'http://localhost:8083/api/training-views/schedule-list';
+  
+    if (month && month !== 'All') {
+      apiUrl += `?month=${month}`;
+    }
+  
+    this.http.get<any[]>(apiUrl).subscribe(
       (data) => {
         // Filter out completed courses
-        const filteredData = data.filter((item) => item.trainingStatus !== 'Completed');
-
+        let filteredData = data.filter((item) => item.trainingStatus !== 'Completed');
+  
+        if (month && month !== 'All') {
+          filteredData = filteredData.filter((item) => this.getMonthFromDate(item.plannedStartDate) === month);
+        }
+  
         this.tableData1 = {
           headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status','Add Participants', 'Action', 'View'],
           dataRows: filteredData.map((item, index) => ({
@@ -88,7 +203,21 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+  
+  onFilterMonthChange() {
+    this.fetchData(this.selectedFilterMonth === 'All' ? undefined : this.selectedFilterMonth);
+  }
 
+  // formatDate(dateStr: string) {
+  //   // Implement your date formatting logic here
+  //   return dateStr;
+  // }
+
+  getMonthFromDate(dateStr: string) {
+    // Extract month from date string (e.g., '2024-02-20' => 'February')
+    const [year, month, day] = dateStr.split('-');
+    return this.monthOptions[parseInt(month, 10)];
+  }
   // formatDate(timestamp: string): string {
   //   const date = new Date(timestamp);
   //   const year = date.getFullYear();

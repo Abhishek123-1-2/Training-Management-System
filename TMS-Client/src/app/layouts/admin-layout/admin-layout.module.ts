@@ -68,6 +68,7 @@ import { ViewDetailsComponent } from 'app/pages/employee/view-details/view-detai
 import { EmployeeFeedbackComponent } from 'app/pages/admin/employee-feedback/employee-feedback.component';
 import { ExternalCourseComponent } from 'app/pages/employee/external-course/external-course.component';
 import { ManagerExternalCourseComponent } from 'app/pages/manager/manager-external-course/manager-external-course.component';
+import { ManagerDashboardComponent } from 'app/pages/manager/manager-dashboard/manager-dashboard.component';
 
 
 
@@ -150,7 +151,8 @@ import { ManagerExternalCourseComponent } from 'app/pages/manager/manager-extern
     EmployeeFeedbackComponent,
     ExternalCourseComponent,
     ManagerExternalCourseComponent,
-
+    ManagerDashboardComponent,
+    TrainerDashboardComponent
 
 
     

@@ -27,6 +27,11 @@
         <select [(ngModel)]="selectedMonth" (change)="onMonthChange()" class="form-control custom-select mb-3">
           <option *ngFor="let month of monthOptions" [value]="month">{{ month }}</option>
         </select>
+        <label class="mb-2">Filter by Month:</label>
+<select [(ngModel)]="selectedFilterMonth" (change)="onFilterMonthChange()" class="form-control custom-select mb-3">
+  <option *ngFor="let month of monthOptions" [value]="month">{{ month }}</option>
+</select>
+
 
         <!-- <label class="mb-2">Filter:</label>
         <select [(ngModel)]="selectedFilter" (change)="onFilterChange()" class="form-control custom-select">

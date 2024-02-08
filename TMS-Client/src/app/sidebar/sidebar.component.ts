@@ -30,7 +30,7 @@ export const ROUTES: RouteInfo[] = [
         {path:'/admin-training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_ADMIN']},
     ]},
 
-    { path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', roles: ['ROLE_TRAINER']},
+    { path: '/manager-dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', roles: ['ROLE_TRAINER']},
     { path: '/training-details', title: 'Trainings', icon: 'nc-caps-small', class: '', roles: ['ROLE_TRAINER']},
     { path:'/give-feedback', title:'Feedback', icon:'nc-chart-bar-32', class:'', roles: ['ROLE_TRAINER'] },
     {path:'report-main',title:'Reports',icon:'nc-chart-bar-32',class:'',roles:['ROLE_TRAINER']},
@@ -86,7 +86,7 @@ submenu:[
     // { path: '/typography',    title: 'Typography',        icon:'nc-caps-small', class: '' },
     // { path: '/upgrade',       title: 'Upgrade to PRO',    icon:'nc-spaceship',  class: 'active-pro' },
 
-{path:'dashboard', title:'Dashboard', icon:'nc-diamond', class:'', roles:['ROLE_MANAGER']},
+{path:'manager-dashboard', title:'Dashboard', icon:'nc-diamond', class:'', roles:['ROLE_MANAGER']},
 {path:'employee-search', title:'Employee', icon:'nc-circle-10', class:'', roles:['ROLE_MANAGER']},
 {path:'training', title:'Training Requests', icon:'nc-caps-small', class:'', roles:['ROLE_MANAGER'], submenu:[
 {path:'training-request', title:'Scheduled Courses', icon:'', class:'', roles:['ROLE_MANAGER']},

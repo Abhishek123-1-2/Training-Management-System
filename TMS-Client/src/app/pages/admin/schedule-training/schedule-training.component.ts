@@ -104,7 +104,7 @@ this.trainer = this.route.snapshot.paramMap.get('trainer') || null;
               response => {
                 // Success: Show alert or perform any other actions
                 alert('Data saved successfully!');
-                this.router.navigate(['/schedule-list']);
+                this.router.navigate(['/dashboard']);
               },
               error => {
                 // Handle the error: Show alert or log the error

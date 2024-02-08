@@ -61,6 +61,7 @@ import { EmployeeFeedbackComponent } from 'app/pages/admin/employee-feedback/emp
 import { ViewDetailsComponent } from 'app/pages/employee/view-details/view-details.component';
 import { ExternalCourseComponent } from 'app/pages/employee/external-course/external-course.component';
 import { ManagerExternalCourseComponent } from 'app/pages/manager/manager-external-course/manager-external-course.component';
+import { ManagerDashboardComponent } from 'app/pages/manager/manager-dashboard/manager-dashboard.component';
 // import { ViewDetailsComponent } from 'app/pages/employee/view-details/view-details.component';
 
 
@@ -139,6 +140,6 @@ export const AdminLayoutRoutes: Routes = [
       }, { path: 'employee-feedback/:c_name/:empCode', component: EmployeeFeedbackComponent },
       {path:'view-details/:c_name',component:ViewDetailsComponent},
       {path:'external-course', component: ExternalCourseComponent},
-      {path:'manager-external-course', component: ManagerExternalCourseComponent}
-      
+      {path:'manager-external-course', component: ManagerExternalCourseComponent},
+      {path:'manager-dashboard',component:ManagerDashboardComponent}
 ];
