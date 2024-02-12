@@ -37,7 +37,7 @@
                 <td class="text-center">{{ row.emp_code }}</td>
                 <td class="text-center">{{ row.emp_name }}</td>
                 <td class="text-center">{{ course_name }}</td>
-                <td class="text-center">{{ trainer_name }}</td>
+                <td class="text-center">{{ trainer_name.split('(')[0].trim() }}</td>
                 <td class="text-center">{{ start_date }}</td>
                 <td class="text-center">{{ end_date }}</td>
                 <td class="text-center">{{ row.status }}</td>

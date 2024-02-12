@@ -310,7 +310,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/hr-dashboard']);
                 break;
               case 'ROLE_TRAINER':
-                this.router.navigate(['/manager-dashboard']);
+                this.router.navigate(['/hr-dashboard']);
                 break;
               default:
                 console.error('Unknown role:', specificValue);
