@@ -162,13 +162,35 @@ public Long register(Registration registration) {
     }
 
  
+// public List<EmployeeDetailsDTO> getAttendees(String course, String trainingStatus, String trainerName,
+//                                             Date plannedStartDate, Date plannedEndDate) {
+//     String sql = "SELECT e.emp_code AS empCode, e.emp_name AS empName, " +
+//                  "e.designation_name AS designationName, e.function_name AS functionName, " +
+//                  "e.email AS email, r.registration_status AS registrationStatus, " +
+//                  "s.trainer_name AS trainerName, s.planned_start_date AS plannedStartDate, " +
+//                  "s.planned_end_date AS plannedEndDate " +
+//                  "FROM m_employee e " +
+//                  "JOIN registration r ON e.emp_id = r.emp_id " +
+//                  "JOIN training_schedule s ON r.schedule_id = s.schedule_id " +
+//                  "JOIN m_trainings t ON s.training_id = t.training_id " +
+//                  "WHERE t.course = ? AND s.training_status = ? AND r.registration_status = 'confirmed' " +
+//                  "AND s.trainer_name = ? " +
+//                  "AND s.planned_start_date >= ? AND s.planned_end_date <= ? " +
+//                  "ORDER BY r.registration_date DESC";
+
+//     return jdbcTemplate.query(
+//             sql,
+//             new Object[]{course, trainingStatus, trainerName, plannedStartDate, plannedEndDate},
+//             new BeanPropertyRowMapper<>(EmployeeDetailsDTO.class)
+//     );
+// }
 public List<EmployeeDetailsDTO> getAttendees(String course, String trainingStatus, String trainerName,
                                             Date plannedStartDate, Date plannedEndDate) {
     String sql = "SELECT e.emp_code AS empCode, e.emp_name AS empName, " +
                  "e.designation_name AS designationName, e.function_name AS functionName, " +
                  "e.email AS email, r.registration_status AS registrationStatus, " +
                  "s.trainer_name AS trainerName, s.planned_start_date AS plannedStartDate, " +
-                 "s.planned_end_date AS plannedEndDate " +
+                 "s.planned_end_date AS plannedEndDate, t.course AS course " +
                  "FROM m_employee e " +
                  "JOIN registration r ON e.emp_id = r.emp_id " +
                  "JOIN training_schedule s ON r.schedule_id = s.schedule_id " +

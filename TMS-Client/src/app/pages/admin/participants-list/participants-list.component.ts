@@ -3,10 +3,19 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
+// interface TableRow {
+//   sr_no: string;
+//   emp_code: string;
+//   emp_name: string;
+//   designation: string;
+//   department: string;
+//   email_id: string;
+// }
 interface TableRow {
   sr_no: string;
   emp_code: string;
   emp_name: string;
+  course: string; // Add this line
   designation: string;
   department: string;
   email_id: string;
@@ -27,6 +36,7 @@ export class ParticipantsListComponent implements OnInit {
   public visiblePages: number[] = []; // Added line
   private rollingPaginatorSize = 5;
   private courseName: string = "Computer Vision";
+  public course: string = '';
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   // ngOnInit(): void {
@@ -37,18 +47,31 @@ export class ParticipantsListComponent implements OnInit {
   //     this.fetchEmployeeData(course, trainingStatus);
   //   });
   // }
+  // ngOnInit(): void {
+  //   this.route.queryParams.subscribe((params) => {
+  //     const course = params['course'];
+  //     const trainingStatus = params['trainingStatus'];
+  //     const trainerName = params['trainerName'];
+  //     const plannedStartDate = params['plannedStartDate'];
+  //     const plannedEndDate = params['plannedEndDate'];
+  
+  //     this.fetchEmployeeData(course, trainingStatus, trainerName, plannedStartDate, plannedEndDate);
+  //     console.log('Course:', this.course);
+  //   });
+  // }
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      const course = params['course'];
+      this.course = params['course'] || ''; // Assign the fetched course value or an empty string if not provided
       const trainingStatus = params['trainingStatus'];
       const trainerName = params['trainerName'];
       const plannedStartDate = params['plannedStartDate'];
       const plannedEndDate = params['plannedEndDate'];
   
-      this.fetchEmployeeData(course, trainingStatus, trainerName, plannedStartDate, plannedEndDate);
-       
+      this.fetchEmployeeData(this.course, trainingStatus, trainerName, plannedStartDate, plannedEndDate);
+      console.log('Course:', this.course);
     });
   }
+  
   // sendEmails(): void {
   //   const emailBodyTemplate = `
   //     Dear {empName},
@@ -57,6 +80,25 @@ export class ParticipantsListComponent implements OnInit {
   //     Best Regards
   //   `;
 
+  //   this.filteredData.forEach(employee => {
+  //     const emailBody = emailBodyTemplate.replace('{empName}', employee.emp_name);
+  //     this.sendEmail(employee.email_id, emailBody);
+  //   });
+  // }
+  // sendEmails(): void {
+  //   const emailBodyTemplate = `
+  //     <div style="background-color: #f2f2f2; padding: 20px;">
+  //       <div style="background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+  //         <h2 style="color: #333333;">Course Completion Feedback Form</h2>
+  //         <p>Dear {empName},</p>
+  //         <p>Congratulations for completing the ${this.courseName} course. We have provided a feedback form for the ${this.courseName} course that you have completed. Please fill out the feedback form as soon as possible.</p>
+  //         <p>Feedback Form Link: <a href="https://forms.office.com/r/vif9DV5UuY">Feedback Form</a></p>
+  //         <p>Best Regards</p>
+  //         <p style="color: red;"><strong>Disclaimer:</strong> This is an auto-generated email. Please do not reply to this email.</p>
+  //       </div>
+  //     </div>
+  //   `;
+  
   //   this.filteredData.forEach(employee => {
   //     const emailBody = emailBodyTemplate.replace('{empName}', employee.emp_name);
   //     this.sendEmail(employee.email_id, emailBody);
@@ -77,10 +119,11 @@ export class ParticipantsListComponent implements OnInit {
     `;
   
     this.filteredData.forEach(employee => {
-      const emailBody = emailBodyTemplate.replace('{empName}', employee.emp_name);
+      const emailBody = emailBodyTemplate.replace('{empName}', employee.emp_name).replace('{courseName}', employee.course);
       this.sendEmail(employee.email_id, emailBody);
     });
   }
+  
   
   sendEmail(email: string, emailBody: string): void {
     const emailData = {
@@ -209,11 +252,12 @@ export class ParticipantsListComponent implements OnInit {
       (data) => {
         // Map the API response properties to TableRow properties
         this.tableData1 = {
-          headerRow: ['No.', 'Employee Code', 'Employee Name', 'Designation', 'Department', 'Email ID'],
+          headerRow: ['No.', 'Employee Code', 'Employee Name','Course', 'Designation', 'Department', 'Email ID'],
           dataRows: data.map((item, index) => ({
             sr_no: (index + 1).toString(),
             emp_code: item.empCode,
             emp_name: item.empName,
+            course: item.course,
             designation: item.designationName,
             department: item.functionName,
             email_id: item.email,

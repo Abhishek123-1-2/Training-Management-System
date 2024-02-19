@@ -12,12 +12,13 @@ public class EmployeeDetailsDTO {
     private String trainerName;
     private Date plannedStartDate;
     private Date plannedEndDate;
+    private String course; // Add this field
     public EmployeeDetailsDTO(){
 
     }
 
     public EmployeeDetailsDTO(String empCode, String empName, String designationName, String functionName,
-            String email,String registrationStatus, String trainerName, Date plannedStartDate,Date plannedEndDate) {
+            String email,String registrationStatus, String trainerName, Date plannedStartDate,Date plannedEndDate,String course) {
         this.empCode = empCode;
         this.empName = empName;
         this.designationName = designationName;
@@ -27,6 +28,7 @@ public class EmployeeDetailsDTO {
         this.trainerName=trainerName;
         this.plannedStartDate=plannedStartDate;
         this.plannedEndDate=plannedEndDate;
+        this.course=course;
 
     }
 
@@ -100,6 +102,14 @@ public void setPlannedEndDate(Date plannedEndDate) {
 
     public void setRegistrationStatus(String registrationStatus) {
         this.registrationStatus = registrationStatus;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
     
     // Constructors, getters, and setters

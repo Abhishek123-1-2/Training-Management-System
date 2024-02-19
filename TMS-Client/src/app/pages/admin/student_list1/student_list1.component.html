@@ -8,10 +8,16 @@
 </nav>
 <!-- Bootstrap table for studentList -->
 <div class="card">
-    <div class="card-header">
+    <!-- <div class="card-header">
       <h4 class="card-title">Attendees Details</h4>
-    </div>
+    </div> -->
     <div class="card-body">
+      <!-- <div class="container"> Added container class here -->
+        
+        <h4 class="card-title">Attendees Details for course: 
+          <span [class.text-primary]="true">{{ course }}</span>
+        </h4>
+      <!-- </div> -->
       <!-- Your existing details section -->
   
       <div class="form-group">
@@ -81,6 +87,7 @@
       </div>
     </div>
   </div>
+
 
 
   
