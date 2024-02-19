@@ -21,6 +21,16 @@ public class EmployeeDetailsService {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(EmployeeDetailsDTO.class));
     }
 
+    public String getEmployeePrimarySkill(String empCode) {
+        // Add SQL query to fetch the primary skill of the employee based on empCode
+        String sql = "SELECT primary_skill_name FROM m_employee WHERE emp_code = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{empCode}, String.class);
+        } catch (Exception e) {
+            // Handle exceptions appropriately
+            return null; // or throw exception
+        }
+    }
     // You can add more methods as needed for specific requirements
 }
 

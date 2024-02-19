@@ -33,6 +33,24 @@
 		</dependency>
 
 		<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-mail</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-core</artifactId>
+    <version>5.5.1</version> <!-- Or the latest version available -->
+</dependency>
+<dependency>
+    <groupId>com.sun.mail</groupId>
+    <artifactId>javax.mail</artifactId>
+    <version>1.6.2</version>
+</dependency>
+
+
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>

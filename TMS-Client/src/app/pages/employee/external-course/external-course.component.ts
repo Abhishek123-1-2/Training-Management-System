@@ -67,7 +67,7 @@ export class ExternalCourseComponent implements OnInit {
           })
         );
         this.filteredData = [...this.tableData1.dataRows];
-        this.loadEnrollmentStatusFromLocalStorage();
+        // this.loadEnrollmentStatusFromLocalStorage();
       },
       (error) => {
         console.error('Error fetching the external course details', error);
@@ -130,7 +130,7 @@ export class ExternalCourseComponent implements OnInit {
           emp_id: empId,
         });
 
-        this.saveEnrollmentStatusToLocalStorage();
+        // this.saveEnrollmentStatusToLocalStorage();
       },
       (error) => {
         console.error('Error enrolling in training:', error);
@@ -138,26 +138,26 @@ export class ExternalCourseComponent implements OnInit {
     );
   }
 
-  private saveEnrollmentStatusToLocalStorage(): void {
-    localStorage.setItem('enrollmentStatusData', JSON.stringify(this.enrollmentStatusData));
-  }
+  // private saveEnrollmentStatusToLocalStorage(): void {
+  //   localStorage.setItem('enrollmentStatusData', JSON.stringify(this.enrollmentStatusData));
+  // }
 
-  private loadEnrollmentStatusFromLocalStorage(): void {
-    const storedData = localStorage.getItem('enrollmentStatusData');
-    if (storedData) {
-      const storedEnrollmentStatus: TableRow[] = JSON.parse(storedData);
-      this.tableData1.dataRows.forEach((row) => {
-        const matchingStoredEntry = storedEnrollmentStatus.find(
-          (storedEntry) =>
-            storedEntry.training_id === row.training_id
-        );
-        if (matchingStoredEntry) {
-          row.isEnrolled = matchingStoredEntry.isEnrolled;
-        }
-      });
-      this.enrollmentStatusData = storedEnrollmentStatus;
-    }
-  }
+  // private loadEnrollmentStatusFromLocalStorage(): void {
+  //   const storedData = localStorage.getItem('enrollmentStatusData');
+  //   if (storedData) {
+  //     const storedEnrollmentStatus: TableRow[] = JSON.parse(storedData);
+  //     this.tableData1.dataRows.forEach((row) => {
+  //       const matchingStoredEntry = storedEnrollmentStatus.find(
+  //         (storedEntry) =>
+  //           storedEntry.training_id === row.training_id
+  //       );
+  //       if (matchingStoredEntry) {
+  //         row.isEnrolled = matchingStoredEntry.isEnrolled;
+  //       }
+  //     });
+  //     this.enrollmentStatusData = storedEnrollmentStatus;
+  //   }
+  // }
 
   get pages(): number[] {
     if (this.tableData1.dataRows.length === 0) {

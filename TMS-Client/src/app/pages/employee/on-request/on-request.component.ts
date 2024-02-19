@@ -89,7 +89,7 @@ export class OnRequestComponent implements OnInit {
         }));
 
         this.filteredData = [...this.tableData1.dataRows];
-        this.loadEnrollmentStatusFromLocalStorage();
+        // this.loadEnrollmentStatusFromLocalStorage();
       },
       (error) => {
         console.error('Error fetching training schedule data:', error);
@@ -183,22 +183,22 @@ export class OnRequestComponent implements OnInit {
     localStorage.setItem('enrollmentStatusData', JSON.stringify(this.enrollmentStatusData));
   }
 
-  private loadEnrollmentStatusFromLocalStorage(): void {
-    const storedData = localStorage.getItem('enrollmentStatusData');
-    if (storedData) {
-      const storedEnrollmentStatus: TableRow[] = JSON.parse(storedData);
-      this.tableData1.dataRows.forEach((row) => {
-        const matchingStoredEntry = storedEnrollmentStatus.find(
-          (storedEntry) =>
-            storedEntry.training_id === row.training_id && storedEntry.schedule_id === row.schedule_id
-        );
-        if (matchingStoredEntry) {
-          row.isEnrolled = matchingStoredEntry.isEnrolled;
-        }
-      });
-      this.enrollmentStatusData = storedEnrollmentStatus;
-    }
-  }
+  // private loadEnrollmentStatusFromLocalStorage(): void {
+  //   const storedData = localStorage.getItem('enrollmentStatusData');
+  //   if (storedData) {
+  //     const storedEnrollmentStatus: TableRow[] = JSON.parse(storedData);
+  //     this.tableData1.dataRows.forEach((row) => {
+  //       const matchingStoredEntry = storedEnrollmentStatus.find(
+  //         (storedEntry) =>
+  //           storedEntry.training_id === row.training_id && storedEntry.schedule_id === row.schedule_id
+  //       );
+  //       if (matchingStoredEntry) {
+  //         row.isEnrolled = matchingStoredEntry.isEnrolled;
+  //       }
+  //     });
+  //     this.enrollmentStatusData = storedEnrollmentStatus;
+  //   }
+  // }
 
   get pages(): number[] {
     if (this.tableData1.dataRows.length === 0) {

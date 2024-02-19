@@ -740,10 +740,18 @@ public ResponseEntity<Long> getTrainingIdByCourseName(@RequestParam String cours
     public Map<String, Long> getTrainingStatusCounts() {
         return trainingViewService.getTrainingStatusCounts();
     }
-    @GetMapping("/status-counts-by-month")
-public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
-    return trainingViewService.getTrainingStatusCountsByMonth();
-}
+//     @GetMapping("/status-counts-by-month")
+// public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
+//     return trainingViewService.getTrainingStatusCountsByMonth();
+// }
+// @GetMapping("/status-counts-by-month")
+// public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
+//     return trainingViewService.getTrainingStatusCountsByMonth();
+// }
+@GetMapping("/status-counts-by-month")
+    public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth(@RequestParam int year) {
+        return trainingViewService.getTrainingStatusCountsByMonth(year);
+    }
 @GetMapping("/completed-courses/{empCode}")
     public List<CompletedCourseInfoDTO> getCompletedCourses(@PathVariable String empCode) {
         return trainingViewService.getCompletedCoursesInfo(empCode);

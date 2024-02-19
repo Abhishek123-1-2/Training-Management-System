@@ -82,14 +82,109 @@ closeAutocompleteList(autocompleteList: any) {
   }
   
 
+  // fetchEmpIdAndSet(selectedCode: string) {
+  //   const apiUrl = `http://localhost:8083/api/employees/id/${selectedCode}`;
+
+  //   this.http.get<number>(apiUrl).subscribe(
+  //     (empId) => {
+  //       if (empId) {
+  //         console.log(`Fetched Employee ID for ${selectedCode}: ${empId}`);
+
+  //         this.http.get<any[]>(`http://localhost:8083/api/employees/${selectedCode}`).subscribe(
+  //           (employee) => {
+  //             if (employee && employee.length > 0) {
+  //               this.addParticipantsForm.get('empName').setValue(employee[0].empName);
+  //               console.log(`Fetched Employee Name for ${selectedCode}: ${employee[0].empName}`);
+  //               this.cdr.detectChanges();
+  //             } else {
+  //               console.error('No employee found with the provided empCode');
+  //             }
+  //           },
+  //           (error) => {
+  //             console.error('Error fetching employee details', error);
+  //           }
+  //         );
+  //       } else {
+  //         console.error('No employee found with the provided empCode');
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching employee details', error);
+  //     }
+  //   );
+  // }
+
+  // fetchEmpIdAndSet(selectedCode: string) {
+  //   const apiUrl = `http://localhost:8083/api/employees/id/${selectedCode}`;
+  
+  //   this.http.get<number>(apiUrl).subscribe(
+  //     (empId) => {
+  //       if (empId) {
+  //         console.log(`Fetched Employee ID for ${selectedCode}: ${empId}`);
+  
+  //         // Log the email ID to the console without setting it in the form
+  //         this.http.get<string>(`http://localhost:8083/api/employees/email/${selectedCode}`).subscribe(
+  //           (email) => {
+  //             if (email) {
+  //               console.log(`Fetched Email ID for ${selectedCode}: ${email}`);
+  //             } else {
+  //               console.error('No email found for the provided employee code');
+  //             }
+  //           },
+  //           (error) => {
+  //             console.error('Error fetching employee email', error);
+  //           }
+  //         );
+  
+  //         // Fetch and set employee name in the form
+  //         this.http.get<any[]>(`http://localhost:8083/api/employees/${selectedCode}`).subscribe(
+  //           (employee) => {
+  //             if (employee && employee.length > 0) {
+  //               this.addParticipantsForm.get('empName').setValue(employee[0].empName);
+  //               console.log(`Fetched Employee Name for ${selectedCode}: ${employee[0].empName}`);
+  //               this.cdr.detectChanges();
+  //             } else {
+  //               console.error('No employee found with the provided empCode');
+  //             }
+  //           },
+  //           (error) => {
+  //             console.error('Error fetching employee details', error);
+  //           }
+  //         );
+  //       } else {
+  //         console.error('No employee found with the provided empCode');
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching employee details', error);
+  //     }
+  //   );
+  // }
+  
   fetchEmpIdAndSet(selectedCode: string) {
     const apiUrl = `http://localhost:8083/api/employees/id/${selectedCode}`;
-
+  
     this.http.get<number>(apiUrl).subscribe(
       (empId) => {
         if (empId) {
           console.log(`Fetched Employee ID for ${selectedCode}: ${empId}`);
-
+  
+          // Fetch email for the selected employee code
+          this.http.get<{ email: string }>(`http://localhost:8083/api/employees/email/${selectedCode}`).subscribe(
+            (emailResponse) => {
+              const email = emailResponse.email; // Extract email from response
+              if (email) {
+                console.log(`Fetched Email ID for ${selectedCode}: ${email}`);
+              } else {
+                console.error('No email found for the provided employee code');
+              }
+            },
+            (error) => {
+              console.error('Error fetching employee email', error);
+            }
+          );
+  
+          // Fetch and set employee name in the form
           this.http.get<any[]>(`http://localhost:8083/api/employees/${selectedCode}`).subscribe(
             (employee) => {
               if (employee && employee.length > 0) {
@@ -113,6 +208,8 @@ closeAutocompleteList(autocompleteList: any) {
       }
     );
   }
+  
+  
   filterEmployeeNames(value: string) {
     if (value) {
       this.http.get<string[]>(`http://localhost:8083/api/employees/names?search=${value}`).subscribe(
@@ -129,13 +226,33 @@ closeAutocompleteList(autocompleteList: any) {
     }
   }
 
+  // onEmpNameSelect(selectedName: string) {
+  //   const apiUrl = `http://localhost:8083/api/employees/codeByName?empName=${selectedName}`;
+
+  //   this.http.get<string>(apiUrl).subscribe(
+  //     (empCode) => {
+  //       if (empCode) {
+  //         this.addParticipantsForm.get('empCode').setValue(empCode);
+  //       } else {
+  //         console.error('No employee found with the provided empName');
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching employee code', error);
+  //     }
+  //   );
+  // }
   onEmpNameSelect(selectedName: string) {
     const apiUrl = `http://localhost:8083/api/employees/codeByName?empName=${selectedName}`;
-
+  
     this.http.get<string>(apiUrl).subscribe(
       (empCode) => {
         if (empCode) {
+          // Set the employee code
           this.addParticipantsForm.get('empCode').setValue(empCode);
+  
+          // Now fetch the email for the selected employee code
+          this.fetchEmailByEmpCode(empCode);
         } else {
           console.error('No employee found with the provided empName');
         }
@@ -145,6 +262,26 @@ closeAutocompleteList(autocompleteList: any) {
       }
     );
   }
+  
+  fetchEmailByEmpCode(empCode: string) {
+    const emailApiUrl = `http://localhost:8083/api/employees/email/${empCode}`;
+    
+    this.http.get<{ email: string }>(emailApiUrl).subscribe(
+      (emailResponse) => {
+        const email = emailResponse.email; // Extract email from response
+        if (email) {
+          console.log(`Fetched Email ID for ${empCode}: ${email}`);
+          // Now you can do whatever you want with the email, such as displaying it or storing it
+        } else {
+          console.error('No email found for the provided employee code');
+        }
+      },
+      (error) => {
+        console.error('Error fetching employee email', error);
+      }
+    );
+  }
+  
   onCourseNameChange(index: number, selectedCourse: string) {
     this.http.get<number>(`http://localhost:8083/api/training-views/training-id?course=${selectedCourse}`).subscribe(
       (trainingId) => {
@@ -169,6 +306,59 @@ closeAutocompleteList(autocompleteList: any) {
     );
   }
 
+  // onSubmit() {
+  //   if (this.addParticipantsForm.valid) {
+  //     const selectedEmpCode = this.addParticipantsForm.get('empCode').value;
+  
+  //     this.fetchEmpIdAndSetForRegistration(selectedEmpCode, (empId) => {
+  //       const selectedCourse = this.addParticipantsForm.get('cName').value;
+  
+  //       this.http.get<number>(`http://localhost:8083/api/training-views/training-id-by-course?courseName=${selectedCourse}`).subscribe(
+  //         (trainingId) => {
+  //           const selectedTrainer = this.addParticipantsForm.get('tName').value;
+  
+  //           this.fetchScheduleIdByTrainer(selectedTrainer, (scheduleId) => {
+  //             const regDateControl = this.addParticipantsForm.get('regDate');
+  //             const registration_date = regDateControl ? regDateControl.value : null;
+  
+  //             const commentsControl = this.addParticipantsForm.get('comments');
+  //             const registration_comments = commentsControl ? commentsControl.value : null;
+  
+  //             const statusControl = this.addParticipantsForm.get('status');
+  //             const registration_status = statusControl ? statusControl.value : null;
+  
+  //             const registrationData = {
+  //               schedule_id: scheduleId,
+  //               training_id: trainingId,
+  //               emp_id: empId,
+  //               registration_date: registration_date,
+  //               registration_comments: registration_comments,
+  //               registration_status: registration_status,
+  //               registration_response: null
+  //             };
+  
+  //             this.http.post('http://localhost:8083/api/registrations/register', registrationData).subscribe(
+  //               (response) => {
+  //                 const employeeName = this.addParticipantsForm.get('empName').value;
+  //                 const courseName = this.addParticipantsForm.get('cName').value;
+  //                 alert(`${employeeName} has been registered successfully for ${courseName}`);
+  //                 this.addParticipantsForm.reset();
+  //               },
+  //               (error) => {
+  //                 console.error('Error adding data:', error);
+  //               }
+  //             );
+  //           });
+  //         },
+  //         (error) => {
+  //           console.error('Error fetching training ID', error);
+  //         }
+  //       );
+  //     });
+  //   } else {
+  //     console.log('Form is invalid');
+  //   }
+  // }
   onSubmit() {
     if (this.addParticipantsForm.valid) {
       const selectedEmpCode = this.addParticipantsForm.get('empCode').value;
@@ -200,11 +390,18 @@ closeAutocompleteList(autocompleteList: any) {
                 registration_response: null
               };
   
+              // Send data to backend and handle response
               this.http.post('http://localhost:8083/api/registrations/register', registrationData).subscribe(
-                (response) => {
+                (response: any) => {
+                  // Handle successful registration
                   const employeeName = this.addParticipantsForm.get('empName').value;
                   const courseName = this.addParticipantsForm.get('cName').value;
                   alert(`${employeeName} has been registered successfully for ${courseName}`);
+  
+                  // Now send email to the registered employee
+                  this.sendEmail(selectedEmpCode, employeeName, courseName);
+                  
+                  // Reset the form
                   this.addParticipantsForm.reset();
                 },
                 (error) => {
@@ -221,6 +418,49 @@ closeAutocompleteList(autocompleteList: any) {
     } else {
       console.log('Form is invalid');
     }
+  }
+  
+  sendEmail(empCode: string, empName: string, courseName: string) {
+    this.http.get<any>(`http://localhost:8083/api/employees/email/${empCode}`).subscribe(
+      (emailResponse: any) => {
+        const email = emailResponse.email; // Extract email from response
+        if (email) {
+          console.log(`Fetched Email ID for ${empCode}: ${email}`);
+  
+          // Prepare email content
+          const emailData = {
+            email: email,
+            subject: 'Scheduled Course Details',
+            body: `
+              <div style="background-color: #f2f2f2; padding: 20px;">
+                <div style="background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+                  <h2 style="color: #333333;">Scheduled Course Details</h2>
+                  <p>Dear ${empName},</p>
+                  <p>You have been enrolled for ${courseName} course which is scheduled from ${this.s_date} to ${this.e_date}.</p>
+                  <p>Best Regards</p>
+                  <p style="color: red;"><strong>Disclaimer:</strong> This is an auto-generated email. Please do not reply to this email.</p>
+                </div>
+              </div>
+            `
+          };
+  
+          // Send email data to backend
+          this.http.post('http://localhost:8083/api/send-email', emailData).subscribe(
+            () => {
+              console.log('Email sent successfully!');
+            },
+            (error) => {
+              console.error('Error sending email:', error);
+            }
+          );
+        } else {
+          console.error('No email found for the provided employee code');
+        }
+      },
+      (error) => {
+        console.error('Error fetching employee email', error);
+      }
+    );
   }
   
   fetchEmpIdAndSetForRegistration(selectedCode: string, callback: (empId: number) => void) {

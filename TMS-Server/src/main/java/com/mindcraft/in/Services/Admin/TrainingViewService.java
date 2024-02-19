@@ -33,6 +33,7 @@ import java.time.Year;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -451,32 +452,158 @@ public List<String> getTrainingCourses() {
         }
     }
 
-    public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
-        // Get the current year
-        int currentYear = LocalDate.now().getYear();
+    // public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
+    //     // Get the current year
+    //     int currentYear = LocalDate.now().getYear();
 
-        // SQL query to fetch data for the current year with month names
-        String sql = "SELECT TO_CHAR(planned_start_date, 'yyyy-MM') AS month, training_status, COUNT(*) AS count " +
+    //     // SQL query to fetch data for the current year with month names
+    //     String sql = "SELECT TO_CHAR(planned_start_date, 'yyyy-MM') AS month, training_status, COUNT(*) AS count " +
+    //                  "FROM training_schedule " +
+    //                  "WHERE EXTRACT(YEAR FROM planned_start_date) = ? " +
+    //                  "GROUP BY month, training_status";
+
+    //     List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, currentYear);
+
+    //     // Format month names
+    //     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.ENGLISH);
+
+    //     return result.stream()
+    //             .filter(entry -> entry.get("month") != null)
+    //             .collect(Collectors.groupingBy(
+    //                     entry -> YearMonth.parse((String) entry.get("month"), DateTimeFormatter.ofPattern("yyyy-MM")).format(formatter),
+    //                     Collectors.groupingBy(
+    //                             entry -> ((String) entry.get("training_status")).toUpperCase(),
+    //                             Collectors.summingLong(entry -> ((Number) entry.get("count")).longValue())
+    //                     )
+    //             ));
+    // }
+    // public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth(int year) {
+    //     // SQL query to fetch data for the specified year with month names
+    //     String sql = "SELECT TO_CHAR(planned_start_date, 'Month YYYY') AS month_year, training_status, COUNT(*) AS count " +
+    //                  "FROM training_schedule " +
+    //                  "WHERE EXTRACT(YEAR FROM planned_start_date) = ? " +
+    //                  "GROUP BY month_year, training_status";
+            
+    
+    //     List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, year);
+    
+    //     // Process the result and organize it by month and status
+    //     Map<String, Map<String, Long>> countsByMonth = new HashMap<>();
+    //     for (Map<String, Object> row : result) {
+    //         String monthYear = (String) row.get("month_year");
+    //         String status = (String) row.get("training_status");
+    //         Long count = ((Number) row.get("count")).longValue();
+    
+    //         countsByMonth.computeIfAbsent(monthYear, k -> new HashMap<>()).put(status, count);
+    //     }
+    
+    //     return countsByMonth;
+    // }
+    public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth(int year) {
+        // SQL query to fetch data for the specified year with month names
+        String sql = "SELECT TRIM(TO_CHAR(planned_start_date, 'Month YYYY')) AS month_year, training_status, COUNT(*) AS count " +
                      "FROM training_schedule " +
                      "WHERE EXTRACT(YEAR FROM planned_start_date) = ? " +
-                     "GROUP BY month, training_status";
+                     "GROUP BY month_year, training_status";
 
-        List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, currentYear);
+        List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, year);
 
-        // Format month names
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.ENGLISH);
+        // Process the result and organize it by month and status
+        Map<String, Map<String, Long>> countsByMonth = new HashMap<>();
+        for (Map<String, Object> row : result) {
+            String monthYear = (String) row.get("month_year");
+            String status = (String) row.get("training_status");
+            Long count = ((Number) row.get("count")).longValue();
 
-        return result.stream()
-                .filter(entry -> entry.get("month") != null)
-                .collect(Collectors.groupingBy(
-                        entry -> YearMonth.parse((String) entry.get("month"), DateTimeFormatter.ofPattern("yyyy-MM")).format(formatter),
-                        Collectors.groupingBy(
-                                entry -> ((String) entry.get("training_status")).toUpperCase(),
-                                Collectors.summingLong(entry -> ((Number) entry.get("count")).longValue())
-                        )
-                ));
+            countsByMonth.computeIfAbsent(monthYear, k -> new HashMap<>()).put(status, count);
+        }
+
+        return countsByMonth;
     }
+    // public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth(int year) {
+    //     // SQL query to fetch data for the specified year with month names
+    //     String sql = "SELECT TO_CHAR(planned_start_date, 'MMMM yyyy') AS month_year, training_status, COUNT(*) AS count " +
+    //                  "FROM training_schedule " +
+    //                  "WHERE EXTRACT(YEAR FROM planned_start_date) = ? " +
+    //                  "GROUP BY month_year, training_status";
+    
+    //     List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, year);
+    
+    //     // Process the result and organize it by month and status
+    //     Map<String, Map<String, Long>> countsByMonth = new HashMap<>();
+    //     for (Map<String, Object> row : result) {
+    //         String monthYear = (String) row.get("month_year");
+    //         String status = (String) row.get("training_status");
+    //         Long count = ((Number) row.get("count")).longValue();
+    
+    //         countsByMonth.computeIfAbsent(monthYear, k -> new HashMap<>()).put(status, count);
+    //     }
+    
+    //     return countsByMonth;
+    // }
+    
+// public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
+//     // SQL query to fetch data for all years with month names
+//     String sql = "SELECT TO_CHAR(planned_start_date, 'yyyy-MM') AS month, training_status, COUNT(*) AS count " +
+//                  "FROM training_schedule " +
+//                  "GROUP BY month, training_status";
 
+//     List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
+
+//     // Process the result and organize it by month and status
+//     Map<String, Map<String, Long>> countsByMonth = new HashMap<>();
+//     for (Map<String, Object> row : result) {
+//         String month = (String) row.get("month");
+//         String status = (String) row.get("training_status");
+//         Long count = ((Number) row.get("count")).longValue();
+
+//         countsByMonth.computeIfAbsent(month, k -> new HashMap<>()).put(status, count);
+//     }
+
+//     return countsByMonth;
+// }
+// public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth() {
+//     // SQL query to fetch data for all years with month names
+//     String sql = "SELECT TO_CHAR(planned_start_date, 'Month YYYY') AS month_year, training_status, COUNT(*) AS count " +
+//                  "FROM training_schedule " +
+//                  "GROUP BY month_year, training_status";
+
+//     List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
+
+//     // Process the result and organize it by month and status
+//     Map<String, Map<String, Long>> countsByMonth = new HashMap<>();
+//     for (Map<String, Object> row : result) {
+//         String monthYear = (String) row.get("month_year");
+//         String status = (String) row.get("training_status");
+//         Long count = ((Number) row.get("count")).longValue();
+
+//         countsByMonth.computeIfAbsent(monthYear, k -> new HashMap<>()).put(status, count);
+//     }
+
+//     return countsByMonth;
+// }
+// Update the method signature to accept the selected year as a parameter
+// public Map<String, Map<String, Long>> getTrainingStatusCountsByMonth(int selectedYear) {
+//     // SQL query to fetch data for the selected year with month names
+//     String sql = "SELECT TO_CHAR(planned_start_date, 'Month YYYY') AS month_year, training_status, COUNT(*) AS count " +
+//                  "FROM training_schedule " +
+//                  "WHERE EXTRACT(YEAR FROM planned_start_date) = ? " +
+//                  "GROUP BY month_year, training_status";
+
+//     List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, selectedYear);
+
+//     // Process the result and organize it by month and status
+//     Map<String, Map<String, Long>> countsByMonth = new HashMap<>();
+//     for (Map<String, Object> row : result) {
+//         String monthYear = (String) row.get("month_year");
+//         String status = (String) row.get("training_status");
+//         Long count = ((Number) row.get("count")).longValue();
+
+//         countsByMonth.computeIfAbsent(monthYear, k -> new HashMap<>()).put(status, count);
+//     }
+
+//     return countsByMonth;
+// }
 
     private YearMonth parseMonth(String month, DateTimeFormatter formatter) {
         // Handle extra spaces and parse the month

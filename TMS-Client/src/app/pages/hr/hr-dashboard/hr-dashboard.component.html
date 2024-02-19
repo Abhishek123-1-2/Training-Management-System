@@ -23,110 +23,139 @@
   <div class="col-lg-3">
     <div class="card mt-3">
       <div class="card-body">
-        <label class="mb-2">Month:</label>
+        <!-- <label class="mb-2">Month:</label>
         <select [(ngModel)]="selectedMonth" (change)="onMonthChange()" class="form-control custom-select mb-3">
           <option *ngFor="let month of monthOptions" [value]="month">{{ month }}</option>
-        </select>
+        </select> -->
+        <label class="mb-2">Month:</label>
+<select [(ngModel)]="selectedMonth" (change)="onMonthChange()" class="form-control custom-select mb-3">
+  <option *ngFor="let month of monthOptions" [value]="month">{{ month }}</option>
+</select>
+
+        <label class="mb-2">Filter by Month:</label>
+<select [(ngModel)]="selectedFilterMonth" (change)="onFilterMonthChange()" class="form-control custom-select mb-3">
+  <option *ngFor="let month of monthOptions" [value]="month">{{ month }}</option>
+</select>
+<label class="mb-2">Year:</label>
+<select [(ngModel)]="selectedYear" (change)="onYearChange()" class="form-control custom-select mb-3">
+  <!-- <option *ngFor="let year of yearOptions" [value]="year">{{ year }}</option> -->
+  <option *ngFor="let year of yearOptions" [value]="year" [selected]="selectedYear === year">{{ year }}</option>
+
+</select>
+
+
+        <!-- <label class="mb-2">Filter:</label>
+        <select [(ngModel)]="selectedFilter" (change)="onFilterChange()" class="form-control custom-select">
+          <option value="all">All</option>
+          <option value="completed">Completed</option>
+          Add more filter options as needed
+        </select> -->
       </div>
     </div>
   </div>
 </div>
 
-
-  <!-- <div class="row">
-  
-    <div class="col-lg-6 col-md-6 col-sm-6">
-      <div class="card card-stats">
-        <div class="card-header">
-          <h4 class="card-title">Enrollment Status</h4>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Schedule Details</h4>
+      </div>
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <div class="form-group">
+            <label for="search">Search:</label>
+            <input class="col-md-12 form-control" type="text" id="search" [(ngModel)]="searchValue" (ngModelChange)="applyFilter()">
+          </div>
         </div>
-        <div class="card-body">
-          <table class="table table-sm  table-bordered">
-            <thead>
-              <tr>
-                <th class="text-primary text-center">Sr No.</th>
-                <th class="text-primary text-center">Course Name</th>
-                <th class="text-primary text-center">Status</th>
-              </tr>
+        <div class="table-responsive text-nowrap table-container">
+          <table class="table">
+            <thead class="text-primary">
+              <th class = "text-center" *ngFor="let header of tableData1.headerRow">{{ header }}</th>
             </thead>
             <tbody>
-              <tr *ngFor="let row of enrollmentStatusData.slice((enrollmentStatusPage - 1) * enrollmentStatusItemsPerPage, enrollmentStatusPage * enrollmentStatusItemsPerPage)">
-                <td class="text-center">{{ row.t_id }}</td>
-                <td class="text-center">{{ row.c_name }}</td>
-                <td class="text-center">{{ row.status }}</td>
-              </tr>
+              <ng-container *ngFor="let row of filteredData; let i = index">
+                <tr class="expandable-row">
+                  <td class = "text-center">{{ row.number }}</td>
+                  <td class = "text-center">{{ row.course }}</td>
+                  <td class = "text-center">{{ extractTrainerName(row.trainer_name) }}</td>
+                  <td class = "text-center">{{ row.planned_start_date }}</td>
+                  <td class = "text-center">{{ row.planned_end_date }}</td>
+                  <td class = "text-center">{{ row.from_time }}</td>
+                  <td class = "text-center">{{ row.to_time }}</td>
+                  <td class = "text-center">{{ row.status }}</td>
+                  <!-- <td class = "text-center">
+                    <button class="btn btn-info" (click)="addParticipants(i)"
+                            [routerLink]="['/add-participants', { course: row.course, trainer: row.trainer_name, s_date: row.planned_start_date, e_date: row.planned_end_date }]"
+                            [disabled]="row.status !== 'Upcoming'">
+                      Add
+                    </button>
+                  </td>
+                  <td>
+                    <button class="btn btn-primary" (click)="toggleEditMode(i)">Edit{{ row.action }}</button>
+                  </td>
+                  <td class="text-center">
+                    <button class="btn btn-primary" (click)="viewAttendees(row.course, row.status, row.trainer_name,row.planned_start_date,row.planned_end_date)" [disabled]="row.status !== 'On-Going'">
+                      {{ row.view }}
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="isEditMode && i === rowIndexBeingEdited">
+                  <td class="text-center">
+                    <input [(ngModel)]="filteredData[i].number" [disabled]="true" class="text-center">
+                  </td>
+                  <td class="text-center">
+                    <input [(ngModel)]="filteredData[i].course" [disabled]="true" class="text-center">
+                  </td>
+                  <td class="text-center">
+                    <input [(ngModel)]="filteredData[i].trainer_name" [disabled]="true" class="text-center">
+                  </td>
+                  <td class="text-center">
+                    <input type="date" [(ngModel)]="filteredData[i].planned_start_date" [disabled]="!isEditMode || i !== rowIndexBeingEdited" class="text-center">
+                  </td>
+                  <td class="text-center">
+                    <input type="date" [(ngModel)]="filteredData[i].planned_end_date" [disabled]="!isEditMode || i !== rowIndexBeingEdited" class="text-center">
+                  </td>
+                  <td class="text-center">
+                    <input type="time" [(ngModel)]="filteredData[i].from_time" [disabled]="!isEditMode || i !== rowIndexBeingEdited" class="text-center">
+                  </td>
+                  <td class="text-center">
+                    <input type="time" [(ngModel)]="filteredData[i].to_time" [disabled]="!isEditMode || i !== rowIndexBeingEdited" class="text-center">
+                  </td>
+                  <td class="text-center">
+                    <select [(ngModel)]="filteredData[i].status" [disabled]="false" class="text-center">
+                      <option value="Upcoming">Upcoming</option>
+                      <option value="On-Going">On-Going</option>
+                      <option value="Completed">Completed</option>
+                    </select>
+                  </td>
+                  <td></td>
+                  <td class="text-center text-nowrap">
+                    <button class="btn btn-success" (click)="saveChanges(i)">Save</button>&nbsp;
+                    <button class="btn btn-success" (click)="cancelEdit()">Cancel</button>
+                  </td>
+                </tr> -->
+              </ng-container>
             </tbody>
           </table>
         </div>
-        
-        <div class="d-flex justify-content-end mt-3">
+        <!-- <div class="d-flex justify-content-end">
           <div class="form-inline mb-3">
-            <label for="enrollmentStatusRowsPerPage" class="mr-1">Rows per Page:</label>
-            <select class="form-control" id="enrollmentStatusRowsPerPage" [(ngModel)]="enrollmentStatusItemsPerPage" (change)="changeItemsPerPage($event, 'enrollmentStatus')">
-              <option value="3">3</option>
-              
+            <label for="rowsPerPage" class="mr-1">Rows per Page:</label>
+            <select class="form-control" id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage($event)">
+              <option value="5">5</option>
+              <option value="10">10</option>
             </select>
           </div>
           <nav aria-label="Page navigation example">
             <ul class="pagination pagination-md">
-              <li class="page-item" (click)="enrollmentStatusPage = (enrollmentStatusPage > 1) ? enrollmentStatusPage - 1 : 1" [class.disabled]="enrollmentStatusPage === 1">
+              <li class="page-item" (click)="onPageChange(currentPage - 1)" [class.disabled]="currentPage === 1">
                 <a class="page-link">Previous</a>
               </li>
-              <li class="page-item" *ngFor="let page of enrollmentStatusPages" (click)="enrollmentStatusPage = page" [class.active]="enrollmentStatusPage === page">
+              <li class="page-item" *ngFor="let page of pages" (click)="onPageChange(page)" [class.active]="currentPage === page">
                 <a class="page-link">{{ page }}</a>
               </li>
-              <li class="page-item" (click)="enrollmentStatusPage = (enrollmentStatusPage < enrollmentStatusPages.length) ? enrollmentStatusPage + 1 : enrollmentStatusPage" [class.disabled]="enrollmentStatusPage === enrollmentStatusPages.length">
-                <a class="page-link">Next</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </div>
-        <div class="col-lg-6 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header">
-              <h4 class="card-title">Confirmation Status</h4>
-            </div>
-            <div class="card-body">
-              <table class="table table-sm  table-bordered">
-                <thead>
-                  <tr>
-                    <th class="text-primary text-center">Sr No.</th>
-                    <th class="text-primary text-center">Course Name</th>
-                    <th class="text-primary text-center">View</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let row of confirmationStatusData.slice((confirmationStatusPage - 1) * confirmationStatusItemsPerPage, confirmationStatusPage * confirmationStatusItemsPerPage)">
-                    <td class="text-center">{{ row.t_id }}</td>
-                    <td class="text-center">{{ row.c_name }}</td>
-                    <td class="text-center">
-                      <button (click)="viewConfirmationDetails(row.c_name)" class="btn btn-info btn-sm">View</button>
-  
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-     
-        <div class="d-flex justify-content-end mt-3">
-          <div class="form-inline mb-3">
-            <label for="confirmationStatusRowsPerPage" class="mr-1">Rows per Page:</label>
-            <select class="form-control" id="confirmationStatusRowsPerPage" [(ngModel)]="confirmationStatusItemsPerPage" (change)="changeItemsPerPage($event, 'confirmationStatus')">
-              <option value="3">3</option>
-           
-            </select>
-          </div>
-          <nav aria-label="Page navigation example">
-            <ul class="pagination pagination-md">
-              <li class="page-item" (click)="confirmationStatusPage = (confirmationStatusPage > 1) ? confirmationStatusPage - 1 : 1" [class.disabled]="confirmationStatusPage === 1">
-                <a class="page-link">Previous</a>
-              </li>
-              <li class="page-item" *ngFor="let page of confirmationStatusPages" (click)="confirmationStatusPage = page" [class.active]="confirmationStatusPage === page">
-                <a class="page-link">{{ page }}</a>
-              </li>
-              <li class="page-item" (click)="confirmationStatusPage = (confirmationStatusPage < confirmationStatusPages.length) ? confirmationStatusPage + 1 : confirmationStatusPage" [class.disabled]="confirmationStatusPage === confirmationStatusPages.length">
+              <li class="page-item" (click)="onPageChange(currentPage + 1)" [class.disabled]="currentPage === pages.length">
                 <a class="page-link">Next</a>
               </li>
             </ul>
@@ -135,68 +164,57 @@
       </div>
     </div>
   </div>
-  
-  
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title">Upcoming Course Details</h4>
-        </div>
-        <div class="card-body">
-          <div class="d-flex justify-content-between">
-            <div class="form-group">
-              <label for="search">Search:</label>
-              <input class="col-md-12 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
-            </div>
-          </div>
-            <div class="table-responsive table-container">
-              <table class="table">
-                <thead class="text-primary">
-                  <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
-                    <td class="text-center">{{ row.t_id }}</td>
-                    <td class="text-center">{{ row.c_name }}</td>
-                    <td class="text-center">{{ row.t_name }}</td>
-                    <td class="text-center">{{ row.s_date }}</td>
-                    <td class="text-center">{{ row.e_date }}</td>
-                    <td class="text-center">{{ row.status }}</td>
-                    <td class="text-center">
-                      <button class="btn btn-primary" (click)="enrollButtonClicked(row)">Enroll</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-        
-          <div class="d-flex justify-content-end mt-3">
-            <div class="form-inline mb-3">
-              <label for="rowsPerPage" class="mr-1">Rows per Page:</label>
-              <select class="form-control" id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage($event, 'upcomingCourse')">
-                <option value="5">5</option>
-                <option value="10">10</option>
-              </select>
-            </div>
-            <nav aria-label="Page navigation example">
-              <ul class="pagination pagination-md">
-                <li class="page-item" (click)="currentPage = (currentPage > 1) ? currentPage - 1 : 1" [class.disabled]="currentPage === 1">
-                  <a class="page-link">Previous</a>
-                </li>
-                <li class="page-item" *ngFor="let page of pages" (click)="currentPage = page" [class.active]="currentPage === page">
-                  <a class="page-link">{{ page }}</a>
-                </li>
-                <li class="page-item" (click)="currentPage = (currentPage < pages.length) ? currentPage + 1 : currentPage" [class.disabled]="currentPage === pages.length">
-                  <a class="page-link">Next</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
-  
-  
-  
+</div> -->
+</div>
+<div class="d-flex justify-content-end mt-3">
+  <div class="form-inline mb-3">
+    <label for="rowsPerPage" class="mr-1">Rows per Page:</label>
+    <select class="form-control" id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage($event)">
+      <option value="5">5</option>
+      <option value="10">10</option>
+    </select>
+  </div>
+
+  <div class="form-check ml-3">
+    <input class="form-check-input" type="checkbox" id="rollingPaginator" [(ngModel)]="rollPaginator">
+    <label class="form-check-label" for="rollingPaginator">Rolling Paginator</label>
+  </div>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination pagination-md">
+      <li class="page-item" (click)="onPageChange(currentPage - 1)" [class.disabled]="currentPage === 1">
+        <a class="page-link">Previous</a>
+      </li>
+      <li class="page-item" *ngIf="visiblePages[0] !== 1">
+        <a class="page-link" (click)="onPageChange(1)">1</a>
+      </li>
+      <li class="page-item" *ngIf="visiblePages[0] > 2">
+        <span class="page-link">...</span>
+      </li>
+      <li class="page-item" *ngFor="let page of visiblePages" (click)="onPageChange(page)" [class.active]="currentPage === page">
+        <a class="page-link">{{ page }}</a>
+      </li>
+      <li class="page-item" *ngIf="visiblePages[visiblePages.length - 1] < pages.length - 1">
+        <span class="page-link">...</span>
+      </li>
+      <li class="page-item" *ngIf="visiblePages[visiblePages.length - 1] !== pages.length">
+        <a class="page-link" (click)="onPageChange(pages.length)">{{ pages.length }}</a>
+      </li>
+      <li class="page-item" (click)="onPageChange(currentPage + 1)" [class.disabled]="currentPage === pages.length">
+        <a class="page-link">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+

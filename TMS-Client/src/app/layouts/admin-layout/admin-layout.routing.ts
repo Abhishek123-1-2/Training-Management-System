@@ -141,5 +141,6 @@ export const AdminLayoutRoutes: Routes = [
       {path:'view-details/:c_name',component:ViewDetailsComponent},
       {path:'external-course', component: ExternalCourseComponent},
       {path:'manager-external-course', component: ManagerExternalCourseComponent},
-      {path:'manager-dashboard',component:ManagerDashboardComponent}
+      {path:'manager-dashboard',component:ManagerDashboardComponent},
+      {path:'trainer-dashboard',component:TrainerDashboardComponent}
 ];

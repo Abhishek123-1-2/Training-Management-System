@@ -29,8 +29,16 @@ export const ROUTES: RouteInfo[] = [
         {path:'/training-record', title:'Training Record', icon:'', class:'', roles:['ROLE_ADMIN']},
         {path:'/admin-training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_ADMIN']},
     ]},
-
-    { path: '/hr-dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', roles: ['ROLE_TRAINER']},
+  //   { path: '/user-dashboard/:empId', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_ADMIN']},
+  //   { path: '/user-dashboard', title: 'Training', class: '', icon: 'nc-user-run', roles:['ROLE_ADMIN'] ,
+  // submenu:[
+  // {path:'on-request',title:'On-Request',icon:'',class:'',roles:['ROLE_ADMIN']},
+  // {path:'external-course', title: 'External Course', icon: '', class: '', roles: ['ROLE_ADMIN']},
+  // {path:'user-training-history',title:'Training History',icon:'',class:'',roles:['ROLE_ADMIN']},  
+  // ]},
+  // { path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_ADMIN']},
+  
+    { path: '/trainer-dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', roles: ['ROLE_TRAINER']},
     { path: '/training-details', title: 'Trainings', icon: 'nc-caps-small', class: '', roles: ['ROLE_TRAINER']},
     { path:'/give-feedback', title:'Feedback', icon:'nc-chart-bar-32', class:'', roles: ['ROLE_TRAINER'] },
     {path:'report-main',title:'Reports',icon:'nc-chart-bar-32',class:'',roles:['ROLE_TRAINER']},
@@ -51,11 +59,13 @@ submenu:[
  
 // { path: '/user-dashboard/:empId', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_HR']},
 {path:'/hr-dashboard', title: 'Dashboard', icon: 'nc-circle-10', class: '', roles: ['ROLE_HR']},
+// { path: '/user-dashboard/:empId', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_HR']},
 { path: '/employee-search', title: 'Employee', icon: 'nc-circle-10', class:'', roles: ['ROLE_HR']},
-{ path: '', title: 'Training', class: '', icon: 'nc-caps-small', roles:['ROLE_HR'], submenu: [
-  { path: '/training-view', title: 'View Training', class: '', icon: '', roles:['ROLE_HR']}
+// { path: '', title: 'Training', class: '', icon: 'nc-caps-small', roles:['ROLE_HR'], submenu: [
+//   { path: '/training-view', title: 'View Training', class: '', icon: '', roles:['ROLE_HR']}
+  
 
-  ]},
+//   ]},
 
 { path: '/admin-attendance' ,title :'Reports' ,icon :'nc-chart-bar-32' , class : '', roles: ['ROLE_HR']},
 // { path: '/attendance' ,title :'Attendance' ,icon :'nc-chart-bar-32' , class : '', roles: ['ROLE_HR']},
@@ -73,6 +83,14 @@ submenu:[
     {path:'/hr-training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_HR']},
 
   ]},
+  { path: '/user-dashboard/:empId', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_HR']},
+  { path: '/user-dashboard', title: 'Training', class: '', icon: 'nc-user-run', roles:['ROLE_HR'] ,
+submenu:[
+{path:'on-request',title:'On-Request',icon:'',class:'',roles:['ROLE_HR']},
+{path:'external-course', title: 'External Course', icon: '', class: '', roles: ['ROLE_HR']},
+{path:'user-training-history',title:'Training History',icon:'',class:'',roles:['ROLE_HR']},  
+]},
+{ path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_HR']},
 
 
 

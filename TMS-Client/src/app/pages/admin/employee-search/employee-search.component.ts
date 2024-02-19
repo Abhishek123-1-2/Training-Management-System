@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';  // Import the Router module
+import { Router } from '@angular/router';
 
-declare interface TableData {
+interface TableData {
   headerRow: string[];
   dataRows: {
     sr_no: string;
@@ -12,6 +12,7 @@ declare interface TableData {
     department: string;
     email_id: string;
     view: string;
+    send_email: string; // Add send_email property
   }[];
 }
 
@@ -23,11 +24,11 @@ interface TableRow {
   department: string;
   email_id: string;
   view: string;
+  send_email: string; // Add send_email property
 }
 
 @Component({
   selector: 'employee-search',
-  moduleId: module.id,
   templateUrl: './employee-search.component.html',
 })
 export class EmployeeSearchComponent implements OnInit {
@@ -36,18 +37,17 @@ export class EmployeeSearchComponent implements OnInit {
   public searchValue: string = '';
   public currentPage = 1;
   public itemsPerPage = 5;
-  public rollPaginator: boolean = false; // Added line
-  public visiblePages: number[] = []; // Added line
+  public rollPaginator: boolean = false;
+  public visiblePages: number[] = [];
   private rollingPaginatorSize = 5;
 
-  constructor(private http: HttpClient, private router: Router) { }  // Inject the Router module
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
-    // Fetch data from the API endpoint
     this.http.get<any[]>('http://localhost:8083/api/employee-details/all')
       .subscribe(data => {
         this.tableData1 = {
-          headerRow: ['Sr No.', 'Employee Code', 'Employee Name', 'Designation', 'Department', 'Email ID', 'View'],
+          headerRow: ['Sr No.', 'Employee Code', 'Employee Name', 'Designation', 'Department', 'Email ID', 'View', 'Send Email'],
           dataRows: data.map((item, index) => ({
             sr_no: (index + 1).toString(),
             emp_code: item.empCode,
@@ -56,17 +56,19 @@ export class EmployeeSearchComponent implements OnInit {
             department: item.functionName,
             email_id: item.email,
             view: 'View',
+            send_email: 'Send Email', // Initialize send_email property
           })),
         };
         this.filteredData = [...this.tableData1.dataRows];
       });
   }
+
   get pages(): number[] {
-    if (this.tableData1.dataRows.length === 0) {
+    if (this.filteredData.length === 0) {
       return [];
     }
 
-    const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+    const pageCount = Math.ceil(this.filteredData.length / this.itemsPerPage);
     return Array.from({ length: pageCount }, (_, index) => index + 1);
   }
 
@@ -83,7 +85,7 @@ export class EmployeeSearchComponent implements OnInit {
   }
 
   updateVisiblePages(): void {
-    const totalPages = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+    const totalPages = Math.ceil(this.filteredData.length / this.itemsPerPage);
     const halfPaginatorSize = Math.floor(this.rollingPaginatorSize / 2);
 
     if (totalPages <= this.rollingPaginatorSize) {
@@ -98,6 +100,7 @@ export class EmployeeSearchComponent implements OnInit {
       }
     }
   }
+
   applyFilter() {
     this.filteredData = this.tableData1.dataRows.filter(row =>
       Object.values(row).some(value =>
@@ -106,22 +109,273 @@ export class EmployeeSearchComponent implements OnInit {
     );
   }
 
-  // Modify this function to navigate to CourseDetailsComponent with emp_code as a parameter
-  viewDetails(emp_code: string) {
-    this.router.navigate(['/course-details', emp_code]);
+ 
+  // sendEmail(username: string, email: string, empName: string) {
+  //   const plainPassword = this.generateRandomPassword(8); // Generate a random password of length 8
+  
+  //   const user = {
+  //     username: username,
+  //     password: plainPassword,
+  //     user_role: 'ROLE_USER'
+  //   };
+  
+  //   this.http.post('http://localhost:8083/api/users', user, { responseType: 'text' }).subscribe(
+  //     (response) => {
+  //       console.log('User data inserted successfully:', response);
+  //       const subject = 'Welcome to Training Request Portal';
+      
+  //       const body = `
+  //       <div style="background-color: #f2f2f2; padding: 20px;">
+  //         <div style="background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+  //           <h2 style="color: #333333;">Welcome to Training Request Portal</h2>
+  //           <p>Dear ${empName},</p>
+  //           <p>Welcome aboard! We're excited to have you join us on Training Management System.</p>
+  //           <p>Your login credentials are:</p>
+  //           <ul>
+  //             <li><strong>Username:</strong> ${username}</li>
+  //             <li><strong>Password:</strong> ${plainPassword}</li>
+  //           </ul>
+  //           <p>Please keep these details secure and accessible only to you.</p>
+  //           <p>Feel free to explore our platform and let us know if you have any questions or need assistance. We're here to help!</p>
+  //           <a href="http://localhost:4200/#/login" style="display: inline-block; background-color: blue; color: white; padding: 10px 20px; text-decoration: none;">Go To The System</a>
+  //           <p style="color: red;"><strong>Disclaimer:</strong> This is an auto-generated email. Please do not reply to this email.</p>
+  //         </div>
+  //       </div>
+  //     `;
+      
+  //       this.http.post('http://localhost:8083/api/send-email', { email: email, subject: subject, body: body }, { responseType: 'text' }).subscribe(() => {
+  //         alert('Email sent successfully!');
+  //       }, (error) => {
+  //         console.error('Error sending email:', error);
+  //       });
+  //     },
+  //     (error) => {
+  //       console.error('Error inserting user data:', error);
+  //     }
+  //   );
+  // }
+  
+  // sendEmail(empCode: string, email: string, empName: string) {
+  //   this.http.get<any>('http://localhost:8083/api/employee-details/skill/' + empCode)
+  //     .subscribe(skillData => {
+  //       let userRole = 'ROLE_USER'; // Default role
+  //       if (skillData && skillData.primary_skill_name) {
+  //         switch(skillData.primary_skill_name) {
+  //           case 'System Administrator':
+  //             userRole = 'ROLE_ADMIN';
+  //             break;
+  //           case 'HR':
+  //             userRole = 'ROLE_HR';
+  //             break;
+  //           case 'Trainer':
+  //             userRole = 'ROLE_TRAINER';
+  //             break;
+  //           // Add more cases as needed
+  //           default:
+  //             userRole = 'ROLE_USER';
+  //             break;
+  //         }
+  //       }
+        
+  //       const plainPassword = this.generateRandomPassword(8); // Generate a random password of length 8
+  
+  //       const user = {
+  //         username: empCode,
+  //         password: plainPassword,
+  //         user_role: userRole
+  //       };
+  
+  //       this.http.post('http://localhost:8083/api/users', user, { responseType: 'text' }).subscribe(
+  //         (response) => {
+  //           console.log('User data inserted successfully:', response);
+  //           const subject = 'Welcome to Training Request Portal';
+  
+  //           const body = `
+  //             <div style="background-color: #f2f2f2; padding: 20px;">
+  //               <div style="background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+  //                 <h2 style="color: #333333;">Welcome to Training Request Portal</h2>
+  //                 <p>Dear ${empName},</p>
+  //                 <p>Welcome aboard! We're excited to have you join us on Training Management System.</p>
+  //                 <p>Your login credentials are:</p>
+  //                 <ul>
+  //                   <li><strong>Username:</strong> ${empCode}</li>
+  //                   <li><strong>Password:</strong> ${plainPassword}</li>
+  //                 </ul>
+  //                 <p>Please keep these details secure and accessible only to you.</p>
+  //                 <p>Feel free to explore our platform and let us know if you have any questions or need assistance. We're here to help!</p>
+  //                 <a href="http://localhost:4200/#/login" style="display: inline-block; background-color: blue; color: white; padding: 10px 20px; text-decoration: none;">Go To The System</a>
+  //                 <p style="color: red;"><strong>Disclaimer:</strong> This is an auto-generated email. Please do not reply to this email.</p>
+  //               </div>
+  //             </div>
+  //           `;
+  
+  //           this.http.post('http://localhost:8083/api/send-email', { email: email, subject: subject, body: body }, { responseType: 'text' }).subscribe(() => {
+  //             alert('Email sent successfully!');
+  //           }, (error) => {
+  //             console.error('Error sending email:', error);
+  //           });
+  //         },
+  //         (error) => {
+  //           console.error('Error inserting user data:', error);
+  //         }
+  //       );
+  //     });
+  // }
+  // sendEmail(empCode: string, email: string, empName: string) {
+  //   this.http.get<any>('http://localhost:8083/api/employee-details/skill/' + empCode)
+  //     .subscribe(skillData => {
+  //       // Check if skillData is valid JSON
+  //       if (typeof skillData === 'object' && skillData.primary_skill_name) {
+  //         let userRole = 'ROLE_USER'; // Default role
+  //         switch(skillData.primary_skill_name) {
+  //           case 'System Administrator':
+  //             userRole = 'ROLE_ADMIN';
+  //             break;
+  //           case 'HR':
+  //             userRole = 'ROLE_HR';
+  //             break;
+  //           case 'Trainer':
+  //             userRole = 'ROLE_TRAINER';
+  //             break;
+  //           // Add more cases as needed
+  //           default:
+  //             userRole = 'ROLE_USER';
+  //             break;
+  //         }
+          
+  //         const plainPassword = this.generateRandomPassword(8); // Generate a random password of length 8
+  
+  //         const user = {
+  //           username: empCode,
+  //           password: plainPassword,
+  //           user_role: userRole
+  //         };
+  
+  //         this.http.post('http://localhost:8083/api/users', user, { responseType: 'text' }).subscribe(
+  //           (response) => {
+  //             console.log('User data inserted successfully:', response);
+  //             const subject = 'Welcome to Training Request Portal';
+  
+  //             const body = `
+  //               <div style="background-color: #f2f2f2; padding: 20px;">
+  //                 <div style="background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+  //                   <h2 style="color: #333333;">Welcome to Training Request Portal</h2>
+  //                   <p>Dear ${empName},</p>
+  //                   <p>Welcome aboard! We're excited to have you join us on Training Management System.</p>
+  //                   <p>Your login credentials are:</p>
+  //                   <ul>
+  //                     <li><strong>Username:</strong> ${empCode}</li>
+  //                     <li><strong>Password:</strong> ${plainPassword}</li>
+  //                   </ul>
+  //                   <p>Please keep these details secure and accessible only to you.</p>
+  //                   <p>Feel free to explore our platform and let us know if you have any questions or need assistance. We're here to help!</p>
+  //                   <a href="http://localhost:4200/#/login" style="display: inline-block; background-color: blue; color: white; padding: 10px 20px; text-decoration: none;">Go To The System</a>
+  //                   <p style="color: red;"><strong>Disclaimer:</strong> This is an auto-generated email. Please do not reply to this email.</p>
+  //                 </div>
+  //               </div>
+  //             `;
+  
+  //             this.http.post('http://localhost:8083/api/send-email', { email: email, subject: subject, body: body }, { responseType: 'text' }).subscribe(() => {
+  //               alert('Email sent successfully!');
+  //             }, (error) => {
+  //               console.error('Error sending email:', error);
+  //             });
+  //           },
+  //           (error) => {
+  //             console.error('Error inserting user data:', error);
+  //           }
+  //         );
+  //       } else {
+  //         console.error('Invalid skill data:', skillData);
+  //       }
+  //     }, (error) => {
+  //       console.error('Error fetching skill data:', error);
+  //     });
+  // }
+  sendEmail(empCode: string, email: string, empName: string) {
+    this.http.get<any>('http://localhost:8083/api/employee-details/skill/' + empCode)
+      .subscribe(skillData => {
+        // Check if skillData is valid JSON
+        if (typeof skillData === 'object' && skillData.primary_skill_name) {
+          const userRole = this.getUserRole(skillData.primary_skill_name);
+          if (!userRole) {
+            console.error('Invalid primary skill:', skillData.primary_skill_name);
+            return;
+          }
+          
+          const plainPassword = this.generateRandomPassword(8); // Generate a random password of length 8
+  
+          const user = {
+            username: empCode,
+            password: plainPassword,
+            user_role: userRole
+          };
+  
+          this.http.post('http://localhost:8083/api/users', user, { responseType: 'text' }).subscribe(
+            (response) => {
+              console.log('User data inserted successfully:', response);
+              const subject = 'Welcome to Training Request Portal';
+  
+              const body = `
+                <div style="background-color: #f2f2f2; padding: 20px;">
+                  <div style="background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+                    <h2 style="color: #333333;">Welcome to Training Request Portal</h2>
+                    <p>Dear ${empName},</p>
+                    <p>Welcome aboard! We're excited to have you join us on Training Management System.</p>
+                    <p>Your login credentials are:</p>
+                    <ul>
+                      <li><strong>Username:</strong> ${empCode}</li>
+                      <li><strong>Password:</strong> ${plainPassword}</li>
+                    </ul>
+                    <p>Please keep these details secure and accessible only to you.</p>
+                    <p>Feel free to explore our platform and let us know if you have any questions or need assistance. We're here to help!</p>
+                    <a href="http://localhost:4200/#/login" style="display: inline-block; background-color: blue; color: white; padding: 10px 20px; text-decoration: none;">Go To The System</a>
+                    <p style="color: red;"><strong>Disclaimer:</strong> This is an auto-generated email. Please do not reply to this email.</p>
+                  </div>
+                </div>
+              `;
+  
+              this.http.post('http://localhost:8083/api/send-email', { email: email, subject: subject, body: body }, { responseType: 'text' }).subscribe(() => {
+                alert('Email sent successfully!');
+              }, (error) => {
+                console.error('Error sending email:', error);
+              });
+            },
+            (error) => {
+              console.error('Error inserting user data:', error);
+            }
+          );
+        } else {
+          console.error('Invalid skill data:', skillData);
+        }
+      }, (error) => {
+        console.error('Error fetching skill data:', error);
+      });
   }
-
-  // get pages(): number[] {
-  //   if (this.filteredData.length === 0) {
-  //     return [];
-  //   }
-
-  //   const pageCount = Math.ceil(this.filteredData.length / this.itemsPerPage);
-  //   return Array.from({ length: pageCount }, (_, index) => index + 1);
-  // }
-
-  // changeItemsPerPage(event: any): void {
-  //   this.itemsPerPage = +event.target.value,
-  //   this.currentPage = 1; 
-  // }
+  
+  getUserRole(primarySkillName: string): string {
+    switch(primarySkillName) {
+      case 'System Administrator':
+        return 'ROLE_ADMIN';
+      case 'HR':
+        return 'ROLE_HR';
+      case 'Trainer':
+        return 'ROLE_TRAINER';
+      // Add more cases as needed
+      default:
+        return 'ROLE_USER';
+    }
+  }
+  
+  
+  
+  
+  generateRandomPassword(length: number): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let password = '';
+    for (let i = 0; i < length; i++) {
+      password += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return password;
+  }
 }

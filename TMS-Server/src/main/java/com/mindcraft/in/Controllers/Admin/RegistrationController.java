@@ -184,27 +184,7 @@ public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithPlannedD
         return registrationService.getRegistrationDetailsForExternalCourse();
     }
 
-//  @PutMapping("/{registrationId}/status")
-//     public ResponseEntity<Void> updateStatus(@PathVariable Long registrationId, @RequestBody Map<String, String> statusRequest) {
-//         String newStatus = statusRequest.get("registration_status");
 
-//         // Check if the provided status is valid (you may add additional validation logic if needed)
-//         if (!Arrays.asList("confirmed", "rejected", "joined").contains(newStatus)) {
-//             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//         }
-
-//         // Check if the registration with the given ID exists
-//         Registration existingRegistration = registrationService.getRegistrationDetails(registrationId);
-//         if (existingRegistration == null) {
-//             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//         }
-
-//         // Update the status
-//         existingRegistration.setRegistration_status(newStatus);
-//         registrationService.updateRegistration(existingRegistration);
-
-//         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//     }
 
 @PutMapping("/{registrationId}/status")
 public ResponseEntity<Void> updateStatus(@PathVariable Long registrationId, @RequestBody Map<String, String> statusRequest) {

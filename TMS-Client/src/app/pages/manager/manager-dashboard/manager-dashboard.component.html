@@ -23,13 +23,24 @@
   <div class="col-lg-3">
     <div class="card mt-3">
       <div class="card-body">
-        <label class="mb-2">Month:</label>
+        <!-- <label class="mb-2">Month:</label>
         <select [(ngModel)]="selectedMonth" (change)="onMonthChange()" class="form-control custom-select mb-3">
           <option *ngFor="let month of monthOptions" [value]="month">{{ month }}</option>
-        </select>
+        </select> -->
+        <label class="mb-2">Month:</label>
+<select [(ngModel)]="selectedMonth" (change)="onMonthChange()" class="form-control custom-select mb-3">
+  <option *ngFor="let month of monthOptions" [value]="month">{{ month }}</option>
+</select>
+
         <label class="mb-2">Filter by Month:</label>
 <select [(ngModel)]="selectedFilterMonth" (change)="onFilterMonthChange()" class="form-control custom-select mb-3">
   <option *ngFor="let month of monthOptions" [value]="month">{{ month }}</option>
+</select>
+<label class="mb-2">Year:</label>
+<select [(ngModel)]="selectedYear" (change)="onYearChange()" class="form-control custom-select mb-3">
+  <!-- <option *ngFor="let year of yearOptions" [value]="year">{{ year }}</option> -->
+  <option *ngFor="let year of yearOptions" [value]="year" [selected]="selectedYear === year">{{ year }}</option>
+
 </select>
 
 
@@ -48,7 +59,7 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <h4 class="card-title">Training Details</h4>
+        <h4 class="card-title">Schedule Details</h4>
       </div>
       <div class="card-body">
         <div class="d-flex justify-content-between">
@@ -122,8 +133,8 @@
                   <td class="text-center text-nowrap">
                     <button class="btn btn-success" (click)="saveChanges(i)">Save</button>&nbsp;
                     <button class="btn btn-success" (click)="cancelEdit()">Cancel</button>
-                  </td> -->
-                </tr>
+                  </td>
+                </tr> -->
               </ng-container>
             </tbody>
           </table>

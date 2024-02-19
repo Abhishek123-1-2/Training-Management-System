@@ -1,6 +1,7 @@
 package com.mindcraft.in.Controllers.Admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mindcraft.in.Pojos.Admin.Employee;
 import com.mindcraft.in.Services.Admin.EmployeeService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -23,7 +26,39 @@ public class EmployeeController {
     public List<Employee> getEmployeeDetails(@PathVariable String empCode) {
         return employeeService.getEmployeeDetails(empCode);
     }
-    
+//    @GetMapping("/email/{empCode}")
+// public ResponseEntity<String> getEmployeeEmail(@PathVariable String empCode) {
+//     String email = employeeService.getEmployeeEmail(empCode);
+//     if (email != null) {
+//         return ResponseEntity.ok(email); // Return the email ID as JSON string
+//     } else {
+//         return ResponseEntity.notFound().build();
+//     }
+// }
+@GetMapping("/email/{empCode}")
+public ResponseEntity<Map<String, String>> getEmployeeEmail(@PathVariable String empCode) {
+    String email = employeeService.getEmployeeEmail(empCode);
+    if (email != null) {
+        Map<String, String> responseBody = new HashMap<>();
+        responseBody.put("email", email);
+        return ResponseEntity.ok(responseBody);
+    } else {
+        return ResponseEntity.notFound().build();
+    }
+}
+
+// @GetMapping("/email/{empCode}")
+// public ResponseEntity<Map<String, String>> getEmployeeEmail(@PathVariable String empCode) {
+//     String email = employeeService.getEmployeeEmail(empCode);
+//     if (email != null) {
+//         Map<String, String> responseBody = new HashMap<>();
+//         responseBody.put("email", email);
+//         return ResponseEntity.ok(responseBody);
+//     } else {
+//         return ResponseEntity.notFound().build();
+//     }
+// }
+
 
 @GetMapping("/codes")
 public List<String> getEmployeeCodes() {

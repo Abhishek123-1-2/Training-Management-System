@@ -161,53 +161,7 @@ public Long register(Registration registration) {
         return registerForExternal(registration);  // Reuse the existing registration method
     }
 
-    // Add other methods as needed...
-
-//         public List<EmployeeDetailsDTO> getAttendees(String course, String trainingStatus) {
-//     String sql = "SELECT e.emp_code AS empCode, e.emp_name AS empName, " +
-//                  "e.designation_name AS designationName, e.function_name AS functionName, " +
-//                  "e.email AS email " +
-//                  "FROM m_employee e " +
-//                  "JOIN registration r ON e.emp_id = r.emp_id " +
-//                  "JOIN training_schedule s ON r.schedule_id = s.schedule_id " +
-//                  "JOIN m_trainings t ON s.training_id = t.training_id " +
-//                  "WHERE t.course = ? AND s.training_status = ? " +
-//                  "ORDER BY r.registration_date DESC";
-
-//     return jdbcTemplate.query(sql, new Object[]{course, trainingStatus}, new BeanPropertyRowMapper<>(EmployeeDetailsDTO.class));
-// }
-// public List<EmployeeDetailsDTO> getAttendees(String course, String trainingStatus) {
-//     String sql = "SELECT e.emp_code AS empCode, e.emp_name AS empName, " +
-//                  "e.designation_name AS designationName, e.function_name AS functionName, " +
-//                  "e.email AS email, r.registration_status AS registrationStatus " +
-//                  "FROM m_employee e " +
-//                  "JOIN registration r ON e.emp_id = r.emp_id " +
-//                  "JOIN training_schedule s ON r.schedule_id = s.schedule_id " +
-//                  "JOIN m_trainings t ON s.training_id = t.training_id " +
-//                  "WHERE t.course = ? AND s.training_status = ? AND r.registration_status = 'confirmed' " +
-//                  "ORDER BY r.registration_date DESC";
-
-//     return jdbcTemplate.query(sql, new Object[]{course, trainingStatus}, new BeanPropertyRowMapper<>(EmployeeDetailsDTO.class));
-// }
-// public List<EmployeeDetailsDTO> getAttendees(String course, String trainingStatus, String trainerName) {
-//     String sql = "SELECT e.emp_code AS empCode, e.emp_name AS empName, " +
-//                  "e.designation_name AS designationName, e.function_name AS functionName, " +
-//                  "e.email AS email, r.registration_status AS registrationStatus, " +
-//                  "s.trainer_name AS trainerName " +
-//                  "FROM m_employee e " +
-//                  "JOIN registration r ON e.emp_id = r.emp_id " +
-//                  "JOIN training_schedule s ON r.schedule_id = s.schedule_id " +
-//                  "JOIN m_trainings t ON s.training_id = t.training_id " +
-//                  "WHERE t.course = ? AND s.training_status = ? AND r.registration_status = 'confirmed' " +
-//                  "AND s.trainer_name = ? " +
-//                  "ORDER BY r.registration_date DESC";
-
-//     return jdbcTemplate.query(
-//             sql,
-//             new Object[]{course, trainingStatus, trainerName},
-//             new BeanPropertyRowMapper<>(EmployeeDetailsDTO.class)
-//     );
-// }
+ 
 public List<EmployeeDetailsDTO> getAttendees(String course, String trainingStatus, String trainerName,
                                             Date plannedStartDate, Date plannedEndDate) {
     String sql = "SELECT e.emp_code AS empCode, e.emp_name AS empName, " +
@@ -231,19 +185,7 @@ public List<EmployeeDetailsDTO> getAttendees(String course, String trainingStatu
     );
 }
 
-//  public List<RegistrationDetailsDTO> getRegistrationDetails() {
-//         String sql = "SELECT e.emp_code AS empCode, e.emp_name AS empName, r.registration_id AS registrationId, " +
-//                 "r.registration_date AS registrationDate, t.course AS courseName, " +
-//                 "r.registration_comments AS registrationComments, r.registration_status AS status, " +
-//                 "r.registration_response AS registrationResponse " +
-//                 "FROM m_employee e " +
-//                 "JOIN registration r ON e.emp_id = r.emp_id " +
-//                 "JOIN training_schedule s ON r.schedule_id = s.schedule_id " +
-//                 "JOIN m_trainings t ON s.training_id = t.training_id " +
-//                 "ORDER BY r.registration_date DESC";
-    
-//         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(RegistrationDetailsDTO.class));
-//     }
+
 public List<RegistrationDetailsDTO> getRegistrationDetails() {
     String sql = "SELECT e.emp_code AS empCode, e.emp_name AS empName, r.registration_id AS registrationId, " +
             "r.registration_date AS registrationDate, t.course AS courseName, " +
@@ -255,38 +197,7 @@ public List<RegistrationDetailsDTO> getRegistrationDetails() {
             "JOIN training_schedule s ON r.schedule_id = s.schedule_id " +
             "JOIN m_trainings t ON s.training_id = t.training_id " +
             "ORDER BY r.registration_date DESC";
-    // String sql = "SELECT e.emp_code AS empCode, e.emp_name AS empName, r.registration_id AS registrationId, " +
-    //     "r.registration_date AS registrationDate, t.course AS courseName, " +
-    //     "r.registration_comments AS registrationComments, r.registration_status AS status, " +
-    //     "r.registration_response AS registrationResponse, " +
-    //     "s.planned_start_date AS plannedStartDate, s.planned_end_date AS plannedEndDate " +
-    //     "FROM m_employee e " +
-    //     "JOIN registration r ON e.emp_id = r.emp_id " +
-    //     "JOIN training_schedule s ON r.schedule_id = s.schedule_id " +
-    //     "JOIN m_trainings t ON s.training_id = t.training_id " +
-    //     "WHERE r.registration_date >= CURRENT_DATE " +
-    //     "ORDER BY r.registration_date DESC";
-    // String sql = "SELECT e.emp_code AS empCode, e.emp_name AS empName, r.registration_id AS registrationId, " +
-    //     "r.registration_date AS registrationDate, t.course AS courseName, " +
-    //     "r.registration_comments AS registrationComments, r.registration_status AS status, " +
-    //     "r.registration_response AS registrationResponse, " +
-    //     "s.planned_start_date AS plannedStartDate, s.planned_end_date AS plannedEndDate " +
-    //     "FROM m_employee e " +
-    //     "JOIN registration r ON e.emp_id = r.emp_id " +
-    //     "JOIN training_schedule s ON r.schedule_id = s.schedule_id " +
-    //     "JOIN m_trainings t ON s.training_id = t.training_id " +
-    //     "ORDER BY ABS(DATEDIFF(r.registration_date, CURRENT_DATE)), r.registration_date DESC";
-
-    // String sql = "SELECT e.emp_code AS empCode, e.emp_name AS empName, r.registration_id AS registrationId, " +
-    // "r.registration_date AS registrationDate, t.course AS courseName, " +
-    // "r.registration_comments AS registrationComments, r.registration_status AS status, " +
-    // "r.registration_response AS registrationResponse, " +
-    // "s.planned_start_date AS plannedStartDate, s.planned_end_date AS plannedEndDate " +
-    // "FROM m_employee e " +
-    // "JOIN registration r ON e.emp_id = r.emp_id " +
-    // "JOIN training_schedule s ON r.schedule_id = s.schedule_id " +
-    // "JOIN m_trainings t ON s.training_id = t.training_id " +
-    // "ORDER BY AGE(r.registration_date, CURRENT_DATE), r.registration_date DESC";
+   
 
 
     return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(RegistrationDetailsDTO.class));
@@ -411,37 +322,7 @@ public List<RegistrationDetailsDTO> getRegistrationDetails() {
         }
     }
 
-    // public List<AdditionalRegistrationDetailsDTO> getDetailsForCourse(String courseName) {
-    //     String sql = "SELECT " +
-    //             "r.registration_id AS registrationId, " +
-    //             "r.emp_id AS empCode, " +
-    //             "e.emp_name AS empName, " +
-    //             "r.registration_date AS registrationDate, " +
-    //             "mt.course AS courseName, " +
-    //             "r.registration_comments AS registrationComments, " +
-    //             "r.registration_status AS status, " +
-    //             "r.registration_response AS registrationResponse, " +
-    //             "ts.planned_start_date AS plannedStartDate, " +
-    //             "ts.planned_end_date AS plannedEndDate, " +
-    //             "ts.training_schedule AS trainingSchedule " +
-    //             "FROM " +
-    //             "registration r " +
-    //             "JOIN " +
-    //             "training_schedule ts ON r.schedule_id = ts.schedule_id " +
-    //             "JOIN " +
-    //             "m_trainings mt ON ts.training_id = mt.training_id " +
-    //             "JOIN " +
-    //             "m_employee e ON r.emp_id = e.emp_id " +
-    //             "WHERE " +
-    //             "mt.course = ?";
     
-    //     try {
-    //         return jdbcTemplate.query(sql, new Object[]{courseName},
-    //                 new BeanPropertyRowMapper<>(AdditionalRegistrationDetailsDTO.class));
-    //     } catch (EmptyResultDataAccessException e) {
-    //         return Collections.emptyList(); // Return an empty list when no results are found
-    //     }
-    // }
     
 
 
@@ -554,27 +435,7 @@ public List<RegistrationDetailsDTO> getRegistrationDetails() {
     }
     
 
-    // public void updateRegistrationStatus(Long registrationId, String newStatus) {
-    //     String sql = "UPDATE registration SET registration_status = ? WHERE registration_id = ?";
-
-    //     try (Connection connection = dataSource.getConnection();
-    //          PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-    //         preparedStatement.setString(1, newStatus);
-    //         preparedStatement.setLong(2, registrationId);
-
-    //         int rowsAffected = preparedStatement.executeUpdate();
-
-    //         if (rowsAffected == 0) {
-    //             // No registration found with the given ID
-    //             throw new EmptyResultDataAccessException("No registration found with ID: " + registrationId, 1);
-    //         }
-
-    //     } catch (SQLException e) {
-    //         e.printStackTrace();
-    //         // Handle the exception according to your application's needs
-    //     }
-    // }
+   
     public void updateRegistrationStatus(Long registrationId, String newStatus, String registrationResponse) {
         String sql = "UPDATE registration SET registration_status = ?, registration_response = ? WHERE registration_id = ?";
     

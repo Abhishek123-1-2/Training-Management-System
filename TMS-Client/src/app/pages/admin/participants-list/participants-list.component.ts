@@ -26,6 +26,7 @@ export class ParticipantsListComponent implements OnInit {
   public rollPaginator: boolean = false; // Added line
   public visiblePages: number[] = []; // Added line
   private rollingPaginatorSize = 5;
+  private courseName: string = "Computer Vision";
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   // ngOnInit(): void {
@@ -45,8 +46,57 @@ export class ParticipantsListComponent implements OnInit {
       const plannedEndDate = params['plannedEndDate'];
   
       this.fetchEmployeeData(course, trainingStatus, trainerName, plannedStartDate, plannedEndDate);
-      
+       
     });
+  }
+  // sendEmails(): void {
+  //   const emailBodyTemplate = `
+  //     Dear {empName},
+  //     Congratulation for completing the ${this.courseName}. We have provided a feedback form for the ${this.courseName} course that you have completed. Please fill out the feedback form as soon as possible.
+  //     https://forms.office.com/r/vif9DV5UuY
+  //     Best Regards
+  //   `;
+
+  //   this.filteredData.forEach(employee => {
+  //     const emailBody = emailBodyTemplate.replace('{empName}', employee.emp_name);
+  //     this.sendEmail(employee.email_id, emailBody);
+  //   });
+  // }
+  sendEmails(): void {
+    const emailBodyTemplate = `
+      <div style="background-color: #f2f2f2; padding: 20px;">
+        <div style="background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+          <h2 style="color: #333333;">Course Completion Feedback Form</h2>
+          <p>Dear {empName},</p>
+          <p>Congratulations for completing the ${this.courseName} course. We have provided a feedback form for the ${this.courseName} course that you have completed. Please fill out the feedback form as soon as possible.</p>
+          <p>Feedback Form Link: <a href="https://forms.office.com/r/vif9DV5UuY">Feedback Form</a></p>
+          <p>Best Regards</p>
+          <p style="color: red;"><strong>Disclaimer:</strong> This is an auto-generated email. Please do not reply to this email.</p>
+        </div>
+      </div>
+    `;
+  
+    this.filteredData.forEach(employee => {
+      const emailBody = emailBodyTemplate.replace('{empName}', employee.emp_name);
+      this.sendEmail(employee.email_id, emailBody);
+    });
+  }
+  
+  sendEmail(email: string, emailBody: string): void {
+    const emailData = {
+      emails: [email],
+      subject: 'Course Completion Feedback Form',
+      body: emailBody
+    };
+
+    this.http.post('http://localhost:8083/api/send-multiple-emails', emailData).subscribe(
+      () => {
+        console.log(`Email sent successfully to ${email}`);
+      },
+      (error) => {
+        console.error(`Error sending email to ${email}:`, error);
+      }
+    );
   }
   
   get pages(): number[] {
