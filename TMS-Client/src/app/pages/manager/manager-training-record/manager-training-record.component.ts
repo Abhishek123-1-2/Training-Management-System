@@ -92,6 +92,7 @@
 // }
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 interface TrainingHistoryResponse {
   empId: string;
@@ -132,7 +133,7 @@ export class ManagerTrainingRecordComponent implements OnInit {
   public rollPaginator: boolean = false; // Added line
   public visiblePages: number[] = []; // Added line
   private rollingPaginatorSize = 5;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private router:Router) {}
 
   ngOnInit(): void {
     this.fetchTrainingHistory();
@@ -195,12 +196,20 @@ export class ManagerTrainingRecordComponent implements OnInit {
     const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
     return Array.from({ length: pageCount }, (_, index) => index + 1);
   }
-
+  
   changeItemsPerPage(event: any): void {
     this.itemsPerPage = +event.target.value;
     this.currentPage = 1;
     this.applyFilter();
   }
+  // viewEmployeeHistory(courseName: string, trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
+  //   this.router.navigateByUrl('/manager-employee-history', { state: { courseName, trainerName, plannedStartDate, plannedEndDate } });
+  // }
+  viewEmployeeHistory(courseName: string, trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
+    // Store data in local storage
+    localStorage.setItem('employeeHistoryData', JSON.stringify({ courseName, trainerName, plannedStartDate, plannedEndDate }));
+    this.router.navigateByUrl('/manager-employee-history');
+}
 
   onPageChange(page: number): void {
     this.currentPage = page;

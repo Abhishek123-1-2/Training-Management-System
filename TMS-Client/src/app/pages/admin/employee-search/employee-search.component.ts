@@ -83,7 +83,26 @@ export class EmployeeSearchComponent implements OnInit {
     this.updateVisiblePages();
     this.applyFilter();
   }
-
+  // viewCourseDetails(empCode: string, empName: string) {
+  //   // Construct the child route URL without route parameters
+  //   const url = `/employee-search/${empCode}/${empName}/course-details`;
+  
+  //   // Navigate programmatically to the child route
+  //   this.router.navigateByUrl(url);
+  // }
+  // viewDetails(empCode: string, empName: string) {
+  //   this.router.navigate(['/course-details'], {
+  //     state: { empCode: empCode, empName: empName }
+  //   });
+  // }
+  viewDetails(empCode: string, empName: string) {
+    // Store parameters in local storage
+    localStorage.setItem('empCode', empCode);
+    localStorage.setItem('empName', empName);
+  
+    // Navigate to course-details route
+    this.router.navigate(['/course-details']);
+  }
   updateVisiblePages(): void {
     const totalPages = Math.ceil(this.filteredData.length / this.itemsPerPage);
     const halfPaginatorSize = Math.floor(this.rollingPaginatorSize / 2);

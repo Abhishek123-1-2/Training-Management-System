@@ -295,17 +295,40 @@ public yearOptions: string[] = ['All']; // Initialize with 'All'
   
   
   
+  // viewAttendees(course: string, trainingStatus: string, trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
+  //   this.router.navigate(['/participants-list'], {
+  //     queryParams: {
+  //       course,
+  //       trainingStatus,
+  //       trainerName,
+  //       plannedStartDate,
+  //       plannedEndDate
+  //     }
+  //   });
+  // }
+  // viewAttendees(course: string, trainingStatus: string, trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
+  //   this.router.navigate(['/participants-list'], {
+  //     state: {
+  //       course,
+  //       trainingStatus,
+  //       trainerName,
+  //       plannedStartDate,
+  //       plannedEndDate
+  //     }
+  //   });
+  // }
   viewAttendees(course: string, trainingStatus: string, trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
-    this.router.navigate(['/participants-list'], {
-      queryParams: {
-        course,
-        trainingStatus,
-        trainerName,
-        plannedStartDate,
-        plannedEndDate
-      }
-    });
-  }
+    // Save parameters to local storage
+    localStorage.setItem('course', course);
+    localStorage.setItem('trainingStatus', trainingStatus);
+    localStorage.setItem('trainerName', trainerName);
+    localStorage.setItem('plannedStartDate', plannedStartDate);
+    localStorage.setItem('plannedEndDate', plannedEndDate);
+
+    // Navigate to participants-list route
+    this.router.navigate(['/participants-list']);
+}
+  
   
  
   

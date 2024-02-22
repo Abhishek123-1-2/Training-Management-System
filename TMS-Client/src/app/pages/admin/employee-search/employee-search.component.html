@@ -23,7 +23,11 @@
                 <td>{{ row.department }}</td>
                 <td>{{ row.email_id }}</td>
                 <td>
-                  <a class="btn btn-primary" [routerLink]="['/course-details', row.emp_code, row.emp_name]">{{ row.view }}</a>
+                  <!-- <a class="btn btn-primary" [routerLink]="['/course-details', row.emp_code, row.emp_name]">{{ row.view }}</a> -->
+                  
+                    <button class="btn btn-primary" (click)="viewDetails(row.emp_code, row.emp_name)">{{ row.view }}</button>
+                
+                
                 </td>
                 <td>
                   <!-- <button class="btn btn-success" (click)="sendEmail(row.emp_code, row.email_id)">

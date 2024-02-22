@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import * as XLSX from 'xlsx';
 
@@ -36,7 +36,7 @@ export class EmployeeHistoryComponent implements OnInit {
   private rollingPaginatorSize = 5;
   plannedStartDate: string; // Add this line
   plannedEndDate: string;
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient,private router:Router) {}
 
   // ngOnInit(): void {
   //   this.route.params.subscribe((params) => {
@@ -44,15 +44,61 @@ export class EmployeeHistoryComponent implements OnInit {
   //     this.fetchEmployeeDetails();
   //   });
   // }
+  // ngOnInit(): void {
+  //   this.route.params.subscribe((params) => {
+  //     this.c_name = params['courseName'];
+  //     this.trainerName = params['trainerName']; // Add this line
+  //     this.plannedStartDate = params['plannedStartDate']; // Add this line
+  //     this.plannedEndDate = params['plannedEndDate'];
+  //     this.fetchEmployeeDetails();
+  //   });
+  // }
+  // ngOnInit(): void {
+  //   const navigationState = window.history.state;
+  //   this.c_name = navigationState.courseName;
+  //   this.trainerName = navigationState.trainerName;
+  //   this.plannedStartDate = navigationState.plannedStartDate;
+  //   this.plannedEndDate = navigationState.plannedEndDate;
+  
+  //   // Call your data-fetching function here with the retrieved parameters
+  //   this.fetchEmployeeDetails();
+  // }
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.c_name = params['courseName'];
-      this.trainerName = params['trainerName']; // Add this line
-      this.plannedStartDate = params['plannedStartDate']; // Add this line
-      this.plannedEndDate = params['plannedEndDate'];
-      this.fetchEmployeeDetails();
-    });
-  }
+    // Retrieve parameters from local storage
+    this.c_name = localStorage.getItem('courseName');
+    this.trainerName = localStorage.getItem('trainerName');
+    this.plannedStartDate = localStorage.getItem('plannedStartDate');
+    this.plannedEndDate = localStorage.getItem('plannedEndDate');
+
+   
+    // Call your data-fetching function here with the retrieved parameters
+    this.fetchEmployeeDetails();
+}
+
+  
+  // ngOnInit(): void {
+  //   const navigationState = this.router.getCurrentNavigation().extras.state;
+  //   if (navigationState) {
+  //     this.c_name = navigationState.courseName;
+  //     this.trainerName = navigationState.trainerName;
+  //     this.plannedStartDate = navigationState.plannedStartDate;
+  //     this.plannedEndDate = navigationState.plannedEndDate;
+  //     this.fetchEmployeeDetails();
+  //   } else {
+  //     // Handle case where parameters are not passed
+  //   }
+  // }
+  // ngOnInit(): void {
+  //   const navigation = this.router.getCurrentNavigation();
+  //   if (navigation && navigation.extras.state) {
+  //     const state = navigation.extras.state;
+  //     this.c_name = state.courseName;
+  //     this.trainerName = state.trainerName;
+  //     this.plannedStartDate = state.plannedStartDate;
+  //     this.plannedEndDate = state.plannedEndDate;
+  //     this.fetchEmployeeDetails();
+  //   }
+  // }
   
   
 

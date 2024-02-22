@@ -1,6 +1,6 @@
 // student-list1.component.ts
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 declare interface TableData {
@@ -37,7 +37,7 @@ export class StudentList1Component implements OnInit {
  public rollPaginator: boolean = false; // Added line
   public visiblePages: number[] = []; // Added line
   private rollingPaginatorSize = 5;
-  constructor(private route: ActivatedRoute, private http: HttpClient,private datePipe: DatePipe) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient,private datePipe: DatePipe,private router:Router) {}
 
   // ngOnInit(): void {
   //   this.route.params.subscribe((params) => {
@@ -49,17 +49,88 @@ export class StudentList1Component implements OnInit {
   //   });
     
   // }
+  // ngOnInit(): void {
+  //   this.route.params.subscribe((params) => {
+  //     this.course = params['course'];
+  //     this.trainerName = params['trainerName'];
+  //     this.start_date = params['start_date'];
+  //     this.end_date = params['end_date'];
+  //     this.status = params['status'];
+  //     this.fetchStudentList(this.course, this.trainerName,this.start_date,this.end_date);
+  //   });
+  // }
+  // ngOnInit(): void {
+  //   this.route.queryParams.subscribe((params: Params) => {
+  //     this.course = params['course'];
+  //     this.trainerName = params['trainerName'];
+  //     this.start_date = params['start_date'];
+  //     this.end_date = params['end_date'];
+  //     this.status = params['status'];
+  //     this.fetchStudentList(this.course, this.trainerName, this.start_date, this.end_date);
+  //   });
+  // }
+  // ngOnInit(): void {
+  //   const navigationState = window.history.state;
+  //   this.course = navigationState.course;
+  //   this.start_date = navigationState.start_date;
+  //   this.end_date = navigationState.end_date;
+  //   this.status = navigationState.status;
+  
+  //   // Call your data-fetching function here with the retrieved parameters
+  //   this.fetchStudentList(this.course, this.start_date, this.end_date, this.status);
+  // }
+  // ngOnInit(): void {
+  //   const navigationState = window.history.state;
+  //   this.course = navigationState.course;
+  //   this.trainerName=navigationState.trainerName;
+  //   this.start_date = navigationState.start_date;
+  //   this.end_date = navigationState.end_date;
+  //   this.status = navigationState.status;
+  
+  //   // Call your data-fetching function here with the retrieved parameters
+  //   this.fetchStudentList(this.course, navigationState.trainerName, this.start_date, this.end_date);
+  // }
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.course = params['course'];
-      this.trainerName = params['trainerName'];
-      this.start_date = params['start_date'];
-      this.end_date = params['end_date'];
-      this.status = params['status'];
-      this.fetchStudentList(this.course, this.trainerName,this.start_date,this.end_date);
-    });
-  }
+    // Retrieve parameters from localStorage
+    this.course = localStorage.getItem('course');
+    this.trainerName = localStorage.getItem('trainerName');
+    this.start_date = localStorage.getItem('start_date');
+    this.end_date = localStorage.getItem('end_date');
+    this.status = localStorage.getItem('status');
 
+    // Call your data-fetching function here with the retrieved parameters
+    this.fetchStudentList(this.course, this.trainerName, this.start_date, this.end_date);
+  }
+  
+  // ngOnInit(): void {
+  //   const navigationState = window.history.state;
+  //   this.course = navigationState.course;
+  //   this.start_date = navigationState.start_date;
+  //   this.end_date = navigationState.end_date;
+  //   this.status = navigationState.status;
+  
+  //   // Call your data-fetching function here with the retrieved parameters
+  //   this.fetchStudentList(this.course, this.start_date, this.end_date, this.status);
+  // }
+ 
+  
+  
+  // ngOnInit(): void {
+  //   const navigation = this.router.getCurrentNavigation();
+  //   if (navigation && navigation.extras.state) {
+  //     const { course, trainerName, start_date, end_date, status } = navigation.extras.state;
+  //     this.course = course;
+  //     this.trainerName = trainerName;
+  //     this.start_date = start_date;
+  //     this.end_date = end_date;
+  //     this.status = status;
+  //     this.fetchStudentList(course, trainerName, start_date, end_date);
+  //   } else {
+  //     // Handle case when navigating directly to the component without state
+  //     // For example, redirect back to admin-attendance component
+  //     this.router.navigate(['/admin-attendance']);
+  //   }
+  // }
   // fetchStudentList(course: string): void {
   //   this.http.get<any[]>(`http://localhost:8083/api/training-views/completedDetails/${course}`)
   //     .subscribe(data => {

@@ -1,6 +1,6 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Dashboard</a></li>
+    <li class="breadcrumb-item"><a [routerLink]="['/hr-dashboard']">Dashboard</a></li>
     <li class="breadcrumb-item active" aria-current="page">Course Details</li>
   </ol>
 </nav>
@@ -28,9 +28,19 @@
                 <td class="text-center">{{ row.s_date }}</td>
                 <td class="text-center">{{ row.e_date }}</td>
                 <td class="text-center">{{ row.status }}</td>
-                <td class="text-center">
+                <!-- <td class="text-center">
                   <a class="btn btn-primary" [routerLink]="['/employee-history', row.c_name, row.t_name, row.s_date, row.e_date]">{{ row.v_attendees }}</a>
+                </td> -->
+                <td class="text-center">
+                  <a class="btn btn-primary" (click)="navigateToEmployeeHistory(row.c_name, row.t_name, row.s_date, row.e_date)">{{ row.v_attendees }}</a>
                 </td>
+                
+                
+
+                <!-- <td class="text-center">
+                  <button class="btn btn-primary" (click)="navigateToEmployeeHistory(row.c_name, row.t_name, row.s_date, row.e_date)">{{ row.v_attendees }}</button>
+              </td> -->
+              
               </tr>
             </tbody>
           </table>

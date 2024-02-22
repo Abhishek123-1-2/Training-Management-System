@@ -180,6 +180,7 @@
 // }
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { NavigationExtras, Router } from '@angular/router';
 
 interface TrainingSchedule {
   course: string;
@@ -218,7 +219,7 @@ export class TrainingRecordComponent implements OnInit {
   public rollPaginator: boolean = false; // Added line
   public visiblePages: number[] = []; // Added line
   private rollingPaginatorSize = 5;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private router:Router) {}
 
   ngOnInit(): void {
     this.fetchCompletedCourses();
@@ -287,6 +288,37 @@ export class TrainingRecordComponent implements OnInit {
       }
     }
   }
+  // navigateToEmployeeHistory(courseName: string, trainerName: string, plannedStartDate: string, plannedEndDate: string) {
+  //   const navigationExtras: NavigationExtras = {
+  //     state: {
+  //       courseName,
+  //       trainerName,
+  //       plannedStartDate,
+  //       plannedEndDate
+  //     }
+  //   };
+  //   this.router.navigate(['/employee-history'], navigationExtras);
+  // }
+  // navigateToEmployeeHistory(courseName: string, trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
+  //   this.router.navigate(['/employee-history'], {
+  //     state: {
+  //       courseName: courseName,
+  //       trainerName: trainerName,
+  //       plannedStartDate: plannedStartDate,
+  //       plannedEndDate: plannedEndDate
+  //     }
+  //   });
+  // }
+  navigateToEmployeeHistory(courseName: string, trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
+    // Store parameters in local storage
+    localStorage.setItem('courseName', courseName);
+    localStorage.setItem('trainerName', trainerName);
+    localStorage.setItem('plannedStartDate', plannedStartDate);
+    localStorage.setItem('plannedEndDate', plannedEndDate);
+
+    // Navigate to the employee history component
+    this.router.navigate(['/employee-history']);
+}
 
   previousPage() {
     if (this.currentPage > 1) {

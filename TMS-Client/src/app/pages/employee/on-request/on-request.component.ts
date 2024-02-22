@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { EmployeeService } from '../employee-services/employee.service';
 import { UserService } from 'app/pages/login/login.service';
 import { HttpClient } from '@angular/common/http';
-
+import { NotificationService } from '../../employee/notification.service';
 interface TableRow {
   t_id: string;
   c_name: string;
@@ -38,13 +38,14 @@ export class OnRequestComponent implements OnInit {
   empId: string;
   currentPage = 1;
   itemsPerPage = 5;
-
+  loggedInUserData: any; // Define the variable to hold the logged-in user data
   constructor(
     private router: Router,
     private toastr: ToastrService,
     private employeeService: EmployeeService,
     private loginService: UserService,
-    private http: HttpClient
+    private http: HttpClient,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
@@ -120,26 +121,97 @@ export class OnRequestComponent implements OnInit {
     this.isEditMode = false;
   }
 
+  // sendRequest(row: TableRow): void {
+  //   const loggedInUserData = this.loginService.getLoggedInUserData();
+    
+  //   // const employeeName = this.loggedInUserData.employeeName;
+  //   // const courseName = row.c_name;
+  //   // this.notificationService.showEnrollmentNotification(employeeName, courseName);
+  //   if (!loggedInUserData) {
+  //     // Handle the case where user data is not available
+  //     return;
+  //   }
+  //   // const employeeName = this.loggedInUserData.employeeName;
+  //   // const courseName = row.c_name;
+  //   // this.notificationService.showEnrollmentNotification(employeeName, courseName);
+  //   const empId = loggedInUserData.empId;
+
+  //   const alreadyEnrolled = this.enrollmentStatusData.some(
+  //     (enrollment) =>
+  //       enrollment.t_id === row.t_id &&
+  //       enrollment.c_name === row.c_name &&
+  //       enrollment.trainer_name === row.trainer_name
+  //   );
+
+  //   if (alreadyEnrolled) {
+  //     alert(`You have already enrolled for ${row.c_name} course.`);
+  //     return;
+  //   }
+
+  //   const registrationData = {
+  //     schedule_id: row.schedule_id,
+  //     training_id: row.training_id,
+  //     emp_id: empId,
+  //     registration_date: new Date(),
+  //     registration_comments: '',
+  //     registration_status: 'Registered',
+  //     registration_response: '',
+  //   };
+
+  //   // Call the API to send the request
+  //   this.employeeService.enrollTraining(registrationData).subscribe(
+  //     (registrationId: number) => {
+  //       console.log(`Enrollment successful. Registration ID: ${registrationId}`);
+  //       alert(`Your Enrollment Request has been successfully sent for ${row.c_name} course`);
+
+  //       row.view = '';
+  //       row.isEnrolled = true;
+  //       this.enrollmentStatusData.push({
+  //         t_id: row.t_id,
+  //         c_name: row.c_name,
+  //         trainer_name: row.trainer_name,
+  //         status: row.status,
+  //         view: '',
+  //         training_id: row.training_id,
+  //         schedule_id: row.schedule_id,
+  //         emp_id: empId,
+  //         isEnrolled: true,
+  //         action: '',
+  //       });
+
+  //       this.saveEnrollmentStatusToLocalStorage();
+  //     },
+  //     (error) => {
+  //       console.error('Error enrolling in training:', error);
+  //     }
+  //   );
+    
+  // }
   sendRequest(row: TableRow): void {
     const loggedInUserData = this.loginService.getLoggedInUserData();
+  
     if (!loggedInUserData) {
       // Handle the case where user data is not available
       return;
     }
+  
+    const employeeName = loggedInUserData.employeeName;
+    const courseName = row.c_name;
+    
     const empId = loggedInUserData.empId;
-
+  
     const alreadyEnrolled = this.enrollmentStatusData.some(
       (enrollment) =>
         enrollment.t_id === row.t_id &&
         enrollment.c_name === row.c_name &&
         enrollment.trainer_name === row.trainer_name
     );
-
+  
     if (alreadyEnrolled) {
       alert(`You have already enrolled for ${row.c_name} course.`);
       return;
     }
-
+  
     const registrationData = {
       schedule_id: row.schedule_id,
       training_id: row.training_id,
@@ -149,13 +221,13 @@ export class OnRequestComponent implements OnInit {
       registration_status: 'Registered',
       registration_response: '',
     };
-
+  
     // Call the API to send the request
     this.employeeService.enrollTraining(registrationData).subscribe(
       (registrationId: number) => {
         console.log(`Enrollment successful. Registration ID: ${registrationId}`);
         alert(`Your Enrollment Request has been successfully sent for ${row.c_name} course`);
-
+  
         row.view = '';
         row.isEnrolled = true;
         this.enrollmentStatusData.push({
@@ -170,15 +242,18 @@ export class OnRequestComponent implements OnInit {
           isEnrolled: true,
           action: '',
         });
-
-        this.saveEnrollmentStatusToLocalStorage();
+  
+        // this.saveEnrollmentStatusToLocalStorage();
+  
+        // Show enrollment notification
+        this.notificationService.showEnrollmentNotification(employeeName, courseName);
       },
       (error) => {
         console.error('Error enrolling in training:', error);
       }
     );
   }
-
+  
   private saveEnrollmentStatusToLocalStorage(): void {
     localStorage.setItem('enrollmentStatusData', JSON.stringify(this.enrollmentStatusData));
   }

@@ -95,12 +95,26 @@ export const AdminLayoutRoutes: Routes = [
     {path:'student-list2', component: StudentList2Component},
     {path:'training-record', component: TrainingRecordComponent},
     // {path:'employee-history/:courseName/:trainerName', component: EmployeeHistoryComponent},
-    { path: 'employee-history/:courseName/:trainerName/:plannedStartDate/:plannedEndDate', component: EmployeeHistoryComponent },
+    // { path: 'employee-history/:courseName/:trainerName/:plannedStartDate/:plannedEndDate', component: EmployeeHistoryComponent },
+    {
+      path: 'employee-history',
+      component: EmployeeHistoryComponent
+    },
+    
+    // { path: 'employee-history', component: EmployeeHistoryComponent },
+
+    // { path: 'employee-history', component: EmployeeHistoryComponent },
+
 
     {path:'admin-training-history', component: AdminTrainingHistoryComponent},
     {path:'registration', component: AdminRegistrationComponent},
     {path:'employee-search', component: EmployeeSearchComponent},
-    {path:'course-details/:emp_code/:emp_name', component: CourseDetailsComponent},
+    // {path:'course-details/:emp_code/:emp_name', component: CourseDetailsComponent},
+    { path: 'course-details', component: CourseDetailsComponent },
+    // {
+    //   path: 'employee-search/:empCode/:empName/course-details',
+    //   component: CourseDetailsComponent
+    // },
     {path:'view-training', component: ViewTrainingComponent},
     {path:'upcoming-training', component: UpcomingTrainingComponent},
     {path:'completed-training', component: CompletedTrainingComponent},
@@ -120,11 +134,14 @@ export const AdminLayoutRoutes: Routes = [
     // {path:'report-employee',component:ReportOfEmployeeComponent},
     // { path: 'report-employee/:c_name/:trainer_name', component: ReportOfEmployeeComponent },
     // { path: 'report-employee/:c_name/:trainer_name', component: ReportOfEmployeeComponent },
-    { path: 'report-employee/:c_name/:trainer_name/:plannedStartDate/:plannedEndDate', component: ReportOfEmployeeComponent },
+    // { path: 'report-employee/:c_name/:trainer_name/:plannedStartDate/:plannedEndDate', component: ReportOfEmployeeComponent },
+    { path: 'report-employee', component: ReportOfEmployeeComponent },
 
 
     { path: 'report-courses/:c_name/:empCode', component: ReportOfCoursesComponent },
     {path:'participants-list', component: ParticipantsListComponent},
+    
+    
     {path:'on-request', component: OnRequestComponent},    
     {path:'on-request', component:OnRequestComponent},
     {path:'confirmationstatus-details',component:ConfirmationstatusDetailsComponent},
@@ -134,10 +151,16 @@ export const AdminLayoutRoutes: Routes = [
     {path:'manager-training-history',component:ManagerTrainingHistoryComponent},
     {path:'manager-training-record',component:ManagerTrainingRecordComponent},
     // {path:'manager-employee-history/:course',component:ManagerEmployeeHistoryComponent}
+    // {
+    //     path: 'manager-employee-history/:course/:trainerName/:plannedStartDate/:plannedEndDate',
+    //     component: ManagerEmployeeHistoryComponent,
+    //   }, 
     {
-        path: 'manager-employee-history/:course/:trainerName/:plannedStartDate/:plannedEndDate',
-        component: ManagerEmployeeHistoryComponent,
-      }, { path: 'employee-feedback/:c_name/:empCode', component: EmployeeFeedbackComponent },
+      path: 'manager-employee-history',
+      component: ManagerEmployeeHistoryComponent,
+    },
+      
+      { path: 'employee-feedback/:c_name/:empCode', component: EmployeeFeedbackComponent },
       {path:'view-details/:c_name',component:ViewDetailsComponent},
       {path:'external-course', component: ExternalCourseComponent},
       {path:'manager-external-course', component: ManagerExternalCourseComponent},

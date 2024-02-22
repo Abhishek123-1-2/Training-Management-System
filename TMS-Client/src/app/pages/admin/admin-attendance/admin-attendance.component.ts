@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 declare interface TableData {
@@ -87,7 +87,48 @@ export class AdminAttendanceComponent implements OnInit {
     const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
     return Array.from({ length: pageCount }, (_, index) => index + 1);
   }
+  // navigateToStudentList(course: string, trainerName: string, start_date: string, end_date: string, status: string): void {
+  //   this.router.navigate(['/student-list1'], { queryParams: { course, trainerName, start_date, end_date, status } });
+  // }
+  // navigateToStudentList(course: string, trainerName: string, start_date: string, end_date: string, status: string) {
+  //   // Construct the navigation extras object with your parameters
+  //   const navigationExtras: NavigationExtras = {
+  //     state: {
+  //       course,
+  //       trainerName,
+  //       start_date,
+  //       end_date,
+  //       status
+  //     }
+  //   };
+  
+  //   // Navigate to student-list1 with navigation extras
+  //   this.router.navigate(['/student-list1'], navigationExtras);
+  // }
+  navigateToStudentList(course: string, trainerName: string, start_date: string, end_date: string, status: string) {
+    // Store parameters in localStorage
+    localStorage.setItem('course', course);
+    localStorage.setItem('trainerName', trainerName);
+    localStorage.setItem('start_date', start_date);
+    localStorage.setItem('end_date', end_date);
+    localStorage.setItem('status', status);
 
+    // Navigate to student-list1
+    this.router.navigate(['/student-list1']);
+  }
+ 
+  // navigateToStudentList(course: string, trainerName: string, startDate: string, endDate: string, status: string) {
+  //   const navigationExtras: NavigationExtras = {
+  //     state: {
+  //       course,
+  //       trainerName,
+  //       startDate,
+  //       endDate,
+  //       status
+  //     }
+  //   };
+  //   this.router.navigate(['/student-list1'], navigationExtras);
+  // }
   changeItemsPerPage(event: any): void {
     this.itemsPerPage = +event.target.value;
     this.currentPage = 1;

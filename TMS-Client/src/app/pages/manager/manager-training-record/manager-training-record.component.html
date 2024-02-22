@@ -29,7 +29,9 @@
                     <td class="text-center">{{ row.plannedEndDate }}</td>
                     <td class = "text-center">
                       <!-- <a class="btn btn-primary" [routerLink]="['/manager-employee-history', row.c_name]">{{ row.view }}</a> -->
-                      <a class="btn btn-primary" [routerLink]="['/manager-employee-history', row.c_name, row.t_name,row.plannedStartDate,row.plannedEndDate]">{{ row.view }}</a>
+                      <!-- <a class="btn btn-primary" [routerLink]="['/manager-employee-history', row.c_name, row.t_name,row.plannedStartDate,row.plannedEndDate]">{{ row.view }}</a> -->
+                      <a class="btn btn-primary" (click)="viewEmployeeHistory(row.c_name, row.t_name, row.plannedStartDate, row.plannedEndDate)">{{ row.view }}</a>
+
 
                     </td>
                   </tr>

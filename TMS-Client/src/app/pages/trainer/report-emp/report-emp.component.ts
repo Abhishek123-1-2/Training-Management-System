@@ -48,15 +48,32 @@ export class ReportOfEmployeeComponent implements OnInit {
   //     this.fetchEmployeeDetails();
   //   });
   // }
+  // ngOnInit(): void {
+  //   this.route.params.subscribe((params) => {
+  //     this.c_name = params['c_name'];
+  //     this.trainerName = params['trainer_name'];
+  //     this.plannedStartDate = params['plannedStartDate']; // Add this line
+  //     this.plannedEndDate = params['plannedEndDate'];     // Add this line
+  //     this.fetchEmployeeDetails();
+  //   });
+  // }
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.c_name = params['c_name'];
-      this.trainerName = params['trainer_name'];
-      this.plannedStartDate = params['plannedStartDate']; // Add this line
-      this.plannedEndDate = params['plannedEndDate'];     // Add this line
+    const course = localStorage.getItem('course');
+    const trainerName = localStorage.getItem('trainerName');
+    const plannedStartDate = localStorage.getItem('plannedStartDate');
+    const plannedEndDate = localStorage.getItem('plannedEndDate');
+  
+    if (course && trainerName && plannedStartDate && plannedEndDate) {
+      this.c_name = course;
+      this.trainerName = trainerName;
+      this.plannedStartDate = plannedStartDate;
+      this.plannedEndDate = plannedEndDate;
       this.fetchEmployeeDetails();
-    });
+    } else {
+      console.error('Parameters not found in localStorage');
+    }
   }
+  
   
   // fetchEmployeeDetails(): void {
   //   this.http.get<{ empCode: string, empName: string, plannedStartDate: string, plannedEndDate: string, trainingStatus: string }[]>(

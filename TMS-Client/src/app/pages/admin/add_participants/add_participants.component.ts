@@ -23,48 +23,106 @@ export class AddParticipantsComponent {
 
   constructor(private http: HttpClient, private fb: FormBuilder, private route: ActivatedRoute, private router: Router,private cdr:ChangeDetectorRef) {}
 
+  // ngOnInit(): void {
+    
+  //   this.course = this.route.snapshot.paramMap.get('course') || null;
+  //   this.trainer = this.route.snapshot.paramMap.get('trainer') || null;
+  //   this.s_date = this.route.snapshot.paramMap.get('s_date') || null;
+  //   this.e_date = this.route.snapshot.paramMap.get('e_date') || null;
+   
+ 
+  //   this.addParticipantsForm = this.fb.group({
+  //     cName: [this.course,[Validators.required]],
+  //     tName:[this.trainer, [Validators.required]],
+  //     empCode: ['', [Validators.required]],
+  //     empName: ['', [Validators.required]],
+  //     startDate: [this.s_date,[Validators.required]],
+  //     endDate: [this.e_date, [Validators.required]],
+  //     regDate: ['', [Validators.required]],
+  //     status: ['', [Validators.required]],
+  //     comments: [''] 
+  //   });
+
+  //   this.http.get<string[]>('http://localhost:8083/api/employees/codes').subscribe(
+  //     (codes) => {
+  //       this.employeeCodes = codes;
+  //       console.log('Employee Codes:', this.employeeCodes);
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching employee codes', error);
+  //     }
+  //   );
+
+  //   this.http.get<string[]>('http://localhost:8083/api/training-views/courses').subscribe(
+  //     (courses) => {
+  //       // Filter out null values
+  //       this.courseNames = courses.filter(course => course !== null);
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching training courses', error);
+  //     }
+  //   );
+
+  //   this.addParticipantsForm.get('empName').valueChanges.subscribe((value) => {
+  //     this.filterEmployeeNames(value);
+  //   });
+  // }
   ngOnInit(): void {
-    this.course = this.route.snapshot.paramMap.get('course') || null;
-    this.trainer = this.route.snapshot.paramMap.get('trainer') || null;
-    this.s_date = this.route.snapshot.paramMap.get('s_date') || null;
-    this.e_date = this.route.snapshot.paramMap.get('e_date') || null;
+    this.route.paramMap.subscribe(params => {
+      this.course = params.get('course') || null;
+      this.trainer = params.get('trainer') || null;
+      this.s_date = params.get('s_date') || null;
+      this.e_date = params.get('e_date') || null;
+  
+      // Initialize your form and other data here...
+      this.initializeForm();
+      this.fetchNecessaryData();
+    });
+  }
+  
+  initializeForm(): void {
     this.addParticipantsForm = this.fb.group({
-      cName: [this.course,[Validators.required]],
-      tName:[this.trainer, [Validators.required]],
+      cName: [this.course, [Validators.required]],
+      tName: [this.trainer, [Validators.required]],
       empCode: ['', [Validators.required]],
       empName: ['', [Validators.required]],
-      startDate: [this.s_date,[Validators.required]],
+      startDate: [this.s_date, [Validators.required]],
       endDate: [this.e_date, [Validators.required]],
       regDate: ['', [Validators.required]],
       status: ['', [Validators.required]],
-      comments: [''] 
+      comments: ['']
     });
-
-    this.http.get<string[]>('http://localhost:8083/api/employees/codes').subscribe(
-      (codes) => {
-        this.employeeCodes = codes;
-        console.log('Employee Codes:', this.employeeCodes);
-      },
-      (error) => {
-        console.error('Error fetching employee codes', error);
-      }
-    );
-
-    this.http.get<string[]>('http://localhost:8083/api/training-views/courses').subscribe(
-      (courses) => {
-        // Filter out null values
-        this.courseNames = courses.filter(course => course !== null);
-      },
-      (error) => {
-        console.error('Error fetching training courses', error);
-      }
-    );
-
-    this.addParticipantsForm.get('empName').valueChanges.subscribe((value) => {
+  
+    // Subscribe to value changes if needed
+    this.addParticipantsForm.get('empName').valueChanges.subscribe(value => {
       this.filterEmployeeNames(value);
     });
   }
-
+  
+  fetchNecessaryData(): void {
+    // Fetch necessary data here...
+    this.http.get<string[]>('http://localhost:8083/api/employees/codes').subscribe(
+      codes => {
+        this.employeeCodes = codes;
+        console.log('Employee Codes:', this.employeeCodes);
+      },
+      error => {
+        console.error('Error fetching employee codes', error);
+      }
+    );
+  
+    this.http.get<string[]>('http://localhost:8083/api/training-views/courses').subscribe(
+      courses => {
+        this.courseNames = courses.filter(course => course !== null);
+      },
+      error => {
+        console.error('Error fetching training courses', error);
+      }
+    );
+  }
+  
+  
+  
 // Inside your Angular component
 // closeAutocompleteList() {
 //   this.filteredEmployeeNames = [];

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee-services/employee.service';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from 'app/pages/login/login.service';
-
+import { NotificationService } from '../../employee/notification.service';
 declare interface TableData {
   headerRow: string[];
   dataRows: TableRow[];
@@ -34,7 +34,7 @@ export class ExternalCourseComponent implements OnInit {
   currentPage=1;
   itemsPerPage=5;
 
-  constructor(private employeeService: EmployeeService, private http: HttpClient, private loginService: UserService) { }
+  constructor(private employeeService: EmployeeService, private http: HttpClient, private loginService: UserService,private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.tableData1 = {
@@ -88,7 +88,8 @@ export class ExternalCourseComponent implements OnInit {
     if(!loggedInUserData) {
       return;
     }
-
+    const employeeName = loggedInUserData.employeeName;
+    const courseName = row.c_name;
     const empId = loggedInUserData.empId;
 
     const alreadyEnrolled = this.enrollmentStatusData.some(
@@ -131,6 +132,7 @@ export class ExternalCourseComponent implements OnInit {
         });
 
         // this.saveEnrollmentStatusToLocalStorage();
+        this.notificationService.showEnrollmentNotification(employeeName, courseName);
       },
       (error) => {
         console.error('Error enrolling in training:', error);

@@ -3,6 +3,7 @@ import { EmployeeService } from '../employee-services/employee.service';
 import { UserService } from 'app/pages/login/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { NotificationService } from '../../employee/notification.service';
 
 interface TableData {
   headerRow: string[];
@@ -46,7 +47,7 @@ export class UserDashboardComponent implements OnInit {
 
   confirmationStatusPage = 1;
   confirmationStatusItemsPerPage = 3;
-
+  loggedInUserData: any; // Define the variable to hold the logged-in user data
   empId: string;
 
   confirmationStatusData: TableRow[] = [];
@@ -56,7 +57,8 @@ export class UserDashboardComponent implements OnInit {
     private loginService: UserService,
     private route: ActivatedRoute,
     private httpClient: HttpClient,
-    private router: Router 
+    private router: Router,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -114,7 +116,10 @@ export class UserDashboardComponent implements OnInit {
         },
       ],
     };
-
+    const loggedInUserDataString = localStorage.getItem('loggedInUserData');
+    if (loggedInUserDataString) {
+      this.loggedInUserData = JSON.parse(loggedInUserDataString);
+    }
     this.filteredData = [...this.tableData1.dataRows];
     this.fetchTrainingSchedule();
     this.loadEnrollmentStatusFromBackend(); // Load enrollment status from the backend
@@ -193,7 +198,9 @@ export class UserDashboardComponent implements OnInit {
 
   enrollButtonClicked(training: TableRow): void {
     const loggedInUserData = this.loginService.getLoggedInUserData();
-
+    const employeeName = this.loggedInUserData.employeeName;
+    const courseName = training.c_name;
+   
     if (!loggedInUserData) {
       // Handle the case where user data is not available
       return;
@@ -255,7 +262,7 @@ export class UserDashboardComponent implements OnInit {
               schedule_id: training.schedule_id,
               emp_id: empId,
             });
-
+            this.notificationService.showEnrollmentNotification(employeeName, courseName);
             this.enrollmentStatusData = uniqueEnrollmentData;
 
             // Optional: You may update the isEnrolled property in tableData1.dataRows based on the updated enrollmentStatusData

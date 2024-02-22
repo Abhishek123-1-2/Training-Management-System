@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationService } from '../../employee/notification.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 interface TableData {
   headerRow: string[];
   dataRows: TableRow[];
@@ -53,16 +55,73 @@ export class ManagerDashboardComponent implements OnInit {
   selectedFilterMonth: string = 'All';
   public selectedYear: string = 'All'; // Initially set to 'All'
 public yearOptions: string[] = ['All']; // Initialize with 'All'
-  constructor(private http: HttpClient,private router: Router, private route: ActivatedRoute) {}
 
-  ngOnInit() {
+private notificationSubscription: Subscription;
+private notificationDisplayed: boolean = false;
+private isAlertDisplayed: boolean = false; // Flag to track whether an alert is currently being displayed
+  constructor(private http: HttpClient,private router: Router, private route: ActivatedRoute,private notificationService: NotificationService) {}
+
+  // ngOnInit() {
+    
+  //   this.initHistogramChart();
+  //   this.initPieChart();
+  //   this.fetchStatusCounts();
+  //   this.fetchData();
+    
+  // }
+
+  ngOnInit(): void {
+    // Initialize the histogram and pie charts
     this.initHistogramChart();
     this.initPieChart();
+    
+    // Fetch status counts and data
     this.fetchStatusCounts();
     this.fetchData();
-  }
+    
+    // // Subscribe to the enrollmentNotification$ observable
+    // this.notificationService.enrollmentNotification$.subscribe(({ employeeName, courseName }) => {
+    //   // Create the notification message
+    //   const notificationMessage = `${employeeName} has enrolled for ${courseName}.`;
+      
+    //   // Display the notification dialog (e.g., alert)
+    //   alert(notificationMessage);
+    // });
+    // this.notificationService.enrollmentNotification$.subscribe(({ employeeName, courseName }) => {
+    //   // Create the notification message or handle as needed
+    //   const notificationMessage = `${employeeName} has enrolled for ${courseName}.`;
 
+    //   // Display the notification dialog (e.g., alert) after 6 seconds
+    //   setTimeout(() => {
+    //     alert(notificationMessage);
+    //   }, 8000); 
+    // });
+    this.notificationSubscription = this.notificationService.enrollmentNotification$.subscribe(({ employeeName, courseName }) => {
+      if (!this.notificationDisplayed) { // Check if notification has not been displayed yet
+        const notificationMessage = `${employeeName} has enrolled for ${courseName}.`;
   
+        // Display the notification dialog (e.g., alert)
+        setTimeout(() => {
+          alert(notificationMessage);
+          this.notificationDisplayed = true; // Set the flag to true after displaying the alert
+        }, 8000); // 8000 milliseconds = 8 seconds
+      }
+    });
+    
+  }
+  
+  // ngOnDestroy(): void {
+  //   // Unsubscribe from the enrollmentNotification$ observable to prevent memory leaks
+  //   if (this.enrollmentNotificationSubscription) {
+  //     this.enrollmentNotificationSubscription.unsubscribe();
+  //   }
+  // }
+  // ngOnDestroy(): void {
+  //   // Unsubscribe from the enrollmentNotification$ observable to prevent memory leaks
+  //   if (this.notificationSubscription) {
+  //     this.notificationSubscription.unsubscribe();
+  //   }
+  // }
   fetchData(month?: string, year?: number) {
     let apiUrl = 'http://localhost:8083/api/training-views/schedule-list';
   

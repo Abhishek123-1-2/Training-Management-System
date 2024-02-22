@@ -39,11 +39,79 @@ export class CourseDetailsComponent implements OnInit {
     this.visiblePages = [1];
   }
 
-  ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.emp_code = params['emp_code'];
-      this.emp_name = params['emp_name'];
+  // ngOnInit(): void {
+  //   this.route.params.subscribe((params) => {
+  //     this.emp_code = params['emp_code'];
+  //     this.emp_name = params['emp_name'];
 
+  //     // Fetch data from the API endpoint
+  //     this.http.get<any[]>(`http://localhost:8083/api/training-views/completed-courses/${this.emp_code}`)
+  //       .subscribe(data => {
+  //         this.tableData1 = {
+  //           headerRow: ['Sr No.', 'Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status'],
+  //           dataRows: data.map((item, index) => ({
+  //             sr_no: (index + 1).toString(),
+  //             emp_name: this.emp_name,
+  //             c_name: item.course,
+  //             t_name: item.trainerName.split('(')[0].trim(),
+  //             s_date: this.formatDate(item.plannedStartDate),
+  //             e_date: this.formatDate(item.plannedEndDate),
+  //             status: item.trainingStatus,
+  //           })),
+  //         };
+
+  //         // Initialize the filteredData array with the original data
+  //         this.filteredData = [...this.tableData1.dataRows];
+
+  //         // Update the visible pages and data after fetching the data
+  //         this.updateVisiblePages();
+  //         this.updateVisibleData();
+  //       }, error => {
+  //         console.error('Error fetching data:', error);
+  //       });
+  //   });
+  // }
+  // ngOnInit(): void {
+  //   const state = window.history.state;
+  //   this.emp_code = state.empCode;
+  //   this.emp_name = state.empName;
+  
+  //   // Fetch data from the API endpoint using emp_code
+  //   this.http.get<any[]>(`http://localhost:8083/api/training-views/completed-courses/${this.emp_code}`)
+  //     .subscribe(data => {
+  //       this.tableData1 = {
+  //         headerRow: ['Sr No.', 'Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status'],
+  //         dataRows: data.map((item, index) => ({
+  //           sr_no: (index + 1).toString(),
+  //           emp_name: this.emp_name,
+  //           c_name: item.course,
+  //           t_name: item.trainerName.split('(')[0].trim(),
+  //           s_date: this.formatDate(item.plannedStartDate),
+  //           e_date: this.formatDate(item.plannedEndDate),
+  //           status: item.trainingStatus,
+  //         })),
+  //       };
+  
+  //       // Initialize the filteredData array with the original data
+  //       this.filteredData = [...this.tableData1.dataRows];
+  
+  //       // Update the visible pages and data after fetching the data
+  //       this.updateVisiblePages();
+  //       this.updateVisibleData();
+  //     }, error => {
+  //       console.error('Error fetching data:', error);
+  //     });
+  // }
+  ngOnInit(): void {
+    // Retrieve parameters from local storage
+    const empCode = localStorage.getItem('empCode');
+    const empName = localStorage.getItem('empName');
+  
+    // Check if parameters exist
+    if (empCode && empName) {
+      this.emp_code = empCode;
+      this.emp_name = empName;
+  
       // Fetch data from the API endpoint
       this.http.get<any[]>(`http://localhost:8083/api/training-views/completed-courses/${this.emp_code}`)
         .subscribe(data => {
@@ -59,19 +127,21 @@ export class CourseDetailsComponent implements OnInit {
               status: item.trainingStatus,
             })),
           };
-
+  
           // Initialize the filteredData array with the original data
           this.filteredData = [...this.tableData1.dataRows];
-
+  
           // Update the visible pages and data after fetching the data
           this.updateVisiblePages();
           this.updateVisibleData();
         }, error => {
           console.error('Error fetching data:', error);
         });
-    });
+    } else {
+      console.error('Employee code or name not found in local storage');
+    }
   }
-
+  
   private formatDate(timestamp: string): string {
     const date = new Date(timestamp);
     const year = date.getFullYear();

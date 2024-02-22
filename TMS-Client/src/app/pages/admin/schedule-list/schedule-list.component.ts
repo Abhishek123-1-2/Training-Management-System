@@ -1,7 +1,7 @@
 // schedule-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
 interface TableData {
   headerRow: string[];
@@ -78,13 +78,7 @@ export class ScheduleListComponent implements OnInit {
     );
   }
 
-  // formatDate(timestamp: string): string {
-  //   const date = new Date(timestamp);
-  //   const year = date.getFullYear();
-  //   const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  //   const day = date.getDate().toString().padStart(2, '0');
-  //   return `${day}-${month}-${year}`;
-  // }
+
   formatDate(timestamp: string): string {
     const date = new Date(timestamp);
     const year = date.getFullYear();
@@ -156,22 +150,7 @@ export class ScheduleListComponent implements OnInit {
       }
     }
   }
-  // updateVisiblePages(): void {
-  //   const totalPages = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
-  //   const halfPaginatorSize = Math.floor(this.rollingPaginatorSize / 2);
-
-  //   if (totalPages <= this.rollingPaginatorSize) {
-  //     this.visiblePages = Array.from({ length: totalPages }, (_, i) => i + 1);
-  //   } else {
-  //     if (this.currentPage <= halfPaginatorSize) {
-  //       this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => i + 1);
-  //     } else if (this.currentPage >= totalPages - halfPaginatorSize) {
-  //       this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => totalPages - this.rollingPaginatorSize + i + 1);
-  //     } else {
-  //       this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => this.currentPage - halfPaginatorSize + i);
-  //     }
-  //   }
-  // }
+ 
   
   onSearchChange() {
     this.applyFilter();
@@ -240,55 +219,10 @@ export class ScheduleListComponent implements OnInit {
         console.error('Error updating schedule:', error);
       }
     );
-//     this.http.put('http://localhost:8083/api/training-views/update-schedule', updatedScheduleWithId).subscribe(
-//   () => {
-//     console.log('Schedule updated successfully');
-    
-//     // Remove the completed item from the filteredData
-//     this.filteredData = this.filteredData.filter(item => item.scheduleId !== updatedSchedule.scheduleId);
-    
-//     // Optionally, you can perform other actions or log
-//   },
-//   (error) => {
-//     console.error('Error updating schedule:', error);
-//   }
-// );
+
 
   }
-// saveChanges(rowIndex: number): void {
-//   console.log('Saving changes for row:', rowIndex);
-//   this.isEditMode = false;
-//   this.rowIndexBeingEdited = null;
 
-//   const updatedSchedule = this.filteredData[rowIndex];
-
-//   // Include scheduleId in the updated data
-//   const updatedScheduleWithId = {
-//     scheduleId: updatedSchedule.scheduleId,
-//     plannedStartDate: updatedSchedule.planned_start_date,
-//     plannedEndDate: updatedSchedule.planned_end_date,
-//     trainingStatus: 'Completed', // Set the status to 'Completed'
-//     fromTime: updatedSchedule.from_time,
-//     toTime: updatedSchedule.to_time,
-//   };
-
-//   // Update filteredData immediately
-//   this.filteredData = this.filteredData.filter(item => item.scheduleId !== updatedSchedule.scheduleId);
-
-//   // Optionally, you can perform other actions or log
-
-//   // Fetch the updated data from the server
-//   this.http.put('http://localhost:8083/api/training-views/update-schedule', updatedScheduleWithId).subscribe(
-//     () => {
-//       console.log('Schedule updated successfully');
-//       // Fetch the data again after the update
-//       this.fetchData();
-//     },
-//     (error) => {
-//       console.error('Error updating schedule:', error);
-//     }
-//   );
-// }
 
   cancelEdit() {
     this.isEditMode = false;
@@ -309,6 +243,29 @@ export class ScheduleListComponent implements OnInit {
   //   this.router.navigate(['/participants-list'], { queryParams: { course, trainingStatus, trainerName } });
   // }
   
+  // viewAttendees(course: string, trainingStatus: string, trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
+  //   this.router.navigate(['/participants-list'], {
+  //     queryParams: {
+  //       course,
+  //       trainingStatus,
+  //       trainerName,
+  //       plannedStartDate,
+  //       plannedEndDate
+  //     }
+  //   });
+  // }
+  // viewAttendees(course: string, trainingStatus: string, trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
+  //   const navigationExtras: NavigationExtras = {
+  //     state: {
+  //       course,
+  //       trainingStatus,
+  //       trainerName,
+  //       plannedStartDate,
+  //       plannedEndDate
+  //     }
+  //   };
+  //   this.router.navigate(['/participants-list'], navigationExtras);
+  // }
   viewAttendees(course: string, trainingStatus: string, trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
     this.router.navigate(['/participants-list'], {
       queryParams: {
@@ -317,38 +274,9 @@ export class ScheduleListComponent implements OnInit {
         trainerName,
         plannedStartDate,
         plannedEndDate
-      }
+      },
+      queryParamsHandling: 'merge' // Merge with existing query parameters
     });
   }
   
- 
-  
-
-  // onPageChange(page: number): void {
-  //   this.currentPage = page;
-  //   this.applyFilter();
-  // }
-  // updateVisiblePages(): void {
-  //   const totalPages = Math.ceil(this.filteredData.length / this.itemsPerPage);
-  //   const halfPaginatorSize = Math.floor(this.rollingPaginatorSize / 2);
-  
-  //   if (totalPages <= this.rollingPaginatorSize) {
-  //     this.visiblePages = Array.from({ length: totalPages }, (_, i) => i + 1);
-  //   } else {
-  //     if (this.currentPage <= halfPaginatorSize) {
-  //       this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => i + 1);
-  //     } else if (this.currentPage >= totalPages - halfPaginatorSize) {
-  //       this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => totalPages - this.rollingPaginatorSize + i + 1);
-  //     } else {
-  //       this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => this.currentPage - halfPaginatorSize + i);
-  //     }
-  //   }
-  // }
-  
-  // onPageChange(page: number): void {
-  //   this.currentPage = page;
-  //   this.updateVisiblePages(); // Call updateVisiblePages() after changing the page
-  //   this.applyFilter();
-  // }
-
 }

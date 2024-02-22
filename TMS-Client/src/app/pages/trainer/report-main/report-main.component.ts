@@ -159,10 +159,19 @@ export class ReportMainComponent implements OnInit {
   //   this.router.navigate(['/report-employee', course, trainerName]);
   // }
 
+  // navigateToReportEmployee(course: string, trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
+  //   this.router.navigate(['/report-employee', course, trainerName, plannedStartDate, plannedEndDate]);
+  // }
   navigateToReportEmployee(course: string, trainerName: string, plannedStartDate: string, plannedEndDate: string): void {
-    this.router.navigate(['/report-employee', course, trainerName, plannedStartDate, plannedEndDate]);
-  }
+    // Store parameters in localStorage
+    localStorage.setItem('course', course);
+    localStorage.setItem('trainerName', trainerName);
+    localStorage.setItem('plannedStartDate', plannedStartDate);
+    localStorage.setItem('plannedEndDate', plannedEndDate);
   
+    // Navigate to report-employee route
+    this.router.navigate(['/report-employee']);
+  }
   
   applyFilter() {
     this.filteredData = this.tableData1.dataRows.filter((row) =>

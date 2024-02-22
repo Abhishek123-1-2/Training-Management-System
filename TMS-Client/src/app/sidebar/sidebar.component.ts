@@ -83,14 +83,14 @@ submenu:[
     {path:'/hr-training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_HR']},
 
   ]},
-  { path: '/user-dashboard/:empId', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_HR']},
-  { path: '/user-dashboard', title: 'Training', class: '', icon: 'nc-user-run', roles:['ROLE_HR'] ,
-submenu:[
-{path:'on-request',title:'On-Request',icon:'',class:'',roles:['ROLE_HR']},
-{path:'external-course', title: 'External Course', icon: '', class: '', roles: ['ROLE_HR']},
-{path:'user-training-history',title:'Training History',icon:'',class:'',roles:['ROLE_HR']},  
-]},
-{ path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_HR']},
+//   { path: '/user-dashboard/:empId', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_HR']},
+//   { path: '/user-dashboard', title: 'Training', class: '', icon: 'nc-user-run', roles:['ROLE_HR'] ,
+// submenu:[
+// {path:'on-request',title:'On-Request',icon:'',class:'',roles:['ROLE_HR']},
+// {path:'external-course', title: 'External Course', icon: '', class: '', roles: ['ROLE_HR']},
+// {path:'user-training-history',title:'Training History',icon:'',class:'',roles:['ROLE_HR']},  
+// ]},
+// { path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_HR']},
 
 
 
@@ -118,7 +118,14 @@ submenu:[
 {path:'/manager-training-record', title:'Training Record', icon:'', class:'', roles:['ROLE_MANAGER']},
   {path:'/manager-training-history', title:'Training History', icon:'', class:'', roles: ['ROLE_MANAGER']},
 ]},
-
+// { path: '/user-dashboard/:empId', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_MANAGER']},
+// { path: '/user-dashboard', title: 'Training', class: '', icon: 'nc-user-run', roles:['ROLE_MANAGER'] ,
+// submenu:[
+// {path:'on-request',title:'On-Request',icon:'',class:'',roles:['ROLE_MANAGER']},
+// {path:'external-course', title: 'External Course', icon: '', class: '', roles: ['ROLE_MANAGER']},
+// {path:'user-training-history',title:'Training History',icon:'',class:'',roles:['ROLE_MANAGER']},  
+// ]},
+// { path: '/feedback', title: 'Feedback', class: '', icon:'nc-bell-55', roles:['ROLE_MANAGER']},
     
 ];
 /*  {path:'schedule-training',component:ScheduleTrainingComponent} */

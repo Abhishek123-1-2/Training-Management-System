@@ -35,11 +35,39 @@
                   <td class = "text-center">{{ row.to_time }}</td>
                   <td class = "text-center">{{ row.status }}</td>
                   <td class = "text-center">
-                    <button class="btn btn-info" (click)="addParticipants(i)"
+                    <!-- <button class="btn btn-info" (click)="addParticipants(i)"
                             [routerLink]="['/add-participants', { course: row.course, trainer: row.trainer_name, s_date: row.planned_start_date, e_date: row.planned_end_date }]"
                             [disabled]="row.status !== 'Upcoming'">
                       Add
-                    </button>
+                    </button> -->
+                    <!-- <button class="btn btn-info" (click)="addParticipants(i)"
+        [routerLink]="['/add-participants']"
+        [state]="{
+          course: row.course,
+          trainer: row.trainer_name,
+          s_date: row.planned_start_date,
+          e_date: row.planned_end_date
+        }"
+        [disabled]="row.status !== 'Upcoming'">
+  Add
+</button> -->
+<button class="btn btn-info" (click)="addParticipants(i)"
+        [routerLink]="['/add-participants']"
+        [queryParams]="{
+          course: row.course,
+          trainer: row.trainer_name,
+          s_date: row.planned_start_date,
+          e_date: row.planned_end_date
+        }"
+        [disabled]="row.status !== 'Upcoming'">
+  Add
+</button>
+
+                   
+                    
+                    
+
+
                   </td>
                   <td>
                     <button class="btn btn-primary" (click)="toggleEditMode(i)">Edit{{ row.action }}</button>
