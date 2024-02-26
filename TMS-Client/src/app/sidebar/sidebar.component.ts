@@ -13,7 +13,7 @@ export interface RouteInfo {
 
 export const ROUTES: RouteInfo[] = [
     // { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '', roles: ['ROLE_ADMIN'] },
-    {path: '/dashboard', title: 'Dashboard', icon: 'nc-circle-10', class: '', roles: ['ROLE_ADMIN']},
+    {path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', roles: ['ROLE_ADMIN']},
     { path: '/employee-search', title: 'Employee', icon: 'nc-circle-10', class:'', roles: ['ROLE_ADMIN']},
     { path:'/admin-training',title: 'Training' , icon :'nc-caps-small' , class : ' ', roles: ['ROLE_ADMIN'] ,submenu:[
         { path:'/add-training',title:'Add-Training',icon:'',class:'', roles: ['ROLE_ADMIN']},
@@ -58,7 +58,7 @@ submenu:[
 
  
 // { path: '/user-dashboard/:empId', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_HR']},
-{path:'/hr-dashboard', title: 'Dashboard', icon: 'nc-circle-10', class: '', roles: ['ROLE_HR']},
+{path:'/hr-dashboard', title: 'Dashboard', icon: 'nc-bank', class: '', roles: ['ROLE_HR']},
 // { path: '/user-dashboard/:empId', title: 'Dashboard', class: '', icon: 'nc-bank', roles:['ROLE_HR']},
 { path: '/employee-search', title: 'Employee', icon: 'nc-circle-10', class:'', roles: ['ROLE_HR']},
 // { path: '', title: 'Training', class: '', icon: 'nc-caps-small', roles:['ROLE_HR'], submenu: [
@@ -105,7 +105,7 @@ submenu:[
     // { path: '/typography',    title: 'Typography',        icon:'nc-caps-small', class: '' },
     // { path: '/upgrade',       title: 'Upgrade to PRO',    icon:'nc-spaceship',  class: 'active-pro' },
 
-{path:'manager-dashboard', title:'Dashboard', icon:'nc-diamond', class:'', roles:['ROLE_MANAGER']},
+{path:'manager-dashboard', title:'Dashboard', icon:'nc-bank', class:'', roles:['ROLE_MANAGER']},
 {path:'employee-search', title:'Employee', icon:'nc-circle-10', class:'', roles:['ROLE_MANAGER']},
 {path:'training', title:'Training Requests', icon:'nc-caps-small', class:'', roles:['ROLE_MANAGER'], submenu:[
 {path:'training-request', title:'Scheduled Courses', icon:'', class:'', roles:['ROLE_MANAGER']},

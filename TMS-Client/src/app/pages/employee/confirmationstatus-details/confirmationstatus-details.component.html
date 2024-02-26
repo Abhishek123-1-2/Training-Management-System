@@ -31,7 +31,7 @@
 
  -->
  <!-- confirmationstatus-details.component.html -->
-<div class="container">
+<!-- <div class="container">
     <div class="card">
       <div class="card-header">
         <h4 class="card-title">Confirmation Status Details for: {{ detailsForCourse[0]?.courseName }}</h4>
@@ -89,5 +89,62 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   
+<!-- confirmation-status-details.component.html -->
+<div class="card">
+  <div class="card-header bg-dark text-white">
+      <h4 class="card-title">Confirmation Status Details for: {{ detailsForCourse[0]?.courseName }}</h4>
+  </div>
+  <div class="card-body">
+
+      <div class="row">
+          <div class="col-md-6">
+              <div class="form-group">
+                  <label class="font-weight-bold">Trainer Name:</label>
+                  <div>{{ detailsForCourse[0]?.trainerName }}</div>
+              </div>
+          </div>
+
+          <div class="col-md-6">
+              <div class="form-group">
+                  <label class="font-weight-bold">Start Date:</label>
+                  <div>{{ detailsForCourse[0]?.startDate | date }}</div>
+              </div>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-6">
+              <div class="form-group">
+                  <label class="font-weight-bold">End Date:</label>
+                  <div>{{ detailsForCourse[0]?.endDate | date }}</div>
+              </div>
+          </div>
+
+          <div class="col-md-6">
+              <div class="form-group">
+                  <label class="font-weight-bold">From Time:</label>
+                  <div>{{ detailsForCourse[0]?.fromTime }}</div>
+              </div>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-6">
+              <div class="form-group">
+                  <label class="font-weight-bold">To Time:</label>
+                  <div>{{ detailsForCourse[0]?.toTime }}</div>
+              </div>
+          </div>
+
+          <div class="col-md-6">
+              <div class="form-group">
+                  <label class="font-weight-bold">Status:</label>
+                  <div>{{ detailsForCourse[0]?.status }}</div>
+              </div>
+          </div>
+      </div>
+
+  </div>
+</div>
