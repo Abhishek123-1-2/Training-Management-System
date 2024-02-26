@@ -1,21 +1,20 @@
-<!-- type.component.html -->
 <div class="card">
-    <div class="card-header">
-        <h4 class="card-title text-primary">Training Details For: {{ course }}</h4>
+    <div class="card-header bg-dark text-white">
+        <h4 class="card-title">Training Details For: {{ course }}</h4>
     </div>
     <div class="card-body">
 
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="training_type">Training Category:</label>
+                    <label class="font-weight-bold">Training Category:</label>
                     <div>{{ trainingDetails.training_category }}</div>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="training_type">Training Type:</label>
+                    <label class="font-weight-bold">Training Type:</label>
                     <div>{{ trainingDetails.training_type }}</div>
                 </div>
             </div>
@@ -24,14 +23,14 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="course_description">Course Description:</label>
+                    <label class="font-weight-bold">Course Description:</label>
                     <div>{{ trainingDetails.course_description }}</div>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="prerequisites">Prerequisites:</label>
+                    <label class="font-weight-bold">Prerequisites:</label>
                     <div>{{ trainingDetails.prerequisites }}</div>
                 </div>
             </div>
@@ -40,15 +39,15 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="total_days">Total Days:</label>
+                    <label class="font-weight-bold">Total Days:</label>
                     <div>{{ trainingDetails.total_days }}</div>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="course_link">Course Link:</label>
-                    <div><a href="{{ trainingDetails.url }}">{{ trainingDetails.url }}</a></div>
+                    <label class="font-weight-bold">Course Link:</label>
+                    <div><a href="{{ trainingDetails.url }}" target="_blank">{{ trainingDetails.url }}</a></div>
                 </div>
             </div>
         </div>
@@ -56,14 +55,14 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="username">Username:</label>
+                    <label class="font-weight-bold">Username:</label>
                     <div>{{ trainingDetails.username }}</div>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="password">Password:</label>
+                    <label class="font-weight-bold">Password:</label>
                     <div>{{ trainingDetails.password }}</div>
                 </div>
             </div>

@@ -32,6 +32,8 @@ interface TableRow {
   templateUrl: './user-dashboard.component.html',
 })
 export class UserDashboardComponent implements OnInit {
+  public enrollmentStatusSearchValue: string = '';
+
   public tableData1: TableData;
   public filteredData: TableRow[];
   public searchValue: string = '';
@@ -195,7 +197,22 @@ export class UserDashboardComponent implements OnInit {
       }
     );
   }
-
+  // applyEnrollmentStatusFilter() {
+  //   this.enrollmentStatusData = this.tableData1.dataRows.filter((row) =>
+  //     Object.values(row).some(
+  //       (value) => value && value.toString().toLowerCase().includes(this.enrollmentStatusSearchValue.toLowerCase())
+  //     )
+  //   );
+  // }
+  applyEnrollmentStatusFilter() {
+    this.enrollmentStatusData = this.tableData1.dataRows.filter((row) =>
+      Object.values(row).some(
+        (value) => value && value.toString().toLowerCase().includes(this.enrollmentStatusSearchValue.toLowerCase())
+      )
+    )
+  }
+  
+  
   enrollButtonClicked(training: TableRow): void {
     const loggedInUserData = this.loginService.getLoggedInUserData();
     const employeeName = this.loggedInUserData.employeeName;

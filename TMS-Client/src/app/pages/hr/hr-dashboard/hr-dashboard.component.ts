@@ -27,7 +27,11 @@ interface TableRow {
   templateUrl: './hr-dashboard.component.html',
 })
 export class HrDashboardComponent implements OnInit {
-
+  fromDate: Date;
+  toDate: Date;
+  // fromDate: string = '';
+  // toDate: string = '';
+  allData: TableRow[] = []; 
   public canvas: any;
   public ctx;
   public chartHistogram;
@@ -62,67 +66,223 @@ public yearOptions: string[] = ['All']; // Initialize with 'All'
     this.fetchData();
   }
 
-  
-  fetchData(month?: string, year?: number) {
-    let apiUrl = 'http://localhost:8083/api/training-views/schedule-list';
-  
-    // Construct the API URL with both month and year filters
-    if (month && month !== 'All') {
-      apiUrl += `?month=${month}`;
-      if (year && !isNaN(year)) { // Check if year is a valid number
-        apiUrl += `&year=${year}`;
-      }
-    } else if (year && !isNaN(year)) { // Check if year is a valid number
-      apiUrl += `?year=${year}`;
-    }
-  
-    this.http.get<any[]>(apiUrl).subscribe(
-      (data) => {
-        // Filter out completed courses
-        let filteredData = data.filter((item) => item.trainingStatus !== 'Completed');
-  
-        if (month && month !== 'All') {
-          if (year && !isNaN(year)) {
-            filteredData = filteredData.filter((item) => 
-              this.getMonthFromDate(item.plannedStartDate) === month &&
-              new Date(item.plannedStartDate).getFullYear() === year
-            );
-          } else {
-            filteredData = filteredData.filter((item) => 
-              this.getMonthFromDate(item.plannedStartDate) === month
-            );
-          }
-        } else if (year && !isNaN(year)) {
-          filteredData = filteredData.filter((item) => 
-            new Date(item.plannedStartDate).getFullYear() === year
-          );
-        }
-  
-        this.tableData1 = {
-          headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status'],
-          dataRows: filteredData.map((item, index) => ({
-            scheduleId: item.scheduleId,
-            number: (index + 1).toString(),
-            course: item.course,
-            trainer_name: item.trainerName,
-            planned_start_date: this.formatDate(item.plannedStartDate),
-            planned_end_date: this.formatDate(item.plannedEndDate),
-            from_time: item.fromTime,
-            to_time: item.toTime,
-            participants: item.participants,
-            status: item.trainingStatus,
-            action: '',
-            view:'Attendees',
-          })),
-        };
-        this.applyFilter();
-      },
-      (error) => {
-        console.error('Error fetching data:', error);
-      }
-    );
+  parseDate(dateString: string): Date | null {
+    const dateParts = dateString.split('-');
+    // Month is 0-indexed, so we need to subtract 1
+    return dateParts.length === 3 ? new Date(+dateParts[0], +dateParts[1] - 1, +dateParts[2]) : null;
   }
+  // fetchData(month?: string, year?: number) {
+  //   let apiUrl = 'http://localhost:8083/api/training-views/schedule-list';
   
+  //   // Construct the API URL with both month and year filters
+  //   if (month && month !== 'All') {
+  //     apiUrl += `?month=${month}`;
+  //     if (year && !isNaN(year)) { // Check if year is a valid number
+  //       apiUrl += `&year=${year}`;
+  //     }
+  //   } else if (year && !isNaN(year)) { // Check if year is a valid number
+  //     apiUrl += `?year=${year}`;
+  //   }
+  
+  //   this.http.get<any[]>(apiUrl).subscribe(
+  //     (data) => {
+  //       // Filter out completed courses
+  //       let filteredData = data.filter((item) => item.trainingStatus !== 'Completed');
+  
+  //       if (month && month !== 'All') {
+  //         if (year && !isNaN(year)) {
+  //           filteredData = filteredData.filter((item) => 
+  //             this.getMonthFromDate(item.plannedStartDate) === month &&
+  //             new Date(item.plannedStartDate).getFullYear() === year
+  //           );
+  //         } else {
+  //           filteredData = filteredData.filter((item) => 
+  //             this.getMonthFromDate(item.plannedStartDate) === month
+  //           );
+  //         }
+  //       } else if (year && !isNaN(year)) {
+  //         filteredData = filteredData.filter((item) => 
+  //           new Date(item.plannedStartDate).getFullYear() === year
+  //         );
+  //       }
+  
+  //       this.tableData1 = {
+  //         headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status'],
+  //         dataRows: filteredData.map((item, index) => ({
+  //           scheduleId: item.scheduleId,
+  //           number: (index + 1).toString(),
+  //           course: item.course,
+  //           trainer_name: item.trainerName,
+  //           planned_start_date: this.formatDate(item.plannedStartDate),
+  //           planned_end_date: this.formatDate(item.plannedEndDate),
+  //           from_time: item.fromTime,
+  //           to_time: item.toTime,
+  //           participants: item.participants,
+  //           status: item.trainingStatus,
+  //           action: '',
+  //           view:'Attendees',
+  //         })),
+  //       };
+  //       this.applyFilter();
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   );
+  // }
+  onSearch() {
+    // Fetch data based on selected from and to dates
+    this.fetchData();
+  }
+  handleChartClick(event: MouseEvent, chartType: string): void {
+    // Get the clicked element and its index
+    const clickedElement = this.chartHistogram.getElementAtEvent(event)[0];
+    if (clickedElement) {
+      // Extract status based on the clicked element index
+      const status = clickedElement._model.label; // Assuming labels are status names
+      // Filter data based on the clicked status
+      this.filteredData = this.tableData1.dataRows.filter(row => row.status === status);
+    }
+    // Update the chart display
+    this.updateCharts();
+  }
+  // fetchData(month?: string, year?: number) {
+  //   let apiUrl = 'http://localhost:8083/api/training-views/schedule-list';
+  
+  //   if (month && month !== 'All') {
+  //     apiUrl += `?month=${month}`;
+  //     if (year && !isNaN(year)) {
+  //       apiUrl += `&year=${year}`;
+  //     }
+  //   } else if (year && !isNaN(year)) {
+  //     apiUrl += `?year=${year}`;
+  //   }
+  
+  //   // Add From Date and To Date filters
+  //   if (this.fromDate && this.toDate) {
+  //     apiUrl += `&fromDate=${this.fromDate.toISOString()}&toDate=${this.toDate.toISOString()}`;
+  //   }
+  
+  //   this.http.get<any[]>(apiUrl).subscribe(
+  //     (data) => {
+  //       let filteredData = data.filter((item) => item.trainingStatus !== 'Completed');
+  
+  //       // Apply other filters if needed
+  
+  //       this.tableData1 = {
+  //         headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status'],
+  //         dataRows: filteredData.map((item, index) => ({
+  //           scheduleId: item.scheduleId,
+  //           number: (index + 1).toString(),
+  //           course: item.course,
+  //           trainer_name: item.trainerName,
+  //           planned_start_date: this.formatDate(item.plannedStartDate),
+  //           planned_end_date: this.formatDate(item.plannedEndDate),
+  //           from_time: item.fromTime,
+  //           to_time: item.toTime,
+  //           participants: item.participants,
+  //           status: item.trainingStatus,
+  //           action: '',
+  //           view: 'Attendees',
+  //         })),
+  //       };
+  
+  //       this.applyFilter();
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   );
+  // }
+  // Modify fetchData function to include date filters
+  
+
+fetchData(month?: string, year?: number) {
+  let apiUrl = 'http://localhost:8083/api/training-views/schedule-list';
+
+  if (month && month !== 'All') {
+    apiUrl += `?month=${month}`;
+    if (year && !isNaN(year)) {
+      apiUrl += `&year=${year}`;
+    }
+  } else if (year && !isNaN(year)) {
+    apiUrl += `?year=${year}`;
+  }
+
+  // Add From Date and To Date filters
+  if (this.fromDate && this.toDate) {
+    apiUrl += `&fromDate=${this.fromDate.toISOString()}&toDate=${this.toDate.toISOString()}`;
+  }
+
+  this.http.get<any[]>(apiUrl).subscribe(
+    (data) => {
+      let filteredData = data.filter((item) => item.trainingStatus !== 'Completed');
+
+      // Apply other filters if needed
+
+      this.tableData1 = {
+        headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status'],
+        dataRows: filteredData.map((item, index) => ({
+          scheduleId: item.scheduleId,
+          number: (index + 1).toString(),
+          course: item.course,
+          trainer_name: item.trainerName,
+          planned_start_date: this.formatDate(item.plannedStartDate),
+          planned_end_date: this.formatDate(item.plannedEndDate),
+          from_time: item.fromTime,
+          to_time: item.toTime,
+          participants: item.participants,
+          status: item.trainingStatus,
+          action: '',
+          view: 'Attendees',
+        })),
+      };
+
+      this.applyFilter();
+    },
+    (error) => {
+      console.error('Error fetching data:', error);
+    }
+  );
+}
+search() {
+  // Check if both from date and to date are selected
+  if (this.fromDate && this.toDate) {
+    // Filter the data based on the selected from date and to date
+    this.filteredData = this.tableData1.dataRows.filter((row) => {
+      // Parse start date and end date from the row data and convert them to Date objects
+      const startDate = new Date(row.planned_start_date);
+      const endDate = new Date(row.planned_end_date);
+      // Convert selected from date and to date to Date objects
+      const fromDate = new Date(this.fromDate);
+      const toDate = new Date(this.toDate);
+      // Check if the row's start date is after or equal to the selected from date
+      // and the row's end date is before or equal to the selected to date
+      return startDate >= fromDate && endDate <= toDate;
+    });
+  } else {
+    // If either from date or to date is not selected, reset filteredData to show all data
+    this.filteredData = this.tableData1.dataRows;
+  }
+}
+
+  // Function to fetch data
+  filterByDateRange() {
+    // Check if both from date and to date are selected
+    if (this.fromDate && this.toDate) {
+      // Filter the data based on the selected date range
+      this.filteredData = this.allData.filter((item) => {
+        const startDate = new Date(item.planned_start_date).getTime();
+        const endDate = new Date(item.planned_end_date).getTime();
+        const selectedFromDate = new Date(this.fromDate).getTime();
+        const selectedToDate = new Date(this.toDate).getTime();
+        return startDate >= selectedFromDate && endDate <= selectedToDate;
+      });
+    } else {
+      // If either from date or to date is not selected, show all data
+      this.filteredData = this.allData;
+    }
+  }
   
   onFilterMonthChange() {
     this.fetchData(
@@ -384,7 +544,7 @@ public yearOptions: string[] = ['All']; // Initialize with 'All'
     this.chartHistogram = new Chart(this.ctx, {
       type: 'bar',
       data: {
-        labels: ['Completed', 'On-going', 'Upcoming'],
+        labels: ['Completed', 'On-Going', 'Upcoming'],
         datasets: [
           {
             label: 'Course Data',

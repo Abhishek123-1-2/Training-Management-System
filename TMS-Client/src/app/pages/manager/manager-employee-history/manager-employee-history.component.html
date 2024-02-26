@@ -8,21 +8,41 @@
 <div class="row">
   <div class="col-md-12">
     <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Employee Details for course: {{ courseName }}</h4>
-      </div>
+      <!-- <div class="card-header">
+        <h4 class="card-title">Employee Details for course: <span class="text-primary">{{ courseName }}</span></h4>
+      </div> -->
       <div class="card-body">
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="search">Search:</label>
           <input class="col-md-3 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
+        </div> -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="card-title">Employee Details for course: <span class="text-primary">{{ courseName }}</span></h4>
+          <div class="form-group mb-0">
+            <label for="search" class="mr-2">Search:</label>
+            <div class="input-group">
+              <input class="form-control" type="text" id="search" [(ngModel)]="searchValue" (ngModelChange)="applyFilter()">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-search"></i></span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="table-responsive table-container">
-          <table class="table">
-            <thead class="text-primary">
-              <th *ngFor="let header of tableData.headerRow">{{ header }}</th>
+      
+        <div class="table-responsive text-nowrap table-container">
+          <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Employee Code</th>
+                <th scope="col">Employee Name</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Status</th>
+              </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row">
+              <tr *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)" class="expandable-row text-center">
                 <td>{{ row.sr_no }}</td>
                 <td>{{ row.emp_code }}</td>
                 <td>{{ row.emp_name }}</td>
@@ -60,3 +80,9 @@
   </div>
 </div>
 
+
+<style>
+  .table tbody tr:hover {
+    background-color: #e9ecef !important;
+  }
+</style>

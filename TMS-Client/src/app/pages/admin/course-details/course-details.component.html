@@ -5,6 +5,7 @@
     <li class="breadcrumb-item active" aria-current="page">Course Details</li>
   </ol>
 </nav>
+
 <div class="card">
   <div class="card-header">
     <h4 class="card-title">Course Completion Details of Employee:
@@ -13,20 +14,30 @@
   </div>
   <div class="card-body">
     <div class="table-responsive table-container">
-      <table class="table">
-        <thead class="text-primary">
-          <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+      <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Employee Name</th>
+            <th scope="col">Course Name</th>
+            <th scope="col">Trainer</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Status</th>
+          </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let course of filteredData" class="text-center">
-            <td>{{ course.sr_no }}</td>
-            <td>{{ emp_name }}</td>
-            <td>{{ course.c_name }}</td>
-            <td>{{ course.t_name }}</td>
-            <td>{{ course.s_date }}</td>
-            <td>{{ course.e_date }}</td>
-            <td>{{ course.status }}</td>
-          </tr>
+          <ng-container *ngFor="let course of filteredData; let i = index">
+            <tr>
+              <td class="text-center">{{ course.sr_no }}</td>
+              <td>{{ emp_name }}</td>
+              <td>{{ course.c_name }}</td>
+              <td>{{ course.t_name }}</td>
+              <td class="text-center">{{ course.s_date }}</td>
+              <td class="text-center">{{ course.e_date }}</td>
+              <td>{{ course.status }}</td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
     </div>
@@ -49,3 +60,9 @@
     <button class="btn btn-success" (click)="exportToExcel()">Export to Excel</button>
   </div>
 </div>
+
+<style>
+  .table tbody tr:hover {
+    background-color: #e9ecef !important;
+  }
+</style>

@@ -193,6 +193,7 @@ import { DataService } from '../trainer-services/data.service';
   styleUrls: ['./feedback-to-employee.component.scss']
 })
 export class FeedbackToEmployeeComponent implements OnInit {
+interestValue: any;
 
   constructor(private route: ActivatedRoute,
     private fb: FormBuilder,

@@ -30,6 +30,9 @@ export class ReportOfEmployeeComponent implements OnInit {
   public tableData1: TableData;
   public filteredData: TableRow[];
   public searchValue: string = '';
+  public rollPaginator: boolean = false; // Added line
+  public visiblePages: number[] = []; // Added line
+  private rollingPaginatorSize = 5;
   public currentPage = 1;
   public itemsPerPage = 5;
 
@@ -154,6 +157,30 @@ export class ReportOfEmployeeComponent implements OnInit {
   changeItemsPerPage(event: any): void {
     this.itemsPerPage = +event.target.value;
     this.currentPage = 1;
+    this.applyFilter();
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.updateVisiblePages();
+    this.applyFilter();
+  }
+
+  updateVisiblePages(): void {
+    const totalPages = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+    const halfPaginatorSize = Math.floor(this.rollingPaginatorSize / 2);
+
+    if (totalPages <= this.rollingPaginatorSize) {
+      this.visiblePages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    } else {
+      if (this.currentPage <= halfPaginatorSize) {
+        this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => i + 1);
+      } else if (this.currentPage >= totalPages - halfPaginatorSize) {
+        this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => totalPages - this.rollingPaginatorSize + i + 1);
+      } else {
+        this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => this.currentPage - halfPaginatorSize + i);
+      }
+    }
   }
 
   

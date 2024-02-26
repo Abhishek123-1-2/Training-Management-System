@@ -204,15 +204,27 @@ export class ManagerTrainingHistoryComponent implements OnInit {
   // }
   
 
+  // applyFilter() {
+  //   console.log('Applying filter. Search value:', this.searchValue);
+  //   this.filteredData = this.tableData.dataRows.filter(row =>
+  //     Object.values(row).some(value =>
+  //       value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
+  //     )
+  //   );
+  //   console.log('Filtered Data after applying filter:', this.filteredData);
+  // }
   applyFilter() {
     console.log('Applying filter. Search value:', this.searchValue);
     this.filteredData = this.tableData.dataRows.filter(row =>
-      Object.values(row).some(value =>
-        value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
-      )
+      row.course.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+      row.trainerName.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+      row.plannedStartDate.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+      row.plannedEndDate.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+      row.trainingStatus.toLowerCase().includes(this.searchValue.toLowerCase())
     );
     console.log('Filtered Data after applying filter:', this.filteredData);
   }
+  
 
   startEdit(index: number) {
     this.rowIndexBeingEdited = index;

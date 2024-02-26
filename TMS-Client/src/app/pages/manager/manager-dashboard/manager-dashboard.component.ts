@@ -419,7 +419,18 @@ private isAlertDisplayed: boolean = false; // Flag to track whether an alert is 
   
     return [completedCount, onGoingCount, upcomingCount];
   }
-  
+  handleChartClick(event: MouseEvent, chartType: string): void {
+    // Get the clicked element and its index
+    const clickedElement = this.chartHistogram.getElementAtEvent(event)[0];
+    if (clickedElement) {
+      // Extract status based on the clicked element index
+      const status = clickedElement._model.label; // Assuming labels are status names
+      // Filter data based on the clicked status
+      this.filteredData = this.tableData1.dataRows.filter(row => row.status === status);
+    }
+    // Update the chart display
+    this.updateCharts();
+  }
   private extractCounts(monthData: any): number[] {
     return [
       monthData['Completed'] || 0,
@@ -443,7 +454,7 @@ private isAlertDisplayed: boolean = false; // Flag to track whether an alert is 
     this.chartHistogram = new Chart(this.ctx, {
       type: 'bar',
       data: {
-        labels: ['Completed', 'On-going', 'Upcoming'],
+        labels: ['Completed', 'On-Going', 'Upcoming'],
         datasets: [
           {
             label: 'Course Data',

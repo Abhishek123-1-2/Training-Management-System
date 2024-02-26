@@ -334,7 +334,18 @@ public yearOptions: string[] = ['All']; // Initialize with 'All'
   
 
  
- 
+handleChartClick(event: MouseEvent, chartType: string): void {
+  // Get the clicked element and its index
+  const clickedElement = this.chartHistogram.getElementAtEvent(event)[0];
+  if (clickedElement) {
+    // Extract status based on the clicked element index
+    const status = clickedElement._model.label; // Assuming labels are status names
+    // Filter data based on the clicked status
+    this.filteredData = this.tableData1.dataRows.filter(row => row.status === status);
+  }
+  // Update the chart display
+  this.updateCharts();
+}
   fetchStatusCounts(year?: number) {
     const apiUrl = `http://localhost:8083/api/training-views/status-counts-by-month?year=${year || new Date().getFullYear()}`;
   
@@ -406,7 +417,7 @@ public yearOptions: string[] = ['All']; // Initialize with 'All'
     this.chartHistogram = new Chart(this.ctx, {
       type: 'bar',
       data: {
-        labels: ['Completed', 'On-going', 'Upcoming'],
+        labels: ['Completed', 'On-Going', 'Upcoming'],
         datasets: [
           {
             label: 'Course Data',

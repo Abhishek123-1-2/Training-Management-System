@@ -8,4 +8,5 @@ public interface TrainingsService {
 
     List<TrainingsDTO> getTrainingsByTrainerAndEmpName(String trainerName, String empName);
     List<TrainingsDTO> getTrainingsByTrainerAndEmpNameOngoing(String trainerName, String empName);
+    List<TrainingsDTO> getAllTrainingsByTrainerAndEmpName(String trainerName, String empName);
 }

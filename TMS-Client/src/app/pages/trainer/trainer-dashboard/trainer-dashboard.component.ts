@@ -2,26 +2,34 @@ import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-interface TableData {
+import { UserService } from 'app/pages/login/login.service';
+declare interface TableData {
   headerRow: string[];
-  dataRows: TableRow[];
+  dataRows: {
+    number: string;
+    course: string;
+    plannedStartDate: string;
+    plannedEndDate: string;
+    training_status: string; 
+  }[];
 }
 
 interface TableRow {
-  scheduleId: string;
   number: string;
   course: string;
-  trainer_name: string;
-  planned_start_date: string;
-  planned_end_date: string;
-  from_time: string;
-  to_time: string;
-  participants: string;
-  status: string;
-  action: string;
-  view: string;
+  plannedStartDate: string;
+  plannedEndDate: string;
+  training_status: string; 
 }
 
+interface Trainings {
+  empName: string;
+  number: string;
+  course: string;
+  plannedStartDate: string;
+  plannedEndDate: string;
+  training_status: string; 
+}
 
 
 @Component({
@@ -41,99 +49,247 @@ export class TrainerDashboardComponent implements OnInit {
   public pieData: number[] = [0, 0, 0]; // Default data for the pie chart
   public monthOptions: string[] = ['All'];
   public tableData1: TableData;
+  public originalData: TableRow[] = [];
   public filteredData: TableRow[];
   public searchValue: string = '';
+  public selectedStatus: string = '';
+  public trainerName: string = ''; // Add this line
+  currentPage = 1;
+  itemsPerPage = 5;
+  public rollPaginator: boolean = false; // Added line
+  public visiblePages: number[] = []; // Added line
+  private rollingPaginatorSize = 5;
+  
   public isEditMode: boolean = false;
   public rowIndexBeingEdited: number | null = null;
   public isAddParticipantsFormVisible = false;
   public newParticipantName = '';
   public display = 'none';
-  public currentPage = 1;
-  public itemsPerPage = 5;
-  public rollPaginator: boolean = false; // Added line
-  public visiblePages: number[] = []; // Added line
-  private rollingPaginatorSize = 5;
+ 
   selectedFilterMonth: string = 'All';
   public selectedYear: string = 'All'; // Initially set to 'All'
 public yearOptions: string[] = ['All']; // Initialize with 'All'
-  constructor(private http: HttpClient,private router: Router, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient,private router: Router, private route: ActivatedRoute,private userService: UserService) {}
 
   ngOnInit() {
     this.initHistogramChart();
     this.initPieChart();
     this.fetchStatusCounts();
-    this.fetchData();
+    // this.fetchData();
+    this.tableData1 = {
+      headerRow: ['Sr No.', 'Course Name', 'Start Date', 'End Date', 'Status'],
+      dataRows: [
+        {number: '1', course:'Angular', plannedStartDate:'12-01-2023', plannedEndDate:'15-01-2023', training_status:'Upcoming'},
+      ]
+    };
+
+    this.filteredData = [...this.tableData1.dataRows];
+
+    const empName = localStorage.getItem('employeeName');
+    if (empName) {
+      this.trainerName = empName; // Set trainerName
+      this.fetchTrainings(empName);
+    } else {
+      console.error('employeeName not found in localStorage');
+    }
+  }
+  // onFilterMonthChange() {
+  //   this.fetchTrainings(
+  //     this.selectedFilterMonth === 'All' ? undefined : this.selectedFilterMonth,
+  //     this.selectedYear === 'All' ? undefined : parseInt(this.selectedYear)
+  //   );
+  // }
+  
+  // fetchData(month?: string, year?: number) {
+  //   let apiUrl = 'http://localhost:8083/api/training-views/schedule-list';
+  
+  //   // Construct the API URL with both month and year filters
+  //   if (month && month !== 'All') {
+  //     apiUrl += `?month=${month}`;
+  //     if (year && !isNaN(year)) { // Check if year is a valid number
+  //       apiUrl += `&year=${year}`;
+  //     }
+  //   } else if (year && !isNaN(year)) { // Check if year is a valid number
+  //     apiUrl += `?year=${year}`;
+  //   }
+  
+  //   this.http.get<any[]>(apiUrl).subscribe(
+  //     (data) => {
+  //       // Filter out completed courses
+  //       let filteredData = data.filter((item) => item.trainingStatus !== 'Completed');
+  
+  //       if (month && month !== 'All') {
+  //         if (year && !isNaN(year)) {
+  //           filteredData = filteredData.filter((item) => 
+  //             this.getMonthFromDate(item.plannedStartDate) === month &&
+  //             new Date(item.plannedStartDate).getFullYear() === year
+  //           );
+  //         } else {
+  //           filteredData = filteredData.filter((item) => 
+  //             this.getMonthFromDate(item.plannedStartDate) === month
+  //           );
+  //         }
+  //       } else if (year && !isNaN(year)) {
+  //         filteredData = filteredData.filter((item) => 
+  //           new Date(item.plannedStartDate).getFullYear() === year
+  //         );
+  //       }
+  
+  //       this.tableData1 = {
+  //         headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status'],
+  //         dataRows: filteredData.map((item, index) => ({
+  //           scheduleId: item.scheduleId,
+  //           number: (index + 1).toString(),
+  //           course: item.course,
+  //           trainer_name: item.trainerName,
+  //           planned_start_date: this.formatDate(item.plannedStartDate),
+  //           planned_end_date: this.formatDate(item.plannedEndDate),
+  //           from_time: item.fromTime,
+  //           to_time: item.toTime,
+  //           participants: item.participants,
+  //           status: item.trainingStatus,
+  //           action: '',
+  //           view:'Attendees',
+  //         })),
+  //       };
+  //       this.applyFilter();
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   );
+  // }
+  
+  
+  // onFilterMonthChange() {
+  //   this.fetchData(
+  //     this.selectedFilterMonth === 'All' ? undefined : this.selectedFilterMonth,
+  //     this.selectedYear === 'All' ? undefined : parseInt(this.selectedYear)
+  //   );
+  // }
+  handleChartClick(event: MouseEvent, chartType: string): void {
+    // Get the clicked element and its index
+    const clickedElement = this.chartHistogram.getElementAtEvent(event)[0];
+    if (clickedElement) {
+      // Extract status based on the clicked element index
+      const status = clickedElement._model.label.toLowerCase(); // Extract lowercase status from label
+      // Filter data based on the clicked status
+      this.filteredData = this.originalData.filter(row => row.training_status.toLowerCase() === status);
+    }
+    // Update the chart display
+    this.updateCharts();
+  }
+  
+  fetchTrainings(empName: string) {
+    const url = `http://localhost:8083/api/training-history/trainer-all/${this.trainerName}/${empName}`; // Use this.trainerName
+
+    this.http.get<Trainings[]>(url).subscribe(
+      (response) => {
+        console.log('Training Data: ', response);
+        this.originalData = response.map((item, index) => ({
+          number: (index + 1).toString(),
+          course: item.course,
+          plannedStartDate: this.formatDate(item.plannedStartDate),
+          plannedEndDate: this.formatDate(item.plannedEndDate),
+          training_status: item.training_status,
+          empName: item.empName
+        }));
+
+        this.filteredData = [...this.originalData];
+        this.currentPage = Math.min(this.currentPage, this.pages.length);
+      },
+      (error) => {
+        console.error('Error fetch the training data: ', error);
+      }
+    )
+  }
+  // get pages(): number[] {
+  //   if (this.tableData1.dataRows.length === 0) {
+  //     return [];
+  //   }
+
+  //   const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+  //   return Array.from({ length: pageCount }, (_, index) => index + 1);
+  // }
+
+  // changeItemsPerPage(event: any): void {
+  //   this.itemsPerPage = +event.target.value;
+  //   this.currentPage = 1;
+  //   this.applyFilter();
+  // }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.updateVisiblePages();
+    this.applyFilter();
   }
 
   
-  fetchData(month?: string, year?: number) {
-    let apiUrl = 'http://localhost:8083/api/training-views/schedule-list';
-  
-    // Construct the API URL with both month and year filters
-    if (month && month !== 'All') {
-      apiUrl += `?month=${month}`;
-      if (year && !isNaN(year)) { // Check if year is a valid number
-        apiUrl += `&year=${year}`;
-      }
-    } else if (year && !isNaN(year)) { // Check if year is a valid number
-      apiUrl += `?year=${year}`;
+  updateVisiblePages(): void {
+    const totalPages = Math.ceil(this.originalData.length / this.itemsPerPage);
+    const halfPaginatorSize = Math.floor(this.rollingPaginatorSize / 2);
+
+    if (totalPages <= this.rollingPaginatorSize) {
+      this.visiblePages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    } else {
+      const startPage = Math.max(1, this.currentPage - halfPaginatorSize);
+      const endPage = Math.min(totalPages, startPage + this.rollingPaginatorSize - 1);
+
+      this.visiblePages = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
     }
-  
-    this.http.get<any[]>(apiUrl).subscribe(
-      (data) => {
-        // Filter out completed courses
-        let filteredData = data.filter((item) => item.trainingStatus !== 'Completed');
-  
-        if (month && month !== 'All') {
-          if (year && !isNaN(year)) {
-            filteredData = filteredData.filter((item) => 
-              this.getMonthFromDate(item.plannedStartDate) === month &&
-              new Date(item.plannedStartDate).getFullYear() === year
-            );
-          } else {
-            filteredData = filteredData.filter((item) => 
-              this.getMonthFromDate(item.plannedStartDate) === month
-            );
-          }
-        } else if (year && !isNaN(year)) {
-          filteredData = filteredData.filter((item) => 
-            new Date(item.plannedStartDate).getFullYear() === year
-          );
-        }
-  
-        this.tableData1 = {
-          headerRow: ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status'],
-          dataRows: filteredData.map((item, index) => ({
-            scheduleId: item.scheduleId,
-            number: (index + 1).toString(),
-            course: item.course,
-            trainer_name: item.trainerName,
-            planned_start_date: this.formatDate(item.plannedStartDate),
-            planned_end_date: this.formatDate(item.plannedEndDate),
-            from_time: item.fromTime,
-            to_time: item.toTime,
-            participants: item.participants,
-            status: item.trainingStatus,
-            action: '',
-            view:'Attendees',
-          })),
-        };
-        this.applyFilter();
-      },
-      (error) => {
-        console.error('Error fetching data:', error);
-      }
-    );
+  }
+  formatDate(timestamp: string): string {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${day}-${month}-${year}`;
   }
   
-  
-  onFilterMonthChange() {
-    this.fetchData(
-      this.selectedFilterMonth === 'All' ? undefined : this.selectedFilterMonth,
-      this.selectedYear === 'All' ? undefined : parseInt(this.selectedYear)
+
+  // applyFilter() {
+  //   this.filteredData = this.tableData1.dataRows.filter(row =>
+  //     Object.values(row).some(value =>
+  //     value.toString().toLowerCase().includes(this.searchValue.toLowerCase())
+  //     ) 
+  //   )
+  //     .filter(row =>
+  //       (this.selectedStatus === '' 
+  //     || row.training_status.toLowerCase() === this.selectedStatus.toLowerCase()
+  //     || this.selectedStatus === 'all')
+  //   )
+  //   ;
+  // }
+  applyFilter() {
+    const searchText=this.searchValue.toLowerCase().trim();
+
+    this.filteredData = this.originalData.filter(row =>
+      Object.values(row).some(value =>
+        value && value.toString().toLowerCase().includes(searchText)
+      )
     );
   }
+  // resetFilters() {
+  //   this.searchValue = '';
+  //   this.selectedStatus = '';
+  //   this.filteredData = [...this.originalData]; // Reset filteredData to originalData
+
+  // }
   
+
+  get pages(): number[] {
+    if (this.originalData.length === 0) {
+      return [];
+    }
+
+    const pageCount = Math.ceil(this.originalData.length / this.itemsPerPage);
+    return Array.from({ length: pageCount }, (_, index) => index + 1);
+  }
+
+  changeItemsPerPage(event: any): void {
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1;
+  }
  
 
   getMonthFromDate(dateStr: string) {
@@ -142,80 +298,80 @@ public yearOptions: string[] = ['All']; // Initialize with 'All'
     return this.monthOptions[parseInt(month, 10)];
   }
   
-  formatDate(timestamp: string): string {
-    const date = new Date(timestamp);
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
+  // formatDate(timestamp: string): string {
+  //   const date = new Date(timestamp);
+  //   const year = date.getFullYear();
+  //   const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  //   const day = date.getDate().toString().padStart(2, '0');
+  //   return `${year}-${month}-${day}`;
+  // }
   
-  calculatePagesToShow(): number[] {
-    const totalPages = Math.ceil(this.filteredData.length / this.itemsPerPage);
-    const maxPagesToShow = this.rollPaginator ? this.rollingPaginatorSize : totalPages;
-    let startPage: number;
-    let endPage: number;
+  // calculatePagesToShow(): number[] {
+  //   const totalPages = Math.ceil(this.filteredData.length / this.itemsPerPage);
+  //   const maxPagesToShow = this.rollPaginator ? this.rollingPaginatorSize : totalPages;
+  //   let startPage: number;
+  //   let endPage: number;
 
-    if (totalPages <= maxPagesToShow) {
-      startPage = 1;
-      endPage = totalPages;
-    } else {
-      if (this.currentPage <= Math.floor(maxPagesToShow / 2) + 1) {
-        startPage = 1;
-        endPage = maxPagesToShow;
-      } else if (this.currentPage + Math.floor(maxPagesToShow / 2) >= totalPages) {
-        startPage = totalPages - maxPagesToShow + 1;
-        endPage = totalPages;
-      } else {
-        startPage = this.currentPage - Math.floor(maxPagesToShow / 2);
-        endPage = startPage + maxPagesToShow - 1;
-      }
-    }
+  //   if (totalPages <= maxPagesToShow) {
+  //     startPage = 1;
+  //     endPage = totalPages;
+  //   } else {
+  //     if (this.currentPage <= Math.floor(maxPagesToShow / 2) + 1) {
+  //       startPage = 1;
+  //       endPage = maxPagesToShow;
+  //     } else if (this.currentPage + Math.floor(maxPagesToShow / 2) >= totalPages) {
+  //       startPage = totalPages - maxPagesToShow + 1;
+  //       endPage = totalPages;
+  //     } else {
+  //       startPage = this.currentPage - Math.floor(maxPagesToShow / 2);
+  //       endPage = startPage + maxPagesToShow - 1;
+  //     }
+  //   }
 
-    return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
-  }
-  get pages(): number[] {
-    if (this.tableData1.dataRows.length === 0) {
-      return [];
-    }
+  //   return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+  // }
+  // get pages(): number[] {
+  //   if (this.tableData1.dataRows.length === 0) {
+  //     return [];
+  //   }
 
-    const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
-    return Array.from({ length: pageCount }, (_, index) => index + 1);
-  }
+  //   const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+  //   return Array.from({ length: pageCount }, (_, index) => index + 1);
+  // }
 
-  changeItemsPerPage(event: any): void {
-    this.itemsPerPage = +event.target.value;
-    this.currentPage = 1;
-    this.applyFilter();
-  }
+  // changeItemsPerPage(event: any): void {
+  //   this.itemsPerPage = +event.target.value;
+  //   this.currentPage = 1;
+  //   this.applyFilter();
+  // }
 
-  onPageChange(page: number): void {
-    this.currentPage = page;
-    this.updateVisiblePages();
-    this.applyFilter();
-  }
+  // onPageChange(page: number): void {
+  //   this.currentPage = page;
+  //   this.updateVisiblePages();
+  //   this.applyFilter();
+  // }
 
-  updateVisiblePages(): void {
-    const totalPages = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
-    const halfPaginatorSize = Math.floor(this.rollingPaginatorSize / 2);
+  // updateVisiblePages(): void {
+  //   const totalPages = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+  //   const halfPaginatorSize = Math.floor(this.rollingPaginatorSize / 2);
 
-    if (totalPages <= this.rollingPaginatorSize) {
-      this.visiblePages = Array.from({ length: totalPages }, (_, i) => i + 1);
-    } else {
-      if (this.currentPage <= halfPaginatorSize) {
-        this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => i + 1);
-      } else if (this.currentPage >= totalPages - halfPaginatorSize) {
-        this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => totalPages - this.rollingPaginatorSize + i + 1);
-      } else {
-        this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => this.currentPage - halfPaginatorSize + i);
-      }
-    }
-  }
+  //   if (totalPages <= this.rollingPaginatorSize) {
+  //     this.visiblePages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  //   } else {
+  //     if (this.currentPage <= halfPaginatorSize) {
+  //       this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => i + 1);
+  //     } else if (this.currentPage >= totalPages - halfPaginatorSize) {
+  //       this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => totalPages - this.rollingPaginatorSize + i + 1);
+  //     } else {
+  //       this.visiblePages = Array.from({ length: this.rollingPaginatorSize }, (_, i) => this.currentPage - halfPaginatorSize + i);
+  //     }
+  //   }
+  // }
   
   
-  onSearchChange() {
-    this.applyFilter();
-  }
+  // onSearchChange() {
+  //   this.applyFilter();
+  // }
   extractTrainerName(fullName: string): string {
     const indexOfOpeningBracket = fullName.indexOf('(');
     if (indexOfOpeningBracket !== -1) {
@@ -224,25 +380,25 @@ public yearOptions: string[] = ['All']; // Initialize with 'All'
       return fullName.trim();
     }
   }
-  applyFilter() {
-    const searchTerm = this.searchValue.toLowerCase().trim();
+  // applyFilter() {
+  //   const searchTerm = this.searchValue.toLowerCase().trim();
 
-    if (!searchTerm) {
-      this.filteredData = [...this.tableData1.dataRows.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)];
-      return;
-    }
+  //   if (!searchTerm) {
+  //     this.filteredData = [...this.tableData1.dataRows.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage)];
+  //     return;
+  //   }
 
-    this.filteredData = this.tableData1.dataRows
-      .filter((row) =>
-        Object.values(row).some(
-          (value) =>
-            value !== null &&
-            value !== undefined &&
-            value.toString().toLowerCase().includes(searchTerm)
-        )
-      )
-      .slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
-  }
+  //   this.filteredData = this.tableData1.dataRows
+  //     .filter((row) =>
+  //       Object.values(row).some(
+  //         (value) =>
+  //           value !== null &&
+  //           value !== undefined &&
+  //           value.toString().toLowerCase().includes(searchTerm)
+  //       )
+  //     )
+  //     .slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
+  // }
 
   toggleEditMode(rowIndex: number): void {
     this.isEditMode = !this.isEditMode;
@@ -254,35 +410,35 @@ public yearOptions: string[] = ['All']; // Initialize with 'All'
     this.isEditMode = true;
   }
 
-  saveChanges(rowIndex: number): void {
-    console.log('Saving changes for row:', rowIndex);
-    this.isEditMode = false;
-    this.rowIndexBeingEdited = null;
+  // saveChanges(rowIndex: number): void {
+  //   console.log('Saving changes for row:', rowIndex);
+  //   this.isEditMode = false;
+  //   this.rowIndexBeingEdited = null;
 
-    const updatedSchedule = this.filteredData[rowIndex];
+  //   const updatedSchedule = this.filteredData[rowIndex];
 
-    // Include scheduleId in the updated data
-    const updatedScheduleWithId = {
-      scheduleId: updatedSchedule.scheduleId,
-      plannedStartDate: updatedSchedule.planned_start_date,
-      plannedEndDate: updatedSchedule.planned_end_date,
-      trainingStatus: updatedSchedule.status,
-      fromTime: updatedSchedule.from_time,
-      toTime: updatedSchedule.to_time,
-    };
+  //   // Include scheduleId in the updated data
+  //   const updatedScheduleWithId = {
+  //     scheduleId: updatedSchedule.scheduleId,
+  //     plannedStartDate: updatedSchedule.planned_start_date,
+  //     plannedEndDate: updatedSchedule.planned_end_date,
+  //     trainingStatus: updatedSchedule.status,
+  //     fromTime: updatedSchedule.from_time,
+  //     toTime: updatedSchedule.to_time,
+  //   };
 
-    this.http.put('http://localhost:8083/api/training-views/update-schedule', updatedScheduleWithId).subscribe(
-      () => {
-        console.log('Schedule updated successfully');
-        this.fetchData();
-      },
-      (error) => {
-        console.error('Error updating schedule:', error);
-      }
-    );
+  //   this.http.put('http://localhost:8083/api/training-views/update-schedule', updatedScheduleWithId).subscribe(
+  //     () => {
+  //       console.log('Schedule updated successfully');
+  //       this.fetchData();
+  //     },
+  //     (error) => {
+  //       console.error('Error updating schedule:', error);
+  //     }
+  //   );
 
 
-  }
+  // }
 
 
   cancelEdit() {

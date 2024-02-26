@@ -8,105 +8,115 @@
 <div class="row">
   <div class="col-md-12">
     <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Training Details</h4>
-      </div>
       <div class="card-body">
-        <div class="d-flex justify-content-between">
-          <div class="form-group">
-            <label for="search">Search:</label>
-            <input class="col-md-12 form-control" type="text" id="search" [(ngModel)]="searchValue" (input)="applyFilter()">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="card-title">Training Details</h4>
+          <div class="form-group mb-0">
+            <label for="search" class="mr-2">Search:</label>
+            <div class="input-group">
+              <input class="form-control" type="text" id="search" [(ngModel)]="searchValue" (ngModelChange)="applyFilter()">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fa fa-search"></i></span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="table-responsive table-container">
-          <table class="table">
-
-            <thead class="text-primary">
-              <th *ngFor="let header of tableData1.headerRow" class="text-center">{{ header }}</th>
+          <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Course</th>
+                <th scope="col">Trainer</th>
+                <th scope="col">Action</th>
+              </tr>
             </thead>
-
             <tbody>
               <ng-container *ngFor="let row of filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); let i = index">
                 <tr class="expandable-row">
-                  <td class="text-center">{{ row.number }}</td>
-                  <td class="text-center">
+                  <td>{{ row.number }}</td>
+                  <td>
                     <a [routerLink]="['/type', row.course]">{{ row.course }}</a>
                   </td>
-                  <td class="text-center">{{ row.trainer_name.split('(')[0].trim() }}</td>
-                  <td class="text-center">
+                  <td>{{ row.trainer_name.split('(')[0].trim() }}</td>
+                  <td>
                     <button class="btn btn-primary" [routerLink]="['/schedule-training',{ course:row.course, trainer:row.trainer_name}]">Schedule{{ row.action }}</button>
                   </td>
                 </tr>
                 <tr *ngIf="isEditMode && i === rowIndexBeingEdited">
-                  <td class="text-center">
-                    <input [(ngModel)]="filteredData[i].number" [disabled]="true" class="text-center">
+                  <td>
+                    <input [(ngModel)]="filteredData[i].number" [disabled]="true">
                   </td>
-                  <td class="text-center">
-                    <input [(ngModel)]="filteredData[i].course" [disabled]="false" class="text-center">
+                  <td>
+                    <input [(ngModel)]="filteredData[i].course" [disabled]="false">
                   </td>
-                  <td class="text-center">
-                    <input [(ngModel)]="filteredData[i].trainer_name" [disabled]="false" class="text-center">
+                  <td>
+                    <input [(ngModel)]="filteredData[i].trainer_name" [disabled]="false">
                   </td>
-                  <td class="text-center">
-                    <input [(ngModel)]="filteredData[i].meeting_link" [disabled]="false" class="text-center">
+                  <td>
+                    <input [(ngModel)]="filteredData[i].meeting_link" [disabled]="false">
                   </td>
-                  <td class="text-center">
-                    <input [(ngModel)]="filteredData[i].username" [disabled]="false" class="text-center">
+                  <td>
+                    <input [(ngModel)]="filteredData[i].username" [disabled]="false">
                   </td>
-                  <td class="text-center">
-                    <input [(ngModel)]="filteredData[i].password" [disabled]="false" class="text-center">
+                  <td>
+                    <input [(ngModel)]="filteredData[i].password" [disabled]="false">
                   </td>
-                  <td class="text-center">
+                  <td>
                     <button class="btn btn-success" (click)="saveChanges(i)">Save</button>&nbsp;
                     <button class="btn btn-success" (click)="cancelEdit()">Cancel</button>
                   </td>
                 </tr>
               </ng-container>
             </tbody>
-
           </table>
         </div>
-        <div class="d-flex justify-content-end mt-3">
-          <div class="form-inline mb-3">
-            <label for="rowsPerPage" class="mr-1">Rows per Page:</label>
-            <select class="form-control" id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage($event)">
-              <option value="5">5</option>
-              <option value="10">10</option>
-            </select>
+        <!-- Pagination Section -->
+        <div class="row justify-content-end mt-3">
+          <div class="col-md-6">
+            <div class="form-inline mb-3">
+              <label for="rowsPerPage" class="mr-1">Rows per Page:</label>
+              <select class="form-control" id="rowsPerPage" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage($event)">
+                <option value="5">5</option>
+                <option value="10">10</option>
+              </select>
+            </div>
           </div>
-
-          <div class="form-check ml-3">
-            <input class="form-check-input" type="checkbox" id="rollingPaginator" [(ngModel)]="rollPaginator">
-            <label class="form-check-label" for="rollingPaginator">Rolling Paginator</label>
+          <div class="col-md-6">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination pagination-md justify-content-end">
+                <li class="page-item" (click)="onPageChange(currentPage - 1)" [class.disabled]="currentPage === 1">
+                  <a class="page-link">Previous</a>
+                </li>
+                <li class="page-item" *ngIf="visiblePages[0] !== 1">
+                  <a class="page-link" (click)="onPageChange(1)">1</a>
+                </li>
+                <li class="page-item" *ngIf="visiblePages[0] > 2">
+                  <span class="page-link">...</span>
+                </li>
+                <li class="page-item" *ngFor="let page of visiblePages" (click)="onPageChange(page)" [class.active]="currentPage === page">
+                  <a class="page-link">{{ page }}</a>
+                </li>
+                <li class="page-item" *ngIf="visiblePages[visiblePages.length - 1] < pages.length - 1">
+                  <span class="page-link">...</span>
+                </li>
+                <li class="page-item" *ngIf="visiblePages[visiblePages.length - 1] !== pages.length">
+                  <a class="page-link" (click)="onPageChange(pages.length)">{{ pages.length }}</a>
+                </li>
+                <li class="page-item" (click)="onPageChange(currentPage + 1)" [class.disabled]="currentPage === pages.length">
+                  <a class="page-link">Next</a>
+                </li>
+              </ul>
+            </nav>
           </div>
-
-          <nav aria-label="Page navigation example">
-            <ul class="pagination pagination-md">
-              <li class="page-item" (click)="onPageChange(currentPage - 1)" [class.disabled]="currentPage === 1">
-                <a class="page-link">Previous</a>
-              </li>
-              <li class="page-item" *ngIf="visiblePages[0] !== 1">
-                <a class="page-link" (click)="onPageChange(1)">1</a>
-              </li>
-              <li class="page-item" *ngIf="visiblePages[0] > 2">
-                <span class="page-link">...</span>
-              </li>
-              <li class="page-item" *ngFor="let page of visiblePages" (click)="onPageChange(page)" [class.active]="currentPage === page">
-                <a class="page-link">{{ page }}</a>
-              </li>
-              <li class="page-item" *ngIf="visiblePages[visiblePages.length - 1] < pages.length - 1">
-                <span class="page-link">...</span>
-              </li>
-              <li class="page-item" *ngIf="visiblePages[visiblePages.length - 1] !== pages.length">
-                <a class="page-link" (click)="onPageChange(pages.length)">{{ pages.length }}</a>
-              </li>
-              <li class="page-item" (click)="onPageChange(currentPage + 1)" [class.disabled]="currentPage === pages.length">
-                <a class="page-link">Next</a>
-              </li>
-            </ul>
-          </nav>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<style>
+  .table tbody tr:hover {
+    background-color: #e9ecef !important;
+  }
+</style>

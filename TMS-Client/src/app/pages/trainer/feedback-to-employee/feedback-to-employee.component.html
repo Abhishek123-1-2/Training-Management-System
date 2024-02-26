@@ -1,4 +1,4 @@
-<nav aria-label="breadcrumb">
+<!-- <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a [routerLink]="['/trainer-dashboard']">Dashboard</a></li>
       <li class="breadcrumb-item"><a [routerLink]="['/give-feedback']">Training Details</a></li>
@@ -130,6 +130,124 @@
                 <button type="submit" class="btn btn-primary" [disabled]="saveForm.invalid">Submit</button>
             </div>
         </div>
+        </form>
+    </div>
+</div>
+ -->
+ <!-- feedback-to-employee.component.html -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/trainer-dashboard']">Dashboard</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/give-feedback']">Training Details</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/student-list3', {start_date: start_date, end_date: end_date, status: status}]">Attendees Details</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Feedback</li>
+    </ol>
+</nav>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title text-primary">Feedback to Employee</h4>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="saveForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="technical_skills" style="font-size: 120%;">Technical Skills: <span id="technical_skills_value" class="value"><strong style="color: black; font-size: 120%;">{{ technicalSkillsValue }}</strong></span></label>
+                        <input type="range" class="form-range custom-range" step="1" value="0" min="0" max="5" id="technical_skills" (input)="updateRating('technical_skills', 'technicalSkillsValue')">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="grasping_power" style="font-size: 120%;">Grasping Power: <span id="grasping_power_value" class="value"><strong style="color: black; font-size: 120%;">{{ graspingPowerValue }}</strong></span></label>
+                        <input type="range" class="form-range custom-range" step="1" value="0" min="0" max="5" id="grasping_power" (input)="updateRating('grasping_power', 'graspingPowerValue')">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="proactiveness" style="font-size: 120%;">Pro-Activeness: <span id="pro_activeness_value" class="value"><strong style="color: black; font-size: 120%;">{{ proActivenessValue }}</strong></span></label>
+                        <input type="range" class="form-range custom-range" step="1" value="0" min="0" max="5" id="pro_activeness" (input)="updateRating('pro_activeness', 'proActivenessValue')">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="interest" style="font-size: 120%;">Interest Rate: <span id="interest_quality_value" class="value"><strong style="color: black; font-size: 120%;">{{ interestQualityValue }}</strong></span></label>
+                        <input type="range" class="form-range custom-range" step="1" value="0" min="0" max="5" id="interest_quality" (input)="updateRating('interest_quality', 'interestQualityValue')">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="leadership_quality" style="font-size: 120%;">Leadership Quality: <span id="leadership_quality_value" class="value"><strong style="color: black; font-size: 120%;">{{ leadershipQualityValue }}</strong></span></label>
+                        <input type="range" class="form-range custom-range" min="0" max="5" value="0" step="1" id="leadership_quality" (input)="updateRating('leadership_quality', 'leadershipQualityValue')">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="problem_solving_ability" style="font-size: 120%;">Problem Solving Ability Value: <span id="problem_solving_ability_value" class="value"><strong style="color: black; font-size: 120%;">{{ problemSolvingAbilityValue }}</strong></span></label>
+                        <input type="range" class="form-range custom-range" min="0" max="5" value="0" step="1" id="problem_solving_ability" (input)="updateRating('problem_solving_ability', 'problemSolvingAbilityValue')">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="smartness_rate" style="font-size: 120%;">Smartness Rate: <span id="smartness_rate_value" class="value"><strong style="color: black; font-size: 120%;">{{ smartnessRateValue }}</strong></span></label>
+                        <input type="range" class="form-range custom-range" min="0" max="5" value="0" step="1" id="smartness_rate" (input)="updateRating('smartness_rate', 'smartnessRateValue')">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="spoken_english_rate" style="font-size: 120%;">Spoken English Rate : <span id="spoken_english_rate_value" class="value"><strong style="color: black; font-size: 120%;">{{ spokenEnglishRateValue }}</strong></span></label>
+                        <input type="range" class="form-range custom-range" min="0" max="5" value="0" step="1" id="spoken_english_rate" (input)="updateRating('spoken_english_rate', 'spokenEnglishRateValue')">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="AssignmentStatus">Assignment Status:</label>
+                        <select class="form-control" id="AssignmentStatus" formControlName="AssignmentStatus">
+                            <option value="" disabled>Select Assignment Status</option>
+                            <option *ngFor="let status of assignmentStatus" [value]="status">{{ status }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="comments" style="font-size: 120%;">Comments: </label>
+                        <textarea class="form-control" id="CommentsFromTrainer" name="CommentsFromTrainer" formControlName="CommentsFromTrainer" rows="4"></textarea>
+                        <div *ngIf="saveForm.get('CommentsFromTrainer').hasError('required') && saveForm.get('CommentsFromTrainer').touched" class="text-danger">
+                            Comments are required
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Total Rating: </label>
+                    <strong>{{ calculateTotalRating() }}</strong>
+                </div>
+                <div class="col-md-6">
+                    <label>Performance Status: </label>
+                    <strong>{{ determinePerformanceStatus() }}</strong>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="submit" class="btn btn-primary" [disabled]="saveForm.invalid">Submit</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>

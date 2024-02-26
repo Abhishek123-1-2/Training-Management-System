@@ -40,4 +40,10 @@ public ResponseEntity<List<TrainingsDTO>> getTrainingsByTrainerAndEmpNameOngoing
     List<TrainingsDTO> trainings = trainingsService.getTrainingsByTrainerAndEmpNameOngoing(trainerName, empName);
     return ResponseEntity.ok(trainings);
 }
+
+@GetMapping("/trainer-all/{trainerName}/{empName}")
+public ResponseEntity<List<TrainingsDTO>> getAllTrainingsByTrainerAndEmpName(@PathVariable String trainerName, @PathVariable String empName) {
+    List<TrainingsDTO> trainings = trainingsService.getAllTrainingsByTrainerAndEmpName(trainerName, empName);
+    return ResponseEntity.ok(trainings);
+}
 }
