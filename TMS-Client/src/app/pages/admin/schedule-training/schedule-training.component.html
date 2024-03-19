@@ -21,7 +21,7 @@
 <div class="col-md-4 ">
 <div class="form-group">
 <label>Course</label>
-<input type="text" id="course" name="course" formControlName="course" class="form-control" required>
+<input type="text" id="course" name="course" formControlName="course" class="form-control" required disabled>
 <div *ngIf="trainingForm.get('course').invalid && (trainingForm.get('course').dirty || trainingForm.get('course').touched)">
 <small class="text-danger" *ngIf="trainingForm.get('course').errors.required">Course Name is required</small>
 </div>
@@ -42,7 +42,7 @@
 <div class="col-md-4">
   <div class="form-group">
     <label>Trainer Name</label>
-    <select id="trainerName" name="trainerName" formControlName="trainerName" class="form-control" required>
+    <select id="trainerName" name="trainerName" formControlName="trainerName" class="form-control" required disabled>
       <option *ngFor="let name of trainerNames" [value]="name">{{ name }}</option>
     </select>
     <div *ngIf="trainingForm.get('trainerName').invalid && (trainingForm.get('trainerName').dirty || trainingForm.get('trainerName').touched)">

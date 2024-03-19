@@ -60,6 +60,7 @@ import { HrTrainingHistoryComponent } from './pages/hr/hr-training-history/hr-tr
 import { EmployeeFeedbackComponent } from './pages/admin/employee-feedback/employee-feedback.component';
 import { ExternalCourseComponent } from './pages/employee/external-course/external-course.component';
 import { ManagerExternalCourseComponent } from './pages/manager/manager-external-course/manager-external-course.component';
+import { UserProfileComponent } from './shared/user-profile/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { ManagerExternalCourseComponent } from './pages/manager/manager-external
     AdminLayoutComponent,
     FeedbackDetailsComponent,
     ConfirmationstatusDetailsComponent,
+    UserProfileComponent,
    
 
 

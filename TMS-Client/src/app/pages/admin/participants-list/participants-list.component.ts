@@ -3,14 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-// interface TableRow {
-//   sr_no: string;
-//   emp_code: string;
-//   emp_name: string;
-//   designation: string;
-//   department: string;
-//   email_id: string;
-// }
+
 interface TableRow {
   sr_no: string;
   emp_code: string;
@@ -45,29 +38,6 @@ export class ParticipantsListComponent implements OnInit {
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {}
 
  
-  // ngOnInit(): void {
-  //   this.route.queryParams.subscribe((params) => {
-  //     this.course = params['course'] || ''; // Assign the fetched course value or an empty string if not provided
-  //     const trainingStatus = params['trainingStatus'];
-  //     const trainerName = params['trainerName'];
-  //     const plannedStartDate = params['plannedStartDate'];
-  //     const plannedEndDate = params['plannedEndDate'];
-  
-  //     this.fetchEmployeeData(this.course, trainingStatus, trainerName, plannedStartDate, plannedEndDate);
-  //     console.log('Course:', this.course);
-  //   });
-  // }
-  // ngOnInit(): void {
-  //   const navigationState = window.history.state;
-  //   this.course = navigationState.course;
-  //   this.trainingStatus = navigationState.trainingStatus;
-  //   this.trainerName = navigationState.trainerName;
-  //   this.plannedStartDate = navigationState.plannedStartDate;
-  //   this.plannedEndDate = navigationState.plannedEndDate;
-  
-  //   // Call your data-fetching function here with the retrieved parameters
-  //   this.fetchEmployeeData(this.course, this.trainingStatus, this.trainerName, this.plannedStartDate, this.plannedEndDate);
-  // }
   ngOnInit(): void {
     // Retrieve parameters from local storage
     this.course = localStorage.getItem('course') || '';
@@ -79,31 +49,7 @@ export class ParticipantsListComponent implements OnInit {
     // Call your data-fetching function here with the retrieved parameters
     this.fetchEmployeeData(this.course, this.trainingStatus, this.trainerName, this.plannedStartDate, this.plannedEndDate);
 }
-  // ngOnInit(): void {
-  //   const navigation = this.router.getCurrentNavigation();
-  //   if (navigation && navigation.extras && navigation.extras.state) {
-  //     const state = navigation.extras.state;
-  //     this.course = state.course || '';
-  //     const trainingStatus = state.trainingStatus;
-  //     const trainerName = state.trainerName;
-  //     const plannedStartDate = state.plannedStartDate;
-  //     const plannedEndDate = state.plannedEndDate;
-  
-  //     this.fetchEmployeeData(this.course, trainingStatus, trainerName, plannedStartDate, plannedEndDate);
-  //     console.log('Course:', this.course);
-  //   }
-  // }
  
-  // ngOnInit(): void {
-  //   const navigationState = this.router.getCurrentNavigation()?.extras.state;
-  //   if (navigationState) {
-  //     this.course = navigationState.course;
-  //     this.trainingStatus = navigationState.trainingStatus;
-  //     this.trainerName = navigationState.trainerName;
-  //     this.plannedStartDate = navigationState.plannedStartDate;
-  //     this.plannedEndDate = navigationState.plannedEndDate;
-  //   }
-  // }
   
   sendEmails(): void {
     const emailBodyTemplate = `

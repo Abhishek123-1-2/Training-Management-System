@@ -17,10 +17,18 @@
       <span class="navbar-toggler-bar navbar-kebab"></span>
     </button>
 
-    <!-- Shutdown Button -->
-    <button class="btn btn-danger btn-round btn-shutdown btn-large" (click)="shutdown()">
-      <i class="nc-icon nc-button-power"></i>
-    </button>
+    <div class="btn-group">
+      <!-- Shutdown Button -->
+      <button class="btn btn-danger btn-round btn-shutdown btn-large" (click)="shutdown()">
+        <i class="nc-icon nc-button-power"></i>
+      </button>
+    
+      <!-- User Profile Icon -->
+      <button class="btn btn-info btn-round btn-profile btn-large ml-2" (click)="navigateToUserProfile()">
+        <i class="nc-icon nc-single-02"></i>
+      </button>
+    </div>
+    
 
     <!-- <div class="collapse navbar-collapse justify-content-end" id="collapseExample" [ngbCollapse]="isCollapsed">
       <form>
@@ -71,7 +79,7 @@
 
 <style>
   /* Internal styles for the navbar component */
-  .btn-shutdown {
+  /* .btn-shutdown {
     animation: pulse 1s infinite;
   }
 
@@ -85,5 +93,5 @@
     100% {
       transform: scale(1);
     }
-  }
+  } */
 </style>

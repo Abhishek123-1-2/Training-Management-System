@@ -150,24 +150,47 @@ export class CourseDetailsComponent implements OnInit {
     return `${day}-${month}-${year}`;
   }
 
+  // exportToExcel(): void {
+  //   const exportData: any[] = this.tableData1.dataRows.map((row) => ({
+  //     'Sr No.': row.sr_no,
+  //     'Employee Name': row.emp_name,
+  //     'Course Name': row.c_name,
+  //     'Trainer Name': row.t_name,
+  //     'Start Date': row.s_date,
+  //     'End Date': row.e_date,
+  //     'Status': row.status,
+  //   }));
+
+  //   const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportData);
+  //   const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+  //   // Save the Excel file
+  //   XLSX.writeFile(wb, `${this.emp_name} course_details.xlsx`);
+  // }
   exportToExcel(): void {
-    const exportData: any[] = this.tableData1.dataRows.map((row) => ({
-      'Sr No.': row.sr_no,
-      'Employee Name': row.emp_name,
-      'Course Name': row.c_name,
-      'Trainer Name': row.t_name,
-      'Start Date': row.s_date,
-      'End Date': row.e_date,
-      'Status': row.status,
-    }));
-
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportData);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-    // Save the Excel file
-    XLSX.writeFile(wb, `${this.emp_name} course_details.xlsx`);
+    if (this.tableData1 && this.tableData1.dataRows && this.tableData1.dataRows.length > 0) {
+      const exportData: any[] = this.tableData1.dataRows.map((row) => ({
+        'Sr No.': row.sr_no,
+        'Employee Name': row.emp_name,
+        'Course Name': row.c_name,
+        'Trainer Name': row.t_name,
+        'Start Date': row.s_date,
+        'End Date': row.e_date,
+        'Status': row.status,
+      }));
+  
+      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportData);
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  
+      // Save the Excel file
+      XLSX.writeFile(wb, `${this.emp_name} course_details.xlsx`);
+    } else {
+      alert('No data available to export.');
+    }
   }
+  
 
   private updateVisiblePages(): void {
     const totalPages = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);

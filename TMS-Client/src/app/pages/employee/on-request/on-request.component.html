@@ -24,6 +24,8 @@
                 <th scope="col">#</th>
                 <th scope="col">Course</th>
                 <th scope="col">Trainer</th>
+                <th scope="col">Start Date</th> <!-- Add start date column -->
+                <th scope="col">End Date</th> <!-- Add end date column -->
                 <th scope="col">Status</th>
                 <th scope="col">Actions</th>
                 <th scope="col">View</th>
@@ -34,6 +36,8 @@
                 <td>{{ row.t_id }}</td>
                 <td>{{ row.c_name }}</td>
                 <td>{{ row.trainer_name }}</td>
+                <td>{{ row.start_date }}</td> <!-- Display start date -->
+                <td>{{ row.end_date }}</td> <!-- Display end date -->
                 <td>{{ row.status }}</td>
                 <td>
                   <button class="btn btn-primary" (click)="sendRequest(row)" [disabled]="['Registered', 'confirmed', 'rejected'].includes(row.status)">Request{{ row.action }}</button>

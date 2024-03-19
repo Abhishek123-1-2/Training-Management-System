@@ -35,6 +35,20 @@ public class EmployeeController {
 //         return ResponseEntity.notFound().build();
 //     }
 // }
+
+@GetMapping("/email")
+public ResponseEntity<Map<String, String>> getEmployeeEmailByName(@RequestParam String empName) {
+    String email = employeeService.getEmployeeEmailByName(empName);
+    if (email != null) {
+        Map<String, String> responseBody = new HashMap<>();
+        responseBody.put("email", email);
+        return ResponseEntity.ok(responseBody);
+    } else {
+        return ResponseEntity.notFound().build();
+    }
+}
+
+
 @GetMapping("/email/{empCode}")
 public ResponseEntity<Map<String, String>> getEmployeeEmail(@PathVariable String empCode) {
     String email = employeeService.getEmployeeEmail(empCode);
@@ -80,6 +94,27 @@ public List<Long> getSubordinateEmployeeIds(@RequestParam String reportingManage
     return subordinateEmpIds;
 }
 
+@GetMapping("/subordinates-with-codes")
+public ResponseEntity<Map<Long, List<String>>> getSubordinateEmployeeIdsWithCodes(@RequestParam String reportingManagerName) {
+    System.out.println("Controller: Reporting Manager Name (parameter): " + reportingManagerName);
+
+    Map<Long, List<String>> subordinateIdsWithCodes = employeeService.getSubordinateEmployeeIdsWithCodes(reportingManagerName);
+
+    System.out.println("Controller: Subordinate Employee IDs with Codes: " + subordinateIdsWithCodes);
+    return ResponseEntity.ok(subordinateIdsWithCodes);
+}
+
+
+@GetMapping("/subordinates-with-empcodes")
+public ResponseEntity<List<String>> getSubordinateEmployeeCodes(@RequestParam String reportingManagerName) {
+    System.out.println("Controller: Reporting Manager Name (parameter): " + reportingManagerName);
+
+    List<String> subordinateEmpCodes = employeeService.getSubordinateEmployeeCodes(reportingManagerName);
+
+    // Log the extracted subordinate employee codes
+    System.out.println("Controller: Subordinate Employee Codes: " + subordinateEmpCodes);
+    return ResponseEntity.ok(subordinateEmpCodes);
+}
 @GetMapping("/names")
 public List<String> getEmployeeNamesBySearch(@RequestParam String search) {
     return employeeService.getEmployeeNamesBySearch(search);

@@ -1,0 +1,123 @@
+<!-- <div class="container" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div class="card" style="width: 80%; max-width: 600px; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+      <div class="card-header" style="text-align: center;">
+        <h2>Welcome <span [innerHTML]="animatedEmployeeName"></span>!</h2>
+      </div>
+      <div class="card-body" style="padding-top: 20px;">
+        <p><strong>Employee Code:</strong> {{ employeeCode }}</p>
+        <p><strong>Name:</strong> {{ employeeName }}</p>
+        <p><strong>Joining Date:</strong> {{ joiningDate }}</p>
+        <p><strong>Mobile No:</strong> {{ mobileNo }}</p>
+        <p><strong>Email:</strong> {{ email }}</p>
+        <p><strong>Designation:</strong> {{ designationName }}</p>
+        <p><strong>Reporting Manager:</strong> {{ reportingManagerName }}</p>
+      </div>
+    </div>
+  </div>
+   -->
+
+   <div class="col-md-12">
+    <div class="card card-user">
+        <div class="image">
+           
+        </div>
+        <div class="card-body">
+           
+            <div class="author">
+                <a>
+                    <h1 style="font-family: 'Arial', sans-serif; color: #333; font-weight: bold; font-size: 32px;">Welcome {{employeeName}} !</h1>
+                </a>
+                <!-- <p class="description" style="font-family: 'Arial', sans-serif; color: #666; font-size: 18px;">
+                    Employee Code: {{ employeeCode }}
+                </p> -->
+            </div>
+            <!-- Circular icon for uploading profile picture -->
+            <div class="profile-picture-container">
+                <input type="file" accept="image/*" (change)="onFileSelected($event)" id="fileInput">
+                <label for="fileInput">
+                    <img class="profile-picture" [src]="userProfileImage" alt="Profile Picture">
+                </label>
+            </div>
+            <div class="table-responsive text-nowrap table-container">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <th class="text-primary" style="font-family: 'Arial', sans-serif; font-size: 20px;">Date Of Joining</th>
+                            <td style="font-family: 'Arial', sans-serif; font-size: 18px;">{{ joiningDate }}</td>
+                            <th class="text-primary" style="font-family: 'Arial', sans-serif; font-size: 20px;">Mobile No.</th>
+                            <td style="font-family: 'Arial', sans-serif; font-size: 18px;">{{ mobileNo }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-primary" style="font-family: 'Arial', sans-serif; font-size: 20px;">Email</th>
+                            <td style="font-family: 'Arial', sans-serif; font-size: 18px;">{{ email }}</td>
+                            <th class="text-primary" style="font-family: 'Arial', sans-serif; font-size: 20px;">Designation</th>
+                            <td style="font-family: 'Arial', sans-serif; font-size: 18px;">{{ designationName }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-primary" style="font-family: 'Arial', sans-serif; font-size: 20px;">Employee Code</th>
+                            <td style="font-family: 'Arial', sans-serif; font-size: 18px;">{{ employeeCode}}</td>
+                            <th class="text-primary" style="font-family: 'Arial', sans-serif; font-size: 20px;">Reporting Manager</th>
+                            <td style="font-family: 'Arial', sans-serif; font-size: 18px;">{{ reportingManagerName }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .table tbody tr:hover {
+      background-color: #e9ecef !important;
+    }
+  </style>
+<!-- <div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Previous Assets Details</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap table-container">
+                <table class="table table-striped">
+                    <thead class="text-primary">
+                        <th class="text-center">
+                            Request Id.
+                        </th>
+                        <th class="text-center">
+                            Category
+                        </th>
+                        <th class="text-center">
+                            Asset Code
+                        </th>
+                        <th class="text-center">
+                            Approved By
+                        </th>
+                        <th class="text-center">
+                            Assigned On
+                        </th>
+                        <th class="text-center">
+                            Returned On
+                        </th>
+                    </thead>
+                    <tbody>
+                        <ng-container>
+                           
+                            <tr>
+                                <td class="text-center text-nowrap">1</td>
+                                <td class="text-center text-nowrap">1</td>
+                                <td class="text-center text-nowrap">1</td>
+                                <td class="text-center text-nowrap">1</td>
+                                <td class="text-center text-nowrap">1</td>
+                                <td class="text-center text-nowrap">1</td>
+                            </tr>
+                        </ng-container>
+
+                    </tbody>
+
+                </table>
+            </div>
+            
+        </div>
+    </div>
+
+</div> -->

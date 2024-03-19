@@ -50,34 +50,133 @@ export class Attendance2Component implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   
+  // ngOnInit(): void {
+  //   this.route.params.subscribe((params) => {
+  //     this.start_date = params['start_date'];
+  //     this.end_date = params['end_date'];
+  //     this.course_name = params['course_name'];
+  //     this.trainer_name = params['trainer_name'];
+
+  //     // Fetch employee data
+  //     this.fetchEmployeeData(this.start_date);
+
+  //     // Check if there is data in local storage
+  //     const localStorageData = localStorage.getItem('attendanceData');
+  //     if (localStorageData) {
+  //       // Parse the local storage data and update only dataRows
+  //       const parsedLocalStorageData = JSON.parse(localStorageData);
+  //       this.tableData1.dataRows = parsedLocalStorageData.dataRows;
+
+  //       // Retrieve attendance status from local storage and update the table data
+  //       this.retrieveAttendanceStatusFromLocalStorage();
+  //     } else {
+  //       this.tableData1.headerRow = ['Employee Code', 'Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status'];
+  //     }
+
+  //     // Ensure expanded dates are always shown after initialization
+  //     this.retrieveAndApplyExpandedDates();
+  //   });
+  //   // this.toggleExpandedDates()
+  // }
+  // ngOnInit(): void {
+  //   this.route.params.subscribe((params) => {
+  //     this.start_date = params['start_date'];
+  //     this.end_date = params['end_date'];
+  //     this.course_name = params['course_name'];
+  //     this.trainer_name = params['trainer_name'];
+  
+  //     // Fetch employee data
+  //     this.fetchEmployeeData(this.start_date);
+  
+  //     // Check if there is data in local storage
+  //     const localStorageData = localStorage.getItem('attendanceData');
+  //     if (localStorageData) {
+  //       // Parse the local storage data and update only dataRows
+  //       const parsedLocalStorageData = JSON.parse(localStorageData);
+  //       this.tableData1.dataRows = parsedLocalStorageData.dataRows;
+  
+  //       // Retrieve attendance status from local storage and update the table data
+  //       this.retrieveAttendanceStatusFromLocalStorage();
+  //     } else {
+  //       this.tableData1.headerRow = ['Employee Code', 'Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status'];
+  //     }
+  
+  //     // Ensure expanded dates are always shown after initialization
+  //     this.initializeExpandedDates();
+  //   });
+  // }
+  
+  // private initializeExpandedDates(): void {
+  //   // Check if expanded dates are already stored in local storage
+  //   const expandedDates = this.getExpandedDatesFromLocalStorage();
+  
+  //   if (expandedDates.length === 0) {
+  //     // If expanded dates are not found, generate them from the current date range
+  //     const allDates = this.getAllDatesInRange(this.start_date, this.end_date);
+  //     this.saveExpandedDatesToLocalStorage(allDates);
+  //   }
+  
+  //   // Apply expanded dates to the table
+  //   this.retrieveAndApplyExpandedDates();
+  // }
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.start_date = params['start_date'];
       this.end_date = params['end_date'];
       this.course_name = params['course_name'];
       this.trainer_name = params['trainer_name'];
-
+  
       // Fetch employee data
       this.fetchEmployeeData(this.start_date);
-
-      // Check if there is data in local storage
-      const localStorageData = localStorage.getItem('attendanceData');
-      if (localStorageData) {
+  
+      // Check if there is data in local storage for attendance and expanded dates
+      const localStorageAttendanceData = localStorage.getItem('attendanceData');
+      const localStorageExpandedDates = localStorage.getItem('expandedDates');
+  
+      if (localStorageAttendanceData) {
         // Parse the local storage data and update only dataRows
-        const parsedLocalStorageData = JSON.parse(localStorageData);
+        const parsedLocalStorageData = JSON.parse(localStorageAttendanceData);
         this.tableData1.dataRows = parsedLocalStorageData.dataRows;
-
+  
         // Retrieve attendance status from local storage and update the table data
         this.retrieveAttendanceStatusFromLocalStorage();
       } else {
         this.tableData1.headerRow = ['Employee Code', 'Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status'];
       }
-
+  
       // Ensure expanded dates are always shown after initialization
-      this.retrieveAndApplyExpandedDates();
+      if (localStorageExpandedDates) {
+        this.retrieveAndApplyExpandedDates();
+      } else {
+        // If expanded dates are not found, generate them from the current date range
+        const allDates = this.getAllDatesInRange(this.start_date, this.end_date);
+        this.saveExpandedDatesToLocalStorage(allDates);
+        this.retrieveAndApplyExpandedDates();
+      }
+  
+      // Ensure attendance messages are initialized from previous state if available
+      this.initializeAttendanceMessages();
     });
-    // this.toggleExpandedDates()
   }
+  
+  private initializeAttendanceMessages(): void {
+    const localStorageAttendanceMessage = localStorage.getItem('attendanceStatus');
+  
+    if (localStorageAttendanceMessage) {
+      // Retrieve existing messages from local storage
+      const existingMessages = JSON.parse(localStorageAttendanceMessage);
+  
+      // Update the attendance messages in dataRows
+      this.tableData1.dataRows.forEach((row, rowIndex) => {
+        const attendanceMessages = existingMessages[rowIndex] || {};
+        Object.keys(attendanceMessages).forEach((date) => {
+          row.attendance[date] = attendanceMessages[date];
+        });
+      });
+    }
+  }
+  
+  
   // exportToExcel(): void {
   //   const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.tableData1.dataRows);
   //   const workbook: XLSX.WorkBook = XLSX.utils.book_new();
@@ -427,3 +526,376 @@ private getNextScheduleId(): number {
     this.currentPage = 1;
   }
 }
+
+// import { HttpClient } from '@angular/common/http';
+// import { Component, OnInit, AfterViewInit } from '@angular/core';
+// import { ActivatedRoute } from '@angular/router';
+// import * as moment from 'moment';
+// import * as XLSX from 'xlsx';
+
+// interface TableData {
+//   headerRow: string[];
+//   dataRows: {
+//     emp_code: string;
+//     emp_name: string;
+//     status: string;
+//     attendance: { [date: string]: string };
+//   }[];
+// }
+
+// interface EmployeeData {
+//   empCode: string;
+//   empName: string;
+//   plannedStartDate: string;
+//   plannedEndDate: string;
+//   trainingStatus: string;
+//   trainerName: string;
+//   course: string;
+// }
+
+// @Component({
+//   selector: 'attendance2',
+//   templateUrl: './attendance2.component.html',
+//   styleUrls: ['./attendance2.component.scss'],
+// })
+// export class Attendance2Component implements OnInit, AfterViewInit {
+//   public tableData1: TableData = { headerRow: [], dataRows: [] };
+//   start_date: any;
+//   end_date: any;
+//   course_name: any;
+//   trainer_name: any;
+//   showExpandedDates: boolean = false;
+//   public searchTerm = '';
+//   isEdit: boolean = false;
+//   public editingRow: any;
+//   public editDate: string | null = null;
+//   currentPage = 1;
+//   itemsPerPage = 5;
+//   editedAttendanceStatus: string = '';
+//   private expandedDatesAdded: boolean = false;
+//   private empCode: string = ''; // Initialize empCode
+//   private scheduleId = 78;
+//   constructor(private route: ActivatedRoute, private http: HttpClient) {}
+
+//   ngOnInit(): void {
+//     this.route.params.subscribe((params) => {
+//       this.start_date = params['start_date'];
+//       this.end_date = params['end_date'];
+//       this.course_name = params['course_name'];
+//       this.trainer_name = params['trainer_name'];
+  
+//       // Fetch employee data
+//       this.fetchEmployeeData(this.start_date);
+  
+//       // Check if there is data in local storage
+//       const localStorageData = localStorage.getItem('attendanceData');
+//       if (localStorageData) {
+//         const parsedLocalStorageData = JSON.parse(localStorageData);
+//         this.tableData1.dataRows = parsedLocalStorageData.dataRows;
+//         this.retrieveAttendanceStatusFromLocalStorage();
+//       } else {
+//         this.tableData1.headerRow = ['Employee Code', 'Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status'];
+//       }
+  
+//       // Ensure expanded dates are always shown after initialization
+//       this.retrieveAndApplyExpandedDates();
+//     });
+
+//     // Retrieve empCode from localStorage if available
+//     const loggedInUserData = JSON.parse(localStorage.getItem('loggedInUserData') || '{}');
+//     this.empCode = loggedInUserData.empCode || '';
+//   }
+
+//   exportToExcel(): void {
+//     const attendanceStatus = JSON.parse(localStorage.getItem('attendanceStatus') || '{}');
+//     const expandedDates = this.getExpandedDatesFromLocalStorage();
+
+//     const excelData: any[] = [];
+//     const headerRow = ['Employee Code', 'Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status', ...expandedDates];
+//     excelData.push(headerRow);
+
+//     this.tableData1.dataRows.forEach((row) => {
+//       const rowData = [
+//         row.emp_code,
+//         row.emp_name,
+//         this.course_name,
+//         this.trainer_name,
+//         this.start_date,
+//         this.end_date,
+//         row.status,
+//         ...expandedDates.map(date => attendanceStatus[row.emp_code]?.[date] || '')
+//       ];
+//       excelData.push(rowData);
+//     });
+
+//     const wb = XLSX.utils.book_new();
+//     const ws = XLSX.utils.aoa_to_sheet(excelData);
+//     XLSX.utils.book_append_sheet(wb, ws, 'AttendanceSheet');
+//     XLSX.writeFile(wb, 'attendance_data.xlsx');
+//   }
+
+//   private retrieveAttendanceStatusFromLocalStorage(): void {
+//     const localStorageKey = 'attendanceStatus';
+//     const attendanceStatus = JSON.parse(localStorage.getItem(localStorageKey) || '{}');
+
+//     this.tableData1.dataRows.forEach((row) => {
+//       Object.keys(row.attendance).forEach((date) => {
+//         if (attendanceStatus[row.emp_code] && attendanceStatus[row.emp_code][date]) {
+//           row.attendance[date] = attendanceStatus[row.emp_code][date];
+//         }
+//       });
+//     });
+//   }
+
+//   ngAfterViewInit(): void {}
+
+//   // toggleExpandedDates(): void {
+//   //   if (!this.expandedDatesAdded || this.hasDateRangeChanged()) {
+//   //     const allDates = this.getAllDatesInRange(this.start_date, this.end_date);
+//   //     const expandedDates = this.getExpandedDatesFromLocalStorage();
+//   //     this.tableData1.headerRow = this.tableData1.headerRow.filter((date) => allDates.includes(date));
+//   //     this.tableData1.headerRow.push(...expandedDates);
+//   //     this.tableData1.headerRow = [...new Set(this.tableData1.headerRow)];
+//   //     this.saveExpandedDatesToLocalStorage(allDates);
+//   //     this.tableData1.dataRows.forEach((row) => {
+//   //       allDates.forEach((date) => {
+//   //         const status = row.attendance[date] || '';
+//   //         this.saveAttendanceInBackend(row, date, status);
+//   //       });
+//   //     });
+//   //     this.storeAttendanceInLocalStorage();
+//   //     this.expandedDatesAdded = true;
+//   //   }
+//   // }
+//   toggleExpandedDates(): void {
+//     if (!this.expandedDatesAdded || this.hasDateRangeChanged()) {
+//       const allDates = this.getAllDatesInRange(this.start_date, this.end_date);
+//       const expandedDates = this.getExpandedDatesFromLocalStorage();
+//       this.tableData1.headerRow = this.tableData1.headerRow.filter((date) => allDates.includes(date));
+//       this.tableData1.headerRow.push(...expandedDates);
+//       this.tableData1.headerRow = [...new Set(this.tableData1.headerRow)];
+//       this.saveExpandedDatesToLocalStorage(allDates);
+//       this.tableData1.dataRows.forEach((row) => {
+//         allDates.forEach((date) => {
+//           const status = row.attendance[date] || '';
+//           this.saveAttendanceInBackend(row, date, status);
+//         });
+//       });
+//       this.storeAttendanceInLocalStorage();
+  
+//       // Reset attendance messages for all dates
+//       this.resetAttendanceMessagesForAllDates();
+  
+//       this.expandedDatesAdded = true;
+//     }
+//   }
+  
+//   private resetAttendanceMessagesForAllDates(): void {
+//     const localStorageKey = 'attendanceStatus';
+//     localStorage.setItem(localStorageKey, JSON.stringify([]));
+//   }
+  
+//   startEdit(row: any, date: string): void {
+//     this.isEdit = true;
+//     this.editingRow = row;
+//     this.editedAttendanceStatus = row.attendance[date];
+//     if (date) {
+//       this.editDate = date;
+//     }
+//   }
+
+//   cancel(): void {
+//     this.isEdit = false;
+//     this.editingRow = null;
+//     this.editDate = null;
+//     this.editedAttendanceStatus = '';
+//   }
+
+//   Edit(row: any, date: string): void {
+//     if (this.isEdit && this.editingRow && this.editDate) {
+//       const rowIndex = this.tableData1.dataRows.findIndex((r) => r === this.editingRow);
+
+//       if (rowIndex !== -1) {
+//         this.tableData1.dataRows[rowIndex].attendance[this.editDate] = this.editedAttendanceStatus;
+//         this.storeAttendanceInLocalStorage();
+//         this.storeAttendanceStatusInLocalStorage(this.editingRow.emp_code, this.editDate, this.editedAttendanceStatus);
+//       }
+//     }
+
+//     this.isEdit = false;
+//     this.editingRow = null;
+//     this.editDate = null;
+//     this.editedAttendanceStatus = '';
+//   }
+
+//   private hasDateRangeChanged(): boolean {
+//     const storedStartDate = moment(this.getExpandedDatesFromLocalStorage()[0]);
+//     const storedEndDate = moment(this.getExpandedDatesFromLocalStorage().slice(-1)[0]);
+
+//     return (
+//       !moment(this.start_date).isSame(storedStartDate, 'day') ||
+//       !moment(this.end_date).isSame(storedEndDate, 'day')
+//     );
+//   }
+
+//   private retrieveAndApplyExpandedDates(): void {
+//     const expandedDates = this.getExpandedDatesFromLocalStorage();
+//     this.tableData1.headerRow = [...this.tableData1.headerRow, ...expandedDates];
+//     this.showExpandedDates = true;
+//   }
+
+//   private getExpandedDatesFromLocalStorage(): string[] {
+//     const localStorageKey = 'expandedDates_' + this.empCode; // Append empCode to the key
+//     const expandedDatesString = localStorage.getItem(localStorageKey) || '[]';
+//     return JSON.parse(expandedDatesString);
+//   }
+
+//   private saveExpandedDatesToLocalStorage(expandedDates: string[]): void {
+//     const localStorageKey = 'expandedDates_' + this.empCode; // Append empCode to the key
+//     localStorage.setItem(localStorageKey, JSON.stringify(expandedDates));
+//   }
+
+//   fetchEmployeeData(start_date: string): void {
+//     this.http
+//       .get<EmployeeData[]>(`http://localhost:8083/api/training-views/ongoing-course-details/${this.course_name}/${this.trainer_name}/${this.start_date}/${this.end_date}`)
+//       .subscribe(
+//         (data) => {
+//           const allDays = this.getAllDatesInRange(this.start_date, this.end_date);
+
+//           this.tableData1 = {
+//             headerRow: ['Employee Code', 'Employee Name', 'Course Name', 'Trainer Name', 'Start Date', 'End Date', 'Status'],
+//             dataRows: data.map((employee) => ({
+//               emp_code: employee.empCode,
+//               emp_name: employee.empName,
+//               attendance: {},
+//               status: employee.trainingStatus,
+//             })),
+//           };
+
+//           this.tableData1.dataRows.forEach((row) => {
+//             allDays.forEach((day) => {
+//               row.attendance[day] = '';
+//             });
+//           });
+
+//           this.retrieveAndApplyExpandedDates();
+//         },
+//         (error) => {
+//           console.error('Error fetching employee data:', error);
+//         }
+//       );
+//   }
+
+//   performSearch(): void {
+//     if (this.searchTerm.trim() === '') {
+//       this.reloadTable();
+//     } else {
+//       this.tableData1.dataRows = this.tableData1.dataRows.filter((row) =>
+//         Object.values(row).some((cell) => cell.toString().toLowerCase().includes(this.searchTerm.toLowerCase()))
+//       );
+//     }
+//   }
+
+//   reloadTable(): void {
+//     this.tableData1.dataRows = [
+//       {
+//         emp_code: '3647',
+//         emp_name: 'Yash Gavanang',
+//         attendance: {},
+//         status: 'Ongoing',
+//       },
+//     ];
+//   }
+
+//   markAttendance(row: any, date: string, status: string): void {
+//     const message = status;
+//     const rowIndex = this.tableData1.dataRows.findIndex((r) => r.emp_code === row.emp_code);
+//     if (rowIndex !== -1) {
+//       this.tableData1.dataRows[rowIndex].attendance[date] = message;
+//       this.storeAttendanceStatusInLocalStorage(row.emp_code, date, message);
+//     }
+//     this.saveAttendanceInBackend(row, date, status);
+//   }
+
+//   private storeAttendanceInLocalStorage(): void {
+//     const localStorageKey = 'attendanceMessage';
+//     const existingMessages = JSON.parse(localStorage.getItem(localStorageKey) || '[]');
+//     existingMessages.push(this.tableData1.dataRows.map(row => row.attendance));
+//     localStorage.setItem(localStorageKey, JSON.stringify(existingMessages));
+//   }
+
+//   private storeAttendanceStatusInLocalStorage(empCode: string, date: string, status: string): void {
+//     const localStorageKey = 'attendanceStatus';
+//     const attendanceStatus = JSON.parse(localStorage.getItem(localStorageKey) || '{}');
+//     attendanceStatus[empCode] = attendanceStatus[empCode] || {};
+//     attendanceStatus[empCode][date] = status;
+//     localStorage.setItem(localStorageKey, JSON.stringify(attendanceStatus));
+//   }
+
+//   private saveAttendanceInBackend(row: any, date: string, status: string): void {
+//     const apiUrl = 'http://localhost:8083/api/attendance-register/save';
+//     this.scheduleId++;
+
+//     const payload = {
+//       scheduleId: this.scheduleId,
+//       empId: row.emp_code, // Use emp_code as empId
+//       attendanceDate: date,
+//       attendanceComments: status, // Use status as attendanceComments
+//       createdBy: '',
+//       updatedBy: '',
+//     };
+
+//     this.http.post(apiUrl, payload).subscribe(
+//       (response) => {
+//         console.log('Attendance saved successfully:', response);
+//       },
+//       (error) => {
+//         console.error('Error saving attendance:', error);
+//       }
+//     );
+//   }
+
+//   private getNextEmpId(): number {
+//     const empId = parseInt(localStorage.getItem('empId') || '0') + 1;
+//     localStorage.setItem('empId', empId.toString());
+//     return empId;
+//   }
+
+//   private getNextScheduleId(): number {
+//     const scheduleId = parseInt(localStorage.getItem('scheduleId') || '0') + 1;
+//     localStorage.setItem('scheduleId', scheduleId.toString());
+//     return scheduleId;
+//   }
+
+//   getAttendanceStatusFromLocalStorage(empCode: string, date: string): string | null {
+//     const localStorageKey = 'attendanceStatus';
+//     const attendanceStatus = JSON.parse(localStorage.getItem(localStorageKey) || '{}');
+//     return attendanceStatus[empCode] ? attendanceStatus[empCode][date] || null : null;
+//   }
+
+//   getAllDatesInRange(startDate, endDate): string[] {
+//     const dates = [];
+//     const startDateObj = moment(startDate, 'YYYY-MM-DD');
+//     const endDateObj = moment(endDate, 'YYYY-MM-DD');
+
+//     while (startDateObj.isSameOrBefore(endDateObj)) {
+//       dates.push(startDateObj.format('YYYY-MM-DD'));
+//       startDateObj.add(1, 'days');
+//     }
+//     return dates;
+//   }
+
+//   get pages(): number[] {
+//     if (this.tableData1.dataRows.length === 0) {
+//       return [];
+//     }
+
+//     const pageCount = Math.ceil(this.tableData1.dataRows.length / this.itemsPerPage);
+//     return Array.from({ length: pageCount }, (_, index) => index + 1);
+//   }
+
+//   changeItemsPerPage(event: any): void {
+//     this.itemsPerPage = +event.target.value;
+//     this.currentPage = 1;
+//   }
+// }

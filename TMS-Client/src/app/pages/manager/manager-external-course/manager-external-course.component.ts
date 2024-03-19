@@ -50,6 +50,8 @@ export class ManagerExternalCourseComponent implements OnInit {
   constructor(private http: HttpClient, private statusUpdateService: StatusUpdateService) { }
 
   ngOnInit(): void {
+    const subordinateEmpCodes = JSON.parse(localStorage.getItem('subordinateEmpCodes'));
+  
     this.tableData1 = {
       headerRow: ['Sr No.', 'Employee Code', 'Employee Name', 'Course Name', 'Status', 'Action'],
       dataRows: [
@@ -65,7 +67,7 @@ export class ManagerExternalCourseComponent implements OnInit {
     (data: any) => {
       // Assuming data is an array, you might need to adjust this based on your API response structure
       this.tableData1.dataRows = data
-      .filter(item => item.status === 'Registered')
+      .filter(item => item.status === 'Registered' && subordinateEmpCodes.includes(item.empCode))
       .map((item, index): TableRow => ({
           number: String(index + 1),
           emp_code: item.empCode,
@@ -87,6 +89,102 @@ export class ManagerExternalCourseComponent implements OnInit {
   );
   }
 
+  // ngOnInit(): void {
+  //   // Retrieve subordinateEmpCodes from localStorage
+  //   const subordinateEmpCodes = JSON.parse(localStorage.getItem('subordinateEmpCodes'));
+  
+  //   this.tableData1 = {
+  //     headerRow: ['Sr No.', 'Employee Code', 'Employee Name', 'Course Name', 'Status', 'Action'],
+  //     dataRows: [] // Initialize an empty array
+  //   };
+  
+  //   const apiUrl = 'http://localhost:8083/api/registrations/details-for-external-course';
+  
+  //   this.http.get<ApiData[]>(apiUrl).subscribe(
+  //     (data: ApiData[]) => {
+  //       // Filter data based on subordinateEmpCodes and status
+  //       this.tableData1.dataRows = data
+  //         .filter(item => item.status === 'Registered' && subordinateEmpCodes.includes(item.empCode))
+  //         .map((item, index) => ({
+  //           number: String(index + 1),
+  //           emp_code: item.empCode,
+  //           emp_name: item.empName,
+  //           c_name: item.courseName,
+  //           status: item.status,
+  //           action: '',
+  //           registrationId: item.registrationId,
+  //           registrationDate: item.registrationDate,
+  //           registrationComments: item.registrationComments,
+  //         }));
+  
+  //       this.filteredData = [...this.tableData1.dataRows];
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching data from API:', error);
+  //     }
+  //   );
+  // }
+  
+  
+  
+  
+  
+
+  // approveRequest(row: any): void {
+  //   console.log('Row object:', row);
+  
+  //   if (!row.isApproved) {
+  //     // Check if registrationId is defined before making the request
+  //     if (row.registrationId) {
+  //       row.isApproved = true;
+  //       alert('Request details have been approved');
+  
+  //       // Call the backend API to update the status to "confirmed"
+  //       this.http.put(`http://localhost:8083/api/registrations/${row.registrationId}/status`, { registration_status: 'confirmed' })
+  //         .subscribe(
+  //           () => {
+  //             console.log('Status updated to confirmed');
+  //           },
+  //           (error) => {
+  //             console.error('Error updating status:', error);
+  //           }
+  //         );
+  
+  //       // Update the status in the local data
+  //       row.status = 'Confirmed';
+  //       this.statusUpdateService.updateStatus('Confirmed');
+  //     } else {
+  //       console.error('Invalid registrationId:', row.registrationId);
+  //     }
+  //   }
+  // }
+
+  // rejectRequest(row: any): void {
+  //   if (!row.isRejected) {
+  //     const reason = prompt("Please enter the reason for rejection:");
+  
+  //     if (reason === null) {
+  //       return;
+  //     }
+  
+  //     row.isRejected = true;
+  //     alert("Request details have been rejected. Reason: " + reason);
+  //     this.filteredData = this.filteredData.filter((r) => r !== row);
+  
+  //     // Call the backend API to update the status to "rejected" and set the rejection reason
+  //     this.http.put(`http://localhost:8083/api/registrations/${row.registrationId}/status`, {
+  //       registration_status: 'rejected',
+  //       registrationResponse: reason
+  //     }).subscribe(
+  //       () => {
+  //         console.log('Status updated to rejected');
+  //       },
+  //       (error) => {
+  //         console.error('Error updating status:', error);
+  //       }
+  //     );
+  //   }
+  // }
   approveRequest(row: any): void {
     console.log('Row object:', row);
   
@@ -110,11 +208,126 @@ export class ManagerExternalCourseComponent implements OnInit {
         // Update the status in the local data
         row.status = 'Confirmed';
         this.statusUpdateService.updateStatus('Confirmed');
+  
+        // Retrieve employee email based on employee name
+        this.http.get(`http://localhost:8083/api/employees/email?empName=${row.emp_name}`)
+          .subscribe(
+            (data: any) => {
+              const employeeEmail = data.email;
+  
+              // Construct email body
+              const emailBody = `
+                <div style="background-color: #f2f2f2; padding: 20px;">
+                  <div style="background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+                    <h2 style="color: #333333;">Course Enrollment Confirmation</h2>
+                    <p>Dear ${row.emp_name},</p>
+                    <p>Your Course Enrollment Request for ${row.c_name} has been accepted.</p>
+                    <p>Thank you!</p>
+                    <p style="color: red;"><strong>Disclaimer:</strong> This is a system-generated email. Please do not reply to this email.</p>
+                  </div>
+                </div>
+              `;
+  
+              // Send email
+              this.sendEmail(employeeEmail, 'Course Enrollment Confirmation', emailBody);
+            },
+            (error) => {
+              console.error('Error fetching employee email:', error);
+            }
+          );
       } else {
         console.error('Invalid registrationId:', row.registrationId);
       }
     }
   }
+  
+  // approveRequest(row: any): void {
+  //   console.log('Row object:', row);
+  
+  //   if (!row.isApproved) {
+  //     if (row.registrationId) {
+  //       row.isApproved = true;
+  //       alert('Request details have been approved');
+  
+  //       // Call the backend API to update the status to "confirmed"
+  //       this.httpClient.put(`http://localhost:8083/api/registrations/${row.registrationId}/status`, { registration_status: 'confirmed' })
+  //         .subscribe(
+  //           () => {
+  //             console.log('Status updated to confirmed');
+  
+  //             // Retrieve user data to get employee email
+  //             const userData = JSON.parse(localStorage.getItem('loggedInUserData')) || {};
+  //             const employeeEmail = userData.email || '';
+  
+  //             // Construct email body
+  //             const emailBody = `
+  //               <div style="background-color: #f2f2f2; padding: 20px;">
+  //                 <div style="background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+  //                   <h2 style="color: #333333;">Enrollment Request Accepted</h2>
+  //                   <p>Dear ${userData.employeeName},</p>
+  //                   <p>Your Course Enrollment Request for ${row.c_name}, which will be scheduled from ${row.start_date} to ${row.end_date}, has been accepted.</p>
+  //                   <p>Thank you!</p>
+  //                   <p style="color: red;"><strong>Disclaimer:</strong> This is a system-generated email. Please do not reply to this email.</p>
+  //                 </div>
+  //               </div>
+  //             `;
+  
+  //             // Send email to employee
+  //             this.sendEmail(employeeEmail, 'Enrollment Request Accepted', emailBody);
+  //           },
+  //           (error) => {
+  //             console.error('Error updating status:', error);
+  //           }
+  //         );
+  
+  //       row.status = 'Confirmed';
+  //       this.statusUpdateService.updateStatus('Confirmed');
+  //     } else {
+  //       console.error('Invalid registrationId:', row.registrationId);
+  //     }
+  //   }
+  // }
+  
+  
+  sendEmail(email: string, subject: string, body: string): void {
+    this.http.post('http://localhost:8083/api/send-email', { email, subject, body }).subscribe(
+      () => {
+        console.log('Email sent successfully!');
+      },
+      (error) => {
+        console.error('Error sending email:', error);
+      }
+    );
+  }
+  
+  
+
+  // rejectRequest(row: any): void {
+  //   if (!row.isRejected) {
+  //     const reason = prompt("Please enter the reason for rejection:");
+  
+  //     if (reason === null) {
+  //       return;
+  //     }
+  
+  //     row.isRejected = true;
+  //     alert("Request details have been rejected. Reason: " + reason);
+  //     this.filteredData = this.filteredData.filter((r) => r !== row);
+  
+  //     // Call the backend API to update the status to "rejected" and set the rejection reason
+  //     this.httpClient.put(`http://localhost:8083/api/registrations/${row.registrationId}/status`, {
+  //       registration_status: 'rejected',
+  //       registrationResponse: reason
+  //     }).subscribe(
+  //       () => {
+  //         console.log('Status updated to rejected');
+  //       },
+  //       (error) => {
+  //         console.error('Error updating status:', error);
+  //       }
+  //     );
+  //   }
+  // }
 
   rejectRequest(row: any): void {
     if (!row.isRejected) {
@@ -135,6 +348,32 @@ export class ManagerExternalCourseComponent implements OnInit {
       }).subscribe(
         () => {
           console.log('Status updated to rejected');
+          // Retrieve employee email based on employee name
+          this.http.get(`http://localhost:8083/api/employees/email?empName=${row.emp_name}`)
+            .subscribe(
+              (data: any) => {
+                const employeeEmail = data.email;
+  
+                // Construct email body
+                const emailBody = `
+                  <div style="background-color: #f2f2f2; padding: 20px;">
+                    <div style="background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+                      <h2 style="color: #333333;">Enrollment Request Rejected</h2>
+                      <p>Dear ${row.emp_name},</p>
+                      <p>Your Course Enrollment Request for ${row.c_name} has been rejected.</p>
+                      <p>Reason: ${reason}</p>
+                      <p style="color: red;"><strong>Disclaimer:</strong> This is a system-generated email. Please do not reply to this email.</p>
+                    </div>
+                  </div>
+                `;
+  
+                // Send email
+                this.sendEmail(employeeEmail, 'Enrollment Request Rejected', emailBody);
+              },
+              (error) => {
+                console.error('Error fetching employee email:', error);
+              }
+            );
         },
         (error) => {
           console.error('Error updating status:', error);

@@ -213,30 +213,131 @@ export class UserDashboardComponent implements OnInit {
   }
   
   
+  // enrollButtonClicked(training: TableRow): void {
+  //   const loggedInUserData = this.loginService.getLoggedInUserData();
+  //   const employeeName = this.loggedInUserData.employeeName;
+  //   const courseName = training.c_name;
+   
+  //   if (!loggedInUserData) {
+  //     // Handle the case where user data is not available
+  //     return;
+  //   }
+
+  //   const empId = loggedInUserData.empId;
+
+  //   const alreadyEnrolled = this.enrollmentStatusData.some(
+  //     (enrollment) =>
+  //       enrollment.training_id === training.training_id &&
+  //       enrollment.schedule_id === training.schedule_id &&
+  //       enrollment.emp_id === empId
+  //   );
+
+  //   if (alreadyEnrolled) {
+  //     alert(`You have already enrolled for ${training.c_name} course.`);
+  //     return;
+  //   }
+
+  //   const registrationData = {
+  //     schedule_id: training.schedule_id,
+  //     training_id: training.training_id,
+  //     emp_id: empId,
+  //     registration_date: new Date(),
+  //     registration_comments: '',
+  //     registration_status: 'Registered',
+  //     registration_response: '',
+  //   };
+
+  //   // Call the API to enroll and get the updated enrollment details
+  //   this.employeeService.enrollTraining(registrationData).subscribe(
+  //     (registrationId: number) => {
+  //       console.log(`Enrollment successful. Registration ID: ${registrationId}`);
+  //       alert(`Your Enrollment Request has been successfully sent to Reporting Manager for ${training.c_name} course`);
+
+  //       // Fetch enrollment details from the specified API
+  //       this.httpClient.get<any[]>(`http://localhost:8083/api/registrations/registered-details/${empId}`).subscribe(
+  //         (data: any[]) => {
+  //           const enrollmentDetails = data[0];
+
+  //           const uniqueEnrollmentData = this.enrollmentStatusData.filter(
+  //             (existingEnrollment) =>
+  //               existingEnrollment.training_id !== training.training_id ||
+  //               existingEnrollment.schedule_id !== training.schedule_id
+  //           );
+
+  //           uniqueEnrollmentData.push({
+  //             t_id: String(uniqueEnrollmentData.length + 1),
+  //             c_name: training.c_name,
+  //             t_name: training.t_name,
+  //             s_date: training.s_date,
+  //             e_date: training.e_date,
+  //             status: enrollmentDetails.status, // Update this based on the API response
+  //             enroll: 'Enroll',
+  //             registration_status: training.registration_status,
+  //             reason: training.reason,
+  //             isEnrolled: true,
+  //             training_id: training.training_id,
+  //             schedule_id: training.schedule_id,
+  //             emp_id: empId,
+  //           });
+  //           this.notificationService.showEnrollmentNotification(employeeName, courseName);
+  //           this.enrollmentStatusData = uniqueEnrollmentData;
+
+  //           // Optional: You may update the isEnrolled property in tableData1.dataRows based on the updated enrollmentStatusData
+  //           this.tableData1.dataRows.forEach((row) => {
+  //             const matchingEnrollment = this.enrollmentStatusData.find(
+  //               (enrollment) =>
+  //                 enrollment.training_id === row.training_id &&
+  //                 enrollment.schedule_id === row.schedule_id
+  //             );
+
+  //             if (matchingEnrollment) {
+  //               row.isEnrolled = matchingEnrollment.isEnrolled;
+  //             }
+  //           });
+
+  //           // Optional: You may also trigger any other necessary actions based on the updated data
+  //         },
+  //         (error) => {
+  //           console.error('Error fetching enrollment details:', error);
+  //         }
+  //       );
+  //     },
+  //     (error) => {
+  //       console.error('Error enrolling in training:', error);
+  //     }
+  //   );
+  // }
+
   enrollButtonClicked(training: TableRow): void {
     const loggedInUserData = this.loginService.getLoggedInUserData();
-    const employeeName = this.loggedInUserData.employeeName;
+    const employeeName = loggedInUserData.employeeName;
     const courseName = training.c_name;
-   
-    if (!loggedInUserData) {
-      // Handle the case where user data is not available
+    const trainerName = training.t_name;
+    const startDate = training.s_date;
+    const endDate = training.e_date;
+  
+    // Retrieve reporting manager's email from localStorage
+    const reportingManagerEmail = localStorage.getItem('reportingManagerEmail');
+  
+    if (!loggedInUserData || !reportingManagerEmail) {
+      // Handle the case where user data or reporting manager's email is not available
       return;
     }
-
+  
     const empId = loggedInUserData.empId;
-
+  
     const alreadyEnrolled = this.enrollmentStatusData.some(
       (enrollment) =>
         enrollment.training_id === training.training_id &&
         enrollment.schedule_id === training.schedule_id &&
         enrollment.emp_id === empId
     );
-
+  
     if (alreadyEnrolled) {
       alert(`You have already enrolled for ${training.c_name} course.`);
       return;
     }
-
+  
     const registrationData = {
       schedule_id: training.schedule_id,
       training_id: training.training_id,
@@ -246,24 +347,24 @@ export class UserDashboardComponent implements OnInit {
       registration_status: 'Registered',
       registration_response: '',
     };
-
+  
     // Call the API to enroll and get the updated enrollment details
     this.employeeService.enrollTraining(registrationData).subscribe(
       (registrationId: number) => {
         console.log(`Enrollment successful. Registration ID: ${registrationId}`);
         alert(`Your Enrollment Request has been successfully sent to Reporting Manager for ${training.c_name} course`);
-
+  
         // Fetch enrollment details from the specified API
         this.httpClient.get<any[]>(`http://localhost:8083/api/registrations/registered-details/${empId}`).subscribe(
           (data: any[]) => {
             const enrollmentDetails = data[0];
-
+  
             const uniqueEnrollmentData = this.enrollmentStatusData.filter(
               (existingEnrollment) =>
                 existingEnrollment.training_id !== training.training_id ||
                 existingEnrollment.schedule_id !== training.schedule_id
             );
-
+  
             uniqueEnrollmentData.push({
               t_id: String(uniqueEnrollmentData.length + 1),
               c_name: training.c_name,
@@ -281,7 +382,7 @@ export class UserDashboardComponent implements OnInit {
             });
             this.notificationService.showEnrollmentNotification(employeeName, courseName);
             this.enrollmentStatusData = uniqueEnrollmentData;
-
+  
             // Optional: You may update the isEnrolled property in tableData1.dataRows based on the updated enrollmentStatusData
             this.tableData1.dataRows.forEach((row) => {
               const matchingEnrollment = this.enrollmentStatusData.find(
@@ -289,13 +390,34 @@ export class UserDashboardComponent implements OnInit {
                   enrollment.training_id === row.training_id &&
                   enrollment.schedule_id === row.schedule_id
               );
-
+  
               if (matchingEnrollment) {
                 row.isEnrolled = matchingEnrollment.isEnrolled;
               }
             });
+  
+            // Construct email body
+            // const emailBody = `You have received an enrollment request from ${employeeName} for the course ${courseName} which will be conducted by ${trainerName}, scheduled from ${startDate} to ${endDate}.`;
+  // Get the reporting manager's name from localStorage
+const userData = JSON.parse(localStorage.getItem('loggedInUserData')) || {};
+const reportingManagerName = userData.reportingManager || '';
 
-            // Optional: You may also trigger any other necessary actions based on the updated data
+// Construct the email body with the reporting manager's name
+const emailBody = `
+  <div style="background-color: #f2f2f2; padding: 20px;">
+    <div style="background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);">
+      <h2 style="color: #333333;">Enrollment Request</h2>
+      <p>Dear ${reportingManagerName},</p>
+      <p>An enrollment request has been received from ${employeeName} for the course ${courseName}.</p>
+      <p>The course will be conducted by ${trainerName} and is scheduled from ${startDate} to ${endDate}.</p>
+      <p>Please take necessary action regarding this enrollment request.</p>
+      <p style="color: red;"><strong>Disclaimer:</strong> This is a system-generated email. Please do not reply to this email.</p>
+    </div>
+  </div>
+`;
+
+            // Send email to reporting manager
+            this.sendEmail(reportingManagerEmail, 'Enrollment Request', emailBody);
           },
           (error) => {
             console.error('Error fetching enrollment details:', error);
@@ -304,6 +426,18 @@ export class UserDashboardComponent implements OnInit {
       },
       (error) => {
         console.error('Error enrolling in training:', error);
+      }
+    );
+  }
+
+  
+  sendEmail(email: string, subject: string, body: string): void {
+    this.httpClient.post('http://localhost:8083/api/send-email', { email, subject, body }).subscribe(
+      () => {
+        console.log('Email sent successfully!');
+      },
+      (error) => {
+        console.error('Error sending email:', error);
       }
     );
   }

@@ -28,6 +28,10 @@ export class NavbarComponent implements OnInit{
       // Navigate to the desired route when the shutdown button is clicked
       this.router.navigate(['/login']);
     }
+
+    navigateToUserProfile() {
+      this.router.navigate(['/user-profile']);
+    }
     ngOnInit(){
         this.listTitles = ROUTES.filter(listTitle => listTitle);
         var navbar : HTMLElement = this.element.nativeElement;

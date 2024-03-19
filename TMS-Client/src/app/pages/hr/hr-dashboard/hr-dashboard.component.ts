@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as XLSX from 'xlsx';
 interface TableData {
   headerRow: string[];
   dataRows: TableRow[];
@@ -130,7 +131,17 @@ public yearOptions: string[] = ['All']; // Initialize with 'All'
   //     }
   //   );
   // }
+  // onSearch() {
+  //   // Fetch data based on selected from and to dates
+  //   this.fetchData();
+  // }
   onSearch() {
+    // Check if both from date and to date are entered
+    if (!this.fromDate || !this.toDate) {
+      alert('Please enter both from date and to date');
+      return; // Exit the function if either from date or to date is missing
+    }
+    
     // Fetch data based on selected from and to dates
     this.fetchData();
   }
@@ -146,6 +157,83 @@ public yearOptions: string[] = ['All']; // Initialize with 'All'
     // Update the chart display
     this.updateCharts();
   }
+
+  // exportToExcel(): void {
+  //   // Filtered data to be exported
+  //   const dataToExport = this.filteredData;
+
+  //   // Define column headers for the Excel file
+  //   const headers = ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status'];
+
+  //   // Map the filtered data to an array of arrays for Excel
+  //   const exportData = dataToExport.map((row, index) => {
+  //     return [
+  //       index + 1,  // No.
+  //       row.course,
+  //       row.trainer_name,
+  //       row.planned_start_date,
+  //       row.planned_end_date,
+  //       row.from_time,
+  //       row.to_time,
+  //       row.status
+  //     ];
+  //   });
+
+  //   // Add headers as the first row of the export data
+  //   exportData.unshift(headers);
+
+  //   // Create a new Excel workbook and sheet
+  //   const workbook = XLSX.utils.book_new();
+  //   const worksheet = XLSX.utils.aoa_to_sheet(exportData);
+
+  //   // Add the worksheet to the workbook
+  //   XLSX.utils.book_append_sheet(workbook, worksheet, 'Training Data');
+
+  //   // Save the workbook as an Excel file
+  //   XLSX.writeFile(workbook, 'training_data.xlsx');
+  // }
+  exportToExcel(): void {
+    // Check if both from date and to date are entered
+    if (!this.fromDate || !this.toDate) {
+      alert('Please enter both from date and to date');
+      return; // Exit the function if either from date or to date is missing
+    }
+    
+    // Proceed with exporting to Excel if both from date and to date are entered
+    // Filtered data to be exported
+    const dataToExport = this.filteredData;
+  
+    // Define column headers for the Excel file
+    const headers = ['No.', 'Course', 'Trainer Name', 'Start Date', 'End Date', 'From Time', 'To Time', 'Status'];
+  
+    // Map the filtered data to an array of arrays for Excel
+    const exportData = dataToExport.map((row, index) => {
+      return [
+        index + 1,  // No.
+        row.course,
+        row.trainer_name,
+        row.planned_start_date,
+        row.planned_end_date,
+        row.from_time,
+        row.to_time,
+        row.status
+      ];
+    });
+  
+    // Add headers as the first row of the export data
+    exportData.unshift(headers);
+  
+    // Create a new Excel workbook and sheet
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.aoa_to_sheet(exportData);
+  
+    // Add the worksheet to the workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Training Data');
+  
+    // Save the workbook as an Excel file
+    XLSX.writeFile(workbook, 'training_data.xlsx');
+  }
+
   // fetchData(month?: string, year?: number) {
   //   let apiUrl = 'http://localhost:8083/api/training-views/schedule-list';
   

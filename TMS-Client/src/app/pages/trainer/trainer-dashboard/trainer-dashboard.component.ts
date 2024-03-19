@@ -69,6 +69,7 @@ export class TrainerDashboardComponent implements OnInit {
   selectedFilterMonth: string = 'All';
   public selectedYear: string = 'All'; // Initially set to 'All'
 public yearOptions: string[] = ['All']; // Initialize with 'All'
+i: any;
   constructor(private http: HttpClient,private router: Router, private route: ActivatedRoute,private userService: UserService) {}
 
   ngOnInit() {

@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.mindcraft.in.Pojos.Admin.Employee;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -68,67 +70,7 @@ public String getEmployeeEmail(String empCode) {
         }
     } 
     
-    // EmployeeService.java
-// public List<Long> getSubordinateEmployeeIds(Long reportingManagerId) {
-//     try {
-//         String sql = "SELECT emp_id FROM m_employee WHERE reporting_manager_id = ?";
-//         return jdbcTemplate.queryForList(sql, Long.class, reportingManagerId);
-//     } catch (Exception e) {
-//         e.printStackTrace();
-//         return Collections.emptyList();
-//     }
-// }
-
-// public List<Long> getSubordinateEmployeeIds(String employeeName) {
-//     try {
-//         String sql = "SELECT emp_id FROM m_employee WHERE reporting_manager_name = ?";
-//         return jdbcTemplate.queryForList(sql, Long.class, employeeName);
-//     } catch (Exception e) {
-//         e.printStackTrace();
-//         return Collections.emptyList();
-//     }
-// }
-// public List<Long> getSubordinateEmployeeIds(String employeeName) {
-//     try {
-//         String sql = "SELECT emp_id FROM m_employee WHERE reporting_manager_name = ? AND emp_name = ?";
-//         return jdbcTemplate.queryForList(sql, Long.class, employeeName, employeeName);
-//     } catch (Exception e) {
-//         e.printStackTrace();
-//         return Collections.emptyList();
-//     }
-// }
-
-// public List<Long> getSubordinateEmployeeIds(String reportingManagerName) {
-//     try {
-//         System.out.println("Reporting Manager Name: " + reportingManagerName);
-//         String sql = "SELECT emp_id FROM m_employee WHERE reporting_manager_name = ?";
-//         List<Long> subordinateEmpIds = jdbcTemplate.queryForList(sql, Long.class, reportingManagerName);
-//         System.out.println("Subordinate Employee IDs: " + subordinateEmpIds);
-//         return subordinateEmpIds;
-//     } catch (Exception e) {
-//         e.printStackTrace();
-//         return Collections.emptyList();
-//     }
-// }
-// public List<Long> getSubordinateEmployeeIds(String employeeName) {
-//     try {
-//         String sql = "SELECT emp_id FROM m_employee WHERE reporting_manager_name = ? AND emp_name = ?";
-//         return jdbcTemplate.queryForList(sql, Long.class, employeeName, employeeName);
-//     } catch (Exception e) {
-//         e.printStackTrace();
-//         return Collections.emptyList();
-//     }
-// }
-
-// public List<Long> getSubordinateEmployeeIds(String employeeName) {
-//     try {
-//         String sql = "SELECT emp_id FROM m_employee WHERE reporting_manager_name = ?";
-//         return jdbcTemplate.queryForList(sql, Long.class, employeeName);
-//     } catch (Exception e) {
-//         e.printStackTrace();
-//         return Collections.emptyList();
-//     }
-// }
+  
 public List<Long> getSubordinateEmployeeIds(String employeeName) {
     try {
         String sql = "SELECT emp_id FROM m_employee WHERE TRIM(reporting_manager_name) = ?";;
@@ -145,6 +87,55 @@ public List<Long> getSubordinateEmployeeIds(String employeeName) {
     }
 }
 
+public String getEmployeeEmailByName(String empName) {
+    String sql = "SELECT email FROM m_employee WHERE emp_name = ?";
+    try {
+        return jdbcTemplate.queryForObject(sql, new Object[]{empName}, String.class);
+    } catch (Exception e) {
+        // Handle exceptions (e.g., if empName is not found)
+        return null;
+    }
+}
+
+ public Map<Long, List<String>> getSubordinateEmployeeIdsWithCodes(String employeeName) {
+        try {
+            String sql = "SELECT emp_id, emp_code FROM m_employee WHERE TRIM(reporting_manager_name) = ?";
+            System.out.println("SQL Query: " + sql);
+            System.out.println("Reporting Manager Name (parameter): " + employeeName);
+
+            List<Map<String, Object>> results = jdbcTemplate.queryForList(sql, employeeName);
+
+            Map<Long, List<String>> subordinateIdsWithCodes = new HashMap<>();
+            for (Map<String, Object> row : results) {
+                Long empId = (Long) row.get("emp_id");
+                String empCode = (String) row.get("emp_code");
+                subordinateIdsWithCodes.computeIfAbsent(empId, k -> new ArrayList<>()).add(empCode);
+            }
+
+            System.out.println("Subordinate Employee IDs with Codes: " + subordinateIdsWithCodes);
+            return subordinateIdsWithCodes;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyMap();
+        }
+    }
+
+    public List<String> getSubordinateEmployeeCodes(String employeeName) {
+        try {
+            String sql = "SELECT emp_code FROM m_employee WHERE TRIM(reporting_manager_name) = ?";
+            System.out.println("SQL Query: " + sql);
+            System.out.println("Reporting Manager Name (parameter): " + employeeName);
+    
+            List<String> subordinateEmpCodes = jdbcTemplate.queryForList(sql, String.class, employeeName);
+    
+            // Log the extracted subordinate employee codes
+            System.out.println("Subordinate Employee Codes: " + subordinateEmpCodes);
+            return subordinateEmpCodes;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
 public List<String> getEmployeeNamesBySearch(String search) {
     String sql = "SELECT emp_name FROM m_employee WHERE emp_name LIKE ?";
     String searchTerm = "%" + search + "%";

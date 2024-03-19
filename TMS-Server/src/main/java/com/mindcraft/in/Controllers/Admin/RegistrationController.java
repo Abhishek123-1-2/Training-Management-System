@@ -6,6 +6,7 @@ import com.mindcraft.in.Pojos.Admin.Registration;
 import com.mindcraft.in.Pojos.Admin.RegistrationDTO;
 import com.mindcraft.in.Pojos.Admin.RegistrationDetailsDTO;
 import com.mindcraft.in.Pojos.Employee.EnrollmentRequest;
+import com.mindcraft.in.Services.Admin.EmployeeService;
 import com.mindcraft.in.Services.Admin.RegistrationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +16,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/registrations")
 public class RegistrationController {
 
     private final RegistrationService registrationService;
+    private final EmployeeService employeeService;
 
     @Autowired
-    public RegistrationController(RegistrationService registrationService) {
+    public RegistrationController(RegistrationService registrationService,EmployeeService employeeService) {
         this.registrationService = registrationService;
+        this.employeeService=employeeService;
     }
 
     @PostMapping("/register")
@@ -173,6 +181,17 @@ public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailForExternalCo
 public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithPlannedDates() {
     return registrationService.getRegistrationDetailsWithPlannedDates();
 }
+
+
+
+
+
+
+
+
+
+
+
 
    @GetMapping("/details-with-planned-dates-on-request")
 public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithPlannedDatesOnRequest() {

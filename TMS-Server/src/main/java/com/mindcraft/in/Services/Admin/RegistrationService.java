@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.mindcraft.in.Pojos.Admin.AdditionalRegistrationDetailsDTO;
@@ -25,17 +27,22 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class RegistrationService {
 
     private final DataSource dataSource;
     private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    
 
     @Autowired
-    public RegistrationService(DataSource dataSource, JdbcTemplate jdbcTemplate) {
+    public RegistrationService(DataSource dataSource, JdbcTemplate jdbcTemplate,NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.dataSource = dataSource;
         this.jdbcTemplate = jdbcTemplate;
+        this.namedParameterJdbcTemplate=namedParameterJdbcTemplate;
+        
     }
 
 
@@ -398,6 +405,7 @@ public List<RegistrationDetailsDTO> getRegistrationDetails() {
     
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(AdditionalRegistrationDetailsDTO.class));
     }
+   
     
 
     public List<AdditionalRegistrationDetailsDTO> getRegistrationDetailsWithPlannedDatesOnRequest() {

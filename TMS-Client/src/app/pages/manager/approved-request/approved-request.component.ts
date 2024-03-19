@@ -73,6 +73,7 @@ export class ApprovedRequestComponent implements OnInit {
   }
 
   fetchData() {
+    const subordinateEmpCodes = JSON.parse(localStorage.getItem('subordinateEmpCodes'));
     this.http.get<RegistrationDetailsDTO[]>('http://localhost:8083/api/registrations/details').subscribe(
       (data) => {
         this.tableData1 = {
@@ -88,7 +89,10 @@ export class ApprovedRequestComponent implements OnInit {
             'Reason',
             // 'Actions',
           ],
-          dataRows: data.map((item, index) => ({
+          dataRows: data
+          .filter(item =>  subordinateEmpCodes.includes(item.empCode))
+          
+          .map((item, index) => ({
             registrationId: item.registrationId,
             reg_id: (index + 1).toString(),
             emp_code: item.empCode,
